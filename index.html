@@ -64,7 +64,12 @@ main{position:relative;z-index:3;margin-top:-4px}
 .row-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:0 0 11px}
 .row-heading h2{font-size:clamp(17px,1.8vw,22px);margin:0;font-weight:800;letter-spacing:-.3px}
 .row-heading span{font-size:12px;color:#888}
-.rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(145px,16vw,220px);gap:10px;overflow-x:auto;overflow-y:hidden;padding:4px 2px 16px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#444 transparent}
+.rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px;padding:4px 0 16px;overflow:visible}
+.rail.collapsed .channel-card:nth-child(n+7){display:none}
+.see-all-btn{border:0;background:transparent;color:#eee;font:600 13px inherit;cursor:pointer;padding:4px 0;text-decoration:none}
+.see-all-btn:hover{color:var(--red);text-decoration:underline}
+.row-heading .heading-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
+
 .channel-card{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #262626;border-radius:5px;background:linear-gradient(145deg,#242424,#111);color:#fff;text-align:left;padding:0;scroll-snap-align:start;transition:transform .18s,border-color .18s,box-shadow .18s}
 .channel-card:hover,.channel-card:focus-visible{transform:scale(1.045);border-color:#777;box-shadow:0 12px 25px #000b;z-index:2;outline:none}
 .channel-card.active{border:2px solid var(--red)}
@@ -83,7 +88,7 @@ main{position:relative;z-index:3;margin-top:-4px}
 .site-footer{border-top:1px solid #222;padding:24px 4.5% 30px;color:#777;font-size:12px}
 .footer-inner{max-width:1500px;margin:auto;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 @media(max-width:900px){.nav{gap:16px;min-height:65px}.nav-links{gap:12px}.hero-content{grid-template-columns:1fr;gap:20px;padding-top:120px}.hero{min-height:unset}.hero-copy{padding-bottom:0}.hero-player{max-width:680px;width:100%}.hero h1{font-size:clamp(42px,8vw,68px)}video{max-height:none}.browse-tools{padding-top:20px}}
-@media(max-width:600px){.nav{padding:0 4%;gap:10px;min-height:62px}.brand{font-size:22px}.brand-mark{width:27px;height:27px;font-size:16px}.nav-links{display:none}.search-wrap{padding:5px 3px}.search-wrap input{width:90px;font-size:12px}.nav-select{max-width:115px;padding:7px 5px;font-size:12px}.hero-content{padding:105px 4% 22px}.hero h1{font-size:43px;letter-spacing:-1.6px}.hero-copy p{font-size:14px}.hero-actions{margin-top:17px}.action{padding:10px 14px;font-size:13px}.browse-tools,.rows,.status-line{padding-left:4%;padding-right:4%}.browse-label{font-size:19px}.rail{grid-auto-columns:145px;gap:8px}.category-row{margin-bottom:23px}.player-top{padding:10px}.player-bottom{padding:8px 10px}.site-footer{padding:20px 4%}}
+@media(max-width:600px){.nav{padding:0 4%;gap:10px;min-height:62px}.brand{font-size:22px}.brand-mark{width:27px;height:27px;font-size:16px}.nav-links{display:none}.search-wrap{padding:5px 3px}.search-wrap input{width:90px;font-size:12px}.nav-select{max-width:115px;padding:7px 5px;font-size:12px}.hero-content{padding:105px 4% 22px}.hero h1{font-size:43px;letter-spacing:-1.6px}.hero-copy p{font-size:14px}.hero-actions{margin-top:17px}.action{padding:10px 14px;font-size:13px}.browse-tools,.rows,.status-line{padding-left:4%;padding-right:4%}.browse-label{font-size:19px}.rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.category-row{margin-bottom:23px}.player-top{padding:10px}.player-bottom{padding:8px 10px}.site-footer{padding:20px 4%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -140,25 +145,39 @@ function normalize(item,index=0){let urls=Array.isArray(item.urls)?item.urls:[it
 function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name);if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(!old.logo&&channel.logo)old.logo=channel.logo;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
 function parseM3U(text){const result=[],lines=text.replace(/^\uFEFF/,'').split(/\r?\n/);let meta={};for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF')){const comma=line.indexOf(','),attrs=comma>=0?line.slice(0,comma):line,name=comma>=0?line.slice(comma+1).trim():'Unnamed channel';const attr=key=>{const match=attrs.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"','i'));return match?match[1]:''};meta={name:name.replace(/\s*\[Backup\s*\d+\]\s*$/i,''),logo:attr('tvg-logo'),group:attr('group-title')||'Other'}}else if(!line.startsWith('#')){result.push({...meta,url:line});meta={}}}return groupEntries(result)}
 function esc(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
+const GROUP_ORDER=[
+ 'sports','bangladesh','india','bollywood','movies','news',
+ 'english & international','music','religious','kids & animation','radio',
+ 'documentary & education'
+];
+function groupRank(group){
+ const g=String(group||'').toLowerCase();
+ const idx=GROUP_ORDER.findIndex(x=>g===x||g.includes(x));
+ return idx<0?GROUP_ORDER.length+1:idx;
+}
 function render(){
  const query=$('search').value.trim().toLowerCase(),selected=$('category').value;
- const categories=[...new Set(channels.map(channel=>channel.group||'Other'))].sort((a,b)=>a.localeCompare(b));
+ const categories=[...new Set(channels.map(channel=>channel.group||'Other'))]
+   .sort((a,b)=>groupRank(a)-groupRank(b)||a.localeCompare(b));
  const categorySelect=$('category'),previous=categorySelect.value;
  categorySelect.innerHTML='<option value="">All categories</option>'+categories.map(group=>`<option value="${esc(group)}">${esc(group)}</option>`).join('');
  if(categories.includes(selected||previous))categorySelect.value=selected||previous;
  const filtered=channels.filter(channel=>(!query||(channel.name+' '+channel.group).toLowerCase().includes(query))&&(!categorySelect.value||channel.group===categorySelect.value));
- $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Pick a channel to watch live';
+ $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Choose a channel or use See All Channel to browse';
  const root=$('channelRows');root.innerHTML='';
  if(!filtered.length){root.innerHTML='<div class="empty">No channels found. Try another search or category.</div>';return}
  const groups=new Map();
  filtered.forEach(channel=>{const group=channel.group||'Other';if(!groups.has(group))groups.set(group,[]);groups.get(group).push(channel)});
- for(const [group,items] of groups){
+ const ordered=[...groups.entries()].sort((a,b)=>groupRank(a[0])-groupRank(b[0])||a[0].localeCompare(b[0]));
+ for(const [group,items] of ordered){
    const section=document.createElement('section');section.className='category-row';
    const heading=document.createElement('div');heading.className='row-heading';
    const title=document.createElement('h2');title.textContent=group;
-   const count=document.createElement('span');count.textContent=`${items.length} channel${items.length===1?'':'s'}`;
-   heading.append(title,count);
-   const rail=document.createElement('div');rail.className='rail';rail.setAttribute('aria-label',group+' channels');
+   const actions=document.createElement('div');actions.className='heading-actions';
+   const count=document.createElement('span');count.textContent=`${items.length} channels`;
+   const seeAll=document.createElement('button');seeAll.type='button';seeAll.className='see-all-btn';seeAll.textContent='See All Channel';
+   actions.append(count,seeAll);heading.append(title,actions);
+   const rail=document.createElement('div');rail.className='rail'+(items.length>6?' collapsed':'');rail.setAttribute('aria-label',group+' channels');
    for(const channel of items){
      const card=document.createElement('button');card.type='button';card.className='channel-card'+(channel.id===activeId?' active':'');card.setAttribute('aria-label','Play '+channel.name);
      const art=document.createElement('span');art.className='card-art';
@@ -172,6 +191,11 @@ function render(){
      const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:group;
      meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>play(channel,0));rail.appendChild(card);
    }
+   seeAll.addEventListener('click',()=>{
+     const collapsed=rail.classList.toggle('collapsed');
+     seeAll.textContent=collapsed?'See All Channel':'Show Less';
+     if(!collapsed)rail.scrollIntoView({behavior:'smooth',block:'nearest'});
+   });
    section.append(heading,rail);root.appendChild(section);
  }
 }
@@ -198,6 +222,28 @@ video.addEventListener('playing',()=>$('playState').textContent='Playing live');
 video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
 video.addEventListener('stalled',()=>$('playState').textContent='Stream stalled');
 $('stopBtn').addEventListener('click',stop);
+
+async function autoPickByVisitorCountry(){
+ try{
+   const response=await fetch('https://ipapi.co/json/',{cache:'no-store'});
+   if(!response.ok)throw Error('Geo lookup unavailable');
+   const location=await response.json();
+   const country=String(location.country_code||'').toUpperCase();
+   let targetGroup='';
+   if(country==='BD')targetGroup='Bangladesh';
+   else if(country==='IN')targetGroup='India';
+   else return;
+   const candidates=channels.filter(c=>String(c.group).toLowerCase()===targetGroup.toLowerCase());
+   if(!candidates.length)return;
+   const popular=targetGroup==='Bangladesh'
+    ?['Jamuna TV','Channel 24','NTV','Somoy TV','Independent Television','DEEPTO TV','ATN Bangla','RTV','Channel I']
+    :['Star Plus','Colors TV','Zee TV','Sony Entertainment Television','Zee Bangla','Star Jalsha','Colors Bangla','Sun Bangla'];
+   const preferred=candidates.filter(c=>popular.some(n=>c.name.toLowerCase().includes(n.toLowerCase())));
+   const pool=preferred.length?preferred:candidates;
+   const chosen=pool[Math.floor(Math.random()*pool.length)];
+   if(!activeId)play(chosen,0);
+ }catch(e){/* Country detection is optional; the visitor can still choose any channel. */}
+}
 async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('playerPanel').requestFullscreen()}catch{$('statusLine').textContent='Fullscreen is not available in this browser.'}}
 $('heroFullscreenBtn').addEventListener('click',fullscreen);
 $('browseBtn').addEventListener('click',()=>$('browse').scrollIntoView({behavior:'smooth'}));
@@ -207,6 +253,7 @@ async function init(){
  try{const response=await fetch('./channels.json',{cache:'no-store'});if(!response.ok)throw Error('channels.json HTTP '+response.status);channels=groupEntries(await response.json())}
  catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
  render();
+ if(channels.length)autoPickByVisitorCountry();
  if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
 }
 init();
