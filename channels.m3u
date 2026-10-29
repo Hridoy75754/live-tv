@@ -1,0 +1,5 @@
+#EXTM3U
+# This sample is intentionally empty. Add only streams you are authorized to publish.
+# Example format:
+#EXTINF:-1 tvg-id="example" tvg-logo="https://example.com/logo.png" group-title="News",Example News
+https://example.com/live/channel/index.m3u8
