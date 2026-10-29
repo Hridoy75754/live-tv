@@ -1,24 +1,28 @@
-# Free Live TV Website (GitHub Pages + HLS.js)
+# Live TV Directory — GitHub Pages
 
-## Files
-- `index.html`: responsive player, M3U/M3U8 playlist parser, search, categories, fullscreen.
-- `channels.m3u`: the published default channel catalogue for all visitors.
+A static browser-based player built from the channel lists you supplied.
 
-## Publish with GitHub Pages
-1. Sign in at https://github.com/ and create a new **public** repository, for example `live-tv`.
-2. Upload `index.html` and `channels.m3u` to the repository root.
-3. Edit `channels.m3u` and replace the example entry with streams you are authorized to distribute. Commit changes.
-   Format:
-   `#EXTINF:-1 tvg-logo="https://your-domain/logo.png" group-title="News",Channel Name`
-   `https://your-authorized-stream.example/live/index.m3u8`
-4. Open repository **Settings → Pages**.
-5. Under Build and deployment, choose **Deploy from a branch**, select `main` and `/(root)`, then Save.
-6. Wait for the Pages deployment to finish. Your site will be published at a URL like `https://YOUR-USERNAME.github.io/live-tv/`.
+## Included
+- `index.html` — responsive player, search, category filter, playlist import, fullscreen, and stream failover.
+- `channels.json` — grouped channel catalogue; multiple URLs for the same normalized channel are tried as backups.
+- `channels.m3u` — portable M3U playlist with alternate URLs retained as repeated entries.
 
-## Important behavior
-- `channels.m3u` is fetched when the public site loads; edits to this file become the shared catalogue after GitHub Pages redeploys.
-- M3U file uploads, M3U URL imports, and manually added streams in the page are stored only in that visitor's browser (localStorage); they do not change the public catalogue.
-- M3U URL import requires the playlist host to permit cross-origin browser access (CORS). If it fails, download the playlist and upload the file.
-- Publicly loading a URL does not grant permission to redistribute its streams. Use only streams you own or have permission to publish.
-- This is static hosting; it does not proxy, relay, transcode, or host video streams. Playback/buffering depends on the source host, format, CORS, and internet connection.
-- Never put private tokens, passwords, or secret playlist URLs in a public repository.
+## Catalogue summary
+- Channel groups: 715
+- Stream URLs retained: 818
+- Exact duplicate URLs removed before grouping.
+- Obvious placeholders, URLs containing embedded username/password credentials, and signed/expiring token URLs were excluded from the public playlist.
+
+## Publish to GitHub Pages
+1. Create or open your repository (for example `Hridoy75754/live-tv`).
+2. Upload `index.html`, `channels.json`, `channels.m3u`, and `README.md` to the repository root.
+3. Commit the changes.
+4. Open **Settings → Pages**. Choose **Deploy from a branch**, select `main` and `/(root)`, then save.
+5. Wait for deployment. The site URL will resemble `https://USERNAME.github.io/REPOSITORY/`.
+
+## Important
+- A URL being included does **not** mean the stream was tested or that you have permission to redistribute it. Use only streams you own or are authorized to publish.
+- The site does not host or relay streams. It plays them in the visitor's browser.
+- Some streams will fail because of CORS, geographic/IP restrictions, provider changes, expired links, unsupported formats, or outages. The backup mechanism tries another supplied URL only when a playback error is detected; it cannot guarantee availability.
+- Never commit private tokens, account credentials, paid-subscription links, or personal URLs to a public repository.
+- `hls.js` is loaded from jsDelivr. Native HLS playback is used where supported.
