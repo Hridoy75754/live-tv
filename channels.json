@@ -8,14 +8,6 @@
     ]
   },
   {
-    "name": "Bangladesh Betar",
-    "group": "Bangladesh",
-    "logo": "",
-    "urls": [
-      "http://as3.digitalsynapsebd.com:8263/;stream.mp3"
-    ]
-  },
-  {
     "name": "Channel 52",
     "group": "Bangladesh",
     "logo": "https://yt3.googleusercontent.com/ytc/AIdro_nkJKVbw8obzDxMqr3icQerQ6PvZlkDFjbBaYRBfn83Lw=s160-c-k-c0x00ffffff-no-rj",
@@ -244,7 +236,7 @@
   {
     "name": "Radio Bolly FM",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERadio%20Bolly%20FM%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream-160.zeno.fm/zu59ykebs2zuv"
     ]
@@ -252,7 +244,7 @@
   {
     "name": "Radio Retro Bollywood",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERR%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERadio%20Retro%20Bollywood%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream-140.zeno.fm/g372rxef798uv"
     ]
@@ -260,7 +252,7 @@
   {
     "name": "Radio Shadhin",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERadio%20Shadhin%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://stream-157.zeno.fm/umq9q5uuva5tv"
     ]
@@ -328,7 +320,7 @@
   {
     "name": "[BD] Zee Bangla",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Bangla%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_bangla/playlist.m3u8"
     ]
@@ -336,7 +328,7 @@
   {
     "name": "Bangla TV",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBangla%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn.ghuddi.live/Bangla_TV/Bangla_TV_BD/playlist.m3u8"
     ]
@@ -344,7 +336,7 @@
   {
     "name": "Boishakhi TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBoishakhi%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
       "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8"
@@ -353,7 +345,7 @@
   {
     "name": "Channel 9",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EC9%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EChannel%209%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel9hd.stream/playlist.m3u8",
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1729/output/index.m3u8"
@@ -362,7 +354,7 @@
   {
     "name": "Deshe Bideshe",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDeshe%20Bideshe%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://dbcanada.sonarbanglatv.com/deshebideshe/dbtv/index.m3u8"
     ]
@@ -370,7 +362,7 @@
   {
     "name": "Deshi TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDeshi%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://deshitv.deshitv24.net/live/myStream/playlist.m3u8"
     ]
@@ -378,7 +370,7 @@
   {
     "name": "Ekushey TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EET%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEkushey%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://ekusheyserver.com/etvlivesn.m3u8",
       "https://tvsen6.aynaott.com/y4mEVZNAbeNWTbd6Z2Pw/index.m3u8",
@@ -390,7 +382,7 @@
   {
     "name": "Independent",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EIN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EIndependent%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1704/output/index.m3u8"
     ]
@@ -398,7 +390,7 @@
   {
     "name": "Jamuna",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJamuna%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/index.m3u8"
     ]
@@ -406,7 +398,7 @@
   {
     "name": "Khusbhoo Bangla",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EKB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EKhusbhoo%20Bangla%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn-4.pishow.tv/live/1473/master.m3u8"
     ]
@@ -414,7 +406,7 @@
   {
     "name": "Maasranga TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMaasranga%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen5.aynaott.com/maasrangatv/index.m3u8",
       "http://116.204.149.16/maasranga/tracks-v1a1/mono.m3u8",
@@ -426,7 +418,7 @@
   {
     "name": "Nexus TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENexus%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/Epm7WrFa/index.m3u8",
       "https://tv.kbhub.online/Bangladesh/Nexus-TV.m3u8"
@@ -435,7 +427,7 @@
   {
     "name": "NTV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENTV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
       "https://tvsen5.aynaott.com/xV4jEKf3D9zc/tracks-v1a1/mono.ts.m3u8",
@@ -445,7 +437,7 @@
   {
     "name": "Rajdhani TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERajdhani%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.shariarsuvo.com/hls5/rajdhanicable.m3u8"
     ]
@@ -453,7 +445,7 @@
   {
     "name": "RTV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERTV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen5.aynaott.com/RtvHD/index.m3u8",
       "https://tvsen6.aynaott.com/rtv/tracks-v1a1/mono.ts.m3u8"
@@ -462,7 +454,7 @@
   {
     "name": "Sun Bangla",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESun%20Bangla%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://27.124.71.27/Sun_Bangla/index.m3u8"
     ]
@@ -478,7 +470,7 @@
   {
     "name": "Ananda Barta",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAnanda%20Barta%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://account19.livebox.co.in/Anandabarta2hls/live.m3u8"
     ]
@@ -639,7 +631,7 @@
   {
     "name": "Zillar Barta",
     "group": "Bangladesh",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZillar%20Barta%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://server.zillarbarta.com/zillarbarta/index.m3u8"
     ]
@@ -647,7 +639,7 @@
   {
     "name": "Doraemon 24/7",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ED2%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDoraemon%2024%2F7%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-209902/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -655,7 +647,7 @@
   {
     "name": "Ananda TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAnanda%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
       "http://103.99.249.139/anandatv/index.m3u8"
@@ -664,7 +656,7 @@
   {
     "name": "ATN News",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EATN%20News%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1706/output/index.m3u8"
@@ -673,7 +665,7 @@
   {
     "name": "BTV Chattogram",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBTV%20Chattogram%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8"
     ]
@@ -681,7 +673,7 @@
   {
     "name": "Channel I",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EChannel%20I%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
       "https://tv.kbhub.online/Ayna-OTT/Channel-I.m3u8",
@@ -691,7 +683,7 @@
   {
     "name": "Desh TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDesh%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
       "https://tv.kbhub.online/Bangladesh/Desh-TV.m3u8",
@@ -701,7 +693,7 @@
   {
     "name": "Ekattor TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EET%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEkattor%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8"
     ]
@@ -709,7 +701,7 @@
   {
     "name": "Ekhon TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EET%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEkhon%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/fbgZV3X17hwWcyfZ4pdb/index.m3u8",
       "https://tplay.live/out/bangladesh/ekhontv.index.m3u8"
@@ -718,7 +710,7 @@
   {
     "name": "Global TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGlobal%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/y0q9eFAuquAtvTxRzUHq/index.m3u8",
       "https://tv.kbhub.online/Bangladesh/Global-TV.m3u8",
@@ -728,7 +720,7 @@
   {
     "name": "My TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMy%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
       "https://tv.kbhub.online/Ayna-OTT/My-Tv.m3u8",
@@ -739,7 +731,7 @@
   {
     "name": "SA TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESA%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/rELXiuUXqbgzPb06Npom/index.m3u8",
       "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/satvoff5666.stream/playlist.m3u8"
@@ -748,7 +740,7 @@
   {
     "name": "Gopal Bhar 24/7",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGopal%20Bhar%2024%2F7%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -756,7 +748,7 @@
   {
     "name": "Motu Patlu",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMotu%20Patlu%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -772,7 +764,7 @@
   {
     "name": "[BD] Animal Planet",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Animal%20Planet%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/animal_planet_sd/playlist.m3u8",
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/animal_planet_hd/playlist.m3u8"
@@ -781,7 +773,7 @@
   {
     "name": "[BD] Discovery",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Discovery%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovery_sd/playlist.m3u8",
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovery_hd/playlist.m3u8"
@@ -790,7 +782,7 @@
   {
     "name": "[BD] Discovery Science",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Discovery%20Science%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovery_science/playlist.m3u8"
     ]
@@ -798,7 +790,7 @@
   {
     "name": "[BD] Discovery Turbo",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Discovery%20Turbo%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovery_turbo/playlist.m3u8"
     ]
@@ -806,7 +798,7 @@
   {
     "name": "[BD] Investigation Discovery",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EID%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Investigation%20Discovery%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovary_investigation_hd/playlist.m3u8"
     ]
@@ -814,7 +806,7 @@
   {
     "name": "Discovery",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDiscovery%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://202.70.146.135:8000/play/a05z/index.m3u8",
       "https://stream.ottplus.bd/live/discovery_sd_abr/index.m3u8",
@@ -824,7 +816,7 @@
   {
     "name": "Discovery Hindi",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDH%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDiscovery%20Hindi%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://103.135.253.32:8080/DISCOVERY/tracks-v1a1/mono.m3u8"
     ]
@@ -832,7 +824,7 @@
   {
     "name": "Discovery Science",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDiscovery%20Science%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://drk6xq0vhn.gpcdn.net/live/discovery_science_abr/index.m3u8"
     ]
@@ -840,7 +832,7 @@
   {
     "name": "Discovery Turbo",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDiscovery%20Turbo%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://drk6xq0vhn.gpcdn.net/live/discovery_turbo_abr/index.m3u8"
     ]
@@ -856,7 +848,7 @@
   {
     "name": "Investigation Discovery (ID)",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EID%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EInvestigation%20Discovery%20%28ID%29%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/id_hd_abr/live/id_hd/chunks.m3u8"
     ]
@@ -880,7 +872,7 @@
   {
     "name": "Alone By History",
     "group": "Documentary & Education",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAlone%20By%20History%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://d3181anftsyl2u.cloudfront.net/v1/aenetworks_alone_1/samsungheadend_us/latest/main/hls/playlist.m3u8"
     ]
@@ -912,7 +904,7 @@
   {
     "name": "Autentic Adventure Earth English German",
     "group": "Documentary & Education",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAutentic%20Adventure%20Earth%20Eng%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://a57e9c69976649b582a8d7604c00e69a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AdventureEarth/playlist.m3u8"
     ]
@@ -1032,7 +1024,7 @@
   {
     "name": "History & Warfare Now",
     "group": "Documentary & Education",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHW%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHistory%20%26amp%3B%20Warfare%20Now%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://d1nzda2a2b3swt.cloudfront.net/History_Warfare_Now.m3u8"
     ]
@@ -1048,7 +1040,7 @@
   {
     "name": "History Hunters",
     "group": "Documentary & Education",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHH%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHistory%20Hunters%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg00841-amg00841c7-rakuten-uk-2820.playouts.now.amagi.tv/playlist/amg00841-aeemeafast-historyhuntersrakuten-rakutenuk/playlist.m3u8"
     ]
@@ -1484,7 +1476,7 @@
   {
     "name": "Hindi Movies",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHindi%20Movies%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-209612/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -1492,7 +1484,7 @@
   {
     "name": "South Movies",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESouth%20Movies%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-209593/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -1525,7 +1517,7 @@
   {
     "name": "7X Music",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E7M%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E7X%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn2.in/7xPunjabihls/live.m3u8"
     ]
@@ -1654,7 +1646,7 @@
   {
     "name": "Bhojpuri Cinema",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBhojpuri%20Cinema%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8"
     ]
@@ -1930,7 +1922,7 @@
   {
     "name": "MOV | Bollywood OLD",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMOV%20%7C%20Bollywood%20OLD%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://vods2.aynaott.com/hindimovies/tracks-v1a1/mono.ts.m3u8"
     ]
@@ -2051,7 +2043,7 @@
   {
     "name": "Only Music",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EOM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EOnly%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://mumbai-edge.smartplaytv.in/OnlyMusic/index.m3u8"
     ]
@@ -2075,7 +2067,7 @@
   {
     "name": "Pardesi TV",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPardesi%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://stream.pardesitv.online/pardesi/tracks-v1a1/mono.m3u8"
     ]
@@ -2131,7 +2123,7 @@
   {
     "name": "Sheemaroo Bollywood",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESheemaroo%20Bollywood%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8"
     ]
@@ -2262,7 +2254,7 @@
   {
     "name": "Sananda TV",
     "group": "India",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESananda%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://27.124.71.27/Zee_Bangla/tracks-v1a1/mono.m3u8",
       "https://live.sanandatelevision.in/sananda/index.m3u8",
@@ -2289,7 +2281,7 @@
   {
     "name": "[BD] Sony Aath",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20Aath%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonyaath/playlist.m3u8"
     ]
@@ -2297,7 +2289,7 @@
   {
     "name": "[BD] Sony Entertainment Television",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20Entertainment%20Tele%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonyentertainmnt_hd/playlist.m3u8",
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_entertainment/playlist.m3u8"
@@ -2306,7 +2298,7 @@
   {
     "name": "[BD] Sony MAX",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20MAX%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_max_hd/playlist.m3u8",
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_max/playlist.m3u8"
@@ -2315,7 +2307,7 @@
   {
     "name": "[BD] Sony MAX 2",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20MAX%202%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonymax_2/playlist.m3u8"
     ]
@@ -2323,7 +2315,7 @@
   {
     "name": "[BD] Sony PIX",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20PIX%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonypix_hd/playlist.m3u8"
     ]
@@ -2331,7 +2323,7 @@
   {
     "name": "[BD] Sony SAB",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20SAB%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonysab_hd/playlist.m3u8"
     ]
@@ -2339,7 +2331,7 @@
   {
     "name": "[BD] Sony YAY",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESY%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20YAY%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonyyay/playlist.m3u8"
     ]
@@ -2347,7 +2339,7 @@
   {
     "name": "[BD] Zee Action",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Action%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_action/playlist.m3u8"
     ]
@@ -2355,7 +2347,7 @@
   {
     "name": "[BD] Zee Anmol",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Anmol%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_anmol/playlist.m3u8"
     ]
@@ -2363,7 +2355,7 @@
   {
     "name": "[BD] Zee Cafe",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Cafe%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_cafe_hd/playlist.m3u8"
     ]
@@ -2371,7 +2363,7 @@
   {
     "name": "[BD] Zee TV",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_tv_hd/playlist.m3u8"
     ]
@@ -2379,7 +2371,7 @@
   {
     "name": "Bangla Plus",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBangla%20Plus%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://66.102.126.10:8000/play/a008/index.m3u8",
       "https://live-stream.utkalbongo.com/hls/livebanglatvstream.m3u8"
@@ -2396,7 +2388,7 @@
   {
     "name": "DANGAL2 TV",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDANGAL2%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live-dangal2.akamaized.net/liveabr/playlist.m3u8"
     ]
@@ -2404,7 +2396,7 @@
   {
     "name": "ENT | Sony Entertainment",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EENT%20%7C%20Sony%20Entertainment%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://38.96.178.205/SONYHD/index.m3u8"
     ]
@@ -2412,7 +2404,7 @@
   {
     "name": "Sony",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/sony_ent_hd_abr/index.m3u8"
     ]
@@ -2420,7 +2412,7 @@
   {
     "name": "Sony AATH",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20AATH%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/sony_aath_abr/index.m3u8"
     ]
@@ -2428,7 +2420,7 @@
   {
     "name": "Sony Channel",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20Channel%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://138.121.15.230:9002/SONY/index.m3u8"
     ]
@@ -2436,7 +2428,7 @@
   {
     "name": "Sony KAL Hindi",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESK%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20KAL%20Hindi%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://wurlsonypicturestv.global.transmit.live/hls/68deeb1c0238cda82df543dd/v1/spt_sonykal_1/lg_us/latest/main/hls/playlist.m3u8"
     ]
@@ -2444,7 +2436,7 @@
   {
     "name": "Sony Max",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20Max%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/max_hd_abr/index.m3u8",
       "https://stream.ottplus.bd/live/max_hd_abr/live/max_hd_720/index.m3u8",
@@ -2454,7 +2446,7 @@
   {
     "name": "Sony Max 2",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20Max%202%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/max_2_abr/index.m3u8"
     ]
@@ -2462,7 +2454,7 @@
   {
     "name": "Sony TV",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/sony_ent_sd_abr/index.m3u8"
     ]
@@ -2470,7 +2462,7 @@
   {
     "name": "Sony YAY!",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESY%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20YAY%21%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/sony_yay_abr/index.m3u8"
     ]
@@ -2478,7 +2470,7 @@
   {
     "name": "Zee Action",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZee%20Action%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/zee_action_abr/index.m3u8"
     ]
@@ -2486,7 +2478,7 @@
   {
     "name": "Zee Chenema",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZee%20Chenema%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/zee_cinema_hd_abr/live/zee_cinema_hd_720/index.m3u8"
     ]
@@ -2494,7 +2486,7 @@
   {
     "name": "Zee One",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZee%20One%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg17931-zee-amg17931c6-samsung-au-8872.playouts.now.amagi.tv/playlist/amg17931-asiatvusaltdfast-zeeworld-samsungau/playlist.m3u8"
     ]
@@ -2502,7 +2494,7 @@
   {
     "name": "[BD] & Pictures",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20%26amp%3B%20Pictures%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/andpicture_hd/playlist.m3u8"
     ]
@@ -2510,7 +2502,7 @@
   {
     "name": "[BD] &TV",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETV%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20%26amp%3BTV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/and_tv_hd/playlist.m3u8"
     ]
@@ -2518,7 +2510,7 @@
   {
     "name": "[BD] HUM",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHU%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20HUM%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/hum_tv/playlist.m3u8"
     ]
@@ -2526,7 +2518,7 @@
   {
     "name": "[BD] HUM Masala",
     "group": "Pakistan",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20HUM%20Masala%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/hum_masala/playlist.m3u8"
     ]
@@ -2534,7 +2526,7 @@
   {
     "name": "[BD] HUM Sitaray",
     "group": "Pakistan",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20HUM%20Sitaray%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/hum_sitaray/playlist.m3u8"
     ]
@@ -2542,7 +2534,7 @@
   {
     "name": "[BD] POGO",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20POGO%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/pogo_sd/playlist.m3u8"
     ]
@@ -2550,7 +2542,7 @@
   {
     "name": "[BD] TLC",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETL%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20TLC%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/tlc_hd/playlist.m3u8",
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/tlc_sd/playlist.m3u8"
@@ -2559,7 +2551,7 @@
   {
     "name": "[BD] Zing",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zing%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zing_sd/playlist.m3u8"
     ]
@@ -2591,7 +2583,7 @@
   {
     "name": "And Picture",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAnd%20Picture%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/and_picture_hd_abr/live/and_picture_hd_720/index.m3u8",
       "https://stream.ottplus.bd/live/and_picture_hd_abr/index.m3u8"
@@ -2640,7 +2632,7 @@
   {
     "name": "CazeTV Prime",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECazeTV%20Prime%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8"
     ]
@@ -2648,7 +2640,7 @@
   {
     "name": "Channel 24",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EC2%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EChannel%2024%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1703/output/index.m3u8"
     ]
@@ -2672,7 +2664,7 @@
   {
     "name": "Channel One",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EChannel%20One%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/index.m3u8"
     ]
@@ -2680,7 +2672,7 @@
   {
     "name": "Crazy Ex",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECrazy%20Ex%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/crazy_ex/playlist.m3u8"
     ]
@@ -2688,7 +2680,7 @@
   {
     "name": "Delicious",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDelicious%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/delicious/playlist.m3u8"
     ]
@@ -2704,7 +2696,7 @@
   {
     "name": "Duronto TV",
     "group": "Bangladesh",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDuronto%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8"
     ]
@@ -2712,7 +2704,7 @@
   {
     "name": "EN | FX2",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEF%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEN%20%7C%20FX2%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://toonixhls.wns.live/hls/stream.m3u8"
     ]
@@ -2720,7 +2712,7 @@
   {
     "name": "EN | GROOVE",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEG%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEN%20%7C%20GROOVE%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://web.onair-radio.eu:1935/groovytv/groovytv/playlist.m3u8"
     ]
@@ -2728,7 +2720,7 @@
   {
     "name": "Fighters",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFighters%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/fighter/playlist.m3u8"
     ]
@@ -2736,7 +2728,7 @@
   {
     "name": "Goldmines",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGO%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGoldmines%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn-2.pishow.tv/live/1459/master.m3u8"
     ]
@@ -2752,7 +2744,7 @@
   {
     "name": "Jonmobhumi Tv",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJonmobhumi%20Tv%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://jtvs.ncare.live/Gznr84Woj7UEye3OPVeWq2ForboWAgdV/jonmobhumitv.stream/tracks-v1a1/mono.m3u8"
     ]
@@ -2760,7 +2752,7 @@
   {
     "name": "live20.bozztv.com",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ELB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3Elive20.bozztv.com%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts",
       "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts",
@@ -2782,7 +2774,7 @@
   {
     "name": "mcncdndigital.com",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3Emcncdndigital.com%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://mcncdndigital.com/balleballetv/tracks-v1a1/mono.ts"
     ]
@@ -2790,7 +2782,7 @@
   {
     "name": "ME TV",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EME%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://iptvbd.live/metv1080/1080.m3u8"
     ]
@@ -2798,7 +2790,7 @@
   {
     "name": "National Geography HD Hindi",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENG%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENational%20Geography%20HD%20Hindi%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://202.70.146.135:8000/play/a05o/index.m3u8"
     ]
@@ -2806,7 +2798,7 @@
   {
     "name": "Nikki",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENI%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENikki%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/nikky/playlist.m3u8"
     ]
@@ -2814,7 +2806,7 @@
   {
     "name": "Party Universe",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPU%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EParty%20Universe%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/partyuniverse/chunks.m3u8"
     ]
@@ -2822,7 +2814,7 @@
   {
     "name": "PeaceTv English",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EPeaceTv%20English%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://dzkyvlfyge.erbvr.com/PeaceTvEnglish/index.m3u8"
     ]
@@ -2838,7 +2830,7 @@
   {
     "name": "Songshad TV",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESongshad%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8"
     ]
@@ -2846,7 +2838,7 @@
   {
     "name": "Time TV",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETime%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn.streamcast.xyz/timetv/index.fmp4.m3u8"
     ]
@@ -2878,7 +2870,7 @@
   {
     "name": "tvsen5.aynaott.com",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3Etvsen5.aynaott.com%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen5.aynaott.com/P3y2URgG7LDe/tracks-v1a1/mono.ts",
       "https://tvsen5.aynaott.com/tgUzpPc9r6xw/tracks-v1a1/mono.ts",
@@ -2889,7 +2881,7 @@
   {
     "name": "tvsen6.aynaott.com",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3Etvsen6.aynaott.com%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/tracks-v1a1/mono.ts",
       "https://tvsen6.aynaott.com/rtv/tracks-v1a1/mono.ts"
@@ -2898,7 +2890,7 @@
   {
     "name": "vods2.aynaott.com",
     "group": "English & International",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EVA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3Evods2.aynaott.com%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://vods2.aynaott.com/gseriesDrama/tracks-v1a1/mono.ts",
       "https://vods2.aynaott.com/hindimovies/tracks-v1a1/mono.ts"
@@ -3365,7 +3357,7 @@
   {
     "name": "LooLoo Kids TV",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ELK%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ELooLoo%20Kids%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg02757-amg02757c3-rakuten-de-6135.playouts.now.amagi.tv/playlist/amg02757-loolookids-llkdefast-rakutende/playlist.m3u8"
     ]
@@ -3373,7 +3365,7 @@
   {
     "name": "Mattel Jr.",
     "group": "Kids & Animation",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMJ%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMattel%20Jr.%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://dc6v647pwrp79.cloudfront.net/matjr.m3u8"
     ]
@@ -3726,7 +3718,7 @@
   {
     "name": "[BD] Cartoon Network",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Cartoon%20Network%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/cartoon_network_sd/playlist.m3u8"
     ]
@@ -3734,7 +3726,7 @@
   {
     "name": "[BD] Cartoon Network HD +",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Cartoon%20Network%20HD%20%2B%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/cartoon_network_hd/playlist.m3u8"
     ]
@@ -3742,7 +3734,7 @@
   {
     "name": "[BD] Discovery Kids",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDK%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Discovery%20Kids%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/discovery_kids/playlist.m3u8"
     ]
@@ -3750,7 +3742,7 @@
   {
     "name": "Cartoon Network",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECartoon%20Network%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/cn_sd_abr/index.m3u8"
     ]
@@ -3758,7 +3750,7 @@
   {
     "name": "Funny Junior",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFJ%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFunny%20Junior%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/funnyjunior/playlist.m3u8"
     ]
@@ -3766,7 +3758,7 @@
   {
     "name": "Zoo Kids",
     "group": "Kids & Animation",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZK%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZoo%20Kids%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://zoomoo-samsungau.amagi.tv/playlist.m3u8"
     ]
@@ -3774,7 +3766,7 @@
   {
     "name": "[BD] B4U Movies APAC",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20B4U%20Movies%20APAC%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/b4u_movies/playlist.m3u8"
     ]
@@ -3782,7 +3774,7 @@
   {
     "name": "[BD] Toffee Movies",
     "group": "Movies & Entertainment",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Toffee%20Movies%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/toffee_movie/playlist.m3u8"
     ]
@@ -3790,7 +3782,7 @@
   {
     "name": "[BD] Zee Bangla Cinema",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Bangla%20Cinema%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_bangla_cinema/playlist.m3u8"
     ]
@@ -3798,7 +3790,7 @@
   {
     "name": "[BD] Zee Bollywood",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Bollywood%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_bollywood/playlist.m3u8"
     ]
@@ -3806,7 +3798,7 @@
   {
     "name": "[BD] Zee Cinema",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Zee%20Cinema%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/zee_cinema_hd/playlist.m3u8"
     ]
@@ -3878,7 +3870,7 @@
   {
     "name": "Bollywood 4U",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EB4%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBollywood%204U%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://streams2.sofast.tv/umaxx/v1/0196d96223231ea506ec2e7986613e/0196d96312d71ebd416a37ff7b3317/playlist.m3u8"
     ]
@@ -3926,7 +3918,7 @@
   {
     "name": "Goldmines Movies",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EGoldmines%20Movies%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn-2.pishow.tv/live/1461/master.m3u8"
     ]
@@ -3999,7 +3991,7 @@
   {
     "name": "MN Movies Telugu",
     "group": "Movies & Entertainment",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMN%20Movies%20Telugu%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://mntv.livebox.co.in/mntvhls/live.m3u8"
     ]
@@ -4063,7 +4055,7 @@
   {
     "name": "SL1",
     "group": "Movies & Entertainment",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESL%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESL1%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://slonehls.wns.live/hls/stream.m3u8"
     ]
@@ -4071,7 +4063,7 @@
   {
     "name": "Sony Cine",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20Cine%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://177.234.249.178:8888/SONY-MOVIES/index.m3u8"
     ]
@@ -4119,7 +4111,7 @@
   {
     "name": "Zee Bollywood",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZee%20Bollywood%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/zee_bollywood_abr/index.m3u8"
     ]
@@ -4135,7 +4127,7 @@
   {
     "name": "30A Music",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E3M%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E30A%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://30a-tv.com/music.m3u8"
     ]
@@ -4143,7 +4135,7 @@
   {
     "name": "[BD] B4U Music",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20B4U%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/b4u_music/playlist.m3u8"
     ]
@@ -4183,7 +4175,7 @@
   {
     "name": "AR | Arabica TV",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAR%20%7C%20Arabica%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://istream.binarywaves.com:8081/hls/arabica/playlist.m3u8"
     ]
@@ -4215,7 +4207,7 @@
   {
     "name": "Baraza Music TV",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBaraza%20Music%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://eco.streams.ovh:8081/barazatv/index.m3u8"
     ]
@@ -4223,7 +4215,7 @@
   {
     "name": "BIZ Music",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBIZ%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://fl.biztv.media/music_720_QAKpGmVUjaPApCNjpsgBxrdqNihAkl/tracks-v1a1/mono.m3u8"
     ]
@@ -4247,7 +4239,7 @@
   {
     "name": "Dance TV",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EDance%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://m1b2.worldcast.tv/dancetelevisionone/2/dancetelevisionone.m3u8"
     ]
@@ -4263,7 +4255,7 @@
   {
     "name": "Hindi Hits",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHH%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHindi%20Hits%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://146.59.253.52:8080/hindihitshd/index.m3u8"
     ]
@@ -4287,7 +4279,7 @@
   {
     "name": "LT | Trace Latino",
     "group": "Music",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ELT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ELT%20%7C%20Trace%20Latino%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg01131-tracetv-tracelatina-klowdtv-v10em.amagi.tv/playlist/amg01131-tracetv-tracelatina-klowdtv/playlist.m3u8"
     ]
@@ -4319,7 +4311,7 @@
   {
     "name": "Music TV",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMusic%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist_b3128000.m3u8"
     ]
@@ -4327,7 +4319,7 @@
   {
     "name": "NOW 70s",
     "group": "Music",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EN7%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENOW%2070s%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://lightning-now70s-samsungnz.amagi.tv/playlist.m3u8"
     ]
@@ -4343,7 +4335,7 @@
   {
     "name": "Now Rock",
     "group": "Music",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENR%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENow%20Rock%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://lightning-now90s-samsungnz.amagi.tv/playlist.m3u8"
     ]
@@ -4383,7 +4375,7 @@
   {
     "name": "Sangeet Bangla",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESangeet%20Bangla%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://cdn-4.pishow.tv/live/1143/master.m3um"
     ]
@@ -4407,7 +4399,7 @@
   {
     "name": "TNT Music",
     "group": "Music",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETNT%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tntm.mediacdn.ru/cdn/tntmusic/playlist.m3u8"
     ]
@@ -4415,7 +4407,7 @@
   {
     "name": "TR | Top TV",
     "group": "Music",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETR%20%7C%20Top%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://74.208.199.212:8081/TopTV/live/chunks.m3u8"
     ]
@@ -4447,7 +4439,7 @@
   {
     "name": "V2BEAT",
     "group": "Music",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EV2%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EV2BEAT%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://abr.de1se01.v2beat.live/playlist.m3u8",
       "https://abr.de1se01.v2beat.live/live/live6/chunks.m3u8"
@@ -4520,7 +4512,7 @@
   {
     "name": "Vii3 Music",
     "group": "Music",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EVM%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EVii3%20Music%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://de1se01.v2beat.live/playlist.m3u8"
     ]
@@ -4544,7 +4536,7 @@
   {
     "name": "[BD] CNN",
     "group": "News & Current Affairs",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23BE123C%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20CNN%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/cnn/playlist.m3u8"
     ]
@@ -4552,7 +4544,7 @@
   {
     "name": "[BD] Sony BBC Earth",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20BBC%20Earth%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sonybbc_earth_hd/playlist.m3u8"
     ]
@@ -4592,7 +4584,7 @@
   {
     "name": "Al Jazeera Arabia",
     "group": "News & Current Affairs",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAJ%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAl%20Jazeera%20Arabia%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://live-hls-apps-aja-fa.getaj.net/AJA/01.m3u8",
       "https://live-hls-web-aja2-gcp.thehlive.com/AJA2/index.m3u8"
@@ -4609,7 +4601,7 @@
   {
     "name": "BBC Earth",
     "group": "Documentary & Education",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBE%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBBC%20Earth%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist540p.m3u8"
     ]
@@ -4650,7 +4642,7 @@
   {
     "name": "Jago News24",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EJago%20News24%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://app.ncare.live/live-orgin/jagonews24.stream/live-orgin/jagonews24.stream/chunks.m3u8"
     ]
@@ -4666,7 +4658,7 @@
   {
     "name": "News 24",
     "group": "News & Current Affairs",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EN2%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENews%2024%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1708/output/index.m3u8"
     ]
@@ -4682,7 +4674,7 @@
   {
     "name": "News18 Bangla News",
     "group": "News & Current Affairs",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ENews18%20Bangla%20News%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://is.gd/uRBzMk"
     ]
@@ -4706,7 +4698,7 @@
   {
     "name": "Somoy News",
     "group": "Bangladesh",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESN%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESomoy%20News%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bozztv.com/rongo/rongo-somoy/index.m3u8",
       "https://owrcovcrpy.gpcdn.net/bpk-tv/1713/output/index.m3u8",
@@ -4716,7 +4708,7 @@
   {
     "name": "Sony BBC Earth",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESony%20BBC%20Earth%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.live/live/bbc_earth_hd_abr/index.m3u8"
     ]
@@ -4814,7 +4806,7 @@
   {
     "name": "Radio BBC",
     "group": "Radio",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERadio%20BBC%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://a.files.bbci.co.uk/ms6/live/3441A116-B12E-4D2F-ACA8-C1984642FA4B/audio/simulcast/hls/nonuk/audio_syndication_vlow_sbr_v1/cfs/bbc_world_service_news_internet.m3u8"
     ]
@@ -4854,7 +4846,7 @@
   {
     "name": "Quran (Audio)",
     "group": "Radio",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EQA%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EQuran%20%28Audio%29%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://download.quranicaudio.com/qdc/abdurrahmaan_as_sudais/murattal/96.mp3"
     ]
@@ -4862,7 +4854,7 @@
   {
     "name": "Radio Bangla",
     "group": "Radio",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERB%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ERadio%20Bangla%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/0.m3u8"
     ]
@@ -4870,7 +4862,7 @@
   {
     "name": "Eman TV",
     "group": "Islamic & Religious",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EET%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEman%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://avr.host247.net/live/emantv/playlist.m3u8"
     ]
@@ -4878,7 +4870,7 @@
   {
     "name": "Islamic TV",
     "group": "Islamic & Religious",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EIT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EIslamic%20TV%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/islamic_tv/index.m3u8"
     ]
@@ -5056,7 +5048,7 @@
   {
     "name": "QURAN",
     "group": "Islamic & Religious",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EQU%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EQURAN%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://m.live.net.sa:1935/live/quran/playlist.m3u8"
     ]
@@ -5104,7 +5096,7 @@
   {
     "name": "Zainabia Channel",
     "group": "Islamic & Religious",
-    "logo": "https://buddytv.netlify.app/img/no-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EZainabia%20Channel%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://zainabia.livebox.co.in/ZainabiaChannelhls/channel.m3u8"
     ]
@@ -5112,7 +5104,7 @@
   {
     "name": "[BD] Eurosport",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEU%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Eurosport%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/euro_sports_hd/playlist.m3u8"
     ]
@@ -5120,7 +5112,7 @@
   {
     "name": "[BD] Sony Ten Cricket",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20Ten%20Cricket%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/ten_cricket/playlist.m3u8"
     ]
@@ -5128,7 +5120,7 @@
   {
     "name": "[BD] Sony Ten Sports 1",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20Ten%20Sports%201%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_1_hd/playlist.m3u8"
     ]
@@ -5136,7 +5128,7 @@
   {
     "name": "[BD] Sony Ten Sports 5",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EST%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3E%5BBD%5D%20Sony%20Ten%20Sports%205%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_5_hd/playlist.m3u8"
     ]
@@ -5144,7 +5136,7 @@
   {
     "name": "A Sports",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23B45309%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EAS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EA%20Sports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/index.m3u8",
       "https://playztv-apps.pages.dev/a-sports/index.m3u8"
@@ -5178,7 +5170,7 @@
   {
     "name": "Bein Sports Extra 2",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBein%20Sports%20Extra%202%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8"
     ]
@@ -5186,7 +5178,7 @@
   {
     "name": "beIN sports Xtra",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EBS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EbeIN%20sports%20Xtra%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://bein-xtra-bein.amagi.tv/playlist.m3u8"
     ]
@@ -5259,7 +5251,7 @@
   {
     "name": "Cricket Gold",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECG%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ECricket%20Gold%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8"
     ]
@@ -5275,7 +5267,7 @@
   {
     "name": "Eurosport",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEU%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EEurosport%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://stream.ottplus.bd/live/euro_sports_hd_abr/live/euro_sports_hd/chunks.m3u8"
     ]
@@ -5355,7 +5347,7 @@
   {
     "name": "Fox Sports",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EFox%20Sports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://d1jzu95oc8fgt3.cloudfront.net/FOX_Sports.m3u8"
     ]
@@ -5411,7 +5403,7 @@
   {
     "name": "Horse & Country",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHC%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EHorse%20%26amp%3B%20Country%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://hncfree-samsungau.amagi.tv/playlist.m3u8",
       "https://sportstri-hncfree-sportstribal-rb7j8.amagi.tv/playlist/sportstri-hncfree-sportstribal/playlist.m3u8"
@@ -5492,7 +5484,7 @@
   {
     "name": "MTRSPT",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMT%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EMTRSPT%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://amg02873-kravemedia-mtrspt1-sportstribal-ajosc.amagi.tv/playlist/amg02873-kravemedia-mtrspt1-sportstribal/playlist.m3u8"
     ]
@@ -5580,7 +5572,7 @@
   {
     "name": "Sports",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%237C3AED%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESP%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://hex4y.short.gy/FC-26/index.m3u8"
     ]
@@ -5612,7 +5604,7 @@
   {
     "name": "Sports HD ( Sri Lanka Sports TV)",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESH%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESports%20HD%20%28%20Sri%20Lanka%20Sports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://103.151.60.204:881/A-Sports/video.m3u8"
     ]
@@ -5620,7 +5612,7 @@
   {
     "name": "Sports Range",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23E50914%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESR%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESports%20Range%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://nomawnoijl.gpcdn.net/akash/sportrange/playlist.m3u8"
     ]
@@ -5636,7 +5628,7 @@
   {
     "name": "Star Sports 1",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230369A1%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EStar%20Sports%201%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://103.253.18.58:8000/play/a00m",
       "http://103.151.60.204:881/StarSports1/video.m3u8"
@@ -5645,7 +5637,7 @@
   {
     "name": "Star Sports 1 Hindi",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%231D4ED8%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EStar%20Sports%201%20Hindi%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://103.253.18.58:8000/play/a00t"
     ]
@@ -5653,7 +5645,7 @@
   {
     "name": "Star Sports 2",
     "group": "India",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ESS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EStar%20Sports%202%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://103.151.60.204:881/StarSports2/video.m3u8"
     ]
@@ -5702,7 +5694,7 @@
   {
     "name": "Trace Sport",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3ETrace%20Sport%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8"
     ]
@@ -5734,7 +5726,7 @@
   {
     "name": "Willow Sports",
     "group": "Sports",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EWS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EWillow%20Sports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://27.124.71.27/Willow_Extra/index.m3u8",
       "https://d36r8jifhgsk5j.cloudfront.net/Willow_TV1080p.m3u8",
@@ -5744,7 +5736,7 @@
   {
     "name": "Win Sports",
     "group": "Sports",
-    "logo": "",
+    "logo": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22180%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20rx%3D%2218%22%20fill%3D%22%230F766E%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2268%22%20r%3D%2242%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%22.16%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%2282%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2238%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EWS%3C%2Ftext%3E%3Ctext%20x%3D%22160%22%20y%3D%22143%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2217%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%3EWin%20Sports%3C%2Ftext%3E%3C%2Fsvg%3E",
     "urls": [
       "http://138.121.15.230:9002/WIN-SPORT/index.m3u8"
     ]
