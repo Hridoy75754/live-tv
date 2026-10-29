@@ -51,7 +51,7 @@ a{color:inherit}
 .now small{display:block;color:#aaa;font-size:12px}
 .live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
-video{display:block;width:100%;aspect-ratio:16/9;background:#000;max-height:42vh;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;transition:transform .15s}.video-stage{position:relative;overflow:hidden;background:#000}.video-tools{display:flex;gap:6px;align-items:center;justify-content:flex-end;padding:7px 10px;background:#101010;border-top:1px solid #222}.video-tools span{margin-right:auto;color:#888;font-size:11px}.video-tools button{background:#222;border:1px solid #444;color:#eee;border-radius:4px;padding:5px 9px;font-size:12px;cursor:pointer}.video-tools button[aria-pressed="true"]{border-color:var(--red);color:#fff;background:#401116}
+video{display:block;width:100%;height:100%;min-height:180px;aspect-ratio:16/9;background:#000;max-height:65vh;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;transition:transform .18s ease,object-fit .18s ease}.video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:pan-y}.video-tools{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap;padding:7px 10px;background:#101010;border-top:1px solid #222}.video-tools span{margin-right:auto;color:#888;font-size:11px}.video-tools button{background:#222;border:1px solid #444;color:#eee;border-radius:4px;padding:6px 9px;font-size:12px;cursor:pointer;white-space:nowrap}.video-tools button[aria-pressed="true"]{border-color:var(--red);color:#fff;background:#401116}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
 .mini-btn:hover{background:#333}
@@ -121,7 +121,7 @@ main{position:relative;z-index:3;margin-top:-4px}
         <span class="live-badge"><span class="live-dot"></span> LIVE</span>
       </div>
       <div class="video-stage" id="videoStage"><video id="video" controls playsinline preload="none" aria-label="Live TV player"></video></div>
-      <div class="video-tools" aria-label="Screen adjustment controls"><span>Screen fit</span><button type="button" id="fitContain" aria-pressed="true">Fit</button><button type="button" id="fitCover" aria-pressed="false">Crop</button><button type="button" id="zoomOut" aria-label="Zoom out">−</button><button type="button" id="zoomReset">100%</button><button type="button" id="zoomIn" aria-label="Zoom in">+</button></div>
+      <div class="video-tools" aria-label="Screen adjustment controls"><span>Screen size</span><button type="button" id="screenModeBtn" aria-label="Change screen mode">Screen: Fit</button><button type="button" id="zoomOut" aria-label="Zoom out">−</button><button type="button" id="zoomReset">100%</button><button type="button" id="zoomIn" aria-label="Zoom in">+</button></div>
       <div class="player-bottom"><span id="playState">Ready to play</span><button class="mini-btn" id="stopBtn" type="button">Stop</button></div>
     </div>
   </div>
@@ -138,7 +138,8 @@ main{position:relative;z-index:3;margin-top:-4px}
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
-let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1;
+let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenModeIndex=0;
+const screenModes=[{label:'Fit',fit:'contain',zoom:1},{label:'Stretch',fit:'fill',zoom:1},{label:'Crop',fit:'cover',zoom:1},{label:'Zoom 125%',fit:'cover',zoom:1.25},{label:'Zoom 150%',fit:'cover',zoom:1.5},{label:'Zoom 200%',fit:'cover',zoom:2}];
 function say(message){$('playState').textContent=message}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
@@ -208,9 +209,14 @@ function trySource(){
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(data.fatal){if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&hls){hls.recoverMediaError();return}fail()}});
  }else{video.src=url;video.play().then(()=>{$('playState').textContent='Playing live · muted; tap volume to unmute'}).catch(()=>{$('playState').textContent='Tap play to start this stream'});video.addEventListener('error',fail,{once:true})}
 }
-function setFit(mode){video.style.objectFit=mode;$('fitContain').setAttribute('aria-pressed',String(mode==='contain'));$('fitCover').setAttribute('aria-pressed',String(mode==='cover'))}
-function setZoom(value){videoZoom=Math.max(1,Math.min(2.5,Math.round(value*10)/10));video.style.setProperty('--video-zoom',videoZoom);$('zoomReset').textContent=Math.round(videoZoom*100)+'%'}
-$('fitContain').addEventListener('click',()=>setFit('contain'));$('fitCover').addEventListener('click',()=>setFit('cover'));$('zoomIn').addEventListener('click',()=>setZoom(videoZoom+.1));$('zoomOut').addEventListener('click',()=>setZoom(videoZoom-.1));$('zoomReset').addEventListener('click',()=>setZoom(1));
+function applyScreenMode(index){screenModeIndex=(index+screenModes.length)%screenModes.length;const mode=screenModes[screenModeIndex];video.style.objectFit=mode.fit;videoZoom=mode.zoom;video.style.setProperty('--video-zoom',videoZoom);$('screenModeBtn').textContent='Screen: '+mode.label;$('screenModeBtn').setAttribute('aria-pressed',String(screenModeIndex!==0));$('zoomReset').textContent=Math.round(videoZoom*100)+'%'}
+function setZoom(value){videoZoom=Math.max(1,Math.min(2.5,Math.round(value*10)/10));video.style.setProperty('--video-zoom',videoZoom);$('zoomReset').textContent=Math.round(videoZoom*100)+'%';$('screenModeBtn').textContent='Screen: Zoom '+Math.round(videoZoom*100)+'%';$('screenModeBtn').setAttribute('aria-pressed','true')}
+$('screenModeBtn').addEventListener('click',()=>applyScreenMode(screenModeIndex+1));$('zoomIn').addEventListener('click',()=>setZoom(videoZoom+.1));$('zoomOut').addEventListener('click',()=>setZoom(videoZoom-.1));$('zoomReset').addEventListener('click',()=>applyScreenMode(0));
+let pinchStartDistance=0,pinchStartZoom=1;
+const touchDistance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+$('videoStage').addEventListener('touchstart',e=>{if(e.touches.length===2){pinchStartDistance=touchDistance(e.touches[0],e.touches[1]);pinchStartZoom=videoZoom}}, {passive:true});
+$('videoStage').addEventListener('touchmove',e=>{if(e.touches.length===2&&pinchStartDistance>0){const ratio=touchDistance(e.touches[0],e.touches[1])/pinchStartDistance;setZoom(pinchStartZoom*ratio)}}, {passive:true});
+$('videoStage').addEventListener('touchend',e=>{if(e.touches.length<2)pinchStartDistance=0}, {passive:true});
 video.addEventListener('playing',()=>$('playState').textContent='Playing live');
 video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
 video.addEventListener('stalled',()=>$('playState').textContent='Stream stalled');
