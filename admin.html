@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KP Live TV · Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel2:#202020;--line:#303030;--red:#e50914;--muted:#aaa;--green:#27c281}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0,#301014 0,transparent 35%),var(--bg);color:#f5f5f5;font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:22px 16px 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{font-size:22px;font-weight:900;color:#f0444e;letter-spacing:.4px}.muted{color:var(--muted);font-size:12px}.panel{background:linear-gradient(145deg,#1b1b1b,#111);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 12px 40px #0005}
+h1{font-size:24px;margin:0}h2{font-size:17px;margin:0 0 12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:180px}
+input,select,textarea{width:100%;background:#101010;color:#fff;border:1px solid #393939;border-radius:10px;padding:12px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--red)}label{display:block;color:#bbb;font-size:12px;margin:12px 0 6px}
+button{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer;background:#333;color:#fff}button.primary{background:var(--red)}button.danger{background:#562126}button:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none!important}.status{padding:10px 12px;border-radius:10px;background:#252525;color:#ddd;margin:10px 0;font-size:13px}.status.ok{border:1px solid #246c4d}.status.err{border:1px solid #8d3030}
+.results{display:grid;gap:8px;margin-top:12px}.item{display:flex;gap:12px;align-items:center;background:#202020;border:1px solid #333;border-radius:12px;padding:10px}.item img{width:46px;height:46px;object-fit:contain;background:#111;border-radius:8px}.item .meta{flex:1;min-width:0}.item strong{display:block}.item small{color:#aaa}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.source{border:1px solid #383838;background:#141414;border-radius:12px;padding:12px;margin:10px 0}.source-head{display:flex;justify-content:space-between;align-items:center}.pill{font-size:11px;color:#fff;background:#333;padding:4px 8px;border-radius:20px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.top-actions{display:flex;gap:8px;align-items:center}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.wrap{padding:15px 12px 60px}.panel{padding:14px}.top{align-items:flex-start}.item{gap:8px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div><div class="brand">KP LIVE TV</div><div class="muted">PREMIUM ADMIN CONSOLE</div></div><div class="top-actions"><button id="logoutBtn" class="hidden">Log out</button></div></header>
+<div id="setupNotice" class="status err hidden">Supabase configuration is missing. Update supabase-config.js first.</div>
+<section id="loginPanel" class="panel">
+<h1>Admin Login</h1><p class="muted">Sign in with your authorized KP Live TV administrator account.</p>
+<label>Email</label><input id="email" type="email" autocomplete="username" placeholder="Admin email">
+<label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Password">
+<div class="actions"><button id="loginBtn" class="primary">Sign in</button></div><div id="loginMsg" class="status hidden"></div>
+</section>
+<section id="dashboard" class="hidden">
+<div class="panel"><div class="row"><div class="grow"><h1>Channel Manager</h1><div class="muted">Search by channel name, then edit its details and stream sources.</div></div><button id="addBtn" class="primary">+ Add Channel</button><button id="importBtn">Import Playlist JSON</button><input id="importFile" type="file" accept="application/json,.json" class="hidden"></div>
+<label>Search channels</label><input id="search" type="search" placeholder="Type T Sports, Jamuna, Sony Max...">
+<div id="results" class="results"></div></div>
+<section id="editor" class="panel hidden"><div class="row"><div class="grow"><h2 id="editorTitle">Edit Channel</h2><div class="muted">Changes are saved directly to Supabase.</div></div><button id="closeEditor">Close</button></div>
+<div class="grid"><div><label>Channel ID</label><input id="channelId" placeholder="e.g. t-sports"></div><div><label>Channel Name</label><input id="channelName" placeholder="T Sports"></div>
+<div><label>Category</label><select id="category"><option>Bangladesh</option><option>India</option><option>Pakistan</option><option>English & International</option><option>Sports</option><option>Kids & Animation</option><option>Music</option><option>News</option><option>Movies</option><option>Religious</option><option>Radio</option><option>Other</option></select></div>
+<div><label>Country</label><input id="country" placeholder="Bangladesh"></div></div>
+<label>Description</label><textarea id="description" rows="2" placeholder="Optional channel description"></textarea>
+<label>Logo URL</label><input id="logoUrl" placeholder="https://...">
+<label>Upload logo image</label><input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+<div id="logoPreview" class="muted"></div>
+<div class="row" style="justify-content:space-between;margin-top:16px"><h2>Stream Links</h2><button id="addStream">+ Add Stream</button></div>
+<div id="streams"></div>
+<label class="row"><input id="active" type="checkbox" checked style="width:auto"> Channel active / visible on website</label>
+<div class="actions"><button id="saveBtn" class="primary">Save Changes</button><button id="deleteBtn" class="danger">Delete Channel</button></div><div id="editorMsg" class="status hidden"></div>
+</section></section>
+</main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const url=window.KP_SUPABASE_URL||'',key=window.KP_SUPABASE_ANON_KEY||'';
+if(!url.startsWith('https://')||!key||key.includes('YOUR_')){$('setupNotice').classList.remove('hidden');$('loginBtn').disabled=true;return}
+const db=window.supabase.createClient(url,key);let current=null,rows=[];
+function msg(el,text,ok=false){el.textContent=text;el.className='status '+(ok?'ok':'err');el.classList.remove('hidden')}
+function slug(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function streamCard(s={},i=0){const d=document.createElement('div');d.className='source';d.innerHTML=`<div class="source-head"><strong>Stream ${i+1}</strong><span class="pill">${i===0?'Primary':'Backup'}</span></div><label>Stream URL</label><input class="stream-url" type="url" placeholder="https://...m3u8" value="${String(s.url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}"><div class="grid"><div><label>Label</label><input class="stream-label" value="${String(s.label||'').replace(/"/g,'&quot;')}" placeholder="Primary / Backup"></div><div><label>Priority</label><input class="stream-priority" type="number" min="1" value="${Number(s.priority||i+1)}"></div></div><label class="row"><input class="stream-enabled" type="checkbox" ${s.enabled===false?'':'checked'} style="width:auto"> Enabled</label><div class="actions"><button type="button" class="danger remove-stream">Remove link</button><button type="button" class="move-up">Move up</button></div>`;
+d.querySelector('.remove-stream').onclick=()=>d.remove();d.querySelector('.move-up').onclick=()=>{const prev=d.previousElementSibling;if(prev)d.parentNode.insertBefore(d,prev)};return d}
+function showResults(list){const root=$('results');root.innerHTML='';if(!list.length){root.textContent='No channels found.';return}list.slice(0,100).forEach(c=>{const item=document.createElement('div');item.className='item';const img=document.createElement('img');img.src=c.logo_url||'';img.alt='';img.onerror=()=>img.style.visibility='hidden';const meta=document.createElement('div');meta.className='meta';const name=document.createElement('strong');name.textContent=c.name;const small=document.createElement('small');small.textContent=`${c.category} · ${c.country||'Country not set'} · ${(c.stream_urls||[]).length} stream(s)`;meta.append(name,small);const btn=document.createElement('button');btn.textContent='Edit';btn.onclick=()=>edit(c);item.append(img,meta,btn);root.append(item)})}
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async()=>{const file=$('importFile').files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(!Array.isArray(parsed))throw Error('JSON must contain an array of channels');const rows=parsed.map((c,i)=>({id:String(c.id||slug(c.name)+'-'+(i+1)),name:String(c.name||'').trim(),category:String(c.category||c.group||'Other'),country:String(c.country||''),logo_url:String(c.logo_url||c.logo||''),description:String(c.description||''),stream_urls:(Array.isArray(c.stream_urls)?c.stream_urls:(Array.isArray(c.urls)?c.urls:[])).map((s,j)=>typeof s==='string'?{url:s,label:j?'Backup':'Primary',priority:j+1,enabled:true}:s).filter(s=>s&&s.url),is_active:c.is_active!==false,sort_order:Number(c.sort_order??i)})).filter(c=>c.name&&c.stream_urls.length);for(let i=0;i<rows.length;i+=100){const {error}=await db.from('kp_channels').upsert(rows.slice(i,i+100));if(error)throw error}msg($('loginMsg'),`Imported ${rows.length} channels.`,true);await load()}catch(e){msg($('loginMsg'),'Import failed: '+e.message)}finally{$('importFile').value=''}};
+async function load(){const {data,error}=await db.from('kp_channels').select('*').order('name');if(error){msg($('loginMsg'),error.message);return}rows=data||[];showResults(rows)}
+function edit(c){current=c;$('editorTitle').textContent=c.id?'Edit Channel':'Add Channel';$('channelId').value=c.id||'';$('channelId').disabled=!!c.id;$('channelName').value=c.name||'';$('category').value=c.category||'Other';$('country').value=c.country||'';$('description').value=c.description||'';$('logoUrl').value=c.logo_url||'';$('logoFile').value='';$('logoPreview').textContent=c.logo_url?'Current logo: '+c.logo_url:'No logo selected';$('active').checked=c.is_active!==false;$('streams').innerHTML='';(c.stream_urls||[]).forEach((s,i)=>$('streams').append(streamCard(typeof s==='string'?{url:s}:s,i)));$('editor').classList.remove('hidden');$('editor').scrollIntoView({behavior:'smooth'})}
+$('loginBtn').onclick=async()=>{const {error}=await db.auth.signInWithPassword({email:$('email').value,password:$('password').value});if(error){msg($('loginMsg'),error.message);return}await boot()};
+async function boot(){const {data:{user}}=await db.auth.getUser();if(!user){$('loginPanel').classList.remove('hidden');$('dashboard').classList.add('hidden');return}const {data:admin,error}=await db.from('kp_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error||!admin){await db.auth.signOut();msg($('loginMsg'),'This account is not authorized as a KP Live TV admin.');return}$('loginPanel').classList.add('hidden');$('dashboard').classList.remove('hidden');$('logoutBtn').classList.remove('hidden');await load()}
+$('logoutBtn').onclick=async()=>{await db.auth.signOut();location.reload()};
+$('search').oninput=()=>{const q=$('search').value.trim().toLowerCase();showResults(rows.filter(c=>c.name.toLowerCase().includes(q)||c.category.toLowerCase().includes(q)||String(c.country||'').toLowerCase().includes(q)))};
+$('addBtn').onclick=()=>edit({id:'',name:'',category:'Other',country:'',logo_url:'',description:'',stream_urls:[],is_active:true});
+$('closeEditor').onclick=()=>$('editor').classList.add('hidden');
+$('addStream').onclick=()=>$('streams').append(streamCard({},$('streams').children.length));
+$('logoFile').onchange=()=>{$('logoPreview').textContent=$('logoFile').files[0]?.name||''};
+$('saveBtn').onclick=async()=>{const id=$('channelId').value.trim()||slug($('channelName').value);const name=$('channelName').value.trim();if(!id||!name){msg($('editorMsg'),'Channel ID and name are required.');return}
+const stream_urls=[...$('streams').children].map((el,i)=>({url:el.querySelector('.stream-url').value.trim(),label:el.querySelector('.stream-label').value.trim()|| (i?'Backup':'Primary'),priority:Number(el.querySelector('.stream-priority').value||i+1),enabled:el.querySelector('.stream-enabled').checked})).filter(s=>s.url);
+let logo_url=$('logoUrl').value.trim();const file=$('logoFile').files[0];if(file){const ext=(file.name.split('.').pop()||'png').toLowerCase();const path=`${id}/${Date.now()}.${ext}`;const {error:upErr}=await db.storage.from('kp-channel-logos').upload(path,file,{upsert:true,contentType:file.type});if(upErr){msg($('editorMsg'),'Logo upload failed: '+upErr.message);return}logo_url=db.storage.from('kp-channel-logos').getPublicUrl(path).data.publicUrl}
+const payload={id,name,category:$('category').value,country:$('country').value.trim(),description:$('description').value.trim(),logo_url,stream_urls,is_active:$('active').checked,updated_at:new Date().toISOString()};
+const {error}=await db.from('kp_channels').upsert(payload);if(error){msg($('editorMsg'),error.message);return}msg($('editorMsg'),'Channel saved successfully.',true);await load();current=payload};
+$('deleteBtn').onclick=async()=>{if(!current?.id||!confirm('Permanently delete this channel?'))return;const {error}=await db.from('kp_channels').delete().eq('id',current.id);if(error){msg($('editorMsg'),error.message);return}$('editor').classList.add('hidden');await load()};
+db.auth.getSession().then(()=>boot());
+})();
+</script></body></html>
