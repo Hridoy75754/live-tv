@@ -61,14 +61,14 @@ a{color:inherit}
 .video-tools #screenRotate{font-size:21px}
 .video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
 .video-stage:fullscreen video{width:100%;height:100%}
-.video-stage.controls-hidden .video-tools{opacity:0;pointer-events:none}
+.video-stage.controls-hidden .video-tools{opacity:0;visibility:hidden;pointer-events:none}
 .video-tools{transition:opacity .22s ease}
 .gesture-hint{opacity:0;transition:opacity .18s ease}
 .gesture-hint.visible{opacity:1}
 .video-tools .screen-cycle small{font-size:8px;line-height:1;font-weight:800;letter-spacing:.4px}
 .gesture-hint{position:absolute;z-index:7;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:8px;padding:12px 15px;border-radius:22px;background:#000b;color:#fff;font-size:15px;font-weight:700;pointer-events:none}
 .gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}.gesture-zoom{left:50%;transform:translate(-50%,-50%)}
-.video-stage.gesture-active .video-tools{opacity:.22}
+.video-stage.gesture-active .video-tools{opacity:0;visibility:hidden;pointer-events:none}
 @media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
@@ -139,7 +139,7 @@ main{position:relative;z-index:3;margin-top:-4px}
         <span class="live-badge"><span class="live-dot"></span> LIVE</span>
       </div>
       <div class="video-stage" id="videoStage">
-        <video id="video" playsinline webkit-playsinline preload="auto" muted aria-label="Live TV player"></video>
+        <video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video>
         <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
         <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
         <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
@@ -226,7 +226,7 @@ function stop(){
 }
 function play(channel,start=0){
  stop();lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- video.muted=true;video.volume=Math.max(video.volume||0.8,0.8);video.setAttribute('muted','');
+ video.muted=false;video.removeAttribute('muted');if(!video.volume)video.volume=1;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';
  render();trySource();
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
@@ -239,7 +239,7 @@ function trySource(){
  if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false;const sourceTimeout=setTimeout(()=>fail(),20000);const fail=()=>{if(failed||!attempted.has(index)||failedIndices.has(index)||!lastChannel)return;failed=true;clearTimeout(sourceTimeout);failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(),120)};
- const startPlayback=()=>{if(index!==sourceIndex-1||!lastChannel)return;clearTimeout(sourceTimeout);video.play().then(()=>{$('playState').textContent='Playing live · muted; tap volume to unmute'}).catch(()=>{$('playState').textContent='Tap Play once if your browser blocks autoplay'})};
+ const startPlayback=()=>{if(index!==sourceIndex-1||!lastChannel)return;clearTimeout(sourceTimeout);video.muted=false;video.removeAttribute('muted');video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{video.muted=true;video.play().then(()=>{$('playState').textContent='Playing live · browser started muted; tap sound to enable'}).catch(()=>{$('playState').textContent='Tap Play once if your browser blocks autoplay'});syncPlaybackControls()})};
  const isHls=/\.m3u8($|[?#])/i.test(url);
  if(isHls&&window.Hls&&Hls.isSupported()){
    hls=new Hls({enableWorker:true,lowLatencyMode:true,backBufferLength:20,maxBufferLength:20,maxMaxBufferLength:30,startPosition:-1,manifestLoadingTimeOut:15000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:15000,levelLoadingMaxRetry:2});
@@ -252,7 +252,7 @@ function trySource(){
    video.addEventListener('canplay',startPlayback,{once:true});
    video.addEventListener('error',fail,{once:true});
    // Attempt muted autoplay immediately; canplay retries if the media was not ready yet.
-   video.play().then(()=>{$('playState').textContent='Playing live · muted; tap volume to unmute'}).catch(()=>{$('playState').textContent='Loading stream…'});
+   video.muted=false;video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{$('playState').textContent='Loading stream…';video.muted=true;video.play().catch(()=>{})});
  }
 }
 // Compact MX Player-style controls and touch gestures.
@@ -276,9 +276,9 @@ const screenSteps=[
  {label:'RESET',mode:'contain',zoom:1,title:'Reset to auto fit'}
 ];
 function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume)}
-playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=true;video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls()});
-volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls()});
-volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls()});
+playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls();showPlayerControls()});
+volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
+volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
 video.addEventListener('play',syncPlaybackControls);video.addEventListener('pause',syncPlaybackControls);video.addEventListener('volumechange',syncPlaybackControls);
 function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
 screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
@@ -293,6 +293,17 @@ async function enterLandscape(){
 $('screenRotate').addEventListener('click',enterLandscape);
 $('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement){await document.exitFullscreen();try{screen.orientation.unlock()}catch{}}else await enterLandscape()}catch{say('Fullscreen is not supported here')}});
 syncPlaybackControls();applyScreenStep(screenSteps[0]);
+// Auto-hide the entire bottom control strip AND its black gradient shadow.
+const controlsHideDelay=1800;let controlsHideTimer=null;
+function hidePlayerControls(){clearTimeout(controlsHideTimer);$('videoStage').classList.add('controls-hidden')}
+function showPlayerControls(){$('videoStage').classList.remove('controls-hidden');clearTimeout(controlsHideTimer);controlsHideTimer=setTimeout(hidePlayerControls,controlsHideDelay)}
+// Keep controls visible while the user is interacting with the control strip.
+$('videoStage').addEventListener('pointerdown',e=>{if(e.target.closest('.video-tools')){showPlayerControls()}else{showPlayerControls()}});
+$('videoStage').addEventListener('pointermove',e=>{if(e.pointerType==='mouse')showPlayerControls()},{passive:true});
+$('videoStage').addEventListener('click',e=>{if(!e.target.closest('.video-tools'))showPlayerControls()});
+$('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
+showPlayerControls();
+
 // Gesture indicators: each has its own timer and always hides after interaction ends.
 const hintTimers={brightness:null,volume:null,zoom:null};
 function showGestureHint(kind,value){
@@ -358,13 +369,13 @@ function finishPointer(e){
  if(!touchPoints.has(e.pointerId))return;
  touchPoints.delete(e.pointerId);
  if(pinching){
-  if(touchPoints.size<2){pinching=false;pinchStartDistance=0;hideGestureHint('zoom');}
+  if(touchPoints.size<2){pinching=false;pinchStartDistance=0;hideGestureHint('zoom');showPlayerControls();}
   if(touchPoints.size===1){gesture=null;}
   return;
  }
  if(gesture&&gesture.id===e.pointerId){
   const side=gesture.side,wasGesture=gesture.moved;gesture=null;stage.classList.remove('gesture-active');
-  if(wasGesture){clearTimeout(hintTimers[side]);hintTimers[side]=setTimeout(()=>hideGestureHint(side),650);}
+  if(wasGesture){clearTimeout(hintTimers[side]);hintTimers[side]=setTimeout(()=>hideGestureHint(side),650);showPlayerControls();}
  }
 }
 stage.addEventListener('pointerup',finishPointer);
