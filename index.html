@@ -38,7 +38,7 @@ a{color:inherit}
 .hero h1{margin:15px 0 14px;font-size:clamp(42px,6.2vw,82px);line-height:.98;letter-spacing:-2.7px;font-weight:900;text-shadow:0 3px 20px #0008}
 .hero-copy p{max-width:570px;margin:0;color:#e2e2e2;font-size:clamp(15px,1.5vw,19px);line-height:1.6;text-shadow:0 2px 10px #000}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.action{display:inline-flex;align-items:center;justify-coalamincom2026@gmail.comntent:center;gap:9px;border:0;border-radius:4px;padding:12px 22px;font-weight:800;text-decoration:none;transition:transform .15s,background .15s}
+.action{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:4px;padding:12px 22px;font-weight:800;text-decoration:none;transition:transform .15s,background .15s}
 .action:hover{transform:scale(1.03)}
 .action-primary{background:#f5f5f5;color:#111}
 .action-primary:hover{background:#ddd}
@@ -53,12 +53,12 @@ a{color:inherit}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
 .video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;transition:transform .16s ease,object-fit .16s ease}
-.video-tools{position:absolute;z-index:8;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;max-width:calc(100% - 16px);padding:6px;background:rgba(8,8,8,.78);border:1px solid rgba(255,255,255,.2);border-radius:999px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.video-tools button{min-width:34px;background:rgba(40,40,40,.94);border:1px solid #666;color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;touch-action:manipulation}
+.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:flex-start;gap:5px;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.88) 28%);border:0;border-radius:0;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);scrollbar-width:none}.video-tools::-webkit-scrollbar{display:none}
+.video-tools button{flex:0 0 auto;min-width:34px;background:rgba(20,20,20,.78);border:1px solid #888;color:#fff;border-radius:7px;padding:7px 9px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;touch-action:manipulation}
 .video-tools button:active{background:#8b1018;transform:scale(.96)}
 .video-tools button[aria-pressed="true"]{border-color:#ff3340;color:#fff;background:#64121a}
 .video-tools .zoom-value{color:#fff;font-size:11px;font-weight:700;min-width:42px;text-align:center}
-@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{top:7px;gap:4px;padding:5px}.video-tools button{font-size:11px;padding:6px 8px;min-width:30px}}
+@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:4px;padding:8px 6px calc(8px + env(safe-area-inset-bottom))}.video-tools button{font-size:10px;padding:7px 7px;min-width:28px}.video-tools .zoom-value{min-width:34px;font-size:10px}}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
 .mini-btn:hover{background:#333}
@@ -128,15 +128,20 @@ main{position:relative;z-index:3;margin-top:-4px}
         <span class="live-badge"><span class="live-dot"></span> LIVE</span>
       </div>
       <div class="video-stage" id="videoStage">
-        <video id="video" controls playsinline preload="none" aria-label="Live TV player"></video>
-        <div class="video-tools" aria-label="Video screen controls">
+        <video id="video" playsinline webkit-playsinline preload="none" aria-label="Live TV player"></video>
+        <div class="video-tools" aria-label="Video player controls">
+          <button type="button" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
+          <button type="button" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
+          <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1" style="width:58px;accent-color:#e50914;flex:0 0 58px">
+          <span class="control-divider" aria-hidden="true"></span>
           <button type="button" id="fitMode" aria-pressed="true" title="Fit video">FIT</button>
           <button type="button" id="stretchMode" aria-pressed="false" title="Stretch video">FILL</button>
-          <button type="button" id="cropMode" aria-pressed="false" title="Crop to fill screen">CROP</button>
+          <button type="button" id="cropMode" aria-pressed="false" title="Crop video">CROP</button>
           <button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">−</button>
           <span class="zoom-value" id="zoomValue">100%</span>
           <button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button>
           <button type="button" id="zoomReset" title="Reset zoom and fit">RESET</button>
+          <button type="button" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
         </div>
       </div>
       <div class="player-bottom"><span id="playState">Ready to play</span><button class="mini-btn" id="stopBtn" type="button">Stop</button></div>
@@ -206,7 +211,7 @@ function render(){
   });root.appendChild(section);
  }
 }
-function stop(){if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped'}
+function stop(){if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';if(typeof syncPlaybackControls==='function')syncPlaybackControls()}
 function play(channel,start=0){stop();lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();video.muted=true;$('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Starting channel (muted autoplay)…';render();trySource();$('playerPanel').scrollIntoView({behavior:'smooth',block:'center'})}
 function trySource(){
  if(!lastChannel)return;
@@ -225,6 +230,15 @@ function trySource(){
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(data.fatal){if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&hls){hls.recoverMediaError();return}fail()}});
  }else{video.src=url;video.play().then(()=>{$('playState').textContent='Playing live · muted; tap volume to unmute'}).catch(()=>{$('playState').textContent='Tap play to start this stream'});video.addEventListener('error',fail,{once:true})}
 }
+// Custom controls live inside the video frame, beside the volume control.
+const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
+function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume)}
+playPauseBtn.addEventListener('click',()=>{if(video.paused){video.play().catch(()=>{$('playState').textContent='এই স্ট্রিমটি চালাতে প্লে চাপুন'})}else video.pause();syncPlaybackControls()});
+volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls()});
+volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls()});
+video.addEventListener('play',syncPlaybackControls);video.addEventListener('pause',syncPlaybackControls);video.addEventListener('volumechange',syncPlaybackControls);
+$('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('videoStage').requestFullscreen)await $('videoStage').requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen()}catch{$('playState').textContent='Fullscreen is not supported here'}});
+syncPlaybackControls();
 function updateZoomUI(){
  $('zoomValue').textContent=Math.round(videoZoom*100)+'%';
  $('video').style.setProperty('--video-zoom',String(videoZoom));
