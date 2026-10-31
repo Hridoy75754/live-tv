@@ -231,9 +231,12 @@ body{padding-bottom:76px;background:#101010}
   <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
 </main>
 <nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
-<footer class="site-footer"><div class="footer-inner"><span>© Live TV · Your world, in one place.</span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
+<footer class="site-footer"><div class="footer-inner"><span>© KP Live TV · Your world, in one place.</span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+\n<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
@@ -486,8 +489,28 @@ $('search').addEventListener('input',render);
 $('category').addEventListener('change',render);
 document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories')$('categoryTabs').scrollIntoView({behavior:'smooth',block:'center'})}));
 async function init(){
- try{const response=await fetch('./channels.json',{cache:'no-store'});if(!response.ok)throw Error('channels.json HTTP '+response.status);channels=groupEntries(await response.json())}
- catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
+ try{
+   const supaUrl=window.KP_SUPABASE_URL||'';
+   const supaKey=window.KP_SUPABASE_ANON_KEY||'';
+   if(window.supabase&&supaUrl.startsWith('https://')&&supaKey&&!supaKey.includes('YOUR_')){
+     const client=window.supabase.createClient(supaUrl,supaKey);
+     const {data,error}=await client.from('kp_channels').select('*').eq('is_active',true).order('sort_order');
+     if(!error&&Array.isArray(data)&&data.length){
+       channels=groupEntries(data.map(row=>({
+         id:row.id,name:row.name,group:row.category,logo:row.logo_url,
+         urls:Array.isArray(row.stream_urls)?row.stream_urls.map(s=>typeof s==='string'?s:s.url).filter(Boolean):[]
+       })));
+     } else if(error) throw error;
+   }
+   if(!channels.length){
+     const response=await fetch('./channels.json',{cache:'no-store'});
+     if(!response.ok)throw Error('channels.json HTTP '+response.status);
+     channels=groupEntries(await response.json());
+   }
+ }catch{
+   try{const response=await fetch('./channels.json',{cache:'no-store'});if(response.ok)channels=groupEntries(await response.json())}
+   catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
+ }
  render();
  if(channels.length)autoPickByVisitorCountry();
  if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
