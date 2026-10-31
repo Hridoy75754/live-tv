@@ -52,13 +52,17 @@ a{color:inherit}
 .live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;transition:transform .16s ease,object-fit .16s ease}
-.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:flex-start;gap:5px;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.88) 28%);border:0;border-radius:0;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);scrollbar-width:none}.video-tools::-webkit-scrollbar{display:none}
-.video-tools button{flex:0 0 auto;min-width:34px;background:rgba(20,20,20,.78);border:1px solid #888;color:#fff;border-radius:7px;padding:7px 9px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;touch-action:manipulation}
-.video-tools button:active{background:#8b1018;transform:scale(.96)}
-.video-tools button[aria-pressed="true"]{border-color:#ff3340;color:#fff;background:#64121a}
-.video-tools .zoom-value{color:#fff;font-size:11px;font-weight:700;min-width:42px;text-align:center}
-@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:4px;padding:8px 6px calc(8px + env(safe-area-inset-bottom))}.video-tools button{font-size:10px;padding:7px 7px;min-width:28px}.video-tools .zoom-value{min-width:34px;font-size:10px}}
+.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;filter:brightness(1);transition:transform .16s ease,object-fit .16s ease,filter .12s ease}
+.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:9px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.88) 28%);scrollbar-width:none}
+.video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.video-tools button:active{background:#ffffff24;transform:scale(.94)}
+.video-tools #volumeLevel{width:68px;max-width:20vw;flex:0 1 68px;accent-color:#fff;height:4px;touch-action:pan-x}
+.video-tools .screen-cycle{min-width:48px;flex-direction:column;font-size:19px}
+.video-tools .screen-cycle small{font-size:8px;line-height:1;font-weight:800;letter-spacing:.4px}
+.gesture-hint{position:absolute;z-index:7;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:8px;padding:12px 15px;border-radius:22px;background:#000b;color:#fff;font-size:15px;font-weight:700;pointer-events:none}
+.gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}
+.video-stage.gesture-active .video-tools{opacity:.28}
+@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
 .mini-btn:hover{background:#333}
@@ -129,19 +133,14 @@ main{position:relative;z-index:3;margin-top:-4px}
       </div>
       <div class="video-stage" id="videoStage">
         <video id="video" playsinline webkit-playsinline preload="none" aria-label="Live TV player"></video>
+        <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
+        <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
         <div class="video-tools" aria-label="Video player controls">
-          <button type="button" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
-          <button type="button" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
-          <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1" style="width:58px;accent-color:#e50914;flex:0 0 58px">
-          <span class="control-divider" aria-hidden="true"></span>
-          <button type="button" id="fitMode" aria-pressed="true" title="Fit video">FIT</button>
-          <button type="button" id="stretchMode" aria-pressed="false" title="Stretch video">FILL</button>
-          <button type="button" id="cropMode" aria-pressed="false" title="Crop video">CROP</button>
-          <button type="button" id="zoomOut" aria-label="Zoom out" title="Zoom out">−</button>
-          <span class="zoom-value" id="zoomValue">100%</span>
-          <button type="button" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button>
-          <button type="button" id="zoomReset" title="Reset zoom and fit">RESET</button>
-          <button type="button" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
+          <button type="button" class="tool-icon" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
+          <button type="button" class="tool-icon" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
+          <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1">
+          <button type="button" class="tool-icon screen-cycle" id="screenCycle" title="Screen mode: Fit" aria-label="Change screen mode">⛶ <small id="screenModeLabel">FIT</small></button>
+          <button type="button" class="tool-icon" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
         </div>
       </div>
       <div class="player-bottom"><span id="playState">Ready to play</span><button class="mini-btn" id="stopBtn" type="button">Stop</button></div>
@@ -230,38 +229,71 @@ function trySource(){
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(data.fatal){if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&hls){hls.recoverMediaError();return}fail()}});
  }else{video.src=url;video.play().then(()=>{$('playState').textContent='Playing live · muted; tap volume to unmute'}).catch(()=>{$('playState').textContent='Tap play to start this stream'});video.addEventListener('error',fail,{once:true})}
 }
-// Custom controls live inside the video frame, beside the volume control.
+// Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
+const screenCycleBtn=$('screenCycle');
+let brightness=1,screenCycleIndex=0;
+const screenSteps=[
+ {label:'FIT',mode:'contain',zoom:1,title:'Fit'},
+ {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
+ {label:'FILL',mode:'fill',zoom:1,title:'Stretch'},
+ {label:'110%',mode:'cover',zoom:1.1,title:'Zoom 110%'},
+ {label:'120%',mode:'cover',zoom:1.2,title:'Zoom 120%'},
+ {label:'130%',mode:'cover',zoom:1.3,title:'Zoom 130%'},
+ {label:'140%',mode:'cover',zoom:1.4,title:'Zoom 140%'},
+ {label:'150%',mode:'cover',zoom:1.5,title:'Zoom 150%'},
+ {label:'160%',mode:'cover',zoom:1.6,title:'Zoom 160%'},
+ {label:'170%',mode:'cover',zoom:1.7,title:'Zoom 170%'},
+ {label:'180%',mode:'cover',zoom:1.8,title:'Zoom 180%'},
+ {label:'190%',mode:'cover',zoom:1.9,title:'Zoom 190%'},
+ {label:'200%',mode:'cover',zoom:2,title:'Zoom 200%'},
+ {label:'190%',mode:'contain',zoom:1.9,title:'Zoom out 190%'},
+ {label:'180%',mode:'contain',zoom:1.8,title:'Zoom out 180%'},
+ {label:'170%',mode:'contain',zoom:1.7,title:'Zoom out 170%'},
+ {label:'160%',mode:'contain',zoom:1.6,title:'Zoom out 160%'},
+ {label:'150%',mode:'contain',zoom:1.5,title:'Zoom out 150%'},
+ {label:'140%',mode:'contain',zoom:1.4,title:'Zoom out 140%'},
+ {label:'130%',mode:'contain',zoom:1.3,title:'Zoom out 130%'},
+ {label:'120%',mode:'contain',zoom:1.2,title:'Zoom out 120%'},
+ {label:'110%',mode:'contain',zoom:1.1,title:'Zoom out 110%'},
+ {label:'100%',mode:'contain',zoom:1,title:'Back to normal'},
+ {label:'90%',mode:'contain',zoom:.9,title:'Zoom out 90%'},
+ {label:'80%',mode:'contain',zoom:.8,title:'Zoom out 80%'},
+ {label:'70%',mode:'contain',zoom:.7,title:'Zoom out 70%'},
+ {label:'60%',mode:'contain',zoom:.6,title:'Zoom out 60%'},
+ {label:'50%',mode:'contain',zoom:.5,title:'Zoom out 50%'}
+];
 function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume)}
-playPauseBtn.addEventListener('click',()=>{if(video.paused){video.play().catch(()=>{$('playState').textContent='এই স্ট্রিমটি চালাতে প্লে চাপুন'})}else video.pause();syncPlaybackControls()});
+playPauseBtn.addEventListener('click',()=>{if(video.paused){video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls()});
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls()});
 volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls()});
 video.addEventListener('play',syncPlaybackControls);video.addEventListener('pause',syncPlaybackControls);video.addEventListener('volumechange',syncPlaybackControls);
-$('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('videoStage').requestFullscreen)await $('videoStage').requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen()}catch{$('playState').textContent='Fullscreen is not supported here'}});
-syncPlaybackControls();
-function updateZoomUI(){
- $('zoomValue').textContent=Math.round(videoZoom*100)+'%';
- $('video').style.setProperty('--video-zoom',String(videoZoom));
- $('fitMode').setAttribute('aria-pressed',String(screenFit==='contain'));
- $('stretchMode').setAttribute('aria-pressed',String(screenFit==='fill'));
- $('cropMode').setAttribute('aria-pressed',String(screenFit==='cover'));
-}
-function setScreenFit(mode){if(!['contain','fill','cover'].includes(mode))return;screenFit=mode;video.style.objectFit=mode;updateZoomUI()}
-function setZoom(value){videoZoom=Math.max(.5,Math.min(3,Math.round(value*20)/20));updateZoomUI()}
-$('fitMode').addEventListener('click',()=>setScreenFit('contain'));
-$('stretchMode').addEventListener('click',()=>setScreenFit('fill'));
-$('cropMode').addEventListener('click',()=>setScreenFit('cover'));
-$('zoomIn').addEventListener('click',()=>setZoom(videoZoom+.1));
-$('zoomOut').addEventListener('click',()=>setZoom(videoZoom-.1));
-$('zoomReset').addEventListener('click',()=>{videoZoom=1;setScreenFit('contain')});
-// Pinch-to-zoom uses pointer events so it works on modern Android browsers.
-let pinchStartDistance=0,pinchStartZoom=1;const activePointers=new Map();
-function pointerDistance(){const pts=[...activePointers.values()];return pts.length<2?0:Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)}
-$('videoStage').addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(activePointers.size===2){pinchStartDistance=pointerDistance();pinchStartZoom=videoZoom}}});
-$('videoStage').addEventListener('pointermove',e=>{if(activePointers.has(e.pointerId)){activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(activePointers.size===2&&pinchStartDistance>0){e.preventDefault();setZoom(pinchStartZoom*pointerDistance()/pinchStartDistance)}}});
-function endPointer(e){activePointers.delete(e.pointerId);if(activePointers.size<2)pinchStartDistance=0}
-$('videoStage').addEventListener('pointerup',endPointer);$('videoStage').addEventListener('pointercancel',endPointer);$('videoStage').addEventListener('lostpointercapture',endPointer);
-updateZoomUI();
+function applyScreenStep(step){screenFit=step.mode;video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
+screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
+$('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('videoStage').requestFullscreen)await $('videoStage').requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen()}catch{say('Fullscreen is not supported here')}});
+syncPlaybackControls();applyScreenStep(screenSteps[0]);
+// MX Player-like vertical swipes: left half adjusts video brightness, right half adjusts volume.
+let gesture=null,gestureStartValue=0,lastGestureValue=0,gestureHintTimer=null;
+function showGestureHint(kind,value){const el=$(kind==='volume'?'volumeHint':'brightnessHint');el.querySelector('span').textContent=Math.round(value*100)+'%';el.classList.add('visible');clearTimeout(gestureHintTimer);gestureHintTimer=setTimeout(()=>el.classList.remove('visible'),900)}
+const stage=$('videoStage');
+stage.addEventListener('pointerdown',e=>{
+ if(e.pointerType!=='touch'||e.target.closest('.video-tools'))return;
+ const rect=stage.getBoundingClientRect();const side=e.clientX<rect.left+rect.width/2?'brightness':'volume';
+ gesture={id:e.pointerId,side,startY:e.clientY,startX:e.clientX,moved:false};gestureStartValue=side==='volume'?(video.muted?0:video.volume):brightness;lastGestureValue=gestureStartValue;
+ try{stage.setPointerCapture(e.pointerId)}catch{}
+});
+stage.addEventListener('pointermove',e=>{
+ if(!gesture||gesture.id!==e.pointerId)return;
+ const dy=gesture.startY-e.clientY,dx=e.clientX-gesture.startX;
+ if(Math.abs(dy)>8&&Math.abs(dy)>Math.abs(dx)*1.15){gesture.moved=true;e.preventDefault();stage.classList.add('gesture-active');
+  const rect=stage.getBoundingClientRect(),delta=dy/Math.max(160,rect.height)*1.35;
+  const value=Math.max(0,Math.min(1,gestureStartValue+delta));lastGestureValue=value;
+  if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value)}
+  else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;showGestureHint('brightness',value)}
+ }
+});
+function finishGesture(e){if(!gesture||gesture.id!==e.pointerId)return;if(!gesture.moved&&Math.abs(e.clientX-gesture.startX)<12&&Math.abs(e.clientY-gesture.startY)<12){/* leave single tap to native video tap behavior */}gesture=null;stage.classList.remove('gesture-active')}
+stage.addEventListener('pointerup',finishGesture);stage.addEventListener('pointercancel',finishGesture);stage.addEventListener('lostpointercapture',finishGesture);
 video.addEventListener('playing',()=>$('playState').textContent='Playing live');
 video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
 video.addEventListener('stalled',()=>$('playState').textContent='Stream stalled');
