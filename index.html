@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
 <meta name="description" content="Watch live TV channels in one place.">
-<title>Live TV — Stream Your World</title>
+<title>KP Live TV</title>
 <style>
 :root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929}
 *{box-sizing:border-box}
@@ -108,29 +108,95 @@ main{position:relative;z-index:3;margin-top:-4px}
 @media(max-width:900px){.nav{gap:16px;min-height:65px}.nav-links{gap:12px}.hero-content{grid-template-columns:1fr;gap:20px;padding-top:120px}.hero{min-height:unset}.hero-copy{padding-bottom:0}.hero-player{max-width:680px;width:100%}.hero h1{font-size:clamp(42px,8vw,68px)}video{max-height:none}.browse-tools{padding-top:20px}}
 @media(max-width:600px){.nav{padding:0 4%;gap:10px;min-height:62px}.brand{font-size:22px}.brand-mark{width:27px;height:27px;font-size:16px}.nav-links{display:none}.search-wrap{padding:5px 3px}.search-wrap input{width:90px;font-size:12px}.nav-select{max-width:115px;padding:7px 5px;font-size:12px}.hero-content{padding:105px 4% 22px}.hero h1{font-size:43px;letter-spacing:-1.6px}.hero-copy p{font-size:14px}.hero-actions{margin-top:17px}.action{padding:10px 14px;font-size:13px}.browse-tools,.rows,.status-line{padding-left:4%;padding-right:4%}.browse-label{font-size:19px}.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.card-art{aspect-ratio:1/1}.card-art img{width:82%;height:82%}.card-info{padding:7px 6px 8px}.card-name{font-size:11px}.card-meta{font-size:9px;gap:3px;flex-wrap:wrap}.card-live{font-size:8px}.logo-fallback{font-size:20px;padding:4px}.logo-fallback small{font-size:8px}.category-row{margin-bottom:23px}.player-top{padding:10px}.player-bottom{padding:8px 10px}.site-footer{padding:20px 4%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+/* KP Live TV app-inspired layout */
+:root{--bg:#101010;--surface:#1d1d1f;--surface2:#292929;--text:#f7f2f2;--muted:#b9b0b0;--red:#f04444;--border:#303033;--accent:#3b2425}
+body{padding-bottom:76px;background:#101010}
+.site-header{background:#101010f2;backdrop-filter:blur(14px)}
+.nav{min-height:76px;padding:0 3.2%;gap:14px}
+.brand{color:#f4dfe3;font-size:clamp(23px,3vw,32px);letter-spacing:-.8px}
+.brand-mark{display:none}
+.nav-links{display:none}
+.search-wrap{margin-left:auto}
+.nav-select{border-radius:22px;background:#222;border-color:#383838}
+.hero{min-height:unset;display:block;padding-top:76px;background:#101010}
+.hero-backdrop{inset:76px 3.2% auto;height:230px;border-radius:26px;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),radial-gradient(circle at 75% 25%,#744b4c,#222 70%);overflow:hidden}
+.hero-backdrop:after{background:linear-gradient(0deg,#101010 0%,transparent 60%)}
+.hero-content{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:96px 3.2% 20px}
+.hero-copy{height:190px;max-width:none;padding:12px 14px 18px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#ffd5d8}
+.hero h1{font-size:clamp(30px,6vw,44px);letter-spacing:-1px;margin:9px 0 7px}
+.hero-copy p{font-size:14px;line-height:1.4;max-width:80%}
+.hero-actions{margin-top:14px}
+.action{border-radius:24px;padding:10px 18px;font-size:13px}
+.action-primary{background:#3b2425;color:#ffd6d6}
+.action-secondary{background:#333;color:#fff}
+.hero-player{width:100%;max-width:none;border-radius:18px;border-color:#292929;box-shadow:0 12px 30px #0008}
+.player-top{padding:12px 15px}
+.video-stage{max-height:58vh;border-radius:0}
+.player-bottom{padding:9px 13px}
+.category-tabs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:13px 3.2% 17px;position:relative;z-index:4;white-space:nowrap}
+.category-tabs::-webkit-scrollbar{display:none}
+.category-tab{flex:0 0 auto;border:0;border-radius:28px;background:#222;color:#eee;padding:11px 19px;font-size:14px;font-weight:700}
+.category-tab.active{background:#f04444;color:white}
+.browse-tools{padding:8px 3.2% 10px}
+.browse-label{font-size:22px;letter-spacing:-.4px}
+.filter-hint{font-size:12px}
+.rows{padding:0 3.2% 8px}
+.category-row{margin:10px 0 24px}
+.row-heading{align-items:center;margin:0 0 9px}
+.row-heading h2{font-size:22px;font-weight:800}
+.row-heading span{font-size:11px}
+.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:3px 0 8px}
+.rail.collapsed .channel-card:nth-child(n+7){display:none}
+.channel-card{border-radius:22px;border:1px solid #303033;background:#1d1d1f;box-shadow:0 5px 13px #0005}
+.channel-card:hover,.channel-card:focus-visible{transform:translateY(-2px);border-color:#555;box-shadow:0 8px 18px #0008}
+.channel-card.active{border:2px solid #f04444}
+.card-art{aspect-ratio:1/1.02;background:#1d1d1f}
+.card-art:after{display:none}
+.card-art img{width:58%;height:58%;filter:drop-shadow(0 2px 7px #0008)}
+.card-info{background:#262628;text-align:center;padding:9px 6px 10px;min-height:47px;display:flex;justify-content:center}
+.card-name{font-size:12px;font-weight:700;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.card-meta{display:none}
+.card-play{right:9px;top:8px;bottom:auto;width:23px;height:23px;border-radius:50%;font-size:10px}
+.channel-card:before{content:'LIVE';position:absolute;z-index:4;right:8px;top:8px;background:#f04444;color:#fff;border-radius:15px;padding:3px 8px;font-size:9px;font-weight:800}
+.channel-card .card-play{display:none}
+.fav-mark{position:absolute;z-index:5;left:8px;top:8px;width:25px;height:25px;border-radius:50%;background:#101010dd;color:#fff;display:grid;place-items:center;font-size:16px;line-height:1}
+.fav-mark.is-favorite{color:#f04444}
+.see-all-btn{font-size:12px;color:#f5bfc3}
+.sports-subheading{font-size:14px;margin:14px 0 8px;color:#eee}
+.mobile-dock{position:fixed;z-index:60;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:center;gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#2a1e1f;border-top:1px solid #3a2a2b;box-shadow:0 -8px 24px #0006}
+.dock-item{flex:1;min-width:0;border:0;background:transparent;color:#d4c3c4;display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;border-radius:20px}
+.dock-item span{font-size:23px;line-height:1.15}
+.dock-item small{font-size:10px}
+.dock-item.active{color:#fff;background:#583b3d}
+.site-footer{padding-bottom:100px}
+@media(min-width:900px){.hero-content{max-width:1300px}.hero-backdrop{max-width:1220px;left:calc((100% - 1220px)/2);right:auto;width:1220px}.hero-copy{height:210px}.rail{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.card-art{aspect-ratio:1.25/1}.category-tabs,.browse-tools,.rows{max-width:1300px;margin-left:auto;margin-right:auto}}
+@media(max-width:600px){.nav{min-height:72px;padding:0 3.2%;gap:7px}.brand{font-size:23px}.search-wrap{padding:4px}.search-wrap input{width:0;max-width:0;padding:0;transition:width .2s}.search-wrap:focus-within input{width:95px;max-width:95px}.nav-select{max-width:112px;font-size:11px;padding:7px 8px}.hero-content{padding:90px 3.2% 15px;gap:12px}.hero-backdrop{top:72px;height:205px;left:3.2%;right:3.2%}.hero-copy{height:170px;padding:8px 10px}.hero h1{font-size:32px}.hero-copy p{font-size:12px}.hero-actions{margin-top:10px}.action{padding:8px 14px;font-size:12px}.hero-player{border-radius:15px}.category-tabs{padding-top:11px;padding-bottom:14px;gap:8px}.category-tab{padding:10px 16px;font-size:13px}.browse-tools,.rows{padding-left:3.2%;padding-right:3.2%}.browse-label{font-size:20px}.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.card-art{aspect-ratio:1/1.02}.card-info{padding:8px 4px;min-height:42px}.card-name{font-size:11px}.channel-card{border-radius:19px}.category-row{margin-bottom:19px}.row-heading h2{font-size:19px}.row-heading span{font-size:10px}.mobile-dock{padding-top:7px}.dock-item span{font-size:22px}.dock-item small{font-size:9px}}
+
 </style>
 </head>
 <body>
 <header class="site-header">
   <nav class="nav" aria-label="Main navigation">
-    <a class="brand" href="#" aria-label="Live TV home"><span class="brand-mark">▶</span><span>LIVE TV</span></a>
-    <div class="nav-links"><a href="#browse">Home</a><a href="#browse">Channels</a><a href="#browse">Categories</a></div>
+    <a class="brand" href="#home" aria-label="KP Live TV home"><span>KP Live TV</span></a>
+    <div class="nav-links"><a href="#home">Home</a><a href="#browse">Live TV</a></div>
     <div class="nav-spacer"></div>
     <label class="search-wrap" aria-label="Search channels"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="Search channels…" autocomplete="off"></label>
     <select class="nav-select" id="category" aria-label="Filter by category"><option value="">All categories</option></select>
   </nav>
 </header>
 
-<section class="hero" aria-label="Featured live TV">
+<section class="hero" id="home" aria-label="KP Live TV home">
   <div class="hero-backdrop"></div>
   <div class="hero-content">
     <div class="hero-copy">
-      <div class="eyebrow"><span class="eyebrow-mark">▶</span> YOUR WORLD. LIVE.</div>
-      <h1>Entertainment<br>without limits.</h1>
-      <p>Discover live news, sports, movies, music and more — all in one place. Choose a channel below and start watching.</p>
+      <div class="eyebrow"><span class="eyebrow-mark">●</span> KP LIVE TV</div>
+      <h1>News Live</h1>
+      <p>24 Hours Breaking News · Sports · Movies · Entertainment</p>
       <div class="hero-actions">
-        <button class="action action-primary" id="browseBtn" type="button">▶ &nbsp; Browse channels</button>
-        <button class="action action-secondary" id="heroFullscreenBtn" type="button">⛶ &nbsp; Fullscreen player</button>
+        <button class="action action-primary" id="browseBtn" type="button">▶ &nbsp; Watch Now</button>
+        <button class="action action-secondary" id="heroFullscreenBtn" type="button">⛶ &nbsp; Fullscreen</button>
       </div>
     </div>
     <div class="hero-player" id="playerPanel">
@@ -158,10 +224,13 @@ main{position:relative;z-index:3;margin-top:-4px}
 </section>
 
 <main id="browse">
-  <div class="browse-tools"><span class="browse-label">Explore channels</span><span class="filter-hint" id="filterHint">Pick a channel to watch live</span></div>
+  <div class="category-tabs" id="categoryTabs" aria-label="Channel categories"><button class="category-tab active" type="button" data-target="all">Live TV</button></div>
+  <div class="browse-tools"><span class="browse-label">🔥 Trending</span><span class="filter-hint" id="filterHint">Choose a channel to watch live</span></div>
+  <div class="rows" id="trendingRows"></div>
   <div class="rows" id="channelRows"><div class="empty">Loading channels…</div></div>
   <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
 </main>
+<nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
 <footer class="site-footer"><div class="footer-inner"><span>© Live TV · Your world, in one place.</span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -192,20 +261,27 @@ function makeCard(channel, groupLabel){
  const art=document.createElement('span');art.className='card-art';
  const addFallback=()=>{const fallback=document.createElement('span');fallback.className='logo-fallback';fallback.innerHTML=`${esc(channel.name.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase())}<small>${esc(channel.name)}</small>`;art.prepend(fallback)};
  if(channel.logo){const img=document.createElement('img');img.loading='lazy';img.alt=channel.name+' logo';img.referrerPolicy='no-referrer';img.src=channel.logo;img.onerror=()=>{img.remove();addFallback()};art.appendChild(img)}else addFallback();
+ const fav=document.createElement('span');fav.className='fav-mark';fav.textContent='♡';fav.setAttribute('role','button');fav.setAttribute('aria-label','Add to favorites');fav.tabIndex=0;const favKey='kp-live-favorites';const getFavs=()=>{try{return JSON.parse(localStorage.getItem(favKey)||'[]')}catch{return []}};const paintFav=()=>{const yes=getFavs().includes(channel.id);fav.classList.toggle('is-favorite',yes);fav.textContent=yes?'♥':'♡'};paintFav();const toggleFav=e=>{e.stopPropagation();const arr=getFavs(),i=arr.indexOf(channel.id);if(i>=0)arr.splice(i,1);else arr.push(channel.id);try{localStorage.setItem(favKey,JSON.stringify(arr))}catch{}paintFav()};fav.addEventListener('click',toggleFav);fav.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleFav(e)}});art.appendChild(fav);
  const playIcon=document.createElement('span');playIcon.className='card-play';playIcon.textContent='▶';art.appendChild(playIcon);
  const info=document.createElement('span');info.className='card-info';const name=document.createElement('span');name.className='card-name';name.textContent=channel.name;
  const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>play(channel,0));return card;
 }
+function renderCategoryTabs(categories){
+ const tabs=$('categoryTabs');if(!tabs)return;tabs.innerHTML='';
+ const defs=[['Live TV','all'],['Sports','sports'],['Movies','movies'],['News','news'],['Kids','kids'],['Music','music'],['Religious','religious'],['Radio','radio']];
+ defs.forEach(([label,key],i)=>{if(key!=='all'&&!categories.some(g=>key==='movies'?(g.toLowerCase().includes('movies')||g.toLowerCase().includes('bollywood')):g.toLowerCase().includes(key)))return;const b=document.createElement('button');b.type='button';b.className='category-tab'+(i===0?' active':'');b.textContent=label;b.dataset.target=key; b.addEventListener('click',()=>{tabs.querySelectorAll('.category-tab').forEach(x=>x.classList.toggle('active',x===b));if(key==='all'){$('category').value='';$('search').value='';render()}else{const section=[...document.querySelectorAll('.category-row')].find(sec=>sec.dataset.group&&(key==='movies'?(sec.dataset.group.toLowerCase().includes('movies')||sec.dataset.group.toLowerCase().includes('bollywood')):sec.dataset.group.toLowerCase().includes(key)));if(section)section.scrollIntoView({behavior:'smooth',block:'start'});else{$('category').value=categories.find(g=>key==='movies'?(g.toLowerCase().includes('movies')||g.toLowerCase().includes('bollywood')):g.toLowerCase().includes(key))||'';render()}}});tabs.appendChild(b)});
+}
+function renderTrending(list){const root=$('trendingRows');if(!root)return;root.innerHTML='';const rail=document.createElement('div');rail.className='rail';list.slice(0,6).forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}
 function render(){
  const query=$('search').value.trim().toLowerCase(),selected=$('category').value;
  const categories=[...new Set(channels.map(channel=>channel.group||'Other'))].sort((a,b)=>groupRank(a)-groupRank(b)||a.localeCompare(b));
- const categorySelect=$('category'),previous=categorySelect.value;categorySelect.innerHTML='<option value="">All categories</option>'+categories.map(group=>`<option value="${esc(group)}">${esc(group)}</option>`).join('');if(categories.includes(selected||previous))categorySelect.value=selected||previous;
+ const categorySelect=$('category'),previous=categorySelect.value;categorySelect.innerHTML='<option value="">All categories</option>'+categories.map(group=>`<option value="${esc(group)}">${esc(group)}</option>`).join('');if(categories.includes(selected||previous))categorySelect.value=selected||previous;renderCategoryTabs(categories);
  const filtered=channels.filter(channel=>(!query||(channel.name+' '+channel.group).toLowerCase().includes(query))&&(!categorySelect.value||channel.group===categorySelect.value));
- $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Choose a channel or use See All Channel to browse';const root=$('channelRows');root.innerHTML='';if(!filtered.length){root.innerHTML='<div class="empty">No channels found. Try another search or category.</div>';return}
+ $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Choose a channel to watch live';const root=$('channelRows');root.innerHTML='';if(!query&&!categorySelect.value)renderTrending(channels);else $('trendingRows').innerHTML='';if(!filtered.length){root.innerHTML='<div class="empty">No channels found. Try another search or category.</div>';return}
  const groups=new Map();filtered.forEach(c=>{const g=c.group||'Other';if(!groups.has(g))groups.set(g,[]);groups.get(g).push(c)});
  const ordered=[...groups.entries()].sort((a,b)=>groupRank(a[0])-groupRank(b[0])||a[0].localeCompare(b[0]));
  for(const [group,items] of ordered){
-  const isSports=group.toLowerCase()==='sports';const section=document.createElement('section');section.className='category-row';const heading=document.createElement('div');heading.className='row-heading';const title=document.createElement('h2');title.textContent=group;const actions=document.createElement('div');actions.className='heading-actions';const count=document.createElement('span');count.textContent=`${items.length} channels`;const seeAll=document.createElement('button');seeAll.type='button';seeAll.className='see-all-btn';seeAll.textContent='See All Channel';actions.append(count,seeAll);heading.append(title,actions);section.appendChild(heading);
+  const isSports=group.toLowerCase()==='sports';const section=document.createElement('section');section.className='category-row';section.dataset.group=group;const heading=document.createElement('div');heading.className='row-heading';const title=document.createElement('h2');title.textContent=group;const actions=document.createElement('div');actions.className='heading-actions';const count=document.createElement('span');count.textContent=`${items.length} channels`;const seeAll=document.createElement('button');seeAll.type='button';seeAll.className='see-all-btn';seeAll.textContent='See All Channel';actions.append(count,seeAll);heading.append(title,actions);section.appendChild(heading);
   const body=document.createElement('div');body.className='category-content';section.appendChild(body);
   const orderedItems=isSports?[...items].sort((a,b)=>{const order={'Bangladesh':0,'India':1,'Pakistan':2,'International & Other':3};return order[sportsCountry(a)]-order[sportsCountry(b)]||a.name.localeCompare(b.name)}):items;
   const initial=document.createElement('div');initial.className='rail collapsed';initial.setAttribute('aria-label',group+' channels');orderedItems.forEach(c=>initial.appendChild(makeCard(c,group)));body.appendChild(initial);
@@ -408,6 +484,7 @@ $('heroFullscreenBtn').addEventListener('click',fullscreen);
 $('browseBtn').addEventListener('click',()=>$('browse').scrollIntoView({behavior:'smooth'}));
 $('search').addEventListener('input',render);
 $('category').addEventListener('change',render);
+document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories')$('categoryTabs').scrollIntoView({behavior:'smooth',block:'center'})}));
 async function init(){
  try{const response=await fetch('./channels.json',{cache:'no-store'});if(!response.ok)throw Error('channels.json HTTP '+response.status);channels=groupEntries(await response.json())}
  catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
