@@ -67,7 +67,7 @@ a{color:inherit}
 .gesture-hint.visible{opacity:1}
 .video-tools .screen-cycle small{font-size:8px;line-height:1;font-weight:800;letter-spacing:.4px}
 .gesture-hint{position:absolute;z-index:7;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:8px;padding:12px 15px;border-radius:22px;background:#000b;color:#fff;font-size:15px;font-weight:700;pointer-events:none}
-.gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}
+.gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}.gesture-zoom{left:50%;transform:translate(-50%,-50%)}
 .video-stage.gesture-active .video-tools{opacity:.22}
 @media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
@@ -142,6 +142,7 @@ main{position:relative;z-index:3;margin-top:-4px}
         <video id="video" playsinline webkit-playsinline preload="auto" muted aria-label="Live TV player"></video>
         <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
         <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
+        <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
         <div class="video-tools" aria-label="Video player controls">
           <button type="button" class="tool-icon" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
           <button type="button" class="tool-icon" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
@@ -292,35 +293,83 @@ async function enterLandscape(){
 $('screenRotate').addEventListener('click',enterLandscape);
 $('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement){await document.exitFullscreen();try{screen.orientation.unlock()}catch{}}else await enterLandscape()}catch{say('Fullscreen is not supported here')}});
 syncPlaybackControls();applyScreenStep(screenSteps[0]);
-// Independent, reliable auto-hide timers for the two gesture indicators.
-const hintTimers={brightness:null,volume:null};
-function showGestureHint(kind,value){const el=$(kind==='volume'?'volumeHint':'brightnessHint');el.querySelector('span').textContent=Math.round(value*100)+'%';el.classList.add('visible');clearTimeout(hintTimers[kind]);hintTimers[kind]=setTimeout(()=>{el.classList.remove('visible');hintTimers[kind]=null},1100)}
-function hideGestureHint(kind){const el=$(kind==='volume'?'volumeHint':'brightnessHint');clearTimeout(hintTimers[kind]);hintTimers[kind]=null;el.classList.remove('visible')}
+// Gesture indicators: each has its own timer and always hides after interaction ends.
+const hintTimers={brightness:null,volume:null,zoom:null};
+function showGestureHint(kind,value){
+ const ids={volume:'volumeHint',brightness:'brightnessHint',zoom:'zoomHint'};
+ const el=$(ids[kind]); if(!el)return;
+ el.querySelector('span').textContent=Math.round(value*100)+'%';
+ el.classList.add('visible');
+ clearTimeout(hintTimers[kind]);
+ hintTimers[kind]=setTimeout(()=>hideGestureHint(kind),850);
+}
+function hideGestureHint(kind){
+ const ids={volume:'volumeHint',brightness:'brightnessHint',zoom:'zoomHint'};
+ const el=$(ids[kind]); if(!el)return;
+ clearTimeout(hintTimers[kind]);hintTimers[kind]=null;el.classList.remove('visible');
+}
 const stage=$('videoStage');
 let gesture=null,gestureStartValue=0;
+const touchPoints=new Map();
+let pinchStartDistance=0,pinchStartZoom=1,pinching=false;
+function distanceBetweenTouches(){
+ const pts=[...touchPoints.values()];
+ if(pts.length<2)return 0;
+ return Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+}
+function applyPinchZoom(){
+ const distance=distanceBetweenTouches();
+ if(!distance||!pinchStartDistance)return;
+ videoZoom=Math.max(.5,Math.min(3,Math.round((pinchStartZoom*distance/pinchStartDistance)*100)/100));
+ video.style.transform=`scale(${videoZoom})`;
+ showGestureHint('zoom',videoZoom);
+}
 stage.addEventListener('pointerdown',e=>{
  if(e.pointerType!=='touch'||e.target.closest('.video-tools'))return;
- const rect=stage.getBoundingClientRect();const side=e.clientX<rect.left+rect.width/2?'brightness':'volume';
- gesture={id:e.pointerId,side,startY:e.clientY,startX:e.clientX,moved:false};gestureStartValue=side==='volume'?(video.muted?0:video.volume):brightness;
+ touchPoints.set(e.pointerId,{x:e.clientX,y:e.clientY});
  try{stage.setPointerCapture(e.pointerId)}catch{}
+ if(touchPoints.size===2){
+  pinching=true;gesture=null;stage.classList.remove('gesture-active');
+  pinchStartDistance=distanceBetweenTouches();pinchStartZoom=videoZoom;
+  hideGestureHint('brightness');hideGestureHint('volume');
+  return;
+ }
+ if(touchPoints.size>2)return;
+ const rect=stage.getBoundingClientRect();
+ const side=e.clientX<rect.left+rect.width/2?'brightness':'volume';
+ gesture={id:e.pointerId,side,startY:e.clientY,startX:e.clientX,moved:false};
+ gestureStartValue=side==='volume'?(video.muted?0:video.volume):brightness;
 });
 stage.addEventListener('pointermove',e=>{
- if(!gesture||gesture.id!==e.pointerId)return;
+ if(!touchPoints.has(e.pointerId))return;
+ touchPoints.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(touchPoints.size>=2&&pinching){e.preventDefault();applyPinchZoom();return;}
+ if(!gesture||gesture.id!==e.pointerId||touchPoints.size!==1)return;
  const dy=gesture.startY-e.clientY,dx=e.clientX-gesture.startX;
  if(Math.abs(dy)>7&&Math.abs(dy)>Math.abs(dx)*1.1){
   gesture.moved=true;e.preventDefault();stage.classList.add('gesture-active');
   const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
   const value=Math.max(0,Math.min(1,gestureStartValue+delta));
-  if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value)}
-  else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;showGestureHint('brightness',value)}
+  if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
+  else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;showGestureHint('brightness',value);}
  }
 });
-function finishGesture(e){
- if(!gesture||gesture.id!==e.pointerId)return;
- const wasGesture=gesture.moved,side=gesture.side;gesture=null;stage.classList.remove('gesture-active');
- if(wasGesture){setTimeout(()=>hideGestureHint(side),1200)}
+function finishPointer(e){
+ if(!touchPoints.has(e.pointerId))return;
+ touchPoints.delete(e.pointerId);
+ if(pinching){
+  if(touchPoints.size<2){pinching=false;pinchStartDistance=0;hideGestureHint('zoom');}
+  if(touchPoints.size===1){gesture=null;}
+  return;
+ }
+ if(gesture&&gesture.id===e.pointerId){
+  const side=gesture.side,wasGesture=gesture.moved;gesture=null;stage.classList.remove('gesture-active');
+  if(wasGesture){clearTimeout(hintTimers[side]);hintTimers[side]=setTimeout(()=>hideGestureHint(side),650);}
+ }
 }
-stage.addEventListener('pointerup',finishGesture);stage.addEventListener('pointercancel',finishGesture);stage.addEventListener('lostpointercapture',finishGesture);
+stage.addEventListener('pointerup',finishPointer);
+stage.addEventListener('pointercancel',finishPointer);
+stage.addEventListener('lostpointercapture',finishPointer);
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){try{screen.orientation.unlock()}catch{}}});
 video.addEventListener('playing',()=>$('playState').textContent='Playing live');
 video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
