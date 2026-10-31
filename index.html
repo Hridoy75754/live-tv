@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
 <meta name="description" content="Watch live TV channels in one place.">
-<title>KP Live TV</title>
+<title>KP Live TV TK</title>
 <style>
 :root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929}
 *{box-sizing:border-box}
@@ -191,12 +191,13 @@ body{padding-bottom:76px;background:#101010}
 .player-container .hero-player{width:100%;max-width:none;margin:0 auto;border-radius:18px;border:1px solid #292929;box-shadow:0 12px 30px #0008}
 @media(max-width:600px){.player-section{padding:82px 3.2% 8px}.player-container .hero-player{border-radius:15px}}
 
+.category-tabs{flex-wrap:nowrap!important;overflow-x:auto!important;white-space:nowrap!important;justify-content:flex-start;scrollbar-width:none}.category-tabs::-webkit-scrollbar{display:none}.category-tab{flex:0 0 auto!important}.social-links{display:flex;gap:12px;flex-wrap:wrap}.social-links a{color:inherit;text-decoration:none}.social-links a:hover{color:var(--accent)}.trending-main-title{font-size:22px;margin:0 0 14px}.trending-section .row-heading{margin-top:14px}.kp-notification-bar{position:relative;z-index:25;min-height:40px}
 </style>
 </head>
 <body>
 <header class="site-header">
   <nav class="nav" aria-label="Main navigation">
-    <a class="brand" href="#home" aria-label="KP Live TV home"><span>KP Live TV</span></a>
+    <a class="brand" href="#home" aria-label="KP Live TV home"><span id="siteBrandTitle">KP Live TV</span></a>
     <div class="nav-links"><a href="#home">Home</a><a href="#browse">Live TV</a></div>
     <div class="nav-spacer"></div>
     <label class="search-wrap" aria-label="Search channels"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="Search channels…" autocomplete="off"></label>
@@ -234,13 +235,13 @@ body{padding-bottom:76px;background:#101010}
 
 <main id="browse">
   <div class="category-tabs" id="categoryTabs" aria-label="Channel categories"><button class="category-tab active" type="button" data-target="all">Live TV</button></div>
-  <div class="browse-tools"><span class="browse-label">🔥 Trending</span><span class="filter-hint" id="filterHint">Choose a channel to watch live</span></div>
+  <div class="browse-tools"><span class="filter-hint" id="filterHint">Choose a channel to watch live</span></div>
   <div class="rows" id="trendingRows"></div>
   <div class="rows" id="channelRows"><div class="empty">Loading channels…</div></div>
   <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
 </main>
 <nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
-<footer class="site-footer"><div class="footer-inner"><span>© KP Live TV · Your world, in one place.</span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
+<footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -280,32 +281,38 @@ function makeCard(channel, groupLabel){
 }
 function renderCategoryTabs(categories){
  const tabs=$('categoryTabs');if(!tabs)return;tabs.innerHTML='';
- const defs=[['Live TV','all'],...categories.filter(g=>g.toLowerCase()!=='movies').map(g=>[g,g.toLowerCase()]),['Movies','movies']];
- const seen=new Set();defs.forEach(([label,key],i)=>{if(seen.has(key))return;seen.add(key);const b=document.createElement('button');b.type='button';b.className='category-tab'+(i===0?' active':'');b.textContent=label;b.dataset.target=key;b.addEventListener('click',()=>{tabs.querySelectorAll('.category-tab').forEach(x=>x.classList.toggle('active',x===b));$('search').value='';if(key==='all'){$('category').value='';render();return}if(key==='movies'){$('category').value='';$('trendingRows').innerHTML='';$('channelRows').innerHTML='<div class="empty">Movies library is coming soon.</div>';$('filterHint').textContent='Movies';return}const match=categories.find(g=>g.toLowerCase()===key||g.toLowerCase()===label.toLowerCase());$('category').value=match||'';render()});tabs.appendChild(b)});
+ const defs=[['Live TV','all'],...categories.map(c=>[c.name||c,c.name||c])];
+ const movies={name:'Movies',id:'movies'};if(!defs.some(x=>String(x[0]).toLowerCase()==='movies'))defs.push(['Movies','movies']);
+ defs.forEach(([label,key],i)=>{const b=document.createElement('button');b.type='button';b.className='category-tab'+(i===0?' active':'');b.textContent=(i>0&&managedCategories.find(c=>c.name===label)?.icon?managedCategories.find(c=>c.name===label).icon+' ':'')+label;b.dataset.target=key;b.addEventListener('click',()=>{tabs.querySelectorAll('.category-tab').forEach(x=>x.classList.toggle('active',x===b));$('search').value='';if(key==='all'){$('category').value='';render();return}if(key==='movies'){$('category').value='';$('trendingRows').innerHTML='';$('channelRows').innerHTML='<div class="empty">Movies library is coming soon.</div>';$('filterHint').textContent='Movies';return}$('category').value=key;render()});tabs.appendChild(b)});
 }
-function renderTrending(list){const root=$('trendingRows');if(!root)return;root.innerHTML='';if(siteSettings.homepage?.show_trending===false)return;const picks=trendingItems.map(t=>channels.find(c=>c.id===t.channel_id)).filter(Boolean);if(!picks.length)return;const section=document.createElement('section');section.className='category-row trending-section';const h=document.createElement('div');h.className='row-heading';const title=document.createElement('h2');title.textContent=(siteSettings.homepage&&siteSettings.homepage.trending_title)||'🔥 Trending Now';h.appendChild(title);section.appendChild(h);const rail=document.createElement('div');rail.className='rail';picks.slice(0,12).forEach(c=>rail.appendChild(makeCard(c,c.group)));section.appendChild(rail);root.appendChild(section)}
+function renderTrending(){
+ const root=$('trendingRows');if(!root)return;root.innerHTML='';if(siteSettings.homepage?.show_trending===false)return;
+ const valid=trendingItems.map(t=>({item:t,channel:channels.find(c=>c.id===t.channel_id)})).filter(x=>x.channel);if(!valid.length)return;
+ const section=document.createElement('section');section.className='category-row trending-section';
+ const title=document.createElement('h2');title.className='trending-main-title';title.textContent='🔥 Trending Now';section.appendChild(title);
+ const byTopic=new Map();valid.forEach(({item,channel})=>{const topic=(item.topic||'Trending').trim();if(!byTopic.has(topic))byTopic.set(topic,[]);byTopic.get(topic).push(channel)});
+ for(const [topic,list] of byTopic){const h=document.createElement('div');h.className='row-heading';const t=document.createElement('h3');t.textContent=topic;const count=document.createElement('span');count.textContent=list.length+' channel(s)';h.append(t,count);section.appendChild(h);const rail=document.createElement('div');rail.className='rail';list.forEach(c=>rail.appendChild(makeCard(c,c.group)));section.appendChild(rail)}
+ root.appendChild(section);
+}
+function normalizeSearch(v){return String(v||'').toLocaleLowerCase('bn').normalize('NFKC').replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[\u200c\u200d]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ')}
+function translit(v){return normalizeSearch(v).replace(/সময়|সময়/g,'somoy').replace(/নিউজ/g,'news').replace(/বাংলা/g,'bangla').replace(/খবর/g,'khobor')}
+function editDistance(a,b){if(a.length>80||b.length>80)return 99;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old}}return row[b.length]}
+function searchScore(channel,q){const n=normalizeSearch(channel.name),g=normalizeSearch(channel.group),a=translit(q),b=translit(n+' '+g);if(!q)return 1;if(n===q||b===a)return 100;if(n.startsWith(q)||b.startsWith(a))return 85;if(n.includes(q)||b.includes(a))return 70;const words=b.split(' '),qw=a.split(' ');let score=0;for(const w of qw){if(!w)continue;if(words.some(x=>x===w))score+=18;else if(words.some(x=>editDistance(x,w)<=Math.max(1,Math.floor(w.length*.25))))score+=10}return score}
 function render(){
- const query=$('search').value.trim().toLowerCase(),selected=$('category').value;
- const categories=[...new Set(channels.map(channel=>channel.group||'Other'))].sort((a,b)=>groupRank(a)-groupRank(b)||a.localeCompare(b));
- const categorySelect=$('category'),previous=categorySelect.value;categorySelect.innerHTML='<option value="">All categories</option>'+categories.map(group=>`<option value="${esc(group)}">${esc(group)}</option>`).join('');if(categories.includes(selected||previous))categorySelect.value=selected||previous;const visibleCategories=managedCategories.length?categories.filter(g=>managedCategories.some(c=>c.name.toLowerCase()===g.toLowerCase())):categories;renderCategoryTabs(visibleCategories);
- const filtered=channels.filter(channel=>(!query||(channel.name+' '+channel.group).toLowerCase().includes(query))&&(!categorySelect.value||channel.group===categorySelect.value));
- $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Choose a channel to watch live';const root=$('channelRows');root.innerHTML='';if(!query&&!categorySelect.value)renderTrending(channels);else $('trendingRows').innerHTML='';if(!filtered.length){root.innerHTML='<div class="empty">No channels found. Try another search or category.</div>';return}
- const groups=new Map();filtered.forEach(c=>{const g=c.group||'Other';if(!groups.has(g))groups.set(g,[]);groups.get(g).push(c)});
- const ordered=[...groups.entries()].sort((a,b)=>groupRank(a[0])-groupRank(b[0])||a[0].localeCompare(b[0]));
- for(const [group,items] of ordered){
-  const isSports=group.toLowerCase()==='sports';const section=document.createElement('section');section.className='category-row';section.dataset.group=group;const heading=document.createElement('div');heading.className='row-heading';const title=document.createElement('h2');title.textContent=group;const actions=document.createElement('div');actions.className='heading-actions';const count=document.createElement('span');count.textContent=`${items.length} channels`;const seeAll=document.createElement('button');seeAll.type='button';seeAll.className='see-all-btn';seeAll.textContent='See All Channel';actions.append(count,seeAll);heading.append(title,actions);section.appendChild(heading);
-  const body=document.createElement('div');body.className='category-content';section.appendChild(body);
-  const orderedItems=isSports?[...items].sort((a,b)=>{const order={'Bangladesh':0,'India':1,'Pakistan':2,'International & Other':3};return order[sportsCountry(a)]-order[sportsCountry(b)]||a.name.localeCompare(b.name)}):items;
-  const initial=document.createElement('div');initial.className='rail collapsed';initial.setAttribute('aria-label',group+' channels');orderedItems.forEach(c=>initial.appendChild(makeCard(c,group)));body.appendChild(initial);
-  let expanded=false;
-  seeAll.addEventListener('click',()=>{
-   expanded=!expanded;seeAll.textContent=expanded?'Show Less':'See All Channel';
-   if(isSports){
-    if(expanded){initial.style.display='none';body.querySelectorAll('.sports-expanded').forEach(n=>n.remove());const byCountry=new Map();orderedItems.forEach(c=>{const k=sportsCountry(c);if(!byCountry.has(k))byCountry.set(k,[]);byCountry.get(k).push(c)});for(const [country,list] of byCountry){const sub=document.createElement('div');sub.className='sports-expanded';const h=document.createElement('h3');h.className='sports-subheading';h.textContent=country;const grid=document.createElement('div');grid.className='rail';list.forEach(c=>grid.appendChild(makeCard(c,'Sports · '+country)));sub.append(h,grid);body.appendChild(sub)}}else{initial.style.display='grid';body.querySelectorAll('.sports-expanded').forEach(n=>n.remove())}
-   }else{initial.classList.toggle('collapsed',!expanded)}
-   if(expanded) section.scrollIntoView({behavior:'smooth',block:'nearest'});
-  });root.appendChild(section);
- }
+ const rawQuery=$('search').value.trim(),query=normalizeSearch(rawQuery),selected=$('category').value;
+ const activeCats=managedCategories.filter(c=>c.is_active!==false).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
+ const groups=[...new Set(channels.map(c=>c.group||'Other'))];
+ const categorySelect=$('category'),previous=categorySelect.value;categorySelect.innerHTML='<option value="">All categories</option>'+activeCats.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('');
+ if(activeCats.some(c=>c.name===selected)||groups.includes(selected))categorySelect.value=selected||previous;
+ renderCategoryTabs(activeCats.length?activeCats:groups.filter(g=>g.toLowerCase()!=='movies').map(name=>({name})));
+ let filtered=channels.filter(c=>!categorySelect.value||c.group.toLowerCase()===categorySelect.value.toLowerCase());
+ if(query)filtered=filtered.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c);
+ $('filterHint').textContent=query||categorySelect.value?`${filtered.length} matching channels`:'Choose a channel to watch live';
+ const root=$('channelRows');root.innerHTML='';if(!query&&!categorySelect.value)renderTrending();else $('trendingRows').innerHTML='';
+ if(!filtered.length){root.innerHTML='<div class="empty">No close match found. Try another spelling or search in Bengali/English.</div>';return}
+ const groupsMap=new Map();filtered.forEach(c=>{const g=c.group||'Other';if(!groupsMap.has(g))groupsMap.set(g,[]);groupsMap.get(g).push(c)});
+ const ordered=[...groupsMap.entries()].sort((a,b)=>groupRank(a[0])-groupRank(b[0])||a[0].localeCompare(b[0]));
+ for(const [group,items] of ordered){const section=document.createElement('section');section.className='category-row';section.dataset.group=group;const heading=document.createElement('div');heading.className='row-heading';const title=document.createElement('h2');title.textContent=group;const count=document.createElement('span');count.textContent=`${items.length} channels`;heading.append(title,count);section.appendChild(heading);const rail=document.createElement('div');rail.className='rail';rail.setAttribute('aria-label',group+' channels');items.forEach(c=>rail.appendChild(makeCard(c,group)));section.appendChild(rail);root.appendChild(section)}
 }
 function stop(){
  if(hls){hls.destroy();hls=null}
@@ -314,7 +321,7 @@ function stop(){
 }
 function play(channel,start=0){
  stop();lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- video.muted=false;video.removeAttribute('muted');video.volume=Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));if(!video.volume)video.volume=1;
+ const savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';
  render();trySource();
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
@@ -327,7 +334,7 @@ function trySource(){
  if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false;const sourceTimeout=setTimeout(()=>fail(),20000);const fail=()=>{if(failed||!attempted.has(index)||failedIndices.has(index)||!lastChannel)return;failed=true;clearTimeout(sourceTimeout);failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(),120)};
- const startPlayback=()=>{if(index!==sourceIndex-1||!lastChannel)return;clearTimeout(sourceTimeout);video.muted=false;video.removeAttribute('muted');video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{video.muted=true;video.play().then(()=>{$('playState').textContent='Playing live · browser started muted; tap sound to enable'}).catch(()=>{$('playState').textContent='Tap Play once if your browser blocks autoplay'});syncPlaybackControls()})};
+ const startPlayback=()=>{if(index!==sourceIndex-1||!lastChannel)return;clearTimeout(sourceTimeout);video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{video.muted=true;video.play().then(()=>{$('playState').textContent='Playing live · browser started muted; tap sound to enable'}).catch(()=>{$('playState').textContent='Tap Play once if your browser blocks autoplay'});syncPlaybackControls()})};
  const isHls=/\.m3u8($|[?#])/i.test(url);
  if(isHls&&window.Hls&&Hls.isSupported()){
    hls=new Hls({enableWorker:true,lowLatencyMode:true,backBufferLength:20,maxBufferLength:20,maxMaxBufferLength:30,startPosition:-1,manifestLoadingTimeOut:15000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:15000,levelLoadingMaxRetry:2});
@@ -363,11 +370,11 @@ const screenSteps=[
  {label:'200%',mode:'cover',zoom:2,title:'Zoom 200%'},
  {label:'RESET',mode:'contain',zoom:1,title:'Reset to auto fit'}
 ];
-function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume)}
+function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume);try{localStorage.setItem('kp-player-volume',String(video.volume));localStorage.setItem('kp-player-muted',video.muted?'1':'0')}catch{}}
 playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls();showPlayerControls()});
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
 volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
-video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);
+video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
 function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
 screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
 async function enterLandscape(){
@@ -388,7 +395,7 @@ function showPlayerControls(){$('videoStage').classList.remove('controls-hidden'
 // Keep controls visible while the user is interacting with the control strip.
 $('videoStage').addEventListener('pointerdown',e=>{if(e.target.closest('.video-tools')){showPlayerControls()}else{showPlayerControls()}});
 $('videoStage').addEventListener('pointermove',e=>{if(e.pointerType==='mouse')showPlayerControls()},{passive:true});
-$('videoStage').addEventListener('click',e=>{if(!e.target.closest('.video-tools'))showPlayerControls()});
+$('videoStage').addEventListener('click',e=>{if(e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
 $('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
 showPlayerControls();
 
@@ -488,7 +495,7 @@ async function fullscreen(){try{if(document.fullscreenElement)await document.exi
 $('search').addEventListener('input',render);
 $('category').addEventListener('change',render);
 document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories')$('categoryTabs').scrollIntoView({behavior:'smooth',block:'center'})}));
-function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const bar=$('notificationBar');if(!bar)return;if(!n){bar.hidden=true;return}$('noticeTitle').textContent=n.title||'Notice';$('noticeMessage').textContent=n.message||'';const link=$('noticeLink');if(n.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false}
+function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';$('noticeMessage').textContent=[intro,n?.message].filter(Boolean).join(' · ');const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex'}
 async function init(){
  try{
    const supaUrl=window.KP_SUPABASE_URL||'';
@@ -515,13 +522,33 @@ async function init(){
    catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
  }
  if(db){try{const {data:trendData,error:trendError}=await db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order');if(!trendError&&Array.isArray(trendData))trendingItems=trendData}catch{}}
- renderNotifications();
- const accent=siteSettings.design?.accent;if(accent)document.documentElement.style.setProperty('--red',accent);
+ // Apply persisted homepage identity, announcement, theme and accent globally.
+ const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
+ const intro=homeSettings.intro||'';renderNotifications();
+ const design=siteSettings.design||{};const theme=design.theme_template||design.theme||'netflix-dark';document.documentElement.dataset.theme=theme;
+ const accent=design.accent||'#f04444';document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
+ const accentStyle=document.createElement('style');accentStyle.textContent=`:root{--accent:${accent};--red:${accent}}.category-tab.active,.channel-card.active,.action-primary,.mobile-dock .dock-item.active{border-color:${accent}!important}.category-tab.active,.channel-card.active:after{background-color:${accent}}.live-dot,.card-live,.fav-mark.is-favorite{color:${accent}}.live-dot{background:${accent}}`;document.head.appendChild(accentStyle);
+ const themeCss={
+ 'netflix-dark':'--bg:#080808;--surface:#171717;--surface2:#242424;--text:#f5f5f5;--muted:#aaa;--border:#303030',
+ 'neon-cinema':'--bg:#100b1c;--surface:#211638;--surface2:#30204d;--text:#f8f3ff;--muted:#c5b4df;--border:#563b7a',
+ 'sports-arena':'--bg:#07151b;--surface:#10262d;--surface2:#183943;--text:#f4ffff;--muted:#a9c5c9;--border:#23515a',
+ 'premium-light':'--bg:#f4f5f7;--surface:#fff;--surface2:#e9edf2;--text:#17191d;--muted:#626b78;--border:#d6dce4',
+ 'glass-edition':'--bg:#101827;--surface:#18253a;--surface2:#263b55;--text:#f4f8ff;--muted:#b7c7dc;--border:#54718d',
+ 'luxury-gold':'--bg:#0d0b08;--surface:#1b1710;--surface2:#2a2114;--text:#f8f0dc;--muted:#c7b88e;--border:#66502a',
+ 'cyberpunk-neon':'--bg:#090713;--surface:#19102b;--surface2:#28123c;--text:#fff4ff;--muted:#c7a6d5;--border:#7438a3',
+ 'minimal-clean':'--bg:#f7f8fa;--surface:#fff;--surface2:#edf0f4;--text:#1c2430;--muted:#697586;--border:#dce2e9',
+ 'bollywood-cinema':'--bg:#16090b;--surface:#2b1016;--surface2:#401923;--text:#fff4e8;--muted:#d5b7a8;--border:#793b35',
+ 'newsroom-pro':'--bg:#071321;--surface:#10243a;--surface2:#183451;--text:#f4f8ff;--muted:#b5c6d8;--border:#315a7b',
+ 'retro-tv':'--bg:#21180f;--surface:#34271a;--surface2:#493522;--text:#fff0d4;--muted:#d4bd96;--border:#80623c',
+ 'ocean-blue':'--bg:#061824;--surface:#0c2938;--surface2:#123d52;--text:#eaffff;--muted:#a8d2dc;--border:#26718a'
+ };
+ const chosenTheme=themeCss[theme]||themeCss['netflix-dark'];const themeStyle=document.createElement('style');themeStyle.textContent=`:root{${chosenTheme}}body{background:var(--bg)!important;color:var(--text)!important}.site-header,.player-section{background:var(--bg)!important}.hero-player,.channel-card,.card-info,.kp-notification-bar,.mobile-dock{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}.category-tab{background:var(--surface2);color:var(--text)}.row-heading h2,.row-heading h3{color:var(--text)}.site-footer{border-color:var(--border);color:var(--muted)}.video-stage video{filter:none!important}`;document.head.appendChild(themeStyle);
+ const accentUnused=siteSettings.design?.accent;if(accent)document.documentElement.style.setProperty('--red',accent);
  const desktopCols=Math.max(2,Math.min(7,Number(siteSettings.design?.desktop_cols)||5)),mobileCols=Math.max(2,Math.min(4,Number(siteSettings.design?.mobile_cols)||3));
  const layoutStyle=document.createElement('style');layoutStyle.textContent=`@media(min-width:601px){.rail{grid-template-columns:repeat(${desktopCols},minmax(0,1fr))}}@media(max-width:600px){.rail{grid-template-columns:repeat(${mobileCols},minmax(0,1fr))}}`;document.head.appendChild(layoutStyle);
  const navSettings=siteSettings.navigation||{};if(navSettings.show_search===false){const sw=document.querySelector('.search-wrap');if(sw)sw.hidden=true}if(navSettings.show_category_select===false)$('category').hidden=true;
  const adminLabel=siteSettings.footer?.admin_label;if(adminLabel){const al=document.querySelector('.footer-inner a');if(al)al.textContent=adminLabel}
- const footer=siteSettings.footer?.text;if(footer){const f=document.querySelector('.footer-inner span');if(f)f.textContent=footer}
+ const footer=siteSettings.footer?.text;if(footer){const f=$('footerCopyright');if(f)f.textContent=footer}const social=$('socialLinks');if(social){social.innerHTML='';(siteSettings.navigation?.social_links||[]).filter(x=>x&&x.url&&/^https?:\/\//i.test(x.url)&&x.enabled!==false).sort((a,b)=>(a.order||0)-(b.order||0)).forEach(x=>{const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=(x.icon?x.icon+' ':'')+(x.label||'Link');social.appendChild(a)})}
  render();
  if(channels.length && siteSettings.player?.autoplay!==false)autoPickByVisitorCountry();
  if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
