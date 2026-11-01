@@ -202,7 +202,26 @@ body{padding-bottom:76px;background:#101010}
 .kp-notification-bar,#notificationBar{font-size:18px;font-weight:700;line-height:1.55}.trending-main-title{font-size:22px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}@media(max-width:600px){.kp-notification-bar,#notificationBar{font-size:16px}.trending-main-title{font-size:19px}}
 </style>
 
-</head>
+
+<style id="category-modal-styles">
+.category-open-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:132px;cursor:pointer;border:1px solid var(--border,#333);border-radius:24px;background:var(--surface,#222);color:var(--text,#eee);font:inherit;padding:10px 14px}
+.category-modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.58);display:flex;align-items:center;justify-content:center;padding:18px}
+.category-modal-backdrop[hidden]{display:none!important}
+.category-modal{width:min(100%,650px);max-height:min(82vh,780px);overflow:hidden;display:flex;flex-direction:column;background:#fff;color:#202124;border-radius:28px;box-shadow:0 18px 70px #0008}
+.category-modal-heading{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #e5e5e5}
+.category-modal-heading h2{font-size:20px;margin:0;font-weight:700}
+.category-modal-heading button{border:0;background:#f1f1f1;color:#222;border-radius:50%;width:38px;height:38px;font-size:25px;line-height:1;cursor:pointer}
+.category-modal-list{overflow-y:auto;overscroll-behavior:contain}
+.category-modal-option{width:100%;min-height:68px;padding:14px 22px;border:0;border-bottom:1px solid #e8e8e8;background:#fff;color:#202124;display:flex;align-items:center;justify-content:space-between;text-align:left;font-size:18px;cursor:pointer}
+.category-modal-option:last-child{border-bottom:0}
+.category-modal-option:active,.category-modal-option:hover{background:#f5f5f5}
+.category-modal-option .category-radio{width:25px;height:25px;border:2px solid #777;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}
+.category-modal-option[aria-checked="true"] .category-radio{border-color:#1769d2}
+.category-modal-option[aria-checked="true"] .category-radio:after{content:"";width:13px;height:13px;border-radius:50%;background:#1769d2}
+body.category-modal-open{overflow:hidden}
+@media(max-width:600px){.category-modal-backdrop{padding:16px}.category-modal{width:100%;max-height:82vh;border-radius:27px}.category-modal-option{min-height:72px;font-size:19px;padding:15px 17px}.category-modal-heading{padding:16px 18px}.category-open-trigger{min-width:112px;max-width:132px;padding:9px 10px;font-size:12px}}
+</style>
+\n</head>
 <body>
 <header class="site-header">
   <nav class="nav" aria-label="Main navigation">
@@ -210,7 +229,7 @@ body{padding-bottom:76px;background:#101010}
     <div class="nav-links"><a href="#home">Home</a><a href="#browse">Live TV</a></div>
     <div class="nav-spacer"></div>
     <label class="search-wrap" aria-label="Search channels"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="Search channels…" autocomplete="off"></label>
-    <select class="nav-select" id="category" aria-label="Filter by category"><option value="">All categories</option></select>
+    <button class="nav-select category-open-trigger" id="categoryOpenTrigger" type="button" aria-haspopup="dialog" aria-controls="categoryModal">All categories <span aria-hidden="true">⌄</span></button><select class="nav-select" id="category" aria-label="Filter by category" hidden><option value="">All categories</option></select>
   </nav>
 </header>
 <div id="notificationBar" class="kp-notification-bar" hidden><span class="kp-notice-dot">●</span><strong id="noticeTitle"></strong><span id="noticeMessage"></span><a id="noticeLink" href="#" target="_blank" rel="noopener" hidden>Details</a></div>
@@ -249,6 +268,12 @@ body{padding-bottom:76px;background:#101010}
   <div class="rows" id="channelRows"><div class="empty">Loading channels…</div></div>
   <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
 </main>
+<div class="category-modal-backdrop" id="categoryModal" hidden>
+  <section class="category-modal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+    <div class="category-modal-heading"><h2 id="categoryModalTitle">Choose category</h2><button type="button" id="categoryModalClose" aria-label="Close categories">×</button></div>
+    <div class="category-modal-list" id="categoryModalList"></div>
+  </section>
+</div>
 <nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
 <footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
@@ -309,7 +334,36 @@ function renderCategoryTabs(){
  const tabs=$('categoryTabs');if(!tabs)return;tabs.innerHTML='';
  VISIBLE_CATEGORY_TABS.forEach(label=>{const b=document.createElement('button');b.type='button';b.className='category-tab';b.textContent=label;b.dataset.target=label;b.addEventListener('click',()=>{ $('search').value='';$('category').value=label==='All'?'':label;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'}); });tabs.appendChild(b)});
 }
-function syncCategoryTab(){const selected=$('category').value||'All';document.querySelectorAll('#categoryTabs .category-tab').forEach(b=>b.classList.toggle('active',b.dataset.target===selected));}
+function syncCategoryTab(){const selected=$('category').value||'All';document.querySelectorAll('#categoryTabs .category-tab').forEach(b=>b.classList.toggle('active',b.dataset.target===selected));const trigger=$('categoryOpenTrigger');if(trigger){trigger.innerHTML='';const t=document.createElement('span');t.textContent=selected==='All'?'All categories':selected;const a=document.createElement('span');a.textContent='⌄';a.setAttribute('aria-hidden','true');trigger.append(t,a);}}
+function categoryLabel(){return $('category').value||'All categories'}
+function renderCategoryModal(){
+ const list=$('categoryModalList');if(!list)return;list.innerHTML='';
+ const names=['All categories',...availableCategories()];
+ names.forEach(name=>{
+  const value=name==='All categories'?'':name;
+  const option=document.createElement('button');option.type='button';option.className='category-modal-option';
+  option.setAttribute('role','radio');option.setAttribute('aria-checked',String(($('category').value||'')===value));
+  const label=document.createElement('span');label.textContent=name;
+  const radio=document.createElement('span');radio.className='category-radio';radio.setAttribute('aria-hidden','true');
+  option.append(label,radio);option.addEventListener('click',()=>selectCategoryFromModal(value));list.appendChild(option);
+ });
+}
+function openCategoryModal(){
+ renderCategoryModal();$('categoryModal').hidden=false;document.body.classList.add('category-modal-open');
+ $('categoryModalClose').focus();
+}
+function closeCategoryModal(){
+ $('categoryModal').hidden=true;document.body.classList.remove('category-modal-open');
+}
+function selectCategoryFromModal(value){
+ $('search').value='';$('category').value=value;render();closeCategoryModal();
+ const label=value||'All categories';$('categoryOpenTrigger').innerHTML='';
+ const text=document.createElement('span');text.textContent=label;
+ const arrow=document.createElement('span');arrow.textContent='⌄';arrow.setAttribute('aria-hidden','true');
+ $('categoryOpenTrigger').append(text,arrow);
+ $('browse').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 function renderTrending(){
  const root=$('trendingRows');if(!root)return;root.innerHTML='';if(siteSettings.homepage?.show_trending===false)return;
  const valid=trendingItems.map(t=>channels.find(c=>c.id===t.channel_id)).filter(Boolean);
@@ -537,7 +591,12 @@ async function autoPickByVisitorCountry(){
 async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('playerPanel').requestFullscreen()}catch{$('statusLine').textContent='Fullscreen is not available in this browser.'}}
 $('search').addEventListener('input',render);
 $('category').addEventListener('change',render);
-document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories'){const tabs=$('categoryTabs');tabs.scrollIntoView({behavior:'smooth',block:'center'});tabs.classList.add('category-tabs-highlight');setTimeout(()=>tabs.classList.remove('category-tabs-highlight'),1400); }}));
+$('categoryOpenTrigger').addEventListener('click',openCategoryModal);
+$('categoryModalClose').addEventListener('click',closeCategoryModal);
+$('categoryModal').addEventListener('click',e=>{if(e.target===$('categoryModal'))closeCategoryModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('categoryModal').hidden)closeCategoryModal()});
+
+document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories'){openCategoryModal();}}));
 function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';$('noticeMessage').textContent=[intro,n?.message].filter(Boolean).join(' · ');const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex'}
 const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light','glass-edition','luxury-gold','cyberpunk-neon','minimal-clean','bollywood-cinema','newsroom-pro','retro-tv','ocean-blue','midnight-purple','emerald-luxe','crimson-premium','arctic-glass','cinema-noir','royal-violet'];
 function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
