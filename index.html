@@ -411,41 +411,46 @@ function render(){
 }
 
 function stop(){
+ playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
  if(hls){hls.destroy();hls=null}
- video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';
+ video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';
  if(typeof syncPlaybackControls==='function')syncPlaybackControls();
 }
+let playbackToken=0,activeSourceFail=null,stallTimer=null;
+function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
 function play(channel,start=0){
- stop();lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
+ clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
  const savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute;
- $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';
- render();trySource();
+ $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
 }
-function trySource(){
- if(!lastChannel)return;
+function trySource(token=playbackToken){
+ if(token!==playbackToken||!lastChannel)return;
  while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
- if(sourceIndex>=lastChannel.urls.length){$('playState').textContent='All available streams failed';$('statusLine').textContent='This channel could not be played. Its stream may be offline, expired, blocked, or unavailable in your region.';return}
+ if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
  const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);
  if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
- let failed=false;const sourceTimeout=setTimeout(()=>fail(),20000);const fail=()=>{if(failed||!attempted.has(index)||failedIndices.has(index)||!lastChannel)return;failed=true;clearTimeout(sourceTimeout);failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(),120)};
- const startPlayback=()=>{if(index!==sourceIndex-1||!lastChannel)return;clearTimeout(sourceTimeout);video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{video.muted=true;video.play().then(()=>{$('playState').textContent='Playing live · browser started muted; tap sound to enable'}).catch(()=>{$('playState').textContent='Tap Play once if your browser blocks autoplay'});syncPlaybackControls()})};
+ let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
+ const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
+ activeSourceFail=fail;const connectTimer=setTimeout(fail,25000);
+ const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);$('playState').textContent='Playing live';$('statusLine').textContent='';};
+ const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
+ video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
  const isHls=/\.m3u8($|[?#])/i.test(url);
  if(isHls&&window.Hls&&Hls.isSupported()){
-   hls=new Hls({enableWorker:true,lowLatencyMode:true,backBufferLength:20,maxBufferLength:20,maxMaxBufferLength:30,startPosition:-1,manifestLoadingTimeOut:15000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:15000,levelLoadingMaxRetry:2});
-   hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(index===sourceIndex-1)hls.loadSource(url)});
-   hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(index===sourceIndex-1){$('playState').textContent='Starting playback…';startPlayback()}});
-   hls.on(Hls.Events.ERROR,(_event,data)=>{if(data.fatal){if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&hls){hls.recoverMediaError();return}fail()}});
+   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
+   hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
+   hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
+   hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
  }else{
-   video.src=url;video.load();
-   video.addEventListener('canplay',startPlayback,{once:true});
-   video.addEventListener('error',fail,{once:true});
-   // Attempt muted autoplay immediately; canplay retries if the media was not ready yet.
-   video.muted=false;video.play().then(()=>{$('playState').textContent='Playing live'}).catch(()=>{$('playState').textContent='Loading stream…';video.muted=true;video.play().catch(()=>{})});
+   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';});
  }
 }
+video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
+video.addEventListener('waiting',()=>{if(activeSourceFail&&lastChannel&&video.currentTime>0){clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(video.readyState<3&&activeSourceFail)activeSourceFail()},22000)}});
+video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
@@ -613,7 +618,7 @@ async function init(){
      if(!error&&Array.isArray(data)&&data.length){
        channels=groupEntries(data.map(row=>({
          id:row.id,name:row.name,group:row.category,country:row.country,logo:row.logo_url,
-         urls:Array.isArray(row.stream_urls)?row.stream_urls.map(s=>typeof s==='string'?s:s.url).filter(Boolean):[]
+         urls:Array.isArray(row.stream_urls)?row.stream_urls.map((s,i)=>typeof s==='string'?{url:s,priority:i+1,enabled:true}:({...s,priority:Number(s.priority||i+1)})).filter(s=>s.url&&s.enabled!==false).sort((a,b)=>a.priority-b.priority).map(s=>s.url):[]
        })));
      } else if(error) throw error;
    }
