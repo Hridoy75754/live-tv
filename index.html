@@ -288,11 +288,13 @@ function makeCard(channel, groupLabel){
  const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>play(channel,0));return card;
 }
 const FIXED_CATEGORIES=['Sports','Movies','News','Music','Bangladesh','India'];
+function availableCategories(){const names=[...FIXED_CATEGORIES,...(managedCategories||[]).map(c=>c.name).filter(Boolean),'Others'];return [...new Set(names)]}
 const VISIBLE_CATEGORY_TABS=['All','Sports','Movies','News','Music','Bangladesh'];
 function categoryForChannel(channel){
  const group=String(channel.group||'').trim().toLowerCase();
  const country=String(channel.country||'').trim().toLowerCase();
  const name=String(channel.name||'').toLowerCase();
+ const managed=(managedCategories||[]).find(x=>String(x.name||'').toLowerCase()===group);if(managed)return managed.name;
  if(FIXED_CATEGORIES.some(x=>x.toLowerCase()===group))return FIXED_CATEGORIES.find(x=>x.toLowerCase()===group);
  if(/sport/.test(group)||/sports/.test(name))return 'Sports';
  if(/movie|cinema|film/.test(group))return 'Movies';
@@ -323,8 +325,9 @@ function searchScore(channel,q){const n=normalizeSearch(channel.name),g=normaliz
 function render(){
  const rawQuery=$('search').value.trim(),query=normalizeSearch(rawQuery),categorySelect=$('category');
  const selected=categorySelect.value;
- categorySelect.innerHTML='<option value="">All categories</option>'+FIXED_CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join('');
- categorySelect.value=FIXED_CATEGORIES.includes(selected)?selected:'';
+ const categoryNames=availableCategories();
+ categorySelect.innerHTML='<option value="">All categories</option>'+categoryNames.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</option>`).join('');
+ categorySelect.value=categoryNames.includes(selected)?selected:'';
  renderCategoryTabs();syncCategoryTab();
  let filtered=channels.filter(c=>!categorySelect.value||categoryForChannel(c)===categorySelect.value);
  if(query)filtered=filtered.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c);
@@ -335,7 +338,7 @@ function render(){
  if(!filtered.length){root.innerHTML='<div class="empty">No channels found in this category.</div>';return}
  if(isHome){
    const mobileLimit=4,desktopLimit=6;
-   [...FIXED_CATEGORIES,'Others'].forEach(group=>{
+   availableCategories().forEach(group=>{
      const items=filtered.filter(c=>categoryForChannel(c)===group);if(!items.length)return;
      const section=document.createElement('section');section.className='category-row';section.dataset.group=group;
      const heading=document.createElement('div');heading.className='row-heading';
@@ -533,7 +536,7 @@ async function autoPickByVisitorCountry(){
 async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('playerPanel').requestFullscreen()}catch{$('statusLine').textContent='Fullscreen is not available in this browser.'}}
 $('search').addEventListener('input',render);
 $('category').addEventListener('change',render);
-document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories')$('categoryTabs').scrollIntoView({behavior:'smooth',block:'center'})}));
+document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories'){ $('category').scrollIntoView({behavior:'smooth',block:'center'});$('category').focus({preventScroll:true});$('categoryTabs').scrollIntoView({behavior:'smooth',block:'center'}); }}));
 function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';$('noticeMessage').textContent=[intro,n?.message].filter(Boolean).join(' · ');const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex'}
 const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light','glass-edition','luxury-gold','cyberpunk-neon','minimal-clean','bollywood-cinema','newsroom-pro','retro-tv','ocean-blue','midnight-purple','emerald-luxe','crimson-premium','arctic-glass','cinema-noir','royal-violet'];
 function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
