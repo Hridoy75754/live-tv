@@ -623,6 +623,11 @@ const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light
 function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
 async function recordVisit(){if(!db)return;try{const key='kp-visitor-id';let id=localStorage.getItem(key);if(!id){id=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2));localStorage.setItem(key,id)}await db.from('kp_visitor_events').insert({visitor_id:id,visited_at:new Date().toISOString(),path:location.pathname})}catch(e){console.info('Visitor analytics unavailable until SQL migration is applied.',e.message)}}
 async function init(){
+ // Paint the last successful channel snapshot immediately; refresh it from Supabase below.
+ try{
+   const cached=JSON.parse(localStorage.getItem('kp-live-channel-cache')||'null');
+   if(Array.isArray(cached)&&cached.length){channels=groupEntries(cached);render();}
+ }catch{}
  try{
    const supaUrl=window.KP_SUPABASE_URL||'';
    const supaKey=window.KP_SUPABASE_ANON_KEY||'';
@@ -630,31 +635,36 @@ async function init(){
      db=window.supabase.createClient(supaUrl,supaKey);
      const client=db;
      const timeout=(promise,ms)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(Error('Supabase timeout')),ms))]);
-     const [settingRes,catRes,noticeRes,channelRes]=await Promise.all([
-       timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),6500).catch(()=>null),
-       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),8500).catch(()=>null)
+     // Start non-critical metadata requests, but do not make the channel list wait for them.
+     const metadataPromise=Promise.all([
+       timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),3800).catch(()=>null),
+       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),3800).catch(()=>null),
+       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),3800).catch(()=>null)
      ]);
-     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
-     if(catRes&&!catRes.error)managedCategories=catRes.data||[];
-     if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
+     const channelRes=await timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),4800).catch(()=>null);
      const {data,error}=channelRes||{data:null,error:Error('Channel query timed out')};
      if(!error&&Array.isArray(data)&&data.length){
        channels=groupEntries(data.map(row=>({
          id:row.id,name:row.name,group:row.category,country:row.country,logo:row.logo_url,
          urls:Array.isArray(row.stream_urls)?row.stream_urls.map((s,i)=>typeof s==='string'?{url:s,priority:i+1,enabled:true}:({...s,priority:Number(s.priority||i+1)})).filter(s=>s.url&&s.enabled!==false).sort((a,b)=>a.priority-b.priority).map(s=>s.url):[]
        })));
-     } else if(error) throw error;
+       try{localStorage.setItem('kp-live-channel-cache',JSON.stringify(channels))}catch{}
+       render();
+     } else if(error&&!channels.length) throw error;
+     const [settingRes,catRes,noticeRes]=await metadataPromise;
+     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
+     if(catRes&&!catRes.error)managedCategories=catRes.data||[];
+     if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
    }
    if(!channels.length){
      const response=await fetch('./channels.json',{cache:'no-store'});
      if(!response.ok)throw Error('channels.json HTTP '+response.status);
      channels=groupEntries(await response.json());
+     try{localStorage.setItem('kp-live-channel-cache',JSON.stringify(channels))}catch{}
    }
  }catch{
    try{const response=await fetch('./channels.json',{cache:'no-store'});if(response.ok)channels=groupEntries(await response.json())}
-   catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
+   catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok){channels=parseM3U(await response.text());try{localStorage.setItem('kp-live-channel-cache',JSON.stringify(channels))}catch{}}}catch{}}
  }
  if(db){try{const {data:trendData,error:trendError}=await db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order');if(!trendError&&Array.isArray(trendData))trendingItems=trendData}catch{}}
  // Apply persisted homepage identity, announcement, theme and accent globally.
