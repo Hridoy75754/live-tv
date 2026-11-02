@@ -52,7 +52,14 @@ a{color:inherit}
 .live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;filter:brightness(1);transition:transform .16s ease,object-fit .16s ease,filter .12s ease}
+.video-surface{position:absolute;inset:0;display:block;width:100%;height:100%;transform:scale(1);transform-origin:center center;transition:transform .16s ease;overflow:hidden;z-index:1;pointer-events:auto}
+.video-brightness{position:absolute;inset:0;width:100%;height:100%;filter:brightness(1.12);transition:filter .12s ease}
+.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:none;filter:none;transition:object-fit .16s ease;}
+.video-stage:fullscreen .video-surface,.video-stage:fullscreen .video-brightness,.video-stage:fullscreen video{width:100%;height:100%}
+.video-stage .video-tools{z-index:8}
+.video-stage .stage-tap-toggle{z-index:9}
+@media (hover:hover) and (pointer:fine){.video-stage:not(.controls-hidden) .video-tools{pointer-events:auto}}
+.video-stage:focus-within .video-tools{opacity:1;visibility:visible;pointer-events:auto}
 .video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.58) 42%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
 .video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
 .video-tools button:active{background:#ffffff24;transform:scale(.94)}
@@ -242,7 +249,7 @@ body.category-modal-open{overflow:hidden}
     <span class="live-badge"><span class="live-dot"></span> LIVE</span>
   </div>
   <div class="video-stage" id="videoStage">
-    <video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video>
+    <div class="video-surface" id="videoSurface"><div class="video-brightness" id="videoBrightness"><video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video></div></div>
     <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
     <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
     <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
@@ -440,14 +447,18 @@ function trySource(token=playbackToken){
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
  const isHls=/\.m3u8($|[?#])/i.test(url);
+ const nativeHls=isHls&&!!video.canPlayType('application/vnd.apple.mpegurl');
  if(isHls&&window.Hls&&Hls.isSupported()){
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
+ }else if(!isHls||nativeHls){
+   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
  }else{
-   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';});
+   $('playState').textContent='This browser cannot play this stream format';
+   fail();
  }
 }
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
@@ -456,7 +467,7 @@ video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
-let brightness=1.12,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}video.style.filter=`brightness(${brightness.toFixed(2)})`;
+let brightness=1.12,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}$('videoBrightness').style.filter=`brightness(${brightness.toFixed(2)})`;
 const screenSteps=[
  {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
@@ -474,11 +485,11 @@ const screenSteps=[
  {label:'RESET',mode:'contain',zoom:1,title:'Reset to auto fit'}
 ];
 function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume);try{localStorage.setItem('kp-player-volume',String(video.volume));localStorage.setItem('kp-player-muted',video.muted?'1':'0')}catch{}}
-playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls();showPlayerControls()});
+playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>{say('এই স্ট্রিমটি চালাতে Play চাপুন');$('playState').textContent='Tap Play to start';})}else video.pause();syncPlaybackControls();showPlayerControls()});
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
 volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
 video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
-function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
+function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;$('videoSurface').style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
 screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
 async function enterLandscape(){
  const stage=$('videoStage');
@@ -492,12 +503,25 @@ $('screenRotate').addEventListener('click',enterLandscape);
 $('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement){await document.exitFullscreen();try{screen.orientation.unlock()}catch{}}else await enterLandscape()}catch{say('Fullscreen is not supported here')}});
 syncPlaybackControls();applyScreenStep(screenSteps[0]);
 // Auto-hide the entire bottom control strip AND its black gradient shadow.
-const controlsHideDelay=1800;let controlsHideTimer=null;
-function hidePlayerControls(){clearTimeout(controlsHideTimer);$('videoStage').classList.add('controls-hidden')}
-function showPlayerControls(){$('videoStage').classList.remove('controls-hidden');clearTimeout(controlsHideTimer);controlsHideTimer=setTimeout(hidePlayerControls,controlsHideDelay)}
-// Keep controls visible while the user is interacting with the control strip.
-$('videoStage').addEventListener('pointerdown',e=>{if(e.target.closest('.video-tools')){showPlayerControls()}else{showPlayerControls()}});
+const controlsHideDelay=2600;let controlsHideTimer=null;let playerMouseInside=false;
+function hidePlayerControls(){
+ clearTimeout(controlsHideTimer);
+ const stageEl=$('videoStage');
+ if(playerMouseInside||stageEl.contains(document.activeElement))return;
+ stageEl.classList.add('controls-hidden');
+}
+function scheduleControlsHide(){clearTimeout(controlsHideTimer);controlsHideTimer=setTimeout(hidePlayerControls,controlsHideDelay)}
+function showPlayerControls(){
+ const stageEl=$('videoStage');stageEl.classList.remove('controls-hidden');clearTimeout(controlsHideTimer);
+ if(!playerMouseInside&&!stageEl.contains(document.activeElement))scheduleControlsHide();
+}
+// Keep controls visible while a mouse is over the player or a control has keyboard focus.
+$('videoStage').addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){playerMouseInside=true;showPlayerControls()}},{passive:true});
+$('videoStage').addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){playerMouseInside=false;scheduleControlsHide()}},{passive:true});
+$('videoStage').addEventListener('pointerdown',()=>showPlayerControls());
 $('videoStage').addEventListener('pointermove',e=>{if(e.pointerType==='mouse')showPlayerControls()},{passive:true});
+$('videoStage').addEventListener('focusin',showPlayerControls);
+$('videoStage').addEventListener('focusout',()=>{setTimeout(()=>{if(!$('videoStage').contains(document.activeElement)&&!playerMouseInside)scheduleControlsHide()},0)});
 $('videoStage').addEventListener('click',e=>{if(e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
 $('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
 showPlayerControls();
@@ -530,7 +554,7 @@ function applyPinchZoom(){
  const distance=distanceBetweenTouches();
  if(!distance||!pinchStartDistance)return;
  videoZoom=Math.max(.5,Math.min(3,Math.round((pinchStartZoom*distance/pinchStartDistance)*100)/100));
- video.style.transform=`scale(${videoZoom})`;
+ $('videoSurface').style.transform=`scale(${videoZoom})`;
  showGestureHint('zoom',videoZoom);
 }
 stage.addEventListener('pointerdown',e=>{
@@ -560,7 +584,7 @@ stage.addEventListener('pointermove',e=>{
   const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
   const value=gesture.side==='brightness'?Math.max(.35,Math.min(2,gestureStartValue+delta)):Math.max(0,Math.min(1,gestureStartValue+delta));
   if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
-  else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
+  else{brightness=value;$('videoBrightness').style.filter=`brightness(${brightness.toFixed(2)})`;try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
  }
 });
 function finishPointer(e){
