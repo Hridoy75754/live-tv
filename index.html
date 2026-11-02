@@ -284,12 +284,12 @@ body.category-modal-open{overflow:hidden}
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
-let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
+let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false,userSelectedChannel=false,autoStartedChannelId=null;
 function say(message){$('playState').textContent=message}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
 function normalize(item,index=0){let urls=Array.isArray(item.urls)?item.urls:[item.url];urls=[...new Set(urls.map(safeUrl).filter(Boolean))];if(!urls.length)return null;return{id:item.id||String(index)+'-'+keyName(item.name),name:String(item.name||'Unnamed channel').replace(/\s*\[Backup\s*\d+\]\s*$/i,'').trim().slice(0,160)||'Unnamed channel',urls,url:urls[0],logo:safeUrl(item.logo||''),group:String(item.group||'Other').trim().slice(0,100)||'Other',country:String(item.country||'').trim().slice(0,80)}}
-function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name);if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(!old.logo&&channel.logo)old.logo=channel.logo;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
+function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name);if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(channel.logo)old.logo=channel.logo;if(channel.urls.length)old.urls=channel.urls;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
 function parseM3U(text){const result=[],lines=text.replace(/^\uFEFF/,'').split(/\r?\n/);let meta={};for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF')){const comma=line.indexOf(','),attrs=comma>=0?line.slice(0,comma):line,name=comma>=0?line.slice(comma+1).trim():'Unnamed channel';const attr=key=>{const match=attrs.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"','i'));return match?match[1]:''};meta={name:name.replace(/\s*\[Backup\s*\d+\]\s*$/i,''),logo:attr('tvg-logo'),group:attr('group-title')||'Other'}}else if(!line.startsWith('#')){result.push({...meta,url:line});meta={}}}return groupEntries(result)}
 function esc(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
 const GROUP_ORDER=[
@@ -311,7 +311,7 @@ function makeCard(channel, groupLabel){
  const fav=document.createElement('span');fav.className='fav-mark';fav.textContent='♡';fav.setAttribute('role','button');fav.setAttribute('aria-label','Add to favorites');fav.tabIndex=0;const favKey='kp-live-favorites';const getFavs=()=>{try{return JSON.parse(localStorage.getItem(favKey)||'[]')}catch{return []}};const paintFav=()=>{const yes=getFavs().includes(channel.id);fav.classList.toggle('is-favorite',yes);fav.textContent=yes?'♥':'♡'};paintFav();const toggleFav=e=>{e.stopPropagation();const arr=getFavs(),i=arr.indexOf(channel.id);if(i>=0)arr.splice(i,1);else arr.push(channel.id);try{localStorage.setItem(favKey,JSON.stringify(arr))}catch{}paintFav()};fav.addEventListener('click',toggleFav);fav.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleFav(e)}});art.appendChild(fav);
  const playIcon=document.createElement('span');playIcon.className='card-play';playIcon.textContent='▶';art.appendChild(playIcon);
  const info=document.createElement('span');info.className='card-info';const name=document.createElement('span');name.className='card-name';name.textContent=channel.name;
- const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>play(channel,0));return card;
+ const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>{userSelectedChannel=true;play(channel,0)});return card;
 }
 const FIXED_CATEGORIES=['Sports','Movies','News','Music','Bangladesh','India'];
 function availableCategories(){const names=[...FIXED_CATEGORIES,...(managedCategories||[]).map(c=>c.name).filter(Boolean),'Others'];return [...new Set(names)]}
@@ -587,25 +587,30 @@ $('stopBtn').addEventListener('click',stop);
 
 async function autoPickByVisitorCountry(){
  const pickRandom=list=>list[Math.floor(Math.random()*list.length)];
- const lookups=[
-  async()=>{const r=await fetch('https://ipwho.is/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();if(d.success===false)throw Error();return String(d.country_code||'').toUpperCase()},
-  async()=>{const r=await fetch('https://ipapi.co/json/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();return String(d.country_code||'').toUpperCase()}
- ];
- let country='';
- for(const lookup of lookups){try{country=await Promise.race([lookup(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),1800))]);if(country)break}catch{}}
+ const cachedCountry=(()=>{try{return localStorage.getItem('kp-visitor-country')||''}catch{return ''}})();
  const prefs=siteSettings.homepage?.country_autoplay||{};
- const category=country==='BD'?'Bangladesh':country==='IN'?'India':'';
- const preferred=country==='BD'?prefs.BD:country==='IN'?prefs.IN:prefs.OTHER;
- let candidates=channels;
- if(category){const local=channels.filter(c=>categoryForChannel(c)===category);if(local.length)candidates=local}
- let chosen=preferred?channels.find(c=>c.id===preferred):null;
- if(!chosen)chosen=pickRandom(candidates);
- if(!chosen||activeId)return;
- $('category').value=category||'';render();
- // Browsers generally block audible autoplay. Start muted; visitor can unmute with the player control.
- autoMutedStart=true;
- play(chosen,0);
- $('playState').textContent='Auto-selected for '+(country||'your region')+' · autoplay started muted';
+ const chooseForCountry=(country)=>{
+   const code=String(country||'').toUpperCase();
+   const category=code==='BD'?'Bangladesh':code==='IN'?'India':'';
+   const preferred=code==='BD'?prefs.BD:code==='IN'?prefs.IN:prefs.OTHER;
+   let candidates=channels;
+   if(category){const local=channels.filter(c=>categoryForChannel(c)===category);if(local.length)candidates=local}
+   let chosen=preferred?channels.find(c=>c.id===preferred):null;
+   if(!chosen)chosen=pickRandom(candidates);
+   if(!chosen)return;
+   if(!activeId){$('category').value=category||'';render();autoMutedStart=true;play(chosen,0);autoStartedChannelId=chosen.id}
+   else if(!userSelectedChannel&&autoStartedChannelId&&activeId===autoStartedChannelId&&chosen.id!==activeId){$('category').value=category||'';render();autoMutedStart=true;play(chosen,0);autoStartedChannelId=chosen.id}
+   if(activeId===chosen.id)$('playState').textContent='Auto-selected for '+(code||'your region')+' · autoplay started muted';
+ };
+ if(!channels.length)return;
+ // Use the last known country immediately so returning visitors do not wait for GeoIP.
+ if(cachedCountry)chooseForCountry(cachedCountry);else if(!activeId){chooseForCountry('');}
+ const lookups=[
+  fetch('https://ipwho.is/',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{if(d.success===false)throw Error();return String(d.country_code||'').toUpperCase()}),
+  fetch('https://ipapi.co/json/',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>String(d.country_code||'').toUpperCase())
+ ];
+ const country=await Promise.any(lookups.map(p=>Promise.race([p,new Promise((_,reject)=>setTimeout(()=>reject(Error('GeoIP timeout')),2200))]))).catch(()=>cachedCountry);
+ if(country){try{localStorage.setItem('kp-visitor-country',country)}catch{}chooseForCountry(country)}
 }
 
 
@@ -651,11 +656,12 @@ function applyFastTheme(theme,accent='#f04444'){
  node.textContent=`:root{${chosen};--accent:${accent};--red:${accent}}body{background:var(--bg)!important;color:var(--text)!important}.site-header,.player-section{background:var(--bg)!important}.hero-player,.channel-card,.card-info,.kp-notification-bar,.mobile-dock{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}.category-tab{background:var(--surface2);color:var(--text)}.row-heading h2,.row-heading h3{color:var(--text)}.site-footer{border-color:var(--border);color:var(--muted)}`;
  document.documentElement.dataset.theme=theme;document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
 }
-const initialFastTheme=pickTheme(siteSettings);applyFastTheme(initialFastTheme);
+try{const cachedSettings=JSON.parse(localStorage.getItem('kp-site-settings-cache-v1')||'null');if(cachedSettings&&typeof cachedSettings==='object')siteSettings=cachedSettings}catch{}
+const initialFastTheme=pickTheme(siteSettings);applyFastTheme(initialFastTheme,siteSettings.design?.accent||'#f04444');
 
 async function init(){
  // Restore the last successful channel snapshot immediately for returning visitors.
- try{const cached=localStorage.getItem('kp-channel-cache-v1');if(cached){const parsed=JSON.parse(cached);if(Array.isArray(parsed)&&parsed.length){channels=groupEntries(parsed);render();}}}catch{}
+ try{const cached=localStorage.getItem('kp-channel-cache-v1');if(cached){const parsed=JSON.parse(cached);if(Array.isArray(parsed)&&parsed.length){channels=groupEntries(parsed);render();queueMicrotask(()=>{if(siteSettings.player?.autoplay!==false)autoPickByVisitorCountry()});}}}catch{}
  try{
    const supaUrl=window.KP_SUPABASE_URL||'';
    const supaKey=window.KP_SUPABASE_ANON_KEY||'';
@@ -665,11 +671,11 @@ async function init(){
      const timeout=(promise,ms)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(Error('Supabase timeout')),ms))]);
      const [settingRes,catRes,noticeRes,channelRes]=await Promise.all([
        timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),6500).catch(()=>null),
-       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),8500).catch(()=>null)
+       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order').order('id'),6500).catch(()=>null),
+       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order').order('id'),6500).catch(()=>null),
+       timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order').order('id'),8500).catch(()=>null)
      ]);
-     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
+     if(settingRes&&!settingRes.error){siteSettings=settingRes.data?.settings||{};try{localStorage.setItem('kp-site-settings-cache-v1',JSON.stringify(siteSettings))}catch{}}
      if(catRes&&!catRes.error)managedCategories=catRes.data||[];
      if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
      const {data,error}=channelRes||{data:null,error:Error('Channel query timed out')};
@@ -694,7 +700,7 @@ async function init(){
  // Apply persisted homepage identity, announcement, theme and accent globally.
  const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
  const intro=homeSettings.intro||'';renderNotifications();
- const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?pickTheme(siteSettings):initialFastTheme;
+ const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?(design.theme_template||'netflix-dark'):initialFastTheme;
  const accent=design.accent||'#f04444';document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
  const accentStyle=document.createElement('style');accentStyle.textContent=`:root{--accent:${accent};--red:${accent}}.category-tab.active,.channel-card.active,.action-primary,.mobile-dock .dock-item.active{border-color:${accent}!important}.category-tab.active,.channel-card.active:after{background-color:${accent}}.live-dot,.card-live,.fav-mark.is-favorite{color:${accent}}.live-dot{background:${accent}}`;document.head.appendChild(accentStyle);
  applyFastTheme(theme,accent);
@@ -705,7 +711,7 @@ async function init(){
  const adminLabel=siteSettings.footer?.admin_label;if(adminLabel){const al=document.querySelector('.footer-inner a');if(al)al.textContent=adminLabel}
  const footer=siteSettings.footer?.text;if(footer){const f=$('footerCopyright');if(f)f.textContent=footer}const social=$('socialLinks');if(social){social.innerHTML='';(siteSettings.navigation?.social_links||[]).filter(x=>x&&x.url&&/^https?:\/\//i.test(x.url)&&x.enabled!==false).sort((a,b)=>(a.order||0)-(b.order||0)).forEach(x=>{const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=(x.icon?x.icon+' ':'')+(x.label||'Link');social.appendChild(a)})}
  render();
- if(channels.length && siteSettings.player?.autoplay!==false)autoPickByVisitorCountry();
+ if(channels.length && siteSettings.player?.autoplay!==false && !activeId)autoPickByVisitorCountry();
  recordVisit();
  if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
 }
