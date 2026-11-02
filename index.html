@@ -53,7 +53,7 @@ a{color:inherit}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
 .video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;filter:brightness(1);transition:transform .16s ease,object-fit .16s ease,filter .12s ease}
-.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.88) 28%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
+.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.58) 42%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
 .video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
 .video-tools button:active{background:#ffffff24;transform:scale(.94)}
 .video-tools #volumeLevel{width:68px;max-width:20vw;flex:0 1 68px;accent-color:#fff;height:4px;touch-action:pan-x}
@@ -278,13 +278,13 @@ body.category-modal-open{overflow:hidden}
 <footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://nsmcswuqtmqverfgthhf.supabase.co" crossorigin><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
-let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[];
+let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
 function say(message){$('playState').textContent=message}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
@@ -384,13 +384,15 @@ function render(){
  categorySelect.innerHTML='<option value="">All categories</option>'+categoryNames.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</option>`).join('');
  categorySelect.value=categoryNames.includes(selected)?selected:'';
  renderCategoryTabs();syncCategoryTab();
- let filtered=channels.filter(c=>!categorySelect.value||categoryForChannel(c)===categorySelect.value);
- if(query)filtered=filtered.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c);
+ // Search is global: a selected category never restricts search results.
+ let filtered=query
+   ? channels.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c)
+   : channels.filter(c=>!categorySelect.value||categoryForChannel(c)===categorySelect.value);
  const isHome=!query&&!categorySelect.value;
- $('filterHint').textContent=query?`${filtered.length} matching channels`:categorySelect.value?`${categorySelect.value} · ${filtered.length} channels`:'Choose a channel to watch live';
+ $('filterHint').textContent=query?`${filtered.length} matching channels · all categories`:categorySelect.value?`${categorySelect.value} · ${filtered.length} channels`:'Choose a channel to watch live';
  const root=$('channelRows');root.innerHTML='';
  if(isHome)renderTrending();else $('trendingRows').innerHTML='';
- if(!filtered.length){root.innerHTML='<div class="empty">No channels found in this category.</div>';return}
+ if(!filtered.length){root.innerHTML='<div class="empty">No matching channels found.</div>';return}
  if(isHome){
    const mobileLimit=4,desktopLimit=6;
    availableCategories().forEach(group=>{
@@ -420,7 +422,7 @@ let playbackToken=0,activeSourceFail=null,stallTimer=null;
 function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
 function play(channel,start=0){
  clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- const savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute;
+ let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute||autoMutedStart;autoMutedStart=false;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
 }
@@ -454,7 +456,7 @@ video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
-let brightness=1,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=1.5)brightness=savedBrightness}catch{}video.style.filter=`brightness(${brightness.toFixed(2)})`;
+let brightness=1.12,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}video.style.filter=`brightness(${brightness.toFixed(2)})`;
 const screenSteps=[
  {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
@@ -556,7 +558,7 @@ stage.addEventListener('pointermove',e=>{
  if(Math.abs(dy)>7&&Math.abs(dy)>Math.abs(dx)*1.1){
   gesture.moved=true;e.preventDefault();stage.classList.add('gesture-active');
   const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
-  const value=Math.max(0,Math.min(1,gestureStartValue+delta));
+  const value=gesture.side==='brightness'?Math.max(.35,Math.min(2,gestureStartValue+delta)):Math.max(0,Math.min(1,gestureStartValue+delta));
   if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
   else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
  }
@@ -585,11 +587,25 @@ $('stopBtn').addEventListener('click',stop);
 
 async function autoPickByVisitorCountry(){
  const pickRandom=list=>list[Math.floor(Math.random()*list.length)];
- const lookups=[async()=>{const r=await fetch('https://ipwho.is/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();if(d.success===false)throw Error();return String(d.country_code||'').toUpperCase()},async()=>{const r=await fetch('https://ipapi.co/json/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();return String(d.country_code||'').toUpperCase()}];
- let country='';for(const lookup of lookups){try{country=await Promise.race([lookup(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),3000))]);if(country)break}catch{}}
- const prefs=siteSettings.homepage?.country_autoplay||{};let category='',preferred='';if(country==='BD'){category='Bangladesh';preferred=prefs.BD||''}else if(country==='IN'){category='India';preferred=prefs.IN||''}else{preferred=prefs.OTHER||''}
- let candidates=channels;if(category){const local=channels.filter(c=>categoryForChannel(c)===category);if(local.length)candidates=local}
- let chosen=preferred?channels.find(c=>c.id===preferred):null;if(!chosen)chosen=pickRandom(candidates);if(!chosen)return;if(category)$('category').value=category;else $('category').value='';render();if(!activeId){play(chosen,0);$('playState').textContent='Auto-selected for '+(country||'your region')+' · attempting autoplay'}
+ const lookups=[
+  async()=>{const r=await fetch('https://ipwho.is/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();if(d.success===false)throw Error();return String(d.country_code||'').toUpperCase()},
+  async()=>{const r=await fetch('https://ipapi.co/json/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();return String(d.country_code||'').toUpperCase()}
+ ];
+ let country='';
+ for(const lookup of lookups){try{country=await Promise.race([lookup(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),1800))]);if(country)break}catch{}}
+ const prefs=siteSettings.homepage?.country_autoplay||{};
+ const category=country==='BD'?'Bangladesh':country==='IN'?'India':'';
+ const preferred=country==='BD'?prefs.BD:country==='IN'?prefs.IN:prefs.OTHER;
+ let candidates=channels;
+ if(category){const local=channels.filter(c=>categoryForChannel(c)===category);if(local.length)candidates=local}
+ let chosen=preferred?channels.find(c=>c.id===preferred):null;
+ if(!chosen)chosen=pickRandom(candidates);
+ if(!chosen||activeId)return;
+ $('category').value=category||'';render();
+ // Browsers generally block audible autoplay. Start muted; visitor can unmute with the player control.
+ autoMutedStart=true;
+ play(chosen,0);
+ $('playState').textContent='Auto-selected for '+(country||'your region')+' · autoplay started muted';
 }
 
 
@@ -613,8 +629,17 @@ async function init(){
    if(window.supabase&&supaUrl.startsWith('https://')&&supaKey&&!supaKey.includes('YOUR_')){
      db=window.supabase.createClient(supaUrl,supaKey);
      const client=db;
-     try{const [settingRes,catRes,noticeRes]=await Promise.all([client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order')]);if(!settingRes.error)siteSettings=settingRes.data?.settings||{};if(!catRes.error)managedCategories=catRes.data||[];if(!noticeRes.error)notificationItems=noticeRes.data||[];}catch{}
-     const {data,error}=await client.from('kp_channels').select('*').eq('is_active',true).order('sort_order');
+     const timeout=(promise,ms)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(Error('Supabase timeout')),ms))]);
+     const [settingRes,catRes,noticeRes,channelRes]=await Promise.all([
+       timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),6500).catch(()=>null),
+       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
+       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
+       timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),8500).catch(()=>null)
+     ]);
+     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
+     if(catRes&&!catRes.error)managedCategories=catRes.data||[];
+     if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
+     const {data,error}=channelRes||{data:null,error:Error('Channel query timed out')};
      if(!error&&Array.isArray(data)&&data.length){
        channels=groupEntries(data.map(row=>({
          id:row.id,name:row.name,group:row.category,country:row.country,logo:row.logo_url,
