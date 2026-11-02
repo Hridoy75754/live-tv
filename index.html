@@ -5,711 +5,286 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
 <meta name="description" content="Watch live TV channels in one place.">
-<title>KP Live TV TK</title>
+<title>KP Live TV</title>
 <style>
-:root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929}
+:root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929;--accent:#e50914}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,Helvetica,sans-serif;padding-bottom:76px}
 button,input,select{font:inherit}
 button{cursor:pointer}
 a{color:inherit}
-.site-header{position:fixed;z-index:30;top:0;left:0;right:0;background:linear-gradient(180deg,rgba(0,0,0,.92),rgba(0,0,0,.58));transition:background .2s}
-.nav{max-width:1600px;margin:auto;min-height:72px;padding:0 4.5%;display:flex;align-items:center;gap:34px}
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:clamp(22px,2.2vw,31px);font-weight:900;letter-spacing:-1.3px;color:var(--red);white-space:nowrap}
-.brand-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:6px;background:var(--red);color:#fff;font-size:19px;letter-spacing:0}
-.nav-links{display:flex;align-items:center;gap:20px;color:#e5e5e5;font-size:13px}
-.nav-links a{text-decoration:none;opacity:.88}
-.nav-links a:hover{color:#fff;opacity:1}
+
+.site-header{position:fixed;z-index:30;top:0;left:0;right:0;background:rgba(8,8,8,.94);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a}
+.nav{max-width:1600px;margin:auto;min-height:68px;padding:0 3.5%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:24px;font-weight:900;color:var(--accent);white-space:nowrap}
 .nav-spacer{flex:1}
-.search-wrap{display:flex;align-items:center;gap:8px;border:1px solid transparent;padding:7px 9px;transition:all .2s}
-.search-wrap:focus-within{border-color:#ddd;background:#000}
-.search-icon{font-size:20px}
-.search-wrap input{width:clamp(100px,16vw,210px);border:0;outline:0;background:transparent;color:#fff}
-.search-wrap input::placeholder{color:#ccc}
-.nav-select{max-width:180px;background:#171717;color:#fff;border:1px solid #555;border-radius:4px;padding:8px 10px}
-.hero{position:relative;min-height:clamp(500px,58vw,720px);display:flex;align-items:flex-end;overflow:hidden;background:#111}
-.hero-backdrop{position:absolute;inset:0;background:radial-gradient(ellipse at 72% 25%,rgba(137,15,24,.55),transparent 36%),radial-gradient(ellipse at 25% 35%,rgba(55,55,55,.45),transparent 42%),linear-gradient(90deg,#080808 0%,rgba(8,8,8,.92) 28%,rgba(8,8,8,.35) 72%,rgba(8,8,8,.15) 100%),linear-gradient(0deg,#080808 0%,rgba(8,8,8,.2) 45%,rgba(8,8,8,.18) 100%)}
-.hero-backdrop:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#080808 0%,transparent 48%)}
-.hero-content{position:relative;z-index:2;width:100%;max-width:1600px;margin:0 auto;padding:130px 4.5% 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.92fr);gap:42px;align-items:end}
-.hero-copy{max-width:670px;padding-bottom:25px}
-.eyebrow{display:flex;align-items:center;gap:9px;color:#ddd;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
-.eyebrow-mark{color:var(--red);font-size:22px}
-.hero h1{margin:15px 0 14px;font-size:clamp(42px,6.2vw,82px);line-height:.98;letter-spacing:-2.7px;font-weight:900;text-shadow:0 3px 20px #0008}
-.hero-copy p{max-width:570px;margin:0;color:#e2e2e2;font-size:clamp(15px,1.5vw,19px);line-height:1.6;text-shadow:0 2px 10px #000}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.action{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:4px;padding:12px 22px;font-weight:800;text-decoration:none;transition:transform .15s,background .15s}
-.action:hover{transform:scale(1.03)}
-.action-primary{background:#f5f5f5;color:#111}
-.action-primary:hover{background:#ddd}
-.action-secondary{background:rgba(109,109,110,.72);color:#fff}
-.action-secondary:hover{background:rgba(109,109,110,.48)}
-.hero-player{align-self:end;border:1px solid #ffffff22;border-radius:7px;overflow:hidden;background:#101010;box-shadow:0 18px 60px #0009;min-width:0}
-.player-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(90deg,#191919,#101010)}
-.now{min-width:0}
-.now strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
-.now small{display:block;color:#aaa;font-size:12px}
-.live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
-.live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
- .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--video-zoom,1));transform-origin:center center;filter:brightness(1);transition:transform .16s ease,object-fit .16s ease,filter .12s ease}
-.video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.58) 42%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
-.video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
-.video-tools button:active{background:#ffffff24;transform:scale(.94)}
-.video-tools #volumeLevel{width:68px;max-width:20vw;flex:0 1 68px;accent-color:#fff;height:4px;touch-action:pan-x}
-.video-tools .screen-cycle{min-width:44px;flex-direction:column;font-size:19px}
-.video-tools #screenRotate{font-size:21px}
-.video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
-.video-stage:fullscreen video{width:100%;height:100%}
-.video-stage.controls-hidden .video-tools{opacity:0;visibility:hidden;pointer-events:none}
-.video-tools{transition:opacity .22s ease}
-.gesture-hint{opacity:0;transition:opacity .18s ease}
-.gesture-hint.visible{opacity:1}
-.video-tools .screen-cycle small{font-size:8px;line-height:1;font-weight:800;letter-spacing:.4px}
-.gesture-hint{position:absolute;z-index:7;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:8px;padding:12px 15px;border-radius:22px;background:#000b;color:#fff;font-size:15px;font-weight:700;pointer-events:none}
-.gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}.gesture-zoom{left:50%;transform:translate(-50%,-50%)}
-.video-stage.gesture-active .video-tools{opacity:0;visibility:hidden;pointer-events:none}
-@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
-.player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
-.mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
-.mini-btn:hover{background:#333}
-main{position:relative;z-index:3;margin-top:-4px}
-.browse-tools{max-width:1600px;margin:0 auto;padding:8px 4.5% 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.browse-label{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-right:6px}
-.filter-hint{color:#888;font-size:12px}
-.rows{max-width:1600px;margin:0 auto;padding:0 4.5% 35px}
-.category-row{margin:12px 0 30px}.sports-subheading{font-size:15px;margin:12px 0 8px;color:#ddd}.sports-expanded{margin-top:10px}
-.row-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:0 0 11px}
-.row-heading h2{font-size:clamp(17px,1.8vw,22px);margin:0;font-weight:800;letter-spacing:-.3px}
-.row-heading span{font-size:12px;color:#888}
-.rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px;padding:4px 0 16px;overflow:visible}
-.rail.collapsed .channel-card:nth-child(n+7){display:none}
-.see-all-btn{border:0;background:transparent;color:#eee;font:600 13px inherit;cursor:pointer;padding:4px 0;text-decoration:none}
-.see-all-btn:hover{color:var(--red);text-decoration:underline}
-.row-heading .heading-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.search-wrap{display:flex;align-items:center;gap:8px;border:1px solid #333;background:#141414;border-radius:20px;padding:6px 14px}
+.search-wrap input{width:140px;border:0;outline:0;background:transparent;color:#fff}
+.category-open-trigger{background:#1c1c1c;color:#fff;border:1px solid #333;border-radius:20px;padding:7px 14px;cursor:pointer}
 
-.channel-card{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #262626;border-radius:5px;background:linear-gradient(145deg,#242424,#111);color:#fff;text-align:left;padding:0;scroll-snap-align:start;transition:transform .18s,border-color .18s,box-shadow .18s}
-.channel-card:hover,.channel-card:focus-visible{transform:scale(1.045);border-color:#777;box-shadow:0 12px 25px #000b;z-index:2;outline:none}
-.channel-card.active{border:2px solid var(--red)}
-.card-art{position:relative;display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden;background:radial-gradient(circle at 50% 25%,#555,#202020 65%,#111)}
-.card-art:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(0deg,#0a0a0a 0%,transparent 100%)}
-.card-art img{width:76%;height:76%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 4px 10px #0009)}
-.logo-fallback{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:88%;height:80%;padding:8px;border-radius:10px;background:linear-gradient(135deg,#303030,#111);border:1px solid #555;color:#fff;font-size:26px;font-weight:900;text-align:center;overflow:hidden}.logo-fallback small{font-size:10px;line-height:1.2;max-width:100%;max-height:28px;overflow:hidden;font-weight:700;letter-spacing:.2px}
-.card-play{position:absolute;z-index:3;right:10px;bottom:10px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#f5f5f5;color:#111;opacity:0;transform:scale(.8);transition:.18s;font-size:14px}
-.channel-card:hover .card-play,.channel-card:focus-visible .card-play,.channel-card.active .card-play{opacity:1;transform:scale(1)}
-.card-info{padding:10px 11px 12px;min-width:0}
-.card-name{display:block;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card-meta{display:flex;align-items:center;gap:6px;margin-top:5px;color:#aaa;font-size:11px}
-.card-live{color:#ff5b62;font-size:9px;font-weight:900;letter-spacing:.8px}
-.empty{grid-column:1/-1;padding:30px 16px;color:#aaa;background:#141414;border-radius:6px}
-.status-line{max-width:1600px;margin:0 auto;padding:0 4.5% 20px;color:#999;font-size:12px}
-.site-footer{border-top:1px solid #222;padding:24px 4.5% 30px;color:#777;font-size:12px}
-.footer-inner{max-width:1500px;margin:auto;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-@media(max-width:900px){.nav{gap:16px;min-height:65px}.nav-links{gap:12px}.hero-content{grid-template-columns:1fr;gap:20px;padding-top:120px}.hero{min-height:unset}.hero-copy{padding-bottom:0}.hero-player{max-width:680px;width:100%}.hero h1{font-size:clamp(42px,8vw,68px)}video{max-height:none}.browse-tools{padding-top:20px}}
-@media(max-width:600px){.nav{padding:0 4%;gap:10px;min-height:62px}.brand{font-size:22px}.brand-mark{width:27px;height:27px;font-size:16px}.nav-links{display:none}.search-wrap{padding:5px 3px}.search-wrap input{width:90px;font-size:12px}.nav-select{max-width:115px;padding:7px 5px;font-size:12px}.hero-content{padding:105px 4% 22px}.hero h1{font-size:43px;letter-spacing:-1.6px}.hero-copy p{font-size:14px}.hero-actions{margin-top:17px}.action{padding:10px 14px;font-size:13px}.browse-tools,.rows,.status-line{padding-left:4%;padding-right:4%}.browse-label{font-size:19px}.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.card-art{aspect-ratio:1/1}.card-art img{width:82%;height:82%}.card-info{padding:7px 6px 8px}.card-name{font-size:11px}.card-meta{font-size:9px;gap:3px;flex-wrap:wrap}.card-live{font-size:8px}.logo-fallback{font-size:20px;padding:4px}.logo-fallback small{font-size:8px}.category-row{margin-bottom:23px}.player-top{padding:10px}.player-bottom{padding:8px 10px}.site-footer{padding:20px 4%}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
-
-/* KP Live TV app-inspired layout */
-:root{--bg:#101010;--surface:#1d1d1f;--surface2:#292929;--text:#f7f2f2;--muted:#b9b0b0;--red:#f04444;--border:#303033;--accent:#3b2425}
-body{padding-bottom:76px;background:#101010}
-.site-header{background:#101010f2;backdrop-filter:blur(14px)}
-.nav{min-height:76px;padding:0 3.2%;gap:14px}
-.brand{color:#f4dfe3;font-size:clamp(23px,3vw,32px);letter-spacing:-.8px}
-.brand-mark{display:none}
-.nav-links{display:none}
-.search-wrap{margin-left:auto}
-.nav-select{border-radius:22px;background:#222;border-color:#383838}
-.hero{min-height:unset;display:block;padding-top:76px;background:#101010}
-.hero-backdrop{inset:76px 3.2% auto;height:230px;border-radius:26px;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.12)),radial-gradient(circle at 75% 25%,#744b4c,#222 70%);overflow:hidden}
-.hero-backdrop:after{background:linear-gradient(0deg,#101010 0%,transparent 60%)}
-.hero-content{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:96px 3.2% 20px}
-.hero-copy{height:190px;max-width:none;padding:12px 14px 18px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
-.eyebrow{font-size:10px;letter-spacing:2px;color:#ffd5d8}
-.hero h1{font-size:clamp(30px,6vw,44px);letter-spacing:-1px;margin:9px 0 7px}
-.hero-copy p{font-size:14px;line-height:1.4;max-width:80%}
-.hero-actions{margin-top:14px}
-.action{border-radius:24px;padding:10px 18px;font-size:13px}
-.action-primary{background:#3b2425;color:#ffd6d6}
-.action-secondary{background:#333;color:#fff}
-.hero-player{width:100%;max-width:none;border-radius:18px;border-color:#292929;box-shadow:0 12px 30px #0008}
-.player-top{padding:12px 15px}
-.video-stage{max-height:58vh;border-radius:0}
-.player-bottom{padding:9px 13px}
-.category-tabs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:13px 3.2% 17px;position:relative;z-index:4;white-space:nowrap}
-.category-tabs::-webkit-scrollbar{display:none}
-.category-tab{flex:0 0 auto;border:0;border-radius:28px;background:#222;color:#eee;padding:11px 19px;font-size:14px;font-weight:700}
-.category-tab.active{background:#f04444;color:white}
-.browse-tools{padding:8px 3.2% 10px}
-.browse-label{font-size:22px;letter-spacing:-.4px}
-.filter-hint{font-size:12px}
-.rows{padding:0 3.2% 8px}
-.category-row{margin:10px 0 24px}
-.row-heading{align-items:center;margin:0 0 9px}
-.row-heading h2{font-size:22px;font-weight:800}
-.row-heading span{font-size:11px}
-.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:3px 0 8px}
-.rail.collapsed .channel-card:nth-child(n+7){display:none}
-.channel-card{border-radius:22px;border:1px solid #303033;background:#1d1d1f;box-shadow:0 5px 13px #0005}
-.channel-card:hover,.channel-card:focus-visible{transform:translateY(-2px);border-color:#555;box-shadow:0 8px 18px #0008}
-.channel-card.active{border:2px solid #f04444}
-.card-art{aspect-ratio:1/1.02;background:#1d1d1f}
-.card-art:after{display:none}
-.card-art img{width:58%;height:58%;filter:drop-shadow(0 2px 7px #0008)}
-.card-info{background:#262628;text-align:center;padding:9px 6px 10px;min-height:47px;display:flex;justify-content:center}
-.card-name{font-size:12px;font-weight:700;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-.card-meta{display:none}
-.card-play{right:9px;top:8px;bottom:auto;width:23px;height:23px;border-radius:50%;font-size:10px}
-.channel-card:before{content:'LIVE';position:absolute;z-index:4;right:8px;top:8px;background:#f04444;color:#fff;border-radius:15px;padding:3px 8px;font-size:9px;font-weight:800}
-.channel-card .card-play{display:none}
-.fav-mark{position:absolute;z-index:5;left:8px;top:8px;width:25px;height:25px;border-radius:50%;background:#101010dd;color:#fff;display:grid;place-items:center;font-size:16px;line-height:1}
-.fav-mark.is-favorite{color:#f04444}
-.see-all-btn{font-size:12px;color:#f5bfc3}
-.sports-subheading{font-size:14px;margin:14px 0 8px;color:#eee}
-.mobile-dock{position:fixed;z-index:60;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:center;gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#2a1e1f;border-top:1px solid #3a2a2b;box-shadow:0 -8px 24px #0006}
-.dock-item{flex:1;min-width:0;border:0;background:transparent;color:#d4c3c4;display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;border-radius:20px}
-.dock-item span{font-size:23px;line-height:1.15}
-.dock-item small{font-size:10px}
-.dock-item.active{color:#fff;background:#583b3d}
-.site-footer{padding-bottom:100px}
-@media(min-width:900px){.hero-content{max-width:1300px}.hero-backdrop{max-width:1220px;left:calc((100% - 1220px)/2);right:auto;width:1220px}.hero-copy{height:210px}.rail{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.card-art{aspect-ratio:1.25/1}.category-tabs,.browse-tools,.rows{max-width:1300px;margin-left:auto;margin-right:auto}}
-@media(max-width:600px){.nav{min-height:72px;padding:0 3.2%;gap:7px}.brand{font-size:23px}.search-wrap{padding:4px}.search-wrap input{width:0;max-width:0;padding:0;transition:width .2s}.search-wrap:focus-within input{width:95px;max-width:95px}.nav-select{max-width:112px;font-size:11px;padding:7px 8px}.hero-content{padding:90px 3.2% 15px;gap:12px}.hero-backdrop{top:72px;height:205px;left:3.2%;right:3.2%}.hero-copy{height:170px;padding:8px 10px}.hero h1{font-size:32px}.hero-copy p{font-size:12px}.hero-actions{margin-top:10px}.action{padding:8px 14px;font-size:12px}.hero-player{border-radius:15px}.category-tabs{padding-top:11px;padding-bottom:14px;gap:8px}.category-tab{padding:10px 16px;font-size:13px}.browse-tools,.rows{padding-left:3.2%;padding-right:3.2%}.browse-label{font-size:20px}.rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.card-art{aspect-ratio:1/1.02}.card-info{padding:8px 4px;min-height:42px}.card-name{font-size:11px}.channel-card{border-radius:19px}.category-row{margin-bottom:19px}.row-heading h2{font-size:19px}.row-heading span{font-size:10px}.mobile-dock{padding-top:7px}.dock-item span{font-size:22px}.dock-item small{font-size:9px}}
-
-
-/* Tap directly on the video surface to play/stop */
-.stage-tap-toggle{position:absolute;z-index:9;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid #ffffff55;background:#0009;color:#fff;font-size:25px;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .18s}
-.video-stage.tap-hint .stage-tap-toggle{opacity:1}
-.video-stage:not(.is-playing) .stage-tap-toggle{opacity:1;pointer-events:auto}
-.video-stage.is-playing .stage-tap-toggle{pointer-events:auto;opacity:0}
-.video-stage.is-playing.tap-hint .stage-tap-toggle{opacity:.85}
-.category-tabs{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:9px;overflow:visible;white-space:normal;width:100%;max-width:1300px;margin:0 auto;padding:13px 3.2% 17px}
-.category-tab{flex:0 1 auto;max-width:100%;white-space:nowrap}
-@media(max-width:600px){.category-row:not(.trending-section) .rail:not(.category-full-rail)>.channel-card:nth-child(n+5){display:none!important}.trending-rail>.channel-card{flex-basis:calc(25% - 6px)}.category-tabs{display:flex;flex-wrap:wrap;gap:7px;padding:11px 3.2% 14px}.category-tab{padding:9px 13px;font-size:12px;flex:0 1 auto}.stage-tap-toggle{width:54px;height:54px}}
-
-/* Hero/banner removed: keep the live player as the first homepage section. */
-.player-section{width:100%;padding:94px 3.2% 12px;background:#101010}
+.player-section{width:100%;padding:82px 3.5% 12px;background:var(--bg)}
 .player-container{width:100%;max-width:1300px;margin:0 auto}
-.player-container .hero-player{width:100%;max-width:none;margin:0 auto;border-radius:18px;border:1px solid #292929;box-shadow:0 12px 30px #0008}
-@media(max-width:600px){.player-section{padding:82px 3.2% 8px}.player-container .hero-player{border-radius:15px}}
+.hero-player{width:100%;border-radius:14px;overflow:hidden;background:#121212;border:1px solid var(--border);box-shadow:0 12px 35px #000a}
+.player-top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#1a1a1a}
+.now strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now small{color:#aaa;font-size:12px}
+.live-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;color:#fff}
+.live-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
 
-.category-tabs-highlight{outline:2px solid var(--accent,#f04444);outline-offset:4px;border-radius:12px;transition:outline-color .25s ease}
-.category-tabs{flex-wrap:nowrap!important;overflow-x:auto!important;white-space:nowrap!important;justify-content:flex-start;scrollbar-width:none}.category-tabs::-webkit-scrollbar{display:none}.category-tab{flex:0 0 auto!important}.social-links{display:flex;gap:12px;flex-wrap:wrap}.social-links a{color:inherit;text-decoration:none}.social-links a:hover{color:var(--accent)}.trending-main-title{font-size:22px;margin:0 0 14px}.trending-section .row-heading{margin-top:14px}.kp-notification-bar{position:relative;z-index:25;min-height:40px}
-/* Fixed six-category navigation and compact category previews. */
-.category-tabs{display:flex!important;flex-wrap:nowrap!important;justify-content:space-between!important;gap:5px!important;width:100%;max-width:1300px;margin:0 auto;overflow:hidden!important;padding:12px 3.2% 15px!important;white-space:nowrap!important}
-.category-tab{flex:1 1 0!important;min-width:0!important;max-width:none!important;padding:10px 3px!important;font-size:clamp(9px,1.8vw,14px)!important;text-align:center!important;overflow:hidden;text-overflow:ellipsis}
-.category-row{margin:12px 0 24px}.row-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.see-all-btn{border:0;background:transparent;color:var(--accent,#f04444);font-size:12px;font-weight:700;white-space:nowrap;padding:5px 0}.rail{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}.trending-rail{grid-template-columns:repeat(6,minmax(0,1fr))}.home-extra-channel{display:none!important}.category-full-rail .home-extra-channel{display:flex!important}
-@media(max-width:600px){.category-row:not(.trending-section) .rail:not(.category-full-rail)>.channel-card:nth-child(n+5){display:none!important}.trending-rail>.channel-card{flex-basis:calc(25% - 6px)}.category-tabs{gap:4px!important;padding-left:2.5%!important;padding-right:2.5%!important}.category-tab{font-size:clamp(8px,2.15vw,11px)!important;padding:9px 1px!important}.rail,.trending-rail{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.home-extra-channel{display:none!important}.see-all-btn{font-size:10px}.row-heading h2{font-size:18px}}
-@media(min-width:601px){.rail{grid-template-columns:repeat(6,minmax(0,1fr))}.category-row:not(.trending-section) .rail:not(.category-full-rail)>.channel-card:nth-child(n+7){display:none!important}.trending-rail>.channel-card{flex-basis:calc(16.666% - 10px)}}
-.kp-notification-bar,#notificationBar{font-size:18px;font-weight:700;line-height:1.55}.trending-main-title{font-size:22px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}@media(max-width:600px){.kp-notification-bar,#notificationBar{font-size:16px}.trending-main-title{font-size:19px}}
+.video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:60vh}
+.video-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.video-tools{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.85));transition:opacity .2s}
+.video-tools button{background:transparent;border:0;color:#fff;font-size:18px;padding:6px;border-radius:4px}
+.video-tools input[type="range"]{width:70px;accent-color:var(--accent)}
+.video-stage.controls-hidden .video-tools{opacity:0;pointer-events:none}
+.player-bottom{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;font-size:12px;color:#888;background:#141414}
+
+.category-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:14px 3.5%;max-width:1600px;margin:auto}
+.category-tabs::-webkit-scrollbar{display:none}
+.category-tab{flex:0 0 auto;border:0;border-radius:20px;background:#202020;color:#ddd;padding:8px 16px;font-size:13px;font-weight:700}
+.category-tab.active{background:var(--accent);color:#fff}
+
+.rows{max-width:1600px;margin:0 auto;padding:0 3.5% 30px}
+.category-row{margin:15px 0 25px}
+.row-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.row-heading h2{font-size:19px;margin:0;font-weight:800}
+
+.rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.channel-card{position:relative;display:flex;flex-direction:column;border:1px solid #282828;border-radius:10px;background:#191919;overflow:hidden;cursor:pointer;transition:transform .15s}
+.channel-card:hover{transform:translateY(-3px);border-color:#444}
+.channel-card.active{border:2px solid var(--accent)}
+.card-art{aspect-ratio:1/1;display:grid;place-items:center;background:#111;position:relative}
+.card-art img{width:70%;height:70%;object-fit:contain}
+.logo-fallback{font-weight:900;font-size:22px;color:#666;text-align:center;padding:10px}
+.card-info{padding:8px;text-align:center;background:#1f1f1f}
+.card-name{display:block;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fav-mark{position:absolute;top:6px;left:6px;width:24px;height:24px;border-radius:50%;background:#0008;color:#fff;display:grid;place-items:center;font-size:14px}
+.fav-mark.active{color:var(--accent)}
+
+.load-more-container{text-align:center;margin:25px 0}
+.load-more-btn{background:#222;border:1px solid #383838;color:#fff;padding:10px 24px;border-radius:24px;font-weight:700}
+.mobile-dock{position:fixed;z-index:60;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:8px 0;background:#141416;border-top:1px solid #28282c}
+.dock-item{background:none;border:0;color:#888;display:flex;flex-direction:column;align-items:center;font-size:10px}
+.dock-item.active{color:var(--accent)}
+.dock-item span{font-size:18px}
+.empty{padding:25px;background:#161616;border-radius:8px;text-align:center;color:#999}
+@media(max-width:600px){
+  .rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .search-wrap input{width:90px}
+}
 </style>
-
-
-<style id="category-modal-styles">
-.category-open-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:132px;cursor:pointer;border:1px solid var(--border,#333);border-radius:24px;background:var(--surface,#222);color:var(--text,#eee);font:inherit;padding:10px 14px}
-.category-modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.58);display:flex;align-items:center;justify-content:center;padding:18px}
-.category-modal-backdrop[hidden]{display:none!important}
-.category-modal{width:min(100%,650px);max-height:min(82vh,780px);overflow:hidden;display:flex;flex-direction:column;background:#fff;color:#202124;border-radius:28px;box-shadow:0 18px 70px #0008}
-.category-modal-heading{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #e5e5e5}
-.category-modal-heading h2{font-size:20px;margin:0;font-weight:700}
-.category-modal-heading button{border:0;background:#f1f1f1;color:#222;border-radius:50%;width:38px;height:38px;font-size:25px;line-height:1;cursor:pointer}
-.category-modal-list{overflow-y:auto;overscroll-behavior:contain}
-.category-modal-option{width:100%;min-height:68px;padding:14px 22px;border:0;border-bottom:1px solid #e8e8e8;background:#fff;color:#202124;display:flex;align-items:center;justify-content:space-between;text-align:left;font-size:18px;cursor:pointer}
-.category-modal-option:last-child{border-bottom:0}
-.category-modal-option:active,.category-modal-option:hover{background:#f5f5f5}
-.category-modal-option .category-radio{width:25px;height:25px;border:2px solid #777;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}
-.category-modal-option[aria-checked="true"] .category-radio{border-color:#1769d2}
-.category-modal-option[aria-checked="true"] .category-radio:after{content:"";width:13px;height:13px;border-radius:50%;background:#1769d2}
-body.category-modal-open{overflow:hidden}
-@media(max-width:600px){.category-modal-backdrop{padding:16px}.category-modal{width:100%;max-height:82vh;border-radius:27px}.category-modal-option{min-height:72px;font-size:19px;padding:15px 17px}.category-modal-heading{padding:16px 18px}.category-open-trigger{min-width:112px;max-width:132px;padding:9px 10px;font-size:12px}}
-</style>
-\n</head>
+</head>
 <body>
+
 <header class="site-header">
-  <nav class="nav" aria-label="Main navigation">
-    <a class="brand" href="#home" aria-label="KP Live TV home"><span id="siteBrandTitle">KP Live TV</span></a>
-    <div class="nav-links"><a href="#home">Home</a><a href="#browse">Live TV</a></div>
+  <nav class="nav">
+    <a class="brand" href="#" id="siteBrandTitle">KP Live TV</a>
     <div class="nav-spacer"></div>
-    <label class="search-wrap" aria-label="Search channels"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="Search channels…" autocomplete="off"></label>
-    <button class="nav-select category-open-trigger" id="categoryOpenTrigger" type="button" aria-haspopup="dialog" aria-controls="categoryModal">All categories <span aria-hidden="true">⌄</span></button><select class="nav-select" id="category" aria-label="Filter by category" hidden><option value="">All categories</option></select>
+    <label class="search-wrap">
+      <span>⌕</span>
+      <input id="search" type="search" placeholder="Search…">
+    </label>
+    <button class="category-open-trigger" id="categoryTrigger" type="button">All Categories ⌄</button>
   </nav>
 </header>
-<div id="notificationBar" class="kp-notification-bar" hidden><span class="kp-notice-dot">●</span><strong id="noticeTitle"></strong><span id="noticeMessage"></span><a id="noticeLink" href="#" target="_blank" rel="noopener" hidden>Details</a></div>
-<style>.kp-notification-bar{max-width:1300px;margin:78px auto 0;padding:10px 16px;background:#2b2021;border:1px solid #59363a;border-radius:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#fff;font-size:13px}.kp-notification-bar[hidden]{display:none}.kp-notice-dot{color:#ff5555}@media(max-width:600px){.kp-notification-bar{margin:74px 3.2% 0;padding:9px 11px;font-size:12px}}</style>
-<section class="player-section" id="home" aria-label="KP Live TV player">
+
+<section class="player-section" id="playerWrap">
   <div class="player-container">
-<div class="hero-player" id="playerPanel">
-  <div class="player-top">
-    <div class="now"><strong id="nowTitle">Choose a channel to start watching</strong><small id="nowGroup">Your live entertainment hub</small></div>
-    <span class="live-badge"><span class="live-dot"></span> LIVE</span>
-  </div>
-  <div class="video-stage" id="videoStage">
-    <video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video>
-    <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
-    <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
-    <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
-    <button type="button" class="stage-tap-toggle" id="stageTapToggle" aria-label="Tap to play or stop">▶</button>
-    <div class="video-tools" aria-label="Video player controls">
-      <button type="button" class="tool-icon" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
-      <button type="button" class="tool-icon" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
-      <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1">
-      <button type="button" class="tool-icon screen-cycle" id="screenCycle" title="Screen mode: Auto Fit" aria-label="Cycle screen fit">▣ <small id="screenModeLabel">AUTO</small></button>
-      <button type="button" class="tool-icon" id="screenRotate" title="Rotate to landscape" aria-label="Rotate to landscape">⟳</button>
-      <button type="button" class="tool-icon" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
+    <div class="hero-player">
+      <div class="player-top">
+        <div class="now"><strong id="nowTitle">Select a channel to play</strong><small id="nowGroup">Live TV</small></div>
+        <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+      </div>
+      <div class="video-stage" id="videoStage">
+        <video id="video" playsinline webkit-playsinline></video>
+        <div class="video-tools" id="videoTools">
+          <button id="playPause" type="button">▶</button>
+          <button id="muteBtn" type="button">🔊</button>
+          <input id="volumeLevel" type="range" min="0" max="1" step="0.05" value="1">
+          <button id="fullScreenBtn" type="button" style="margin-left:auto">⛶</button>
+        </div>
+      </div>
+      <div class="player-bottom">
+        <span id="playState">Ready</span>
+        <button id="stopBtn" style="background:#222;border:1px solid #444;color:#fff;padding:4px 8px;border-radius:4px" type="button">Stop</button>
+      </div>
     </div>
-  </div>
-  <div class="player-bottom"><span id="playState">Ready to play</span><button class="mini-btn" id="stopBtn" type="button">Stop</button></div>
-</div>
   </div>
 </section>
 
-<main id="browse">
-  <div class="category-tabs" id="categoryTabs" aria-label="Channel categories"><button class="category-tab active" type="button" data-target="all">Live TV</button></div>
-  <div class="browse-tools"><span class="filter-hint" id="filterHint">Choose a channel to watch live</span></div>
-  <div class="rows" id="trendingRows"></div>
-  <div class="rows" id="channelRows"><div class="empty">Loading channels…</div></div>
-  <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
+<div class="category-tabs" id="categoryTabs"></div>
+
+<main class="rows">
+  <div id="channelRows"></div>
+  <div class="load-more-container">
+    <button id="loadMoreBtn" class="load-more-btn" style="display:none" type="button">Load More Channels</button>
+  </div>
 </main>
-<div class="category-modal-backdrop" id="categoryModal" hidden>
-  <section class="category-modal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
-    <div class="category-modal-heading"><h2 id="categoryModalTitle">Choose category</h2><button type="button" id="categoryModalClose" aria-label="Close categories">×</button></div>
-    <div class="category-modal-list" id="categoryModalList"></div>
-  </section>
-</div>
-<nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
-<footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
+<nav class="mobile-dock">
+  <button class="dock-item active" id="dockHome" type="button"><span>⌂</span>Home</button>
+  <button class="dock-item" id="dockFavs" type="button"><span>♡</span>Favorites</button>
+</nav>
 
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://nsmcswuqtmqverfgthhf.supabase.co" crossorigin><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
-let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
-function say(message){$('playState').textContent=message}
-function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
-function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
-function normalize(item,index=0){let urls=Array.isArray(item.urls)?item.urls:[item.url];urls=[...new Set(urls.map(safeUrl).filter(Boolean))];if(!urls.length)return null;return{id:item.id||String(index)+'-'+keyName(item.name),name:String(item.name||'Unnamed channel').replace(/\s*\[Backup\s*\d+\]\s*$/i,'').trim().slice(0,160)||'Unnamed channel',urls,url:urls[0],logo:safeUrl(item.logo||''),group:String(item.group||'Other').trim().slice(0,100)||'Other',country:String(item.country||'').trim().slice(0,80)}}
-function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name);if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(!old.logo&&channel.logo)old.logo=channel.logo;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
-function parseM3U(text){const result=[],lines=text.replace(/^\uFEFF/,'').split(/\r?\n/);let meta={};for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF')){const comma=line.indexOf(','),attrs=comma>=0?line.slice(0,comma):line,name=comma>=0?line.slice(comma+1).trim():'Unnamed channel';const attr=key=>{const match=attrs.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"','i'));return match?match[1]:''};meta={name:name.replace(/\s*\[Backup\s*\d+\]\s*$/i,''),logo:attr('tvg-logo'),group:attr('group-title')||'Other'}}else if(!line.startsWith('#')){result.push({...meta,url:line});meta={}}}return groupEntries(result)}
-function esc(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
-const GROUP_ORDER=[
- 'sports','bangladesh','india','bollywood','movies','news',
- 'english & international','music','religious','kids & animation','radio',
- 'documentary & education'
-];
-function groupRank(group){
- const g=String(group||'').toLowerCase();
- const idx=GROUP_ORDER.findIndex(x=>g===x||g.includes(x));
- return idx<0?GROUP_ORDER.length+1:idx;
-}
-function sportsCountry(channel){const n=channel.name.toLowerCase();if(/t sports|gazi tv sports|bangladesh sports|\[bd\]|\[bd\]|bangla sports/.test(n))return 'Bangladesh';if(/dd sports|star sports|sony sports|sports18|jio sports|india sports|indian sports/.test(n))return 'India';if(/a sports|ptv sports|ten sports pakistan|geo super|pakistan sports/.test(n))return 'Pakistan';return 'International & Other'}
-function makeCard(channel, groupLabel){
- const card=document.createElement('button');card.type='button';card.className='channel-card'+(channel.id===activeId?' active':'');card.setAttribute('aria-label','Play '+channel.name);
- const art=document.createElement('span');art.className='card-art';
- const addFallback=()=>{const fallback=document.createElement('span');fallback.className='logo-fallback';fallback.innerHTML=`${esc(channel.name.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase())}<small>${esc(channel.name)}</small>`;art.prepend(fallback)};
- if(channel.logo){const img=document.createElement('img');img.loading='lazy';img.alt=channel.name+' logo';img.referrerPolicy='no-referrer';img.src=channel.logo;img.onerror=()=>{img.remove();addFallback()};art.appendChild(img)}else addFallback();
- const fav=document.createElement('span');fav.className='fav-mark';fav.textContent='♡';fav.setAttribute('role','button');fav.setAttribute('aria-label','Add to favorites');fav.tabIndex=0;const favKey='kp-live-favorites';const getFavs=()=>{try{return JSON.parse(localStorage.getItem(favKey)||'[]')}catch{return []}};const paintFav=()=>{const yes=getFavs().includes(channel.id);fav.classList.toggle('is-favorite',yes);fav.textContent=yes?'♥':'♡'};paintFav();const toggleFav=e=>{e.stopPropagation();const arr=getFavs(),i=arr.indexOf(channel.id);if(i>=0)arr.splice(i,1);else arr.push(channel.id);try{localStorage.setItem(favKey,JSON.stringify(arr))}catch{}paintFav()};fav.addEventListener('click',toggleFav);fav.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleFav(e)}});art.appendChild(fav);
- const playIcon=document.createElement('span');playIcon.className='card-play';playIcon.textContent='▶';art.appendChild(playIcon);
- const info=document.createElement('span');info.className='card-info';const name=document.createElement('span');name.className='card-name';name.textContent=channel.name;
- const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>play(channel,0));return card;
-}
-const FIXED_CATEGORIES=['Sports','Movies','News','Music','Bangladesh','India'];
-function availableCategories(){const names=[...FIXED_CATEGORIES,...(managedCategories||[]).map(c=>c.name).filter(Boolean),'Others'];return [...new Set(names)]}
-const VISIBLE_CATEGORY_TABS=['All','Sports','Movies','News','Music','Bangladesh'];
-function categoryForChannel(channel){
- const group=String(channel.group||'').trim().toLowerCase();
- const country=String(channel.country||'').trim().toLowerCase();
- const name=String(channel.name||'').toLowerCase();
- const managed=(managedCategories||[]).find(x=>String(x.name||'').toLowerCase()===group);if(managed)return managed.name;
- if(FIXED_CATEGORIES.some(x=>x.toLowerCase()===group))return FIXED_CATEGORIES.find(x=>x.toLowerCase()===group);
- if(/sport/.test(group)||/sports/.test(name))return 'Sports';
- if(/movie|cinema|film/.test(group))return 'Movies';
- if(/news/.test(group)||/news/.test(name))return 'News';
- if(/music|radio|song/.test(group))return 'Music';
- if(/bangladesh|bangla|bd/.test(group+' '+country)||/bangla|somoy|jamuna|zee bangla|gazi tv|channel i|ntv|atn|ekushey|r tv|time televis/.test(name))return 'Bangladesh';
- if(country==='in'||/india|indian|hindi/.test(group+' '+country)||/star plus|zee tv|sony|colors|sun tv|dd national|&tv|zee cinema/.test(name))return 'India';
- return 'Others';
-}
-function renderCategoryTabs(){
- const tabs=$('categoryTabs');if(!tabs)return;tabs.innerHTML='';
- VISIBLE_CATEGORY_TABS.forEach(label=>{const b=document.createElement('button');b.type='button';b.className='category-tab';b.textContent=label;b.dataset.target=label;b.addEventListener('click',()=>{ $('search').value='';$('category').value=label==='All'?'':label;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'}); });tabs.appendChild(b)});
-}
-function syncCategoryTab(){const selected=$('category').value||'All';document.querySelectorAll('#categoryTabs .category-tab').forEach(b=>b.classList.toggle('active',b.dataset.target===selected));const trigger=$('categoryOpenTrigger');if(trigger){trigger.innerHTML='';const t=document.createElement('span');t.textContent=selected==='All'?'All categories':selected;const a=document.createElement('span');a.textContent='⌄';a.setAttribute('aria-hidden','true');trigger.append(t,a);}}
-function categoryLabel(){return $('category').value||'All categories'}
-function renderCategoryModal(){
- const list=$('categoryModalList');if(!list)return;list.innerHTML='';
- const names=['All categories',...availableCategories()];
- names.forEach(name=>{
-  const value=name==='All categories'?'':name;
-  const option=document.createElement('button');option.type='button';option.className='category-modal-option';
-  option.setAttribute('role','radio');option.setAttribute('aria-checked',String(($('category').value||'')===value));
-  const label=document.createElement('span');label.textContent=name;
-  const radio=document.createElement('span');radio.className='category-radio';radio.setAttribute('aria-hidden','true');
-  option.append(label,radio);option.addEventListener('click',()=>selectCategoryFromModal(value));list.appendChild(option);
- });
-}
-function openCategoryModal(){
- renderCategoryModal();$('categoryModal').hidden=false;document.body.classList.add('category-modal-open');
- $('categoryModalClose').focus();
-}
-function closeCategoryModal(){
- $('categoryModal').hidden=true;document.body.classList.remove('category-modal-open');
-}
-function selectCategoryFromModal(value){
- $('search').value='';$('category').value=value;render();closeCategoryModal();
- const label=value||'All categories';$('categoryOpenTrigger').innerHTML='';
- const text=document.createElement('span');text.textContent=label;
- const arrow=document.createElement('span');arrow.textContent='⌄';arrow.setAttribute('aria-hidden','true');
- $('categoryOpenTrigger').append(text,arrow);
- $('browse').scrollIntoView({behavior:'smooth',block:'start'});
+let channels=[],activeId=null,hls=null,activeFilter='All',currentQuery='',pageLimit=48;
+let favs=JSON.parse(localStorage.getItem('kp-favs')||'[]');
+const db=window.supabase?.createClient(window.KP_SUPABASE_URL||'',window.KP_SUPABASE_ANON_KEY||'');
+
+function debounce(fn,ms=250){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}}
+
+// Optimized Chunk Fetch for 2,000 Channels
+async function fetchAllChannels(){
+  const cached=localStorage.getItem('kp-channels-cache');
+  if(cached){
+    try{
+      const parsed=JSON.parse(cached);
+      if(Array.isArray(parsed)&&parsed.length){channels=parsed;renderCategories();renderChannels(true)}
+    }catch{}
+  }
+  if(!db)return;
+  let all=[],page=0,step=1000,done=false;
+  try{
+    while(!done){
+      const {data,error}=await db.from('kp_channels')
+        .select('id,name,category,logo_url,stream_urls')
+        .eq('is_active',true)
+        .order('sort_order',{ascending:true})
+        .range(page*step,(page+1)*step-1);
+      if(error)break;
+      if(data&&data.length){
+        all.push(...data);
+        if(data.length<step)done=true;
+        else page++;
+      }else done=true;
+    }
+    if(all.length){
+      channels=all.map(c=>({
+        id:c.id,name:c.name,group:c.category||'Other',logo:c.logo_url,
+        urls:(c.stream_urls||[]).map(u=>typeof u==='string'?u:u.url).filter(Boolean)
+      }));
+      localStorage.setItem('kp-channels-cache',JSON.stringify(channels));
+      renderCategories();
+      renderChannels(true);
+    }
+  }catch(e){console.error('Channel load error:',e)}
 }
 
-function renderTrending(){
- const root=$('trendingRows');if(!root)return;root.innerHTML='';if(siteSettings.homepage?.show_trending===false)return;
- const valid=trendingItems.map(t=>channels.find(c=>c.id===t.channel_id)).filter(Boolean);
- if(!valid.length)return;
- const section=document.createElement('section');section.className='category-row trending-section';
- const title=document.createElement('h2');title.className='trending-main-title';title.textContent=siteSettings.homepage?.trending_title||'🔥 Trending Now';section.appendChild(title);
- const rail=document.createElement('div');rail.className='rail trending-rail';rail.setAttribute('aria-label','Trending channels');
- valid.forEach(c=>rail.appendChild(makeCard(c,c.group)));section.appendChild(rail);root.appendChild(section);
-}
-function normalizeSearch(v){return String(v||'').toLocaleLowerCase('bn').normalize('NFKC').replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[\u200c\u200d]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ')}
-function translit(v){return normalizeSearch(v).replace(/সময়|সময়/g,'somoy').replace(/নিউজ/g,'news').replace(/বাংলা/g,'bangla').replace(/খবর/g,'khobor')}
-function editDistance(a,b){if(a.length>80||b.length>80)return 99;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old}}return row[b.length]}
-function searchScore(channel,q){const n=normalizeSearch(channel.name),g=normalizeSearch(channel.group),a=translit(q),b=translit(n+' '+g);if(!q)return 1;if(n===q||b===a)return 100;if(n.startsWith(q)||b.startsWith(a))return 85;if(n.includes(q)||b.includes(a))return 70;const words=b.split(' '),qw=a.split(' ');let score=0;for(const w of qw){if(!w)continue;if(words.some(x=>x===w))score+=18;else if(words.some(x=>editDistance(x,w)<=Math.max(1,Math.floor(w.length*.25))))score+=10}return score}
-function render(){
- const rawQuery=$('search').value.trim(),query=normalizeSearch(rawQuery),categorySelect=$('category');
- const selected=categorySelect.value;
- const categoryNames=availableCategories();
- categorySelect.innerHTML='<option value="">All categories</option>'+categoryNames.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</option>`).join('');
- categorySelect.value=categoryNames.includes(selected)?selected:'';
- renderCategoryTabs();syncCategoryTab();
- // Search is global: a selected category never restricts search results.
- let filtered=query
-   ? channels.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c)
-   : channels.filter(c=>!categorySelect.value||categoryForChannel(c)===categorySelect.value);
- const isHome=!query&&!categorySelect.value;
- $('filterHint').textContent=query?`${filtered.length} matching channels · all categories`:categorySelect.value?`${categorySelect.value} · ${filtered.length} channels`:'Choose a channel to watch live';
- const root=$('channelRows');root.innerHTML='';
- if(isHome)renderTrending();else $('trendingRows').innerHTML='';
- if(!filtered.length){root.innerHTML='<div class="empty">No matching channels found.</div>';return}
- if(isHome){
-   const mobileLimit=4,desktopLimit=6;
-   availableCategories().forEach(group=>{
-     const items=filtered.filter(c=>categoryForChannel(c)===group);if(!items.length)return;
-     const section=document.createElement('section');section.className='category-row';section.dataset.group=group;
-     const heading=document.createElement('div');heading.className='row-heading';
-     const title=document.createElement('h2');title.textContent=group;
-     const action=document.createElement('button');action.type='button';action.className='see-all-btn';action.textContent='See All Channels →';action.addEventListener('click',()=>{$('search').value='';$('category').value=group;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'});});
-     heading.append(title,action);section.appendChild(heading);
-     const rail=document.createElement('div');rail.className='rail';rail.setAttribute('aria-label',group+' channels');
-     items.forEach((c,i)=>{const card=makeCard(c,group);card.classList.toggle('home-extra-channel',i>=desktopLimit);rail.appendChild(card)});
-     section.appendChild(rail);root.appendChild(section);
-   });
-   return;
- }
- const rail=document.createElement('div');rail.className='rail category-full-rail';rail.setAttribute('aria-label',(categorySelect.value||'Search results')+' channels');
- filtered.forEach(c=>rail.appendChild(makeCard(c,categorySelect.value||c.group)));root.appendChild(rail);
+function renderCategories(){
+  const groups=['All',...new Set(channels.map(c=>c.group).filter(Boolean))];
+  const tabs=$('categoryTabs');tabs.innerHTML='';
+  groups.forEach(g=>{
+    const b=document.createElement('button');b.className='category-tab'+(g===activeFilter?' active':'');
+    b.textContent=g;
+    b.onclick=()=>{activeFilter=g;$('search').value='';currentQuery='';tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));renderChannels(true)};
+    tabs.appendChild(b);
+  });
 }
 
-function stop(){
- playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
- if(hls){hls.destroy();hls=null}
- video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';
- if(typeof syncPlaybackControls==='function')syncPlaybackControls();
-}
-let playbackToken=0,activeSourceFail=null,stallTimer=null;
-function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
-function play(channel,start=0){
- clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute||autoMutedStart;autoMutedStart=false;
- $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
- $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
-}
-function trySource(token=playbackToken){
- if(token!==playbackToken||!lastChannel)return;
- while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
- if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
- const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);
- if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();
- $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
- let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
- const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
- activeSourceFail=fail;const connectTimer=setTimeout(fail,25000);
- const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);$('playState').textContent='Playing live';$('statusLine').textContent='';};
- const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
- video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
- const isHls=/\.m3u8($|[?#])/i.test(url);
- if(isHls&&window.Hls&&Hls.isSupported()){
-   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
-   hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
-   hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
-   hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
-   hls.attachMedia(video);
- }else{
-   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';});
- }
-}
-video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
-video.addEventListener('waiting',()=>{if(activeSourceFail&&lastChannel&&video.currentTime>0){clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(video.readyState<3&&activeSourceFail)activeSourceFail()},22000)}});
-video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
-// Compact MX Player-style controls and touch gestures.
-const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
-const screenCycleBtn=$('screenCycle');
-let brightness=1.12,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}video.style.filter=`brightness(${brightness.toFixed(2)})`;
-const screenSteps=[
- {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
- {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
- {label:'STRETCH',mode:'fill',zoom:1,title:'Stretch'},
- {label:'110%',mode:'cover',zoom:1.1,title:'Zoom 110%'},
- {label:'120%',mode:'cover',zoom:1.2,title:'Zoom 120%'},
- {label:'130%',mode:'cover',zoom:1.3,title:'Zoom 130%'},
- {label:'140%',mode:'cover',zoom:1.4,title:'Zoom 140%'},
- {label:'150%',mode:'cover',zoom:1.5,title:'Zoom 150%'},
- {label:'160%',mode:'cover',zoom:1.6,title:'Zoom 160%'},
- {label:'170%',mode:'cover',zoom:1.7,title:'Zoom 170%'},
- {label:'180%',mode:'cover',zoom:1.8,title:'Zoom 180%'},
- {label:'190%',mode:'cover',zoom:1.9,title:'Zoom 190%'},
- {label:'200%',mode:'cover',zoom:2,title:'Zoom 200%'},
- {label:'RESET',mode:'contain',zoom:1,title:'Reset to auto fit'}
-];
-function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume);try{localStorage.setItem('kp-player-volume',String(video.volume));localStorage.setItem('kp-player-muted',video.muted?'1':'0')}catch{}}
-playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>say('এই স্ট্রিমটি চালাতে Play চাপুন'))}else video.pause();syncPlaybackControls();showPlayerControls()});
-volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
-volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
-video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
-function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
-screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
-async function enterLandscape(){
- const stage=$('videoStage');
- try{
-  if(!document.fullscreenElement){if(stage.requestFullscreen)await stage.requestFullscreen();else if(stage.webkitRequestFullscreen)stage.webkitRequestFullscreen()}
-  if(screen.orientation&&screen.orientation.lock){try{await screen.orientation.lock('landscape')}catch{}}
-  $('playState').textContent='Landscape mode';
- }catch{say('এই ব্রাউজারে Landscape lock সমর্থিত নয়; ফোন Auto-rotate চালু করুন')}
-}
-$('screenRotate').addEventListener('click',enterLandscape);
-$('screenFullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement){await document.exitFullscreen();try{screen.orientation.unlock()}catch{}}else await enterLandscape()}catch{say('Fullscreen is not supported here')}});
-syncPlaybackControls();applyScreenStep(screenSteps[0]);
-// Auto-hide the entire bottom control strip AND its black gradient shadow.
-const controlsHideDelay=1800;let controlsHideTimer=null;
-function hidePlayerControls(){clearTimeout(controlsHideTimer);$('videoStage').classList.add('controls-hidden')}
-function showPlayerControls(){$('videoStage').classList.remove('controls-hidden');clearTimeout(controlsHideTimer);controlsHideTimer=setTimeout(hidePlayerControls,controlsHideDelay)}
-// Keep controls visible while the user is interacting with the control strip.
-$('videoStage').addEventListener('pointerdown',e=>{if(e.target.closest('.video-tools')){showPlayerControls()}else{showPlayerControls()}});
-$('videoStage').addEventListener('pointermove',e=>{if(e.pointerType==='mouse')showPlayerControls()},{passive:true});
-$('videoStage').addEventListener('click',e=>{if(e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
-$('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
-showPlayerControls();
-
-// Gesture indicators: each has its own timer and always hides after interaction ends.
-const hintTimers={brightness:null,volume:null,zoom:null};
-function showGestureHint(kind,value){
- const ids={volume:'volumeHint',brightness:'brightnessHint',zoom:'zoomHint'};
- const el=$(ids[kind]); if(!el)return;
- el.querySelector('span').textContent=Math.round(value*100)+'%';
- el.classList.add('visible');
- clearTimeout(hintTimers[kind]);
- hintTimers[kind]=setTimeout(()=>hideGestureHint(kind),850);
-}
-function hideGestureHint(kind){
- const ids={volume:'volumeHint',brightness:'brightnessHint',zoom:'zoomHint'};
- const el=$(ids[kind]); if(!el)return;
- clearTimeout(hintTimers[kind]);hintTimers[kind]=null;el.classList.remove('visible');
-}
-const stage=$('videoStage');
-let gesture=null,gestureStartValue=0;
-const touchPoints=new Map();
-let pinchStartDistance=0,pinchStartZoom=1,pinching=false;
-function distanceBetweenTouches(){
- const pts=[...touchPoints.values()];
- if(pts.length<2)return 0;
- return Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
-}
-function applyPinchZoom(){
- const distance=distanceBetweenTouches();
- if(!distance||!pinchStartDistance)return;
- videoZoom=Math.max(.5,Math.min(3,Math.round((pinchStartZoom*distance/pinchStartDistance)*100)/100));
- video.style.transform=`scale(${videoZoom})`;
- showGestureHint('zoom',videoZoom);
-}
-stage.addEventListener('pointerdown',e=>{
- if(e.pointerType!=='touch'||e.target.closest('.video-tools'))return;
- touchPoints.set(e.pointerId,{x:e.clientX,y:e.clientY});
- try{stage.setPointerCapture(e.pointerId)}catch{}
- if(touchPoints.size===2){
-  pinching=true;gesture=null;stage.classList.remove('gesture-active');
-  pinchStartDistance=distanceBetweenTouches();pinchStartZoom=videoZoom;
-  hideGestureHint('brightness');hideGestureHint('volume');
-  return;
- }
- if(touchPoints.size>2)return;
- const rect=stage.getBoundingClientRect();
- const side=e.clientX<rect.left+rect.width/2?'brightness':'volume';
- gesture={id:e.pointerId,side,startY:e.clientY,startX:e.clientX,moved:false};
- gestureStartValue=side==='volume'?(video.muted?0:video.volume):brightness;
-});
-stage.addEventListener('pointermove',e=>{
- if(!touchPoints.has(e.pointerId))return;
- touchPoints.set(e.pointerId,{x:e.clientX,y:e.clientY});
- if(touchPoints.size>=2&&pinching){e.preventDefault();applyPinchZoom();return;}
- if(!gesture||gesture.id!==e.pointerId||touchPoints.size!==1)return;
- const dy=gesture.startY-e.clientY,dx=e.clientX-gesture.startX;
- if(Math.abs(dy)>7&&Math.abs(dy)>Math.abs(dx)*1.1){
-  gesture.moved=true;e.preventDefault();stage.classList.add('gesture-active');
-  const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
-  const value=gesture.side==='brightness'?Math.max(.35,Math.min(2,gestureStartValue+delta)):Math.max(0,Math.min(1,gestureStartValue+delta));
-  if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
-  else{brightness=value;video.style.filter=`brightness(${brightness.toFixed(2)})`;try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
- }
-});
-function finishPointer(e){
- if(!touchPoints.has(e.pointerId))return;
- touchPoints.delete(e.pointerId);
- if(pinching){
-  if(touchPoints.size<2){pinching=false;pinchStartDistance=0;hideGestureHint('zoom');showPlayerControls();}
-  if(touchPoints.size===1){gesture=null;}
-  return;
- }
- if(gesture&&gesture.id===e.pointerId){
-  const side=gesture.side,wasGesture=gesture.moved;gesture=null;stage.classList.remove('gesture-active');
-  if(wasGesture){clearTimeout(hintTimers[side]);hintTimers[side]=setTimeout(()=>hideGestureHint(side),650);showPlayerControls();}
- }
-}
-stage.addEventListener('pointerup',finishPointer);
-stage.addEventListener('pointercancel',finishPointer);
-stage.addEventListener('lostpointercapture',finishPointer);
-document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){try{screen.orientation.unlock()}catch{}}});
-video.addEventListener('playing',()=>$('playState').textContent='Playing live');
-video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
-video.addEventListener('stalled',()=>$('playState').textContent='Stream stalled');
-$('stopBtn').addEventListener('click',stop);
-
-async function autoPickByVisitorCountry(){
- const pickRandom=list=>list[Math.floor(Math.random()*list.length)];
- const lookups=[
-  async()=>{const r=await fetch('https://ipwho.is/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();if(d.success===false)throw Error();return String(d.country_code||'').toUpperCase()},
-  async()=>{const r=await fetch('https://ipapi.co/json/',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();return String(d.country_code||'').toUpperCase()}
- ];
- let country='';
- for(const lookup of lookups){try{country=await Promise.race([lookup(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),1800))]);if(country)break}catch{}}
- const prefs=siteSettings.homepage?.country_autoplay||{};
- const category=country==='BD'?'Bangladesh':country==='IN'?'India':'';
- const preferred=country==='BD'?prefs.BD:country==='IN'?prefs.IN:prefs.OTHER;
- let candidates=channels;
- if(category){const local=channels.filter(c=>categoryForChannel(c)===category);if(local.length)candidates=local}
- let chosen=preferred?channels.find(c=>c.id===preferred):null;
- if(!chosen)chosen=pickRandom(candidates);
- if(!chosen||activeId)return;
- $('category').value=category||'';render();
- // Browsers generally block audible autoplay. Start muted; visitor can unmute with the player control.
- autoMutedStart=true;
- play(chosen,0);
- $('playState').textContent='Auto-selected for '+(country||'your region')+' · autoplay started muted';
+function makeCard(channel){
+  const card=document.createElement('div');
+  card.className='channel-card'+(channel.id===activeId?' active':'');
+  const isFav=favs.includes(channel.id);
+  card.innerHTML=`
+    <div class="card-art">
+      ${channel.logo?`<img src="${channel.logo}" loading="lazy" decoding="async" alt="${channel.name}" onerror="this.outerHTML='<span class=\\'logo-fallback\\'>${channel.name.slice(0,2).toUpperCase()}</span>'">`:`<span class="logo-fallback">${channel.name.slice(0,2).toUpperCase()}</span>`}
+      <span class="fav-mark ${isFav?'active':''}">${isFav?'♥':'♡'}</span>
+    </div>
+    <div class="card-info"><span class="card-name">${channel.name}</span></div>
+  `;
+  card.querySelector('.fav-mark').onclick=(e)=>{
+    e.stopPropagation();
+    if(favs.includes(channel.id))favs=favs.filter(x=>x!==channel.id);
+    else favs.push(channel.id);
+    localStorage.setItem('kp-favs',JSON.stringify(favs));
+    renderChannels(false);
+  };
+  card.onclick=()=>play(channel);
+  return card;
 }
 
+function renderChannels(reset=false){
+  if(reset)pageLimit=48;
+  const root=$('channelRows');
+  if(reset)root.innerHTML='';
 
-async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('playerPanel').requestFullscreen()}catch{$('statusLine').textContent='Fullscreen is not available in this browser.'}}
-$('search').addEventListener('input',render);
-$('category').addEventListener('change',render);
-$('categoryOpenTrigger').addEventListener('click',openCategoryModal);
-$('categoryModalClose').addEventListener('click',closeCategoryModal);
-$('categoryModal').addEventListener('click',e=>{if(e.target===$('categoryModal'))closeCategoryModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('categoryModal').hidden)closeCategoryModal()});
+  let list=channels;
+  if(activeFilter==='__FAVS__')list=channels.filter(c=>favs.includes(c.id));
+  else if(activeFilter!=='All')list=channels.filter(c=>c.group===activeFilter);
 
-document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories'){openCategoryModal();}}));
-function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';$('noticeMessage').textContent=[intro,n?.message].filter(Boolean).join(' · ');const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex'}
-const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light','glass-edition','luxury-gold','cyberpunk-neon','minimal-clean','bollywood-cinema','newsroom-pro','retro-tv','ocean-blue','midnight-purple','emerald-luxe','crimson-premium','arctic-glass','cinema-noir','royal-violet'];
-function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
-async function recordVisit(){if(!db)return;try{const key='kp-visitor-id';let id=localStorage.getItem(key);if(!id){id=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2));localStorage.setItem(key,id)}await db.from('kp_visitor_events').insert({visitor_id:id,visited_at:new Date().toISOString(),path:location.pathname})}catch(e){console.info('Visitor analytics unavailable until SQL migration is applied.',e.message)}}
+  if(currentQuery)list=list.filter(c=>c.name.toLowerCase().includes(currentQuery)||(c.group||'').toLowerCase().includes(currentQuery));
 
-// Apply a usable theme synchronously, before any network request.
-const EARLY_THEME_CSS={
- 'netflix-dark':'--bg:#080808;--surface:#171717;--surface2:#242424;--text:#f5f5f5;--muted:#aaa;--border:#303030',
- 'neon-cinema':'--bg:#100b1c;--surface:#211638;--surface2:#30204d;--text:#f8f3ff;--muted:#c5b4df;--border:#563b7a',
- 'sports-arena':'--bg:#07151b;--surface:#10262d;--surface2:#183943;--text:#f4ffff;--muted:#a9c5c9;--border:#23515a',
- 'premium-light':'--bg:#f4f5f7;--surface:#fff;--surface2:#e9edf2;--text:#17191d;--muted:#626b78;--border:#d6dce4',
- 'glass-edition':'--bg:#101827;--surface:#18253a;--surface2:#263b55;--text:#f4f8ff;--muted:#b7c7dc;--border:#54718d',
- 'luxury-gold':'--bg:#0d0b08;--surface:#1b1710;--surface2:#2a2114;--text:#f8f0dc;--muted:#c7b88e;--border:#66502a',
- 'cyberpunk-neon':'--bg:#090713;--surface:#19102b;--surface2:#28123c;--text:#fff4ff;--muted:#c7a6d5;--border:#7438a3',
- 'minimal-clean':'--bg:#f7f8fa;--surface:#fff;--surface2:#edf0f4;--text:#1c2430;--muted:#697586;--border:#dce2e9',
- 'bollywood-cinema':'--bg:#16090b;--surface:#2b1016;--surface2:#401923;--text:#fff4e8;--muted:#d5b7a8;--border:#793b35',
- 'newsroom-pro':'--bg:#071321;--surface:#10243a;--surface2:#183451;--text:#f4f8ff;--muted:#b5c6d8;--border:#315a7b',
- 'retro-tv':'--bg:#21180f;--surface:#34271a;--surface2:#493522;--text:#fff0d4;--muted:#d4bd96;--border:#80623c',
- 'ocean-blue':'--bg:#061824;--surface:#0c2938;--surface2:#123d52;--text:#eaffff;--muted:#a8d2dc;--border:#26718a',
- 'midnight-purple':'--bg:#100b1b;--surface:#211735;--surface2:#30214a;--text:#f8f4ff;--muted:#c2b5d8;--border:#624a82',
- 'emerald-luxe':'--bg:#071710;--surface:#10291d;--surface2:#1b3d2c;--text:#f0fff5;--muted:#b2d2bf;--border:#397452',
- 'crimson-premium':'--bg:#17090d;--surface:#2b1119;--surface2:#421a27;--text:#fff3f5;--muted:#d9b5bf;--border:#793348',
- 'arctic-glass':'--bg:#eaf2f8;--surface:#fff;--surface2:#dce8f1;--text:#152638;--muted:#5b7185;--border:#b8cad9',
- 'cinema-noir':'--bg:#090909;--surface:#1b1b1b;--surface2:#303030;--text:#f7f7f7;--muted:#b9b9b9;--border:#505050',
- 'royal-violet':'--bg:#100c20;--surface:#21183c;--surface2:#35275b;--text:#fbf8ff;--muted:#c8bce5;--border:#68549a'
- };
+  if(!list.length){
+    root.innerHTML='<div class="empty">No channels found.</div>';
+    $('loadMoreBtn').style.display='none';
+    return;
+  }
 
-function applyFastTheme(theme,accent='#f04444'){
- const chosen=EARLY_THEME_CSS[theme]||EARLY_THEME_CSS['netflix-dark'];
- let node=document.getElementById('kp-fast-theme');if(!node){node=document.createElement('style');node.id='kp-fast-theme';document.head.appendChild(node)}
- node.textContent=`:root{${chosen};--accent:${accent};--red:${accent}}body{background:var(--bg)!important;color:var(--text)!important}.site-header,.player-section{background:var(--bg)!important}.hero-player,.channel-card,.card-info,.kp-notification-bar,.mobile-dock{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}.category-tab{background:var(--surface2);color:var(--text)}.row-heading h2,.row-heading h3{color:var(--text)}.site-footer{border-color:var(--border);color:var(--muted)}`;
- document.documentElement.dataset.theme=theme;document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
+  const paged=list.slice(0,pageLimit);
+  let rail=root.querySelector('.rail');
+  if(!rail){
+    rail=document.createElement('div');
+    rail.className='rail';
+    root.appendChild(rail);
+  }
+  rail.innerHTML='';
+  const frag=document.createDocumentFragment();
+  paged.forEach(c=>frag.appendChild(makeCard(c)));
+  rail.appendChild(frag);
+
+  $('loadMoreBtn').style.display=list.length>pageLimit?'inline-block':'none';
+  if(list.length>pageLimit)$('loadMoreBtn').textContent=`Load More (${list.length-pageLimit} remaining)`;
 }
-const initialFastTheme=pickTheme(siteSettings);applyFastTheme(initialFastTheme);
 
-async function init(){
- // Restore the last successful channel snapshot immediately for returning visitors.
- try{const cached=localStorage.getItem('kp-channel-cache-v1');if(cached){const parsed=JSON.parse(cached);if(Array.isArray(parsed)&&parsed.length){channels=groupEntries(parsed);render();}}}catch{}
- try{
-   const supaUrl=window.KP_SUPABASE_URL||'';
-   const supaKey=window.KP_SUPABASE_ANON_KEY||'';
-   if(window.supabase&&supaUrl.startsWith('https://')&&supaKey&&!supaKey.includes('YOUR_')){
-     db=window.supabase.createClient(supaUrl,supaKey);
-     const client=db;
-     const timeout=(promise,ms)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(Error('Supabase timeout')),ms))]);
-     const [settingRes,catRes,noticeRes,channelRes]=await Promise.all([
-       timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),6500).catch(()=>null),
-       timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),6500).catch(()=>null),
-       timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),8500).catch(()=>null)
-     ]);
-     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
-     if(catRes&&!catRes.error)managedCategories=catRes.data||[];
-     if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
-     const {data,error}=channelRes||{data:null,error:Error('Channel query timed out')};
-     if(!error&&Array.isArray(data)&&data.length){
-       channels=groupEntries(data.map(row=>({
-         id:row.id,name:row.name,group:row.category,country:row.country,logo:row.logo_url,
-         urls:Array.isArray(row.stream_urls)?row.stream_urls.map((s,i)=>typeof s==='string'?{url:s,priority:i+1,enabled:true}:({...s,priority:Number(s.priority||i+1)})).filter(s=>s.url&&s.enabled!==false).sort((a,b)=>a.priority-b.priority).map(s=>s.url):[]
-       })));
-       try{localStorage.setItem('kp-channel-cache-v1',JSON.stringify(channels))}catch{}
-     } else if(error) throw error;
-   }
-   if(!channels.length){
-     const response=await fetch('./channels.json',{cache:'no-store'});
-     if(!response.ok)throw Error('channels.json HTTP '+response.status);
-     channels=groupEntries(await response.json());try{localStorage.setItem('kp-channel-cache-v1',JSON.stringify(channels))}catch{}
-   }
- }catch{
-   try{const response=await fetch('./channels.json',{cache:'no-store'});if(response.ok)channels=groupEntries(await response.json())}
-   catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
- }
- if(db){try{const {data:trendData,error:trendError}=await db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order');if(!trendError&&Array.isArray(trendData))trendingItems=trendData}catch{}}
- // Apply persisted homepage identity, announcement, theme and accent globally.
- const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
- const intro=homeSettings.intro||'';renderNotifications();
- const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?pickTheme(siteSettings):initialFastTheme;
- const accent=design.accent||'#f04444';document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
- const accentStyle=document.createElement('style');accentStyle.textContent=`:root{--accent:${accent};--red:${accent}}.category-tab.active,.channel-card.active,.action-primary,.mobile-dock .dock-item.active{border-color:${accent}!important}.category-tab.active,.channel-card.active:after{background-color:${accent}}.live-dot,.card-live,.fav-mark.is-favorite{color:${accent}}.live-dot{background:${accent}}`;document.head.appendChild(accentStyle);
- applyFastTheme(theme,accent);
- const accentUnused=siteSettings.design?.accent;if(accent)document.documentElement.style.setProperty('--red',accent);
- const desktopCols=Math.max(2,Math.min(7,Number(siteSettings.design?.desktop_cols)||5)),mobileCols=Math.max(2,Math.min(4,Number(siteSettings.design?.mobile_cols)||3));
- const layoutStyle=document.createElement('style');layoutStyle.textContent=`@media(min-width:601px){.rail{grid-template-columns:repeat(${desktopCols},minmax(0,1fr))}}@media(max-width:600px){.rail{grid-template-columns:repeat(${mobileCols},minmax(0,1fr))}}`;document.head.appendChild(layoutStyle);
- const navSettings=siteSettings.navigation||{};if(navSettings.show_search===false){const sw=document.querySelector('.search-wrap');if(sw)sw.hidden=true}if(navSettings.show_category_select===false)$('category').hidden=true;
- const adminLabel=siteSettings.footer?.admin_label;if(adminLabel){const al=document.querySelector('.footer-inner a');if(al)al.textContent=adminLabel}
- const footer=siteSettings.footer?.text;if(footer){const f=$('footerCopyright');if(f)f.textContent=footer}const social=$('socialLinks');if(social){social.innerHTML='';(siteSettings.navigation?.social_links||[]).filter(x=>x&&x.url&&/^https?:\/\//i.test(x.url)&&x.enabled!==false).sort((a,b)=>(a.order||0)-(b.order||0)).forEach(x=>{const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=(x.icon?x.icon+' ':'')+(x.label||'Link');social.appendChild(a)})}
- render();
- if(channels.length && siteSettings.player?.autoplay!==false)autoPickByVisitorCountry();
- recordVisit();
- if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
+$('loadMoreBtn').onclick=()=>{pageLimit+=48;renderChannels(false)};
+$('search').oninput=debounce(e=>{currentQuery=e.target.value.toLowerCase().trim();renderChannels(true)},200);
+
+$('dockHome').onclick=()=>{activeFilter='All';$('dockHome').classList.add('active');$('dockFavs').classList.remove('active');renderChannels(true)};
+$('dockFavs').onclick=()=>{activeFilter='__FAVS__';$('dockFavs').classList.add('active');$('dockHome').classList.remove('active');renderChannels(true)};
+
+// Player Engine
+function play(channel){
+  activeId=channel.id;
+  $('nowTitle').textContent=channel.name;
+  $('nowGroup').textContent=channel.group;
+  $('playState').textContent='Connecting…';
+  if(hls){hls.destroy();hls=null}
+  video.pause();video.removeAttribute('src');video.load();
+
+  document.querySelectorAll('.channel-card').forEach(c=>c.classList.remove('active'));
+  renderChannels(false);
+
+  const url=channel.urls[0];
+  if(!url){$('playState').textContent='No stream URL available';return}
+
+  if(/\.m3u8($|[?#])/i.test(url)&&window.Hls&&Hls.isSupported()){
+    hls=new Hls({enableWorker:true,maxBufferLength:30});
+    hls.loadSource(url);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{video.play().catch(()=>{});$('playState').textContent='Playing live'});
+    hls.on(Hls.Events.ERROR,()=>{video.play().catch(()=>{})});
+  }else{
+    video.src=url;video.load();video.play().catch(()=>{});$('playState').textContent='Playing live';
+  }
+  $('playerWrap').scrollIntoView({behavior:'smooth'});
 }
-init();
+
+$('playPause').onclick=()=>{if(video.paused)video.play();else video.pause()};
+video.onplay=()=>{$('playPause').textContent='Ⅱ';$('playState').textContent='Playing live'};
+video.onpause=()=>{$('playPause').textContent='▶';$('playState').textContent='Paused'};
+$('muteBtn').onclick=()=>{video.muted=!video.muted;$('muteBtn').textContent=video.muted?'🔇':'🔊'};
+$('volumeLevel').oninput=e=>{video.volume=Number(e.target.value);video.muted=false;$('muteBtn').textContent='🔊'};
+$('stopBtn').onclick=()=>{if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped'};
+$('fullScreenBtn').onclick=()=>{if(!document.fullscreenElement)$('videoStage').requestFullscreen();else document.exitFullscreen()};
+
+fetchAllChannels();
 })();
 </script>
 </body>
