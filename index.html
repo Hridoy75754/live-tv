@@ -53,6 +53,7 @@ a{color:inherit}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
 .video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--kp-video-zoom,1));transform-origin:center center;filter:brightness(var(--kp-video-brightness,1));transition:object-fit .16s ease;z-index:1;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.video-stage video{object-fit:cover}}
 .video-stage:before{content:none!important}
 .video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
 .video-stage:fullscreen video{width:100%;height:100%}
@@ -482,8 +483,9 @@ function applyBrightness(value){
 try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness-v2'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
 applyBrightness(brightness);
 brightnessLevel.addEventListener('input',()=>{brightness=Number(brightnessLevel.value);applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness-v2',String(brightness))}catch{}showPlayerControls()});
+const autoFitMode=(window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches)?'cover':'contain';
 const screenSteps=[
- {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
+ {label:'AUTO',mode:autoFitMode,zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
  {label:'STRETCH',mode:'fill',zoom:1,title:'Stretch'},
  {label:'110%',mode:'cover',zoom:1.1,title:'Zoom 110%'},
@@ -496,7 +498,7 @@ const screenSteps=[
  {label:'180%',mode:'cover',zoom:1.8,title:'Zoom 180%'},
  {label:'190%',mode:'cover',zoom:1.9,title:'Zoom 190%'},
  {label:'200%',mode:'cover',zoom:2,title:'Zoom 200%'},
- {label:'RESET',mode:'contain',zoom:1,title:'Reset to auto fit'}
+ {label:'RESET',mode:autoFitMode,zoom:1,title:'Reset to auto fit'}
 ];
 function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume);try{localStorage.setItem('kp-player-volume',String(video.volume));localStorage.setItem('kp-player-muted',video.muted?'1':'0')}catch{}}
 playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>{say('এই স্ট্রিমটি চালাতে Play চাপুন');$('playState').textContent='Tap Play to start';})}else video.pause();syncPlaybackControls();showPlayerControls()});
@@ -538,7 +540,8 @@ $('videoStage').addEventListener('mousemove',showPlayerControls,{passive:true});
 $('videoStage').addEventListener('mouseleave',()=>{if(!playerMouseInside)scheduleControlsHide()},{passive:true});
 $('videoStage').addEventListener('focusin',showPlayerControls);
 $('videoStage').addEventListener('focusout',()=>{setTimeout(()=>{if(!$('videoStage').contains(document.activeElement)&&!playerMouseInside)scheduleControlsHide()},0)});
-$('videoStage').addEventListener('click',e=>{if(e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
+let suppressStageClickUntil=0;
+$('videoStage').addEventListener('click',e=>{if(Date.now()<suppressStageClickUntil||e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
 $('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
 showPlayerControls();
 
@@ -572,6 +575,37 @@ function applyPinchZoom(){
  video.style.setProperty('--kp-video-zoom',String(videoZoom));
  showGestureHint('zoom',videoZoom);
 }
+// Desktop mouse gestures mirror the mobile left/right vertical swipe behavior.
+let mouseGesture=null;
+stage.addEventListener('pointerdown',e=>{
+ if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;
+ const rect=stage.getBoundingClientRect();
+ const side=e.clientX<rect.left+rect.width/2?'brightness':'volume';
+ mouseGesture={id:e.pointerId,side,startY:e.clientY,startX:e.clientX,startValue:side==='volume'?(video.muted?0:video.volume):brightness,moved:false};
+ try{stage.setPointerCapture(e.pointerId)}catch{}
+});
+stage.addEventListener('pointermove',e=>{
+ if(e.pointerType!=='mouse'||!mouseGesture||mouseGesture.id!==e.pointerId)return;
+ const dy=mouseGesture.startY-e.clientY,dx=e.clientX-mouseGesture.startX;
+ if(Math.abs(dy)<=7||Math.abs(dy)<=Math.abs(dx)*1.1)return;
+ e.preventDefault();mouseGesture.moved=true;stage.classList.add('gesture-active');
+ const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
+ const value=mouseGesture.side==='brightness'?Math.max(.35,Math.min(2,mouseGesture.startValue+delta)):Math.max(0,Math.min(1,mouseGesture.startValue+delta));
+ if(mouseGesture.side==='volume'){
+  video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);
+ }else{
+  brightness=value;applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness-v2',String(brightness))}catch{}showGestureHint('brightness',value);
+ }
+});
+function finishMouseGesture(e){
+ if(!mouseGesture||mouseGesture.id!==e.pointerId)return;
+ const side=mouseGesture.side,moved=mouseGesture.moved;mouseGesture=null;stage.classList.remove('gesture-active');
+ if(moved){suppressStageClickUntil=Date.now()+450;clearTimeout(hintTimers[side]);hintTimers[side]=setTimeout(()=>hideGestureHint(side),650);showPlayerControls();}
+}
+stage.addEventListener('pointerup',finishMouseGesture);
+stage.addEventListener('pointercancel',finishMouseGesture);
+stage.addEventListener('lostpointercapture',finishMouseGesture);
+
 stage.addEventListener('pointerdown',e=>{
  if(e.pointerType!=='touch'||e.target.closest('.video-tools'))return;
  touchPoints.set(e.pointerId,{x:e.clientX,y:e.clientY});
