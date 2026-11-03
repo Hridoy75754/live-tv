@@ -462,18 +462,15 @@ function trySource(token=playbackToken){
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
  const isHls=/\.m3u8($|[?#])/i.test(url);
- const nativeHls=isHls&&!!video.canPlayType('application/vnd.apple.mpegurl');
+ 
  if(isHls&&window.Hls&&Hls.isSupported()){
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
- }else if(!isHls||nativeHls){
-   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
  }else{
-   $('playState').textContent='This browser cannot play this stream format';
-   fail();
+   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
  }
 }
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
@@ -494,7 +491,7 @@ function applyBrightness(value){
 try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness-v2'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
 applyBrightness(brightness);
 brightnessLevel.addEventListener('input',()=>{brightness=Number(brightnessLevel.value);applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness-v2',String(brightness))}catch{}showPlayerControls()});
-const autoFitMode=(window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches)?'cover':'contain';
+const autoFitMode='contain';
 const screenSteps=[
  {label:'AUTO',mode:autoFitMode,zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
