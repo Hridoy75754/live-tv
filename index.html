@@ -52,12 +52,12 @@ a{color:inherit}
 .live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--kp-video-zoom,1));transform-origin:center center;filter:none;transition:object-fit .16s ease;z-index:1;pointer-events:none}
-.video-stage:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:var(--kp-video-brightness-overlay,transparent)}
+.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--kp-video-zoom,1));transform-origin:center center;filter:brightness(var(--kp-video-brightness,1));transition:object-fit .16s ease;z-index:1;pointer-events:none}
+.video-stage:before{content:none!important}
 .video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
 .video-stage:fullscreen video{width:100%;height:100%}
 .video-stage .video-tools{z-index:30!important;pointer-events:auto;isolation:isolate}
-.video-stage .video-tools button,.video-stage .video-tools input{position:relative;z-index:31;pointer-events:auto}
+.video-stage .video-tools button,.video-stage .video-tools input{position:relative;z-index:31;pointer-events:auto;cursor:pointer}.video-stage .video-tools{pointer-events:auto!important}
 .video-stage .stage-tap-toggle{z-index:9}
 .video-stage.is-playing .stage-tap-toggle{pointer-events:none!important}
 @media (hover:hover) and (pointer:fine){.video-stage:not(.controls-hidden) .video-tools{pointer-events:auto!important}}
@@ -65,7 +65,7 @@ a{color:inherit}
 .video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.58) 42%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
 .video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
 .video-tools button:active{background:#ffffff24;transform:scale(.94)}
-.video-tools #volumeLevel{width:68px;max-width:20vw;flex:0 1 68px;accent-color:#fff;height:4px;touch-action:pan-x}
+.video-tools #volumeLevel,.video-tools #brightnessLevel{width:68px;max-width:20vw;flex:0 1 68px;accent-color:#fff;height:4px;touch-action:pan-x}.video-tools #brightnessLevel{width:58px;flex-basis:58px}
 .video-tools .screen-cycle{min-width:44px;flex-direction:column;font-size:19px}
 .video-tools #screenRotate{font-size:21px}
 .video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
@@ -78,7 +78,7 @@ a{color:inherit}
 .gesture-hint{position:absolute;z-index:7;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:8px;padding:12px 15px;border-radius:22px;background:#000b;color:#fff;font-size:15px;font-weight:700;pointer-events:none}
 .gesture-hint.visible{display:flex}.gesture-brightness{left:12%}.gesture-volume{right:12%}.gesture-zoom{left:50%;transform:translate(-50%,-50%)}
 .video-stage.gesture-active .video-tools{opacity:0;visibility:hidden;pointer-events:none}
-@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
+@media(max-width:600px){.video-stage{max-height:55vh}.video-tools{gap:5px;padding:6px 8px calc(7px + env(safe-area-inset-bottom));min-height:46px}.video-tools button{min-width:30px;height:32px;font-size:17px;padding:4px}.video-tools #volumeLevel{width:48px;flex-basis:48px}.video-tools #brightnessLevel{width:42px;flex-basis:42px}.video-tools .screen-cycle{min-width:42px}.video-tools .screen-cycle small{font-size:7px}}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
 .mini-btn:hover{background:#333}
@@ -260,6 +260,7 @@ body.category-modal-open{overflow:hidden}
       <button type="button" class="tool-icon" id="playPause" title="Play or pause" aria-label="Play or pause">▶</button>
       <button type="button" class="tool-icon" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
       <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1">
+      <span aria-hidden="true" title="Brightness" style="font-size:15px;color:#fff">☀</span><input id="brightnessLevel" aria-label="Brightness" title="Brightness" type="range" min="0.5" max="1.5" step="0.05" value="1">
       <button type="button" class="tool-icon screen-cycle" id="screenCycle" title="Screen mode: Auto Fit" aria-label="Cycle screen fit">▣ <small id="screenModeLabel">AUTO</small></button>
       <button type="button" class="tool-icon" id="screenRotate" title="Rotate to landscape" aria-label="Rotate to landscape">⟳</button>
       <button type="button" class="tool-icon" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
@@ -470,18 +471,17 @@ video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
 const stage=$('videoStage');
-let brightness=1.12,screenCycleIndex=0;
+let brightness=1,screenCycleIndex=0;
+const brightnessLevel=$('brightnessLevel');
 function applyBrightness(value){
- const amount=Math.max(0,Math.min(2,Number(value)||0));
- // Keep the native video element unfiltered for reliable desktop hardware decoding.
- // Apply a lightweight, pointer-transparent tint above the video.
- const overlay=amount>=1
-   ? `rgba(255,255,255,${Math.min(0.32,(amount-1)*0.22)})`
-   : `rgba(0,0,0,${Math.min(0.55,1-amount)})`;
- stage.style.setProperty('--kp-video-brightness-overlay',amount===1?'transparent':overlay);
+ const amount=Math.max(.35,Math.min(2,Number(value)||1));
+ // 100% is the untouched source brightness; no dark/bright overlay is applied.
+ stage.style.setProperty('--kp-video-brightness',String(amount));
+ if(brightnessLevel)brightnessLevel.value=String(Math.max(.5,Math.min(1.5,amount)));
 }
-try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
+try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness-v2'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
 applyBrightness(brightness);
+brightnessLevel.addEventListener('input',()=>{brightness=Number(brightnessLevel.value);applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness-v2',String(brightness))}catch{}showPlayerControls()});
 const screenSteps=[
  {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
@@ -599,7 +599,7 @@ stage.addEventListener('pointermove',e=>{
   const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
   const value=gesture.side==='brightness'?Math.max(.35,Math.min(2,gestureStartValue+delta)):Math.max(0,Math.min(1,gestureStartValue+delta));
   if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
-  else{brightness=value;applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
+  else{brightness=value;applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness-v2',String(brightness))}catch{}showGestureHint('brightness',value);}
  }
 });
 function finishPointer(e){
