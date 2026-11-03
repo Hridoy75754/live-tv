@@ -303,10 +303,11 @@ body.category-modal-open{overflow:hidden}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://nsmcswuqtmqverfgthhf.supabase.co" crossorigin><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+<script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
-let channels=[],activeId=null,hls=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
+let channels=[],activeId=null,hls=null,mpegtsPlayer=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
 function say(message){$('playState').textContent=message}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
@@ -437,6 +438,7 @@ function render(){
 function stop(){
  playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
  if(hls){hls.destroy();hls=null}
+ if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
  video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';
  if(typeof syncPlaybackControls==='function')syncPlaybackControls();
 }
@@ -453,10 +455,14 @@ function trySource(token=playbackToken){
  while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
  if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
  const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);
- if(hls){hls.destroy();hls=null}video.pause();video.removeAttribute('src');video.load();
+ if(hls){hls.destroy();hls=null}
+ if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
+ video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
- const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
+ const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}
+ if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
+ failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
  activeSourceFail=fail;const connectTimer=setTimeout(fail,25000);
  const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);$('playState').textContent='Playing live';$('statusLine').textContent='';};
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
@@ -469,6 +475,13 @@ function trySource(token=playbackToken){
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
+ }else if((/\.(ts|flv)($|[?#])/i.test(url))&&window.mpegts&&mpegts.isSupported()){
+   try{
+    mpegtsPlayer=mpegts.createPlayer({type:/\.flv($|[?#])/i.test(url)?'flv':'mpegts',url,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
+    mpegtsPlayer.on(mpegts.Events.ERROR,()=>{if(isCurrent())fail()});
+    mpegtsPlayer.attachMediaElement(video);mpegtsPlayer.load();
+    mpegtsPlayer.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
+   }catch(_error){fail()}
  }else{
    video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
  }
