@@ -53,12 +53,19 @@ a{color:inherit}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
 .video-surface{position:absolute;inset:0;display:block;width:100%;height:100%;transform:scale(1);transform-origin:center center;transition:transform .16s ease;overflow:hidden;z-index:1;pointer-events:auto}
-.video-brightness{position:absolute;inset:0;width:100%;height:100%;filter:brightness(1.12);transition:filter .12s ease}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:none;filter:none;transition:object-fit .16s ease;}
+.video-brightness{position:absolute;inset:0;width:100%;height:100%;filter:none!important;transition:none;isolation:isolate}
+/* Brightness is rendered as pointer-transparent overlays instead of filtering the
+   video wrapper; this avoids a common desktop hardware-video black-frame issue. */
+.video-brightness:before,.video-brightness:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none}
+.video-brightness:before{background:rgba(255,255,255,var(--kp-brightness-up,0));mix-blend-mode:screen}
+.video-brightness:after{background:rgba(0,0,0,var(--kp-brightness-down,0));mix-blend-mode:multiply}
+.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:none;filter:none;transition:object-fit .16s ease;pointer-events:none}
 .video-stage:fullscreen .video-surface,.video-stage:fullscreen .video-brightness,.video-stage:fullscreen video{width:100%;height:100%}
-.video-stage .video-tools{z-index:8}
+.video-stage .video-tools{z-index:30!important;pointer-events:auto;isolation:isolate}
+.video-stage .video-tools button,.video-stage .video-tools input{position:relative;z-index:31;pointer-events:auto}
 .video-stage .stage-tap-toggle{z-index:9}
-@media (hover:hover) and (pointer:fine){.video-stage:not(.controls-hidden) .video-tools{pointer-events:auto}}
+.video-stage.is-playing .stage-tap-toggle{pointer-events:none!important}
+@media (hover:hover) and (pointer:fine){.video-stage:not(.controls-hidden) .video-tools{pointer-events:auto!important}}
 .video-stage:focus-within .video-tools{opacity:1;visibility:visible;pointer-events:auto}
 .video-tools{position:absolute;z-index:8;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;min-height:54px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.58) 42%);scrollbar-width:none;overflow-x:auto;overscroll-behavior-x:contain}
 .video-tools button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;height:36px;padding:5px 7px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:19px;font-weight:700;cursor:pointer;touch-action:manipulation}
@@ -467,7 +474,15 @@ video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
-let brightness=1.12,screenCycleIndex=0;try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}$('videoBrightness').style.filter=`brightness(${brightness.toFixed(2)})`;
+let brightness=1.12,screenCycleIndex=0;
+function applyBrightness(value){
+ const amount=Math.max(0,Math.min(2,Number(value)||0));
+ const layer=$('videoBrightness');
+ layer.style.setProperty('--kp-brightness-up',amount>1?String(Math.min(1,(amount-1)*0.72)):'0');
+ layer.style.setProperty('--kp-brightness-down',amount<1?String(Math.min(1,1-amount)):'0');
+}
+try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
+applyBrightness(brightness);
 const screenSteps=[
  {label:'AUTO',mode:'contain',zoom:1,title:'Auto fit'},
  {label:'CROP',mode:'cover',zoom:1,title:'Crop'},
@@ -518,8 +533,10 @@ function showPlayerControls(){
 // Keep controls visible while a mouse is over the player or a control has keyboard focus.
 $('videoStage').addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){playerMouseInside=true;showPlayerControls()}},{passive:true});
 $('videoStage').addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){playerMouseInside=false;scheduleControlsHide()}},{passive:true});
-$('videoStage').addEventListener('pointerdown',()=>showPlayerControls());
+$('videoStage').addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')showPlayerControls()});
 $('videoStage').addEventListener('pointermove',e=>{if(e.pointerType==='mouse')showPlayerControls()},{passive:true});
+$('videoStage').addEventListener('mousemove',showPlayerControls,{passive:true});
+$('videoStage').addEventListener('mouseleave',()=>{if(!playerMouseInside)scheduleControlsHide()},{passive:true});
 $('videoStage').addEventListener('focusin',showPlayerControls);
 $('videoStage').addEventListener('focusout',()=>{setTimeout(()=>{if(!$('videoStage').contains(document.activeElement)&&!playerMouseInside)scheduleControlsHide()},0)});
 $('videoStage').addEventListener('click',e=>{if(e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
@@ -584,7 +601,7 @@ stage.addEventListener('pointermove',e=>{
   const rect=stage.getBoundingClientRect(),delta=dy/Math.max(180,rect.height)*1.2;
   const value=gesture.side==='brightness'?Math.max(.35,Math.min(2,gestureStartValue+delta)):Math.max(0,Math.min(1,gestureStartValue+delta));
   if(gesture.side==='volume'){video.volume=value;video.muted=value===0;syncPlaybackControls();showGestureHint('volume',value);}
-  else{brightness=value;$('videoBrightness').style.filter=`brightness(${brightness.toFixed(2)})`;try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
+  else{brightness=value;applyBrightness(brightness);try{localStorage.setItem('kp-player-brightness',String(brightness))}catch{}showGestureHint('brightness',value);}
  }
 });
 function finishPointer(e){
