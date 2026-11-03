@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#080808">
 <meta name="description" content="Watch live TV channels in one place.">
 <title>KP Live TV TK</title>
+<link id="siteFavicon" rel="icon" href="./favicon.ico">
 <style>
 :root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929}
 *{box-sizing:border-box}
@@ -231,7 +232,17 @@ body{padding-bottom:76px;background:#101010}
 body.category-modal-open{overflow:hidden}
 @media(max-width:600px){.category-modal-backdrop{padding:16px}.category-modal{width:100%;max-height:82vh;border-radius:27px}.category-modal-option{min-height:72px;font-size:19px;padding:15px 17px}.category-modal-heading{padding:16px 18px}.category-open-trigger{min-width:112px;max-width:132px;padding:9px 10px;font-size:12px}}
 </style>
-\n</head>
+\n
+<style id="kp-desktop-player-fit-fix">
+/* Desktop 100% zoom: preserve the complete 16:9 video frame without cropping. */
+@media (min-width: 901px) {
+  .player-container { width: 100%; }
+  .player-container .hero-player { width: 100%; }
+  .video-stage { width: 100%; height: auto; aspect-ratio: 16 / 9; max-height: none; }
+  .video-stage video { width: 100%; height: 100%; object-fit: contain !important; }
+}
+</style>
+</head>
 <body>
 <header class="site-header">
   <nav class="nav" aria-label="Main navigation">
@@ -776,7 +787,7 @@ async function init(){
  }
  if(db){db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order').then(({data,error})=>{if(!error&&Array.isArray(data)){trendingItems=data;renderTrending()}}).catch(()=>{})}
  // Apply persisted homepage identity, announcement, theme and accent globally.
- const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
+ const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const faviconUrl=homeSettings.favicon_url||'';if(faviconUrl){let favicon=document.getElementById('siteFavicon');if(!favicon){favicon=document.createElement('link');favicon.id='siteFavicon';favicon.rel='icon';document.head.appendChild(favicon)}favicon.href=faviconUrl;const appleIcon=document.querySelector('link[rel="apple-touch-icon"]');if(appleIcon)appleIcon.href=faviconUrl;}const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
  const intro=homeSettings.intro||'';renderNotifications();
  const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?pickTheme(siteSettings):initialFastTheme;
  const accent=design.accent||'#f04444';document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
