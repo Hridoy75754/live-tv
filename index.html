@@ -52,15 +52,10 @@ a{color:inherit}
 .live-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px #e5091426}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
-.video-surface{position:absolute;inset:0;display:block;width:100%;height:100%;transform:scale(1);transform-origin:center center;transition:transform .16s ease;overflow:hidden;z-index:1;pointer-events:auto}
-.video-brightness{position:absolute;inset:0;width:100%;height:100%;filter:none!important;transition:none;isolation:isolate}
-/* Brightness is rendered as pointer-transparent overlays instead of filtering the
-   video wrapper; this avoids a common desktop hardware-video black-frame issue. */
-.video-brightness:before,.video-brightness:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none}
-.video-brightness:before{background:rgba(255,255,255,var(--kp-brightness-up,0));mix-blend-mode:screen}
-.video-brightness:after{background:rgba(0,0,0,var(--kp-brightness-down,0));mix-blend-mode:multiply}
-.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:none;filter:none;transition:object-fit .16s ease;pointer-events:none}
-.video-stage:fullscreen .video-surface,.video-stage:fullscreen .video-brightness,.video-stage:fullscreen video{width:100%;height:100%}
+.video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--kp-video-zoom,1));transform-origin:center center;filter:none;transition:object-fit .16s ease;z-index:1;pointer-events:none}
+.video-stage:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:var(--kp-video-brightness-overlay,transparent)}
+.video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
+.video-stage:fullscreen video{width:100%;height:100%}
 .video-stage .video-tools{z-index:30!important;pointer-events:auto;isolation:isolate}
 .video-stage .video-tools button,.video-stage .video-tools input{position:relative;z-index:31;pointer-events:auto}
 .video-stage .stage-tap-toggle{z-index:9}
@@ -256,7 +251,7 @@ body.category-modal-open{overflow:hidden}
     <span class="live-badge"><span class="live-dot"></span> LIVE</span>
   </div>
   <div class="video-stage" id="videoStage">
-    <div class="video-surface" id="videoSurface"><div class="video-brightness" id="videoBrightness"><video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video></div></div>
+    <video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video>
     <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
     <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
     <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
@@ -474,12 +469,16 @@ video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
+const stage=$('videoStage');
 let brightness=1.12,screenCycleIndex=0;
 function applyBrightness(value){
  const amount=Math.max(0,Math.min(2,Number(value)||0));
- const layer=$('videoBrightness');
- layer.style.setProperty('--kp-brightness-up',amount>1?String(Math.min(1,(amount-1)*0.72)):'0');
- layer.style.setProperty('--kp-brightness-down',amount<1?String(Math.min(1,1-amount)):'0');
+ // Keep the native video element unfiltered for reliable desktop hardware decoding.
+ // Apply a lightweight, pointer-transparent tint above the video.
+ const overlay=amount>=1
+   ? `rgba(255,255,255,${Math.min(0.32,(amount-1)*0.22)})`
+   : `rgba(0,0,0,${Math.min(0.55,1-amount)})`;
+ stage.style.setProperty('--kp-video-brightness-overlay',amount===1?'transparent':overlay);
 }
 try{const savedBrightness=Number(localStorage.getItem('kp-player-brightness'));if(Number.isFinite(savedBrightness)&&savedBrightness>=0&&savedBrightness<=2)brightness=savedBrightness}catch{}
 applyBrightness(brightness);
@@ -504,7 +503,7 @@ playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;vi
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
 volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
 video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
-function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;$('videoSurface').style.transform=`scale(${videoZoom})`;screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
+function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.setProperty('--kp-video-zoom',String(videoZoom));screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
 screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
 async function enterLandscape(){
  const stage=$('videoStage');
@@ -558,7 +557,6 @@ function hideGestureHint(kind){
  const el=$(ids[kind]); if(!el)return;
  clearTimeout(hintTimers[kind]);hintTimers[kind]=null;el.classList.remove('visible');
 }
-const stage=$('videoStage');
 let gesture=null,gestureStartValue=0;
 const touchPoints=new Map();
 let pinchStartDistance=0,pinchStartZoom=1,pinching=false;
@@ -571,7 +569,7 @@ function applyPinchZoom(){
  const distance=distanceBetweenTouches();
  if(!distance||!pinchStartDistance)return;
  videoZoom=Math.max(.5,Math.min(3,Math.round((pinchStartZoom*distance/pinchStartDistance)*100)/100));
- $('videoSurface').style.transform=`scale(${videoZoom})`;
+ video.style.setProperty('--kp-video-zoom',String(videoZoom));
  showGestureHint('zoom',videoZoom);
 }
 stage.addEventListener('pointerdown',e=>{
