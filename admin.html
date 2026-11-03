@@ -8,9 +8,9 @@
 <section class="section active" id="page-dashboard"><div class="stats"><div class="stat"><span class="muted">Total channels</span><b id="statTotal">—</b></div><div class="stat"><span class="muted">Active channels</span><b id="statActive">—</b></div><div class="stat"><span class="muted">Trending items</span><b id="statTrending">—</b></div></div><div class="panel" style="margin-top:15px"><h2>Quick actions</h2><div class="toolbar"><button class="primary" data-goto="channels">Manage channels</button><button data-goto="trending">Edit Trending</button><button data-goto="notifications">Publish notification</button></div><p class="muted">Hero Section is intentionally removed from the public homepage. The live player remains directly below the header.</p></div></section>
 <section class="section" id="page-homepage"><div class="panel"><h2>Homepage content</h2><label>Site title</label><input id="siteTitle"><label>Trending heading</label><input id="trendingTitle"><label class="check"><input type="checkbox" id="showTrending"> Show Trending section</label><label>Homepage announcement / intro text</label><textarea id="homeIntro" rows="3" placeholder="Optional short message"></textarea><hr><h2>Country-based Auto Play</h2><p class="muted">Choose the preferred channel for visitors detected in each country. GeoIP can be inaccurate and autoplay may start muted due to browser policy.</p><label>Bangladesh channel</label><select id="geoBd"></select><label>India channel</label><select id="geoIn"></select><label>Other countries channel</label><select id="geoOther"></select><div class="toolbar"><button class="primary" id="saveHomepage">Save Homepage Settings</button></div></div></section>
 <section class="section" id="page-channels"><div class="panel">
-<div class="row"><div class="grow"><h2>Category-wise Channel Order</h2><div class="muted">Select a category and drag any channel to the exact position you want. Changes are saved to the homepage order.</div></div></div>
+<div class="row"><div class="grow"><h2>Category-wise Channel Order</h2><div class="muted">Select a category and drag any channel to the exact position you want. Changes stay pending until you click Save Order.</div></div></div>
 <label>Choose category</label><select id="orderCategory"></select>
-<div id="orderManagerList"></div><div id="orderMsg" class="status hidden"></div>
+<div id="orderManagerList"></div><div class="toolbar"><button class="primary" id="saveChannelOrder" type="button" disabled>Save Order</button></div><div id="orderMsg" class="status hidden"></div>
 </div></section>
 <section class="section" id="page-channel-edit"><div class="panel">
 <div class="row"><div class="grow"><h2>Channel Edit</h2><div class="muted">Search first. No channel list is displayed until you enter a search term.</div></div><button class="primary" id="addChannel">+ Add Channel</button></div>
@@ -47,7 +47,19 @@ document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.onclick=()=>go(b.da
 async function adminCheck(user){if(!user)return false;const {data,error}=await db.from('kp_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error)throw error;return !!data}
 async function loadAll(){const [ch,cat,tr,no,se]=await Promise.all([db.from('kp_channels').select('*').order('sort_order').order('name'),db.from('kp_categories').select('*').order('sort_order'),db.from('kp_trending_channels').select('*').order('sort_order'),db.from('kp_notifications').select('*').order('sort_order'),db.from('kp_site_settings').select('settings').eq('id',1).maybeSingle()]);for(const x of [ch,cat,tr,no,se])if(x.error)throw x.error;channels=ch.data||[];categories=cat.data||[];trends=tr.data||[];notices=no.data||[];settings=se.data?.settings||{};renderAll()}
 function renderAll(){ $('statTotal').textContent=channels.length;$('statActive').textContent=channels.filter(x=>x.is_active).length;$('statTrending').textContent=trends.filter(x=>x.is_active).length;renderChannels();renderOrderManager();renderEditCategoryFilter();renderCategories();renderTrends();renderNotices();fillCategorySelects();fillSettings()}
-async function moveChannel(c,delta){const same=channels.filter(x=>(x.category||'Other')===(c.category||'Other')).sort((a,b)=>Number(a.sort_order||0)-Number(b.sort_order||0)||a.name.localeCompare(b.name));const i=same.findIndex(x=>x.id===c.id),j=i+delta;if(i<0||j<0||j>=same.length)return;[same[i],same[j]]=[same[j],same[i]];const updates=same.map((x,k)=>db.from('kp_channels').update({sort_order:(k+1)*100,updated_at:new Date().toISOString()}).eq('id',x.id));const results=await Promise.all(updates);const failed=results.find(x=>x.error);if(failed){msg($('globalMsg'),'Could not save channel order: '+failed.error.message);return}await loadAll();msg($('globalMsg'),'Channel order saved. Homepage will reflect it after refresh.',true)}
+let orderDrafts=new Map();
+function getCategoryOrder(category){
+ const draft=orderDrafts.get(category);
+ if(draft)return draft.slice();
+ return channels.filter(x=>(x.category||'Other')===category).sort((a,b)=>Number(a.sort_order||0)-Number(b.sort_order||0)||a.name.localeCompare(b.name));
+}
+function moveChannel(c,delta){
+ const category=c.category||'Other',same=getCategoryOrder(category);
+ const i=same.findIndex(x=>x.id===c.id),j=i+delta;
+ if(i<0||j<0||j>=same.length)return;
+ [same[i],same[j]]=[same[j],same[i]];
+ orderDrafts.set(category,same);renderOrderManager();
+}
 function renderChannels(){
  const root=$('channelList');if(!root)return;root.innerHTML='';
  const raw=$('channelSearch').value.trim(),q=searchNorm(raw),cat=$('editCategoryFilter')?.value||'';
@@ -74,22 +86,12 @@ function renderChannels(){
 }
 async function deleteChannel(c){if(!confirm('Permanently delete '+c.name+'? This removes its channel record and its Trending entry.'))return;const t=await db.from('kp_trending_channels').delete().eq('channel_id',c.id);if(t.error)return msg($('globalMsg'),'Could not remove Trending reference: '+t.error.message);const {error}=await db.from('kp_channels').delete().eq('id',c.id);if(error)return msg($('globalMsg'),'Delete failed: '+error.message);await loadAll();msg($('globalMsg'),c.name+' deleted.',true)}
 let draggedChannelId=null;
-async function saveDraggedCategoryOrder(ordered){
- const msgEl=$('orderMsg');hide(msgEl);
- try{
-  for(let i=0;i<ordered.length;i++){
-   const {error}=await db.from('kp_channels').update({sort_order:(i+1)*100,updated_at:new Date().toISOString()}).eq('id',ordered[i].id);
-   if(error)throw error;
-  }
-  await loadAll();msg(msgEl,'Category order saved. Homepage order will update after refresh.',true);
- }catch(e){msg(msgEl,'Could not save order: '+e.message)}
-}
 function renderOrderManager(){
  const sel=$('orderCategory'),root=$('orderManagerList');if(!sel||!root)return;
  const names=[...new Set(channels.map(c=>c.category||'Other'))].sort((a,b)=>a.localeCompare(b));
  const old=sel.value;sel.innerHTML=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
  if(names.includes(old))sel.value=old;
- const group=channels.filter(c=>(c.category||'Other')===sel.value).sort((a,b)=>Number(a.sort_order||0)-Number(b.sort_order||0)||a.name.localeCompare(b.name));
+ const category=sel.value,group=getCategoryOrder(category);
  root.innerHTML='';
  if(!group.length){root.innerHTML='<div class="search-empty">No channels in this category.</div>';return}
  group.forEach((c,i)=>{
@@ -102,16 +104,34 @@ function renderOrderManager(){
   row.addEventListener('dragend',()=>{draggedChannelId=null;root.querySelectorAll('.drag-row').forEach(x=>x.classList.remove('dragging','drop-target'))});
   row.addEventListener('dragover',e=>{e.preventDefault();if(draggedChannelId!==c.id)row.classList.add('drop-target');e.dataTransfer.dropEffect='move'});
   row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
-  row.addEventListener('drop',async e=>{
+  row.addEventListener('drop',e=>{
    e.preventDefault();row.classList.remove('drop-target');
    const fromId=e.dataTransfer.getData('text/plain')||draggedChannelId;if(!fromId||fromId===c.id)return;
-   const reordered=group.slice();const from=reordered.findIndex(x=>x.id===fromId),to=reordered.findIndex(x=>x.id===c.id);
+   const reordered=getCategoryOrder(category);const from=reordered.findIndex(x=>x.id===fromId),to=reordered.findIndex(x=>x.id===c.id);
    if(from<0||to<0)return;const [moved]=reordered.splice(from,1);reordered.splice(to,0,moved);
-   root.innerHTML='<div class="status">Saving new category order…</div>';await saveDraggedCategoryOrder(reordered);
+   orderDrafts.set(category,reordered);renderOrderManager();
+   msg($('orderMsg'),'Unsaved order changes. Click “Save Order” to apply them.',true);
   });
   root.append(row);
  });
+ const saveBtn=$('saveChannelOrder');if(saveBtn)saveBtn.disabled=orderDrafts.size===0;
 }
+async function saveAllCategoryOrders(){
+ const btn=$('saveChannelOrder'),msgEl=$('orderMsg');
+ if(!orderDrafts.size){msg(msgEl,'There are no unsaved order changes.',true);return}
+ btn.disabled=true;hide(msgEl);
+ try{
+  for(const [category,ordered] of orderDrafts.entries()){
+   for(let n=0;n<ordered.length;n++){
+    const {error}=await db.from('kp_channels').update({sort_order:(n+1)*100,updated_at:new Date().toISOString()}).eq('id',ordered[n].id);
+    if(error)throw error;
+   }
+  }
+  orderDrafts.clear();await loadAll();
+  msg(msgEl,'All pending category orders have been saved.',true);
+ }catch(e){msg(msgEl,'Could not save all orders: '+e.message);btn.disabled=false}
+}
+$('saveChannelOrder')?.addEventListener('click',saveAllCategoryOrders);
 $('orderCategory')?.addEventListener('change',renderOrderManager);
 function renderEditCategoryFilter(){const el=$('editCategoryFilter');if(!el)return;const old=el.value;const names=[...new Set(channels.map(c=>c.category||'Other'))].sort((a,b)=>a.localeCompare(b));el.innerHTML='<option value="">All categories</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');if(names.includes(old))el.value=old}
 function fillCategorySelects(){const names=[...new Set([...categories.filter(c=>c.is_active).map(c=>c.name),...channels.map(c=>c.category).filter(Boolean),'Other'])].sort((a,b)=>a.localeCompare(b));const current=$('chCategory').value;const opts=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');$('chCategory').innerHTML=opts;if(names.includes(current))$('chCategory').value=current;refreshTrendChannelOptions()}
