@@ -84,6 +84,12 @@ a{color:inherit}
 .player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 13px;color:#aaa;font-size:12px}
 .mini-btn{background:transparent;border:1px solid #555;color:#fff;border-radius:4px;padding:6px 10px}
 .mini-btn:hover{background:#333}
+.stream-picker{display:flex;align-items:center;gap:6px;padding:0 13px 10px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}.stream-picker::-webkit-scrollbar{display:none}.stream-picker[hidden]{display:none}
+.stream-btn{flex:0 0 auto;background:transparent;border:1px solid var(--border,#444);color:var(--muted,#aaa);border-radius:999px;padding:4px 11px;font-size:11px;font-weight:600;line-height:1.4;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.stream-btn:hover{color:#fff;border-color:#777}
+.stream-btn.active{background:var(--accent,var(--red,#e50914));border-color:var(--accent,var(--red,#e50914));color:#fff}
+.stream-btn.failed:not(.active){opacity:.45;text-decoration:line-through}
+@media(max-width:600px){.stream-picker{padding:0 10px 8px;gap:5px}.stream-btn{padding:4px 10px;font-size:11px}}
 main{position:relative;z-index:3;margin-top:-4px}
 .browse-tools{max-width:1600px;margin:0 auto;padding:8px 4.5% 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .browse-label{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-right:6px}
@@ -279,6 +285,7 @@ body.category-modal-open{overflow:hidden}
     </div>
   </div>
   <div class="player-bottom"><span id="playState">Ready to play</span><button class="mini-btn" id="stopBtn" type="button">Stop</button></div>
+  <div class="stream-picker" id="streamPicker" hidden aria-label="Stream selection"></div>
 </div>
   </div>
 </section>
@@ -439,7 +446,7 @@ function stop(){
  playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
  if(hls){hls.destroy();hls=null}
  if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
- video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';
+ video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';{const sp=$('streamPicker');if(sp){sp.hidden=true;sp.innerHTML=''}}
  if(typeof syncPlaybackControls==='function')syncPlaybackControls();
 }
 let playbackToken=0,activeSourceFail=null,stallTimer=null;
@@ -450,11 +457,23 @@ function play(channel,start=0){
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
 }
+function renderStreamPicker(activeIdx){
+ const box=$('streamPicker');if(!box)return;
+ const total=lastChannel?lastChannel.urls.length:0;
+ if(total<2){box.hidden=true;box.innerHTML='';return}
+ box.hidden=false;box.innerHTML='';
+ for(let i=0;i<total;i++){const b=document.createElement('button');b.type='button';b.className='stream-btn'+(i===activeIdx?' active':'')+(failedIndices.has(i)?' failed':'');b.textContent='Stream '+(i+1);b.dataset.index=String(i);b.setAttribute('aria-pressed',i===activeIdx?'true':'false');b.onclick=()=>selectStream(i);box.appendChild(b)}
+}
+function selectStream(i){
+ if(!lastChannel||i<0||i>=lastChannel.urls.length)return;
+ clearPlaybackTimers();playbackToken++;attempted=new Set();failedIndices=new Set();sourceIndex=i;
+ trySource(playbackToken);
+}
 function trySource(token=playbackToken){
  if(token!==playbackToken||!lastChannel)return;
  while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
  if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
- const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);
+ const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);renderStreamPicker(index);
  if(hls){hls.destroy();hls=null}
  if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
  video.pause();video.removeAttribute('src');video.load();
@@ -462,7 +481,7 @@ function trySource(token=playbackToken){
  let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
  const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}
  if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
- failedIndices.add(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
+ failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
  activeSourceFail=fail;const connectTimer=setTimeout(fail,25000);
  const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);$('playState').textContent='Playing live';$('statusLine').textContent='';};
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
