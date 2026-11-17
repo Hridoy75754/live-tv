@@ -311,6 +311,7 @@ body.category-modal-open{overflow:hidden}
 <script src="./supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),video=$('video');
@@ -344,9 +345,22 @@ function makeCard(channel, groupLabel){
  const meta=document.createElement('span');meta.className='card-meta';const live=document.createElement('span');live.className='card-live';live.textContent='● LIVE';const detail=document.createElement('span');detail.textContent=channel.urls.length>1?`${channel.urls.length} stream sources`:groupLabel;meta.append(live,detail);info.append(name,meta);card.append(art,info);card.addEventListener('click',()=>{autoPickWasManual=true;play(channel,0)});return card;
 }
 const FIXED_CATEGORIES=['Sports','Movies','News','Music','Bangladesh','India'];
-function availableCategories(){const names=[...FIXED_CATEGORIES,...(managedCategories||[]).map(c=>c.name).filter(Boolean),'Others'];return [...new Set(names)]}
+function managedList(){return (managedCategories||[]).filter(c=>c&&c.name&&c.is_active!==false).slice().sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0))}
+// If categories are managed in the Admin Panel, they fully control the list; otherwise the original built-in list is used.
+function availableCategories(){const m=managedList();if(m.length)return [...new Set([...m.map(c=>c.name),'Others'])];const names=[...FIXED_CATEGORIES,'Others'];return [...new Set(names)]}
 const VISIBLE_CATEGORY_TABS=['All','Sports','Movies','News','Music','Bangladesh'];
 function categoryForChannel(channel){
+ const m=managedList();
+ if(m.length){
+  const g=String(channel.group||'').trim().toLowerCase();
+  const hit=m.find(x=>String(x.name).trim().toLowerCase()===g);if(hit)return hit.name;
+  const legacy=categoryForChannelLegacy(channel);
+  const hit2=m.find(x=>String(x.name).trim().toLowerCase()===String(legacy).toLowerCase());
+  return hit2?hit2.name:'Others';
+ }
+ return categoryForChannelLegacy(channel);
+}
+function categoryForChannelLegacy(channel){
  const group=String(channel.group||'').trim().toLowerCase();
  const country=String(channel.country||'').trim().toLowerCase();
  const name=String(channel.name||'').toLowerCase();
@@ -362,7 +376,7 @@ function categoryForChannel(channel){
 }
 function renderCategoryTabs(){
  const tabs=$('categoryTabs');if(!tabs)return;tabs.innerHTML='';
- VISIBLE_CATEGORY_TABS.forEach(label=>{const b=document.createElement('button');b.type='button';b.className='category-tab';b.textContent=label;b.dataset.target=label;b.addEventListener('click',()=>{ $('search').value='';$('category').value=label==='All'?'':label;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'}); });tabs.appendChild(b)});
+ (managedList().length?['All',...managedList().map(c=>c.name)]:VISIBLE_CATEGORY_TABS).forEach(label=>{const b=document.createElement('button');b.type='button';b.className='category-tab';b.textContent=label;b.dataset.target=label;b.addEventListener('click',()=>{ $('search').value='';$('category').value=label==='All'?'':label;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'}); });tabs.appendChild(b)});
 }
 function syncCategoryTab(){const selected=$('category').value||'All';document.querySelectorAll('#categoryTabs .category-tab').forEach(b=>b.classList.toggle('active',b.dataset.target===selected));const trigger=$('categoryOpenTrigger');if(trigger){trigger.innerHTML='';const t=document.createElement('span');t.textContent=selected==='All'?'All categories':selected;const a=document.createElement('span');a.textContent='⌄';a.setAttribute('aria-hidden','true');trigger.append(t,a);}}
 function categoryLabel(){return $('category').value||'All categories'}
@@ -444,8 +458,8 @@ function render(){
 
 function stop(){
  playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
- if(hls){hls.destroy();hls=null}
- if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
+ destroyEngines();
+ destroyEngines();
  video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';{const sp=$('streamPicker');if(sp){sp.hidden=true;sp.innerHTML=''}}
  if(typeof syncPlaybackControls==='function')syncPlaybackControls();
 }
@@ -457,6 +471,39 @@ function play(channel,start=0){
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
  $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
 }
+let dashPlayer=null;
+function destroyEngines(){
+ if(hls){try{hls.destroy()}catch(_e){}hls=null}
+ if(mpegtsPlayer){try{mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy()}catch(_e){}mpegtsPlayer=null}
+ if(dashPlayer){try{dashPlayer.reset()}catch(_e){}dashPlayer=null}
+}
+function guessKinds(url){
+ let path='';try{path=new URL(url).pathname.toLowerCase()}catch(_e){}
+ const full=String(url).toLowerCase();
+ if(/\.m3u8?$/.test(path)||full.includes('m3u8'))return['hls'];
+ if(/\.mpd$/.test(path)||/\.mpd(\?|#|$)/.test(full))return['dash'];
+ if(/\.flv$/.test(path))return['flv'];
+ if(/\.(ts|m2ts|mts)$/.test(path))return['mpegts'];
+ if(/\.(mp4|m4v|mov|webm|ogv|ogg|mkv|3gp|mp3|aac|m4a|opus|wav|flac)$/.test(path))return['native'];
+ return['hls','mpegts','flv','dash','native']; // unknown or extensionless URL: auto-detect
+}
+let audioCtx=null,audioGraphReady=false;
+function setupAudioBoost(){
+ // Many live streams are mastered quiet; video.volume cannot exceed 100%, so amplify with a gain + soft limiter.
+ try{
+  if(audioGraphReady){if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return}
+  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+  const boost=Number(siteSettings.player?.audio_boost);const level=Number.isFinite(boost)&&boost>=1?Math.min(boost,6):2.5;
+  audioCtx=new AC();
+  const src=audioCtx.createMediaElementSource(video),gain=audioCtx.createGain(),comp=audioCtx.createDynamicsCompressor();
+  gain.gain.value=level;
+  comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=8;comp.attack.value=.003;comp.release.value=.25;
+  src.connect(gain);gain.connect(comp);comp.connect(audioCtx.destination);
+  audioGraphReady=true;
+  if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
+ }catch(e){console.info('Audio boost unavailable',e&&e.message)}
+}
+['pointerdown','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>{if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{})},{passive:true}));
 function renderStreamPicker(activeIdx){
  const box=$('streamPicker');if(!box)return;
  const total=lastChannel?lastChannel.urls.length:0;
@@ -474,36 +521,50 @@ function trySource(token=playbackToken){
  while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
  if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
  const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);renderStreamPicker(index);
- if(hls){hls.destroy();hls=null}
- if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
+ destroyEngines();
+ destroyEngines();
  video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
- const fail=()=>{if(failed||!isCurrent())return;failed=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(hls){hls.destroy();hls=null}
- if(mpegtsPlayer){mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy();mpegtsPlayer=null}
- failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
- activeSourceFail=fail;const connectTimer=setTimeout(fail,25000);
+  const kinds=guessKinds(url);let kindPos=0,connectTimer=null;const perKind=kinds.length>1?12000:25000;
+  const fail=()=>{if(failed||!isCurrent())return;clearTimeout(connectTimer);clearTimeout(stallTimer);
+   if(!played&&kindPos+1<kinds.length){kindPos++;destroyEngines();video.pause();video.removeAttribute('src');video.load();connectTimer=setTimeout(fail,perKind);$('playState').textContent='Detecting stream format… ('+(kindPos+1)+'/'+kinds.length+')';startKind(kinds[kindPos]);return}
+   failed=true;destroyEngines();
+   failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
+  activeSourceFail=fail;connectTimer=setTimeout(fail,perKind);
  const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);$('playState').textContent='Playing live';$('statusLine').textContent='';};
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
- const isHls=/\.m3u8($|[?#])/i.test(url);
- 
- if(isHls&&window.Hls&&Hls.isSupported()){
+  const playCatch=()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback')};
+  const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=url;video.load();video.play().catch(playCatch)};
+  function startKind(kind){
+   if(!isCurrent()||failed)return;
+   try{
+    if(kind==='hls'){
+     if(window.Hls&&Hls.isSupported()){
+   setupAudioBoost();
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
- }else if((/\.(ts|flv)($|[?#])/i.test(url))&&window.mpegts&&mpegts.isSupported()){
+     }else startNative();
+    }else if(kind==='dash'){
+     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,url,true)}else fail();
+    }else if(kind==='mpegts'||kind==='flv'){
+     if(window.mpegts&&mpegts.isSupported()){
    try{
-    mpegtsPlayer=mpegts.createPlayer({type:/\.flv($|[?#])/i.test(url)?'flv':'mpegts',url,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
+    setupAudioBoost();
+    mpegtsPlayer=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
     mpegtsPlayer.on(mpegts.Events.ERROR,()=>{if(isCurrent())fail()});
     mpegtsPlayer.attachMediaElement(video);mpegtsPlayer.load();
     mpegtsPlayer.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
    }catch(_error){fail()}
- }else{
-   video.src=url;video.load();video.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
- }
+     }else startNative();
+    }else startNative();
+   }catch(_e){fail()}
+  }
+  startKind(kinds[0]);
 }
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
 video.addEventListener('waiting',()=>{if(activeSourceFail&&lastChannel&&video.currentTime>0){clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(video.readyState<3&&activeSourceFail)activeSourceFail()},22000)}});
@@ -544,7 +605,7 @@ function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ
 playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>{say('এই স্ট্রিমটি চালাতে Play চাপুন');$('playState').textContent='Tap Play to start';})}else video.pause();syncPlaybackControls();showPlayerControls()});
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
 volumeLevel.addEventListener('input',()=>{video.volume=Number(volumeLevel.value);video.muted=video.volume===0;syncPlaybackControls();showPlayerControls()});
-video.addEventListener('play',()=>{stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
+video.addEventListener('play',()=>{if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});stage.classList.add('is-playing');syncPlaybackControls()});video.addEventListener('pause',()=>{stage.classList.remove('is-playing');syncPlaybackControls()});video.addEventListener('volumechange',syncPlaybackControls);volumeLevel.value=String(Number(localStorage.getItem('kp-player-volume')??siteSettings.player?.volume??1));
 function applyScreenStep(step){video.style.objectFit=step.mode;videoZoom=step.zoom;video.style.setProperty('--kp-video-zoom',String(videoZoom));screenCycleBtn.title='Screen mode: '+step.title;$('screenModeLabel').textContent=step.label;}
 screenCycleBtn.addEventListener('click',()=>{screenCycleIndex=(screenCycleIndex+1)%screenSteps.length;applyScreenStep(screenSteps[screenCycleIndex])});
 async function enterLandscape(){
