@@ -256,6 +256,17 @@ body.category-modal-open{overflow:hidden}
 /* Category tabs under the player: desktop shows as many as fit, extra ones go under "More" */
 @media(min-width:601px){body .category-tabs{justify-content:flex-start!important;flex-wrap:nowrap!important;overflow:hidden!important;gap:10px!important}body .category-tabs .category-tab{flex:0 0 auto!important;min-width:auto!important;padding:10px 20px!important;font-size:14px!important;overflow:visible!important;text-overflow:clip!important}}
 </style>
+<style id="kp-float-player">
+.video-stage.kp-floating{position:fixed!important;z-index:1500;right:12px;bottom:12px;left:auto;top:auto;height:auto!important;max-height:none!important;aspect-ratio:16/9;border-radius:12px;border:1px solid #ffffff30;box-shadow:0 14px 44px #000d;transition:width .18s ease}
+@media(max-width:600px){.video-stage.kp-floating{right:8px;bottom:calc(68px + env(safe-area-inset-bottom))}}
+.kp-float-bar{display:none;position:absolute;top:0;left:0;right:0;z-index:40;align-items:center;gap:3px;padding:4px 6px;background:linear-gradient(#000d,#0000);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.video-stage.kp-floating .kp-float-bar{display:flex}
+.video-stage:fullscreen .kp-float-bar,.video-stage:-webkit-full-screen .kp-float-bar{display:none!important}
+.kp-float-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:700;color:#fff;text-shadow:0 1px 3px #000}
+.kp-float-bar button{flex:none;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:#000a;color:#fff;font-size:14px;line-height:1;cursor:pointer}
+.kp-float-bar button:disabled{opacity:.35;cursor:default}
+.video-stage.kp-floating #brightnessLevel,.video-stage.kp-floating .video-tools span[title="Brightness"],.video-stage.kp-floating #screenCycle,.video-stage.kp-floating #screenRotate{display:none!important}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -493,9 +504,9 @@ let playbackToken=0,activeSourceFail=null,stallTimer=null;
 function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
 function play(channel,start=0){
  clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));video.muted=savedMute||autoMutedStart;autoMutedStart=false;
+ let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));const wasAuto=autoMutedStart;video.muted=savedMute||autoMutedStart;autoMutedStart=false;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
- $('playerPanel').scrollIntoView({behavior:'smooth',block:'center'});
+ if(!wasAuto)revealPlayer();
 }
 let dashPlayer=null;
 function destroyEngines(){
@@ -540,6 +551,59 @@ function reportStreamHealth(severity){
   db.rpc('report_stream_failure',{p_channel_id:String(lastChannel.id),p_channel_name:String(lastChannel.name||''),p_failed_urls:failed.slice(0,10),p_severity:severity}).then(()=>{},()=>{});
  }catch(_e){}
 }
+let kpFloating=false,kpPlaceholder=null,kpObserver=null,kpFloatBar=null,kpSizeIdx=1;
+try{const v=Number(localStorage.getItem('kp-float-size'));if(Number.isInteger(v)&&v>=0&&v<=4)kpSizeIdx=v}catch(_e){}
+function kpFloatWidths(){const vw=window.innerWidth;return vw<=600?[.5,.7,.88,.97].map(f=>Math.round(vw*f)):[240,320,420,560,720].map(w=>Math.min(w,vw-24))}
+function kpApplyFloatSize(){
+ const stage=$('videoStage'),w=kpFloatWidths();kpSizeIdx=Math.max(0,Math.min(w.length-1,kpSizeIdx));
+ stage.style.width=w[kpSizeIdx]+'px';
+ if(stage.style.left){const r=stage.getBoundingClientRect();stage.style.left=Math.max(0,Math.min(window.innerWidth-w[kpSizeIdx],r.left))+'px';stage.style.top=Math.max(0,Math.min(window.innerHeight-w[kpSizeIdx]*9/16,r.top))+'px'}
+ if(kpFloatBar){kpFloatBar.querySelector('[data-act="out"]').disabled=kpSizeIdx<=0;kpFloatBar.querySelector('[data-act="in"]').disabled=kpSizeIdx>=w.length-1}
+}
+function kpUpdateFloatTitle(){if(kpFloatBar)kpFloatBar.querySelector('.kp-float-title').textContent=(lastChannel&&lastChannel.name)||'Live TV'}
+function kpBuildFloatBar(){
+ if(kpFloatBar)return;
+ const stage=$('videoStage'),bar=document.createElement('div');bar.className='kp-float-bar';
+ bar.innerHTML='<span class="kp-float-title"></span><button type="button" data-act="out" title="Zoom out" aria-label="Zoom out">\u2212</button><button type="button" data-act="in" title="Zoom in" aria-label="Zoom in">+</button><button type="button" data-act="fs" title="Fullscreen" aria-label="Fullscreen">\u26F6</button><button type="button" data-act="dock" title="Back to main player" aria-label="Back to main player">\u2B06</button><button type="button" data-act="close" title="Close" aria-label="Close">\u2715</button>';
+ stage.appendChild(bar);kpFloatBar=bar;
+ let drag=null;
+ bar.addEventListener('pointerdown',e=>{e.stopPropagation();if(e.target.closest('button'))return;const r=stage.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};try{bar.setPointerCapture(e.pointerId)}catch(_e){}stage.style.right='auto';stage.style.bottom='auto';stage.style.left=r.left+'px';stage.style.top=r.top+'px'});
+ bar.addEventListener('pointermove',e=>{if(!drag)return;e.stopPropagation();const w=stage.offsetWidth,h=stage.offsetHeight;stage.style.left=Math.max(0,Math.min(window.innerWidth-w,e.clientX-drag.dx))+'px';stage.style.top=Math.max(0,Math.min(window.innerHeight-h,e.clientY-drag.dy))+'px'});
+ const end=e=>{e.stopPropagation();drag=null};bar.addEventListener('pointerup',end);bar.addEventListener('pointercancel',end);
+ bar.addEventListener('click',e=>{
+  e.stopPropagation();const b=e.target.closest('button');if(!b)return;const act=b.dataset.act;
+  if(act==='in'){kpSizeIdx++;try{localStorage.setItem('kp-float-size',String(kpSizeIdx))}catch(_e){}kpApplyFloatSize()}
+  else if(act==='out'){kpSizeIdx--;try{localStorage.setItem('kp-float-size',String(kpSizeIdx))}catch(_e){}kpApplyFloatSize()}
+  else if(act==='fs'){$('screenFullscreen').click()}
+  else if(act==='dock'){kpDockStage();$('playerPanel').scrollIntoView({behavior:'smooth',block:'center'})}
+  else if(act==='close'){try{$('stopBtn').click()}catch(_e){}kpDockStage()}
+ });
+}
+function kpFloatStage(){
+ if(kpFloating)return;
+ const stage=$('videoStage');kpBuildFloatBar();
+ kpPlaceholder=document.createElement('div');kpPlaceholder.id='stagePlaceholder';kpPlaceholder.style.cssText='width:100%;background:#000;height:'+stage.offsetHeight+'px';
+ stage.parentNode.insertBefore(kpPlaceholder,stage);
+ stage.classList.add('kp-floating');kpFloating=true;kpApplyFloatSize();kpUpdateFloatTitle();
+ if('IntersectionObserver' in window){kpObserver=new IntersectionObserver(en=>{if(kpFloating&&en[0]&&en[0].intersectionRatio>=.6)kpDockStage()},{threshold:[0,.6]});kpObserver.observe(kpPlaceholder)}
+}
+function kpDockStage(){
+ if(!kpFloating)return;
+ const stage=$('videoStage');
+ if(kpObserver){kpObserver.disconnect();kpObserver=null}
+ stage.classList.remove('kp-floating');['width','left','top','right','bottom'].forEach(k=>stage.style.removeProperty(k));
+ if(kpPlaceholder){kpPlaceholder.remove();kpPlaceholder=null}
+ kpFloating=false;
+}
+function revealPlayer(){
+ // Instead of jumping to the top, keep the viewer where they are and float the player over the page.
+ if(kpFloating){kpUpdateFloatTitle();return}
+ const r=$('playerPanel').getBoundingClientRect(),vh=window.innerHeight;
+ const visible=Math.max(0,Math.min(r.bottom,vh)-Math.max(r.top,0));
+ if(visible>=Math.min(r.height,vh)*.6)return;   // player already on screen: play in place
+ kpFloatStage();
+}
+window.addEventListener('resize',()=>{if(kpFloating)kpApplyFloatSize()});
 function renderStreamPicker(activeIdx){
  const box=$('streamPicker');if(!box)return;
  const total=lastChannel?lastChannel.urls.length:0;
