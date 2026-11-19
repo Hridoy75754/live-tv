@@ -285,6 +285,32 @@ function testAttempt(v,kind,src,limit=12000){
   }catch(e){fin(false,e.message)}
  });
 }
+async function testDiagnose(url){
+ const proxyUrl=KP_PROXY_URL+'/?url='+encodeURIComponent(url);
+ const out=[];
+ async function peek(u,label,limit=700){
+  const t=performance.now(),ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),20000);
+  try{
+   const r=await fetch(u,{signal:ctl.signal});
+   const ct=r.headers.get('content-type')||'no content-type';
+   let text='';
+   try{const rd=r.body.getReader();const {value}=await rd.read();text=value?new TextDecoder().decode(value.slice(0,limit)):'';try{rd.cancel()}catch(_e){}}catch(_e){}
+   clearTimeout(to);
+   out.push(label+': HTTP '+r.status+' in '+Math.round(performance.now()-t)+' ms ('+ct+')'+(text?' \u2192 '+text.replace(/\s+/g,' ').slice(0,260):''));
+   return {status:r.status,text};
+  }catch(e){
+   clearTimeout(to);
+   out.push(label+': failed after '+Math.round(performance.now()-t)+' ms \u2192 '+(e.name==='AbortError'?'no reply within 20 s':e.message));
+   return null;
+  }
+ }
+ const first=await peek(proxyUrl,'Playlist via proxy',4000);
+ if(first&&first.status===200&&first.text.includes('#EXTM3U')){
+  const seg=first.text.split(/\r?\n/).map(x=>x.trim()).find(x=>x&&!x.startsWith('#'));
+  if(seg)await peek(seg,'First segment via proxy',200);
+ }
+ return out.join('\n');
+}
 $('testStream').onclick=async()=>{
  const url=$('testUrl').value.trim(),box=$('testResult');
  if(!/^https?:\/\//i.test(url)){msg(box,'Invalid URL. Use an HTTP or HTTPS stream URL.');return}
@@ -296,11 +322,14 @@ $('testStream').onclick=async()=>{
  for(const a of plan){
   box.textContent='Testing '+a.k.toUpperCase()+(a.p?' via proxy':' directly')+'\u2026';
   const src=a.p?KP_PROXY_URL+'/?url='+encodeURIComponent(url):url;
-  const r=await testAttempt(v,a.k,src);
+  const r=await testAttempt(v,a.k,src,a.p?20000:12000);
   if(r.ok){const via=a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms. Press Play to watch.',true);return}
   notes.push(a.k+(a.p?'+proxy':'')+': '+r.why);
  }
- msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'. Possible causes: expired or blocked link, wrong token, DRM, unsupported codec, or the provider blocks the proxy.');
+ box.style.whiteSpace='pre-wrap';
+ msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'\n\nRunning proxy diagnosis\u2026');
+ const d=await testDiagnose(url);
+ msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'\n\nProxy diagnosis:\n'+d);
 };
 let healthReports=[];
 function setHealthBadge(n){const b=document.querySelector('.navbtn[data-page="health"]');if(!b)return;const old=b.querySelector('.hbadge');if(old)old.remove();if(n>0){const x=document.createElement('span');x.className='hbadge';x.textContent=n;x.style.cssText='margin-left:8px;background:#ef4444;color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700';b.appendChild(x)}}
