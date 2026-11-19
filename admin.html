@@ -5,7 +5,7 @@
 :root{color-scheme:dark;--bg:#0c0c0e;--panel:#18181b;--panel2:#222226;--line:#333338;--accent:#ef4444;--muted:#aaa;--green:#22c55e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f7;font:14px/1.5 system-ui,Arial}.hidden{display:none!important}button,input,select,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 13px;background:#333;color:#fff;font-weight:700;cursor:pointer}button.primary{background:var(--accent)}button.danger{background:#64272b}input,select,textarea{width:100%;background:#101013;color:#fff;border:1px solid #3b3b42;border-radius:9px;padding:11px}label{display:block;color:#bbb;font-size:12px;margin:12px 0 5px}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.side{background:#141416;border-right:1px solid var(--line);padding:20px 13px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:21px;font-weight:900;color:#ff6666;padding:4px 9px 20px}.navbtn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:transparent;margin:3px 0;padding:11px;border-radius:9px;color:#ccc}.navbtn.active,.navbtn:hover{background:#352124;color:white}.navgroup{font-size:10px;color:#777;letter-spacing:1.5px;padding:15px 10px 5px}.main{padding:22px;max-width:1250px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.top h1{font-size:25px;margin:0}.muted{color:var(--muted);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;margin:0 0 15px}.panel h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:180px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#222226;border:1px solid var(--line);padding:16px;border-radius:12px}.stat b{font-size:25px;display:block}.status{padding:10px;border-radius:9px;background:#292929;margin:10px 0;font-size:13px}.ok{border:1px solid #23744a}.err{border:1px solid #9a3b3b}.item{display:flex;gap:10px;align-items:center;background:#222226;border:1px solid #38383e;padding:10px;border-radius:10px;margin:8px 0}.item .meta{flex:1;min-width:0}.item strong{display:block}.item small{color:#aaa}.item img{width:44px;height:44px;object-fit:contain;background:#111;border-radius:7px}.check{display:flex;align-items:center;gap:8px}.check input{width:auto}.section{display:none}.section.active{display:block}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.table{width:100%;border-collapse:collapse}.table td,.table th{border-bottom:1px solid #333;padding:9px;text-align:left;font-size:13px}.badge{padding:3px 8px;border-radius:20px;background:#244632;color:#b9f7cf;font-size:11px}.badge.off{background:#51292b;color:#ffc4c4}.mobile-menu{display:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.subnav button{background:#29292d}.subnav button.active{background:#633137}.drag-row{cursor:grab;user-select:none}.drag-row.dragging{opacity:.42;border-color:#ef4444}.drag-row.drop-target{outline:2px dashed #ef4444;outline-offset:2px}.drag-handle{font-size:20px;color:#aaa;cursor:grab;padding:0 8px}.search-empty{padding:14px;color:#aaa;background:#202024;border:1px dashed #444;border-radius:10px;margin-top:10px}.favicon-preview{width:48px;height:48px;object-fit:contain;background:#101013;border:1px solid #444;border-radius:10px;padding:5px}@media(max-width:780px){.layout{display:block}.side{position:sticky;z-index:20;top:0;height:auto;padding:8px;border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;gap:5px}.brand,.navgroup{display:none}.navbtn{width:auto;white-space:nowrap;margin:0;padding:9px;font-size:12px}.main{padding:15px 11px}.grid,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr);gap:6px}.stat{padding:10px}.stat b{font-size:20px}.top h1{font-size:20px}}
 .trend-result{background:#222226;border:1px solid #38383e;color:#fff}.trend-result.active{border-color:#ef4444;background:#3a1d1f}.trend-result small{display:block;color:#aaa;margin-top:2px}.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px;animation:livepulse 1.6s infinite}@keyframes livepulse{0%{box-shadow:0 0 0 0 #22c55e88}70%{box-shadow:0 0 0 9px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}.dr-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2a2a2f;font-size:13px}.dr-row .d{width:120px;flex:none}.dr-row .bar{flex:1;height:8px;background:#2a2a2f;border-radius:6px;overflow:hidden}.dr-row .bar i{display:block;height:100%;background:#22c55e}.dr-row .n{width:150px;flex:none;text-align:right}@media(max-width:600px){.dr-row .d{width:86px}.dr-row .n{width:110px}}</style></head><body>
 <section id="login" style="max-width:420px;margin:10vh auto;padding:20px"><div class="panel"><div class="brand">KP LIVE TV</div><h1>Admin Login</h1><p class="muted">Sign in with your authorized administrator account.</p><label>Email</label><input id="email" type="email" autocomplete="username"><label>Password</label><input id="password" type="password" autocomplete="current-password"><div class="toolbar"><button class="primary" id="loginBtn">Sign in</button></div><div id="loginMsg" class="status hidden"></div></div></section>
-<div id="app" class="layout hidden"><aside class="side"><div class="brand">KP LIVE TV</div><div class="navgroup">OVERVIEW</div><button class="navbtn active" data-page="dashboard">▦ Dashboard</button><div class="navgroup">CONTENT MANAGEMENT</div><button class="navbtn" data-page="homepage">⌂ Homepage Settings</button><button class="navbtn" data-page="channels">↕ Channel Manager Order</button><button class="navbtn" data-page="channel-edit">✎ Channel Edit</button><button class="navbtn" data-page="branding">◈ Website Logo & Favicon</button><button class="navbtn" data-page="categories">▤ Category Manager</button><button class="navbtn" data-page="trending">🔥 Trending & Events</button><button class="navbtn" data-page="health">🩺 Channel Health & Alerts</button><div class="navgroup">PLAYER & APPEARANCE</div><button class="navbtn" data-page="player">▶ Player Settings</button><button class="navbtn" data-page="design">◐ Design & Layout</button><button class="navbtn" data-page="navigation">☷ Navigation & Footer</button><div class="navgroup">SYSTEM</div><button class="navbtn" data-page="notifications">♢ Notifications</button><button class="navbtn" data-page="system">⚙ Admin & System</button><button class="navbtn" id="logout">↪ Log out</button></aside>
+<div id="app" class="layout hidden"><aside class="side"><div class="brand">KP LIVE TV</div><div class="navgroup">OVERVIEW</div><button class="navbtn active" data-page="dashboard">▦ Dashboard</button><div class="navgroup">CONTENT MANAGEMENT</div><button class="navbtn" data-page="homepage">⌂ Homepage Settings</button><button class="navbtn" data-page="channels">↕ Channel Manager Order</button><button class="navbtn" data-page="channel-edit">✎ Channel Edit</button><button class="navbtn" data-page="playlist">☰ Playlist Browser</button><button class="navbtn" data-page="branding">◈ Website Logo & Favicon</button><button class="navbtn" data-page="categories">▤ Category Manager</button><button class="navbtn" data-page="trending">🔥 Trending & Events</button><button class="navbtn" data-page="health">🩺 Channel Health & Alerts</button><div class="navgroup">PLAYER & APPEARANCE</div><button class="navbtn" data-page="player">▶ Player Settings</button><button class="navbtn" data-page="design">◐ Design & Layout</button><button class="navbtn" data-page="navigation">☷ Navigation & Footer</button><div class="navgroup">SYSTEM</div><button class="navbtn" data-page="notifications">♢ Notifications</button><button class="navbtn" data-page="system">⚙ Admin & System</button><button class="navbtn" id="logout">↪ Log out</button></aside>
 <main class="main"><header class="top"><div><h1 id="pageTitle">Dashboard</h1><div class="muted">Manage KP Live TV from one place</div></div><span class="badge">ADMIN</span></header><div id="globalMsg" class="status hidden"></div>
 <section class="section active" id="page-dashboard"><div class="panel" id="livePanel" style="margin-bottom:15px"><div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap"><div style="flex:1 1 200px;min-width:180px"><div class="muted" style="font-weight:700"><span class="live-dot"></span> ONLINE NOW</div><div id="onlineNow" style="font-size:64px;font-weight:800;line-height:1.05;color:#22c55e">—</div><div class="muted" id="liveMsg">Updates every 15 seconds</div></div><div class="stats" style="flex:2 1 320px;margin:0"><div class="stat"><span class="muted">Today unique visitors</span><b id="todayUnique">—</b></div><div class="stat"><span class="muted">Today total visits</span><b id="todayVisits">—</b></div><div class="stat"><span class="muted">All-time unique</span><b id="totalUnique">—</b></div></div></div><div id="watchingList" style="margin-top:12px"></div><div class="row" style="display:flex;align-items:center;gap:10px;margin-top:16px"><h3 style="margin:0;flex:1">Daily visitor report</h3><select id="dailyDays" style="width:auto"><option value="7">Last 7 days</option><option value="14" selected>Last 14 days</option><option value="30">Last 30 days</option></select><button id="refreshLive">Refresh</button></div><div id="dailyReport"></div></div><div class="stats"><div class="stat"><span class="muted">Total channels</span><b id="statTotal">—</b></div><div class="stat"><span class="muted">Active channels</span><b id="statActive">—</b></div><div class="stat"><span class="muted">Trending items</span><b id="statTrending">—</b></div></div><div class="panel" style="margin-top:15px"><h2>Quick actions</h2><div class="toolbar"><button class="primary" data-goto="channels">Manage channels</button><button data-goto="trending">Edit Trending</button><button data-goto="notifications">Publish notification</button></div><p class="muted">Hero Section is intentionally removed from the public homepage. The live player remains directly below the header.</p></div></section>
 <section class="section" id="page-homepage"><div class="panel"><h2>Homepage content</h2><label>Site title</label><input id="siteTitle"><label>Trending heading</label><input id="trendingTitle"><label class="check"><input type="checkbox" id="showTrending"> Show Trending section</label><label>Homepage announcement / intro text</label><textarea id="homeIntro" rows="3" placeholder="Optional short message"></textarea><hr><h2>Country-based Auto Play</h2><p class="muted">Choose the preferred channel for visitors detected in each country. GeoIP can be inaccurate and autoplay may start muted due to browser policy.</p><label>Bangladesh channel</label><select id="geoBd"></select><label>India channel</label><select id="geoIn"></select><label>Other countries channel</label><select id="geoOther"></select><div class="toolbar"><button class="primary" id="saveHomepage">Save Homepage Settings</button></div></div></section>
@@ -38,13 +38,16 @@
 ▶ | YouTube | https://youtube.com/@yourchannel
 ✈ | Telegram | https://t.me/yourchannel"></textarea><div class="toolbar"><button class="primary" id="saveNavigation">Save Navigation & Footer</button></div></div></section>
 <section class="section" id="page-health"><div class="panel"><h2>Channel Health Monitor</h2><p class="muted">Checks each active channel's Primary and Backup URLs. Only reports a channel after repeated failures. A scheduled Edge Function is required for automatic checks and email delivery.</p><div class="stats"><div class="stat"><span class="muted">Failed channels</span><b id="healthFailed">—</b></div><div class="stat"><span class="muted">Open alerts</span><b id="healthOpen">—</b></div><div class="stat"><span class="muted">Last check</span><b id="healthLast">—</b></div></div><div class="toolbar"><button class="primary" id="healthRefresh">Refresh alerts</button><button id="healthRunNow">Run check now</button></div><label>Admin alert email</label><input id="healthEmail" type="email" placeholder="your-admin@email.com"><label class="check"><input id="healthEmailEnabled" type="checkbox" checked> Send email alerts and recovery notices</label><label>Check interval</label><select id="healthInterval"><option value="5">Every 5 minutes</option><option value="10">Every 10 minutes</option><option value="15">Every 15 minutes</option><option value="30">Every 30 minutes</option></select><div class="toolbar"><button class="primary" id="healthSaveSettings">Save alert settings</button></div><h3 style="margin-top:18px">Visitor-reported problems</h3><div class="muted">Reported automatically when a visitor player cannot open a channel link.</div><div id="healthReportList"></div><h3 style="margin-top:18px">Automatic checks</h3><div id="healthAlertList"></div><div id="healthMsg" class="status hidden"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
+<section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><div id="plMsg" class="status hidden"></div></div>
+<div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
+<div class="panel hidden" id="plListPanel"><div class="grid"><div><label>Search</label><input id="plSearch" placeholder="Channel or group name"></div><div><label>Group</label><select id="plGroup"></select></div></div><div class="muted" id="plCount" style="margin-top:8px"></div><div id="plList"></div><div class="toolbar"><button id="plMore">Show more</button></div></div></section>
 <section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
 </main></div>
 <script>
 (()=>{'use strict';const $=id=>document.getElementById(id);const configUrl=window.KP_SUPABASE_URL||'',configKey=window.KP_SUPABASE_ANON_KEY||'';if(!window.supabase||!configUrl.startsWith('https://')||!configKey){$('loginMsg').textContent='Supabase configuration missing. Check supabase-config.js.';$('loginMsg').classList.remove('hidden');$('loginBtn').disabled=true;return}const db=window.supabase.createClient(configUrl,configKey);let channels=[],categories=[],trends=[],notices=[],settings={},editingChannel=null,editingCategory=null,editingTrend=null,editingNotice=null;
-const pageNames={dashboard:'Dashboard',homepage:'Homepage Settings',channels:'Channel Manager Order', 'channel-edit':'Channel Edit',branding:'Website Logo & Favicon',categories:'Category Manager',trending:'Trending & Events',health:'Channel Health & Alerts',player:'Player Settings',design:'Design & Layout',navigation:'Navigation & Footer',notifications:'Notifications',system:'Admin & System'};
+const pageNames={dashboard:'Dashboard',homepage:'Homepage Settings',channels:'Channel Manager Order', 'channel-edit':'Channel Edit',playlist:'Playlist Browser',branding:'Website Logo & Favicon',categories:'Category Manager',trending:'Trending & Events',health:'Channel Health & Alerts',player:'Player Settings',design:'Design & Layout',navigation:'Navigation & Footer',notifications:'Notifications',system:'Admin & System'};
 function msg(el,text,ok=false){el.textContent=text;el.className='status '+(ok?'ok':'err');el.classList.remove('hidden')}function hide(el){el.classList.add('hidden')}function slug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
-function go(page){if(page==='dashboard'&&typeof loadVisitorStats==='function')loadVisitorStats();if(page==='health'&&typeof loadHealthAlerts==='function')loadHealthAlerts();document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));document.querySelectorAll('.navbtn[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('pageTitle').textContent=pageNames[page]||page}
+function go(page){if(page==='playlist'&&typeof plFillCategories==='function')plFillCategories();if(page==='dashboard'&&typeof loadVisitorStats==='function')loadVisitorStats();if(page==='health'&&typeof loadHealthAlerts==='function')loadHealthAlerts();document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));document.querySelectorAll('.navbtn[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('pageTitle').textContent=pageNames[page]||page}
 document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
 async function adminCheck(user){if(!user)return false;const {data,error}=await db.from('kp_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error)throw error;return !!data}
 async function loadAll(){const [ch,cat,tr,no,se]=await Promise.all([db.from('kp_channels').select('*').order('sort_order').order('name'),db.from('kp_categories').select('*').order('sort_order'),db.from('kp_trending_channels').select('*').order('sort_order'),db.from('kp_notifications').select('*').order('sort_order'),db.from('kp_site_settings').select('settings').eq('id',1).maybeSingle()]);for(const x of [ch,cat,tr,no,se])if(x.error)throw x.error;channels=ch.data||[];categories=cat.data||[];trends=tr.data||[];notices=no.data||[];settings=se.data?.settings||{};renderAll()}
@@ -251,11 +254,11 @@ $('m3uFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const txt
 $('m3uCommit').onclick=async()=>{if(!pendingPlaylist.length)return;if(!confirm(`Import ${pendingPlaylist.length} new channels? Existing records will not be overwritten.`))return;for(let i=0;i<pendingPlaylist.length;i+=100){const {error}=await db.from('kp_channels').insert(pendingPlaylist.slice(i,i+100));if(error){msg($('systemMsg'),'Playlist import stopped: '+error.message);return}}pendingPlaylist=[];await loadAll();msg($('systemMsg'),'New playlist channels imported.',true)};
 $('testExisting').onchange=()=>{const c=channels.find(x=>x.id===$('testExisting').value);if(!c)return;$('testName').value=c.name;$('testUrl').value=(c.stream_urls||[]).map(x=>typeof x==='string'?x:x.url).filter(Boolean)[0]||''};
 const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev';
-let testEngines={hls:null,ts:null};
 function testCleanup(v){
- try{if(testEngines.hls)testEngines.hls.destroy()}catch(_e){}
- try{if(testEngines.ts){testEngines.ts.pause();testEngines.ts.unload();testEngines.ts.detachMediaElement();testEngines.ts.destroy()}}catch(_e){}
- testEngines={hls:null,ts:null};v.pause();v.onerror=null;v.removeAttribute('src');v.load();
+ const e=v.__eng||{};
+ try{if(e.hls)e.hls.destroy()}catch(_e){}
+ try{if(e.ts){e.ts.pause();e.ts.unload();e.ts.detachMediaElement();e.ts.destroy()}}catch(_e){}
+ v.__eng={};v.pause();v.onerror=null;v.removeAttribute('src');v.load();
 }
 function testKinds(url){
  let path='';try{path=new URL(url).pathname.toLowerCase()}catch(_e){}
@@ -266,20 +269,21 @@ function testKinds(url){
  if(/\.(mp4|m4v|mov|webm|ogv|ogg|mkv|mp3|aac|m4a)$/.test(path))return['native'];
  return['hls','mpegts','flv','native'];
 }
-function testAttempt(v,kind,src,limit=12000){
+function testAttempt(v,kind,src,limit,tok){
  return new Promise(resolve=>{
   let done=false,tm=null;
   const good=()=>fin(true,'');
-  const fin=(ok,why)=>{if(done)return;done=true;clearTimeout(tm);v.removeEventListener('loadeddata',good);v.removeEventListener('canplay',good);if(!ok)testCleanup(v);resolve({ok,why})};
+  const fin=(ok,why)=>{if(done)return;done=true;clearTimeout(tm);v.removeEventListener('loadeddata',good);v.removeEventListener('canplay',good);if(!ok&&!tok.cancelled)testCleanup(v);resolve({ok,why})};
+  tok.cancel=()=>fin(false,'cancelled');
   tm=setTimeout(()=>fin(false,'timeout'),limit);
   v.addEventListener('loadeddata',good);v.addEventListener('canplay',good);
-  v.muted=true;
+  v.muted=true;v.__eng=v.__eng||{};
   try{
    if(kind==='hls'){
-    if(window.Hls&&Hls.isSupported()){const h=new Hls();testEngines.hls=h;h.on(Hls.Events.ERROR,(_e,d)=>{if(d.fatal)fin(false,d.details)});h.loadSource(src);h.attachMedia(v);v.play().catch(()=>{})}
+    if(window.Hls&&Hls.isSupported()){const h=new Hls();v.__eng.hls=h;h.on(Hls.Events.ERROR,(_e,d)=>{if(d.fatal)fin(false,d.details)});h.loadSource(src);h.attachMedia(v);v.play().catch(()=>{})}
     else{v.onerror=()=>fin(false,'media error');v.src=src;v.play().catch(()=>{})}
    }else if(kind==='mpegts'||kind==='flv'){
-    if(window.mpegts&&mpegts.isSupported()){const pl=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:src,isLive:true});testEngines.ts=pl;pl.on(mpegts.Events.ERROR,(_t,d)=>fin(false,String(d)));pl.attachMediaElement(v);pl.load();v.play().catch(()=>{})}
+    if(window.mpegts&&mpegts.isSupported()){const pl=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:src,isLive:true});v.__eng.ts=pl;pl.on(mpegts.Events.ERROR,(_t,d)=>fin(false,String(d)));pl.attachMediaElement(v);pl.load();v.play().catch(()=>{})}
     else fin(false,'not supported in this browser');
    }else{v.onerror=()=>fin(false,'media error');v.src=src;v.load();v.play().catch(()=>{})}
   }catch(e){fin(false,e.message)}
@@ -311,25 +315,136 @@ async function testDiagnose(url){
  }
  return out.join('\n');
 }
-$('testStream').onclick=async()=>{
- const url=$('testUrl').value.trim(),box=$('testResult');
- if(!/^https?:\/\//i.test(url)){msg(box,'Invalid URL. Use an HTTP or HTTPS stream URL.');return}
- const v=$('testVideo');testCleanup(v);box.classList.remove('hidden');
+async function runStreamTest(url,v,box,withDiag){
+ if(v.__tok){v.__tok.cancelled=true;try{if(v.__tok.cancel)v.__tok.cancel()}catch(_e){}}
+ const tok={cancelled:false,cancel:null};v.__tok=tok;
+ testCleanup(v);box.classList.remove('hidden');box.style.whiteSpace='pre-wrap';
+ if(!/^https?:\/\//i.test(url)){msg(box,'Not testable here: browsers only play http/https links (RTMP, RTSP, UDP must be converted to HLS on a server).');return{ok:false}}
  const insecure=location.protocol==='https:'&&/^http:\/\//i.test(url),kinds=testKinds(url),plan=[];
  if(!insecure)kinds.forEach(k=>plan.push({k,p:false}));
  (kinds.length>1?['hls','mpegts']:kinds).forEach(k=>plan.push({k,p:true}));
  const notes=[],t0=performance.now();
  for(const a of plan){
-  box.textContent='Testing '+a.k.toUpperCase()+(a.p?' via proxy':' directly')+'\u2026';
+  if(tok.cancelled)return{ok:false,cancelled:true};
+  box.className='status';box.textContent='Testing '+a.k.toUpperCase()+(a.p?' via proxy':' directly')+'\u2026';
   const src=a.p?KP_PROXY_URL+'/?url='+encodeURIComponent(url):url;
-  const r=await testAttempt(v,a.k,src,a.p?20000:12000);
-  if(r.ok){const via=a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms. Press Play to watch.',true);return}
+  const r=await testAttempt(v,a.k,src,a.p?20000:12000,tok);
+  if(tok.cancelled)return{ok:false,cancelled:true};
+  if(r.ok){const via=a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms.',true);return{ok:true,proxy:a.p}}
   notes.push(a.k+(a.p?'+proxy':'')+': '+r.why);
  }
- box.style.whiteSpace='pre-wrap';
- msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'\n\nRunning proxy diagnosis\u2026');
- const d=await testDiagnose(url);
- msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'\n\nProxy diagnosis:\n'+d);
+ let text='\u274C Could not play. Tried: '+notes.join(' | ');
+ if(withDiag){msg(box,text+'\n\nRunning proxy diagnosis\u2026');const d=await testDiagnose(url);if(tok.cancelled)return{ok:false,cancelled:true};text+='\n\nProxy diagnosis:\n'+d}
+ msg(box,text);return{ok:false};
+}
+$('testStream').onclick=()=>{const url=$('testUrl').value.trim();if(!/^https?:\/\//i.test(url)){msg($('testResult'),'Invalid URL. Use an HTTP or HTTPS stream URL.');return}runStreamTest(url,$('testVideo'),$('testResult'),true)};
+
+/* ---------- Playlist Browser ---------- */
+let plItems=[],plFiltered=[],plShown=40,plIndex=-1,plAdded=new Set();
+function plUnwrap(u){const pre=KP_PROXY_URL+'/?url=';if(u.startsWith(pre)){try{return decodeURIComponent(u.slice(pre.length))}catch(_e){}}return u}
+function parseM3U(text){
+ const items=[];let cur=null;
+ for(const raw of text.split(/\r?\n/)){
+  const l=raw.trim();if(!l)continue;
+  if(/^#EXTINF/i.test(l)){
+   const a={};l.replace(/([\w-]+)="([^"]*)"/g,(_,k,v)=>{a[k.toLowerCase()]=v;return ''});
+   const name=l.includes(',')?l.slice(l.lastIndexOf(',')+1).trim():'';
+   cur={name:name||a['tvg-name']||'',logo:a['tvg-logo']||'',group:a['group-title']||'',tvgId:a['tvg-id']||''};
+  }else if(/^#EXTGRP:/i.test(l)){if(cur&&!cur.group)cur.group=l.slice(8).trim()}
+  else if(l.startsWith('#'))continue;
+  else{
+   const e=cur||{name:'',logo:'',group:''};e.url=plUnwrap(l);
+   if(!e.name){try{e.name=decodeURIComponent(new URL(e.url).pathname.split('/').pop()||'')}catch(_e){}e.name=e.name||'Unnamed channel'}
+   items.push(e);cur=null;
+  }
+ }
+ return items;
+}
+async function plFetchText(url){
+ try{const r=await fetch(url);if(r.ok){const t=await r.text();if(/#EXT/i.test(t))return{text:t,via:'directly'}}}catch(_e){}
+ const r2=await fetch(KP_PROXY_URL+'/?raw=1&url='+encodeURIComponent(url));
+ if(!r2.ok)throw new Error('Could not load the playlist (proxy replied HTTP '+r2.status+').');
+ const t2=await r2.text();
+ if(!/#EXT/i.test(t2))throw new Error('This link does not look like an M3U playlist.');
+ return{text:t2,via:'through the proxy'};
+}
+function plCategoryNames(){const set=new Set();categories.forEach(c=>c.name&&set.add(c.name));channels.forEach(c=>c.category&&set.add(c.category));set.add('Others');return[...set]}
+function plFillCategories(){const sel=$('plCategory'),old=sel.value;sel.innerHTML=plCategoryNames().map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');if(old&&[...sel.options].some(o=>o.value===old))sel.value=old}
+function plHasUrl(url){return plAdded.has(url)||channels.some(c=>(c.stream_urls||[]).some(s=>(typeof s==='string'?s:s&&s.url)===url))}
+function plPlayable(x){return /^https?:\/\//i.test(x.url)}
+function plRenderGroups(){
+ const m=new Map();plItems.forEach(x=>{const g=x.group||'(no group)';m.set(g,(m.get(g)||0)+1)});
+ $('plGroup').innerHTML='<option value="">All groups ('+plItems.length+')</option>'+[...m.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([g,n])=>'<option value="'+esc(g)+'">'+esc(g)+' ('+n+')</option>').join('');
+}
+function plApplyFilter(reset=true){
+ const q=$('plSearch').value.trim().toLowerCase(),g=$('plGroup').value;
+ plFiltered=plItems.filter(x=>(!g||(x.group||'(no group)')===g)&&(!q||x.name.toLowerCase().includes(q)||(x.group||'').toLowerCase().includes(q)));
+ if(reset){plShown=40;plIndex=-1}
+ plRenderList();
+}
+function plRenderList(){
+ const box=$('plList');box.innerHTML='';
+ $('plCount').textContent=plFiltered.length+' channel(s) in this view \u00b7 '+plItems.length+' in the playlist';
+ plFiltered.slice(0,plShown).forEach((x,i)=>{
+  const row=document.createElement('div');row.className='item';row.style.flexWrap='wrap';
+  if(i===plIndex)row.style.borderColor='#ef4444';
+  if(/^https:/i.test(x.logo||'')){const img=document.createElement('img');img.src=x.logo;img.loading='lazy';img.referrerPolicy='no-referrer';img.alt='';img.style.cssText='width:38px;height:38px;object-fit:contain;border-radius:6px;background:#111';img.onerror=()=>img.remove();row.appendChild(img)}
+  const m=document.createElement('div');m.className='meta';m.style.minWidth='0';m.style.flex='1';
+  const n=document.createElement('strong');n.textContent=x.name;
+  const g=document.createElement('small');g.textContent=(x.group||'No group')+(plHasUrl(x.url)?' \u00b7 \u2713 already on your site':'')+(plPlayable(x)?'':' \u00b7 not playable in a browser');
+  m.append(n,g);row.appendChild(m);
+  const t=document.createElement('button');t.textContent='\u25b6 Test';t.disabled=!plPlayable(x);t.onclick=()=>plSelect(i,{test:true,scroll:true});row.appendChild(t);
+  const a=document.createElement('button');a.textContent=plHasUrl(x.url)?'Added':'\uff0b Add';a.disabled=plHasUrl(x.url)||!plPlayable(x);a.onclick=()=>plInsert(x,x.name,$('plCategory').value);row.appendChild(a);
+  box.appendChild(row);
+ });
+ $('plMore').classList.toggle('hidden',plShown>=plFiltered.length);
+}
+function plSelect(i,opt={}){
+ const x=plFiltered[i];if(!x)return;
+ plIndex=i;if(i>=plShown)plShown=i+1;
+ $('plNowName').textContent=x.name;$('plNowInfo').textContent=(x.group||'No group')+' \u00b7 '+x.url;$('plName').value=x.name;
+ $('plAdd').disabled=plHasUrl(x.url)||!plPlayable(x);
+ plRenderList();
+ if(opt.scroll)$('plPreview').scrollIntoView({behavior:'smooth',block:'start'});
+ if(opt.test!==false)runStreamTest(x.url,$('plVideo'),$('plResult'),false);
+}
+async function plInsert(x,name,category){
+ if(plHasUrl(x.url)){msg($('plMsg'),'This link is already on your site.');return false}
+ const base=slug(name)||('channel-'+Date.now().toString(36));let id=base,n=2;const used=new Set(channels.map(c=>c.id));while(used.has(id))id=base+'-'+(n++);
+ const row={id,name,category,country:'',logo_url:/^https:/i.test(x.logo||'')?x.logo:'',description:'',stream_urls:[{url:x.url,label:'Primary',priority:1,enabled:true}],is_active:true,sort_order:channels.reduce((m,c)=>Math.max(m,Number(c.sort_order)||0),0)+1};
+ const {error}=await db.from('kp_channels').insert(row);
+ if(error){msg($('plMsg'),'Could not add: '+error.message);return false}
+ channels.push(row);plAdded.add(x.url);try{renderAll()}catch(_e){}
+ msg($('plMsg'),'\u2705 Added "'+name+'" to '+category+'.',true);
+ plRenderList();if(plFiltered[plIndex]===x)$('plAdd').disabled=true;
+ return true;
+}
+function plLoadText(text,label){
+ const items=parseM3U(text);
+ if(!items.length){msg($('plMsg'),'No channels found in this playlist.');return}
+ plItems=items;plAdded=new Set();plIndex=-1;plShown=40;
+ $('plSearch').value='';plRenderGroups();plFillCategories();plApplyFilter(true);
+ $('plPreview').classList.remove('hidden');$('plListPanel').classList.remove('hidden');
+ $('plNowName').textContent='Choose a channel and press Test';$('plNowInfo').textContent='';
+ msg($('plMsg'),'Loaded '+items.length+' channel(s) '+label+'.',true);
+}
+$('plLoad').onclick=async()=>{
+ const url=$('plUrl').value.trim();
+ if(!/^https?:\/\//i.test(url)){msg($('plMsg'),'Enter a playlist link starting with http:// or https://');return}
+ msg($('plMsg'),'Loading playlist\u2026',true);
+ try{const r=await plFetchText(url);plLoadText(r.text,'('+r.via+')')}catch(e){msg($('plMsg'),e.message)}
+};
+$('plFile').onchange=async()=>{const f=$('plFile').files[0];if(!f)return;try{plLoadText(await f.text(),'from the file')}catch(e){msg($('plMsg'),e.message)}};
+$('plSearch').addEventListener('input',()=>plApplyFilter(true));
+$('plGroup').addEventListener('change',()=>plApplyFilter(true));
+$('plMore').onclick=()=>{plShown+=40;plRenderList()};
+$('plPrev').onclick=()=>{if(plIndex>0)plSelect(plIndex-1,{test:true})};
+$('plNext').onclick=()=>{if(plIndex<plFiltered.length-1)plSelect(plIndex+1,{test:true})};
+$('plAdd').onclick=async()=>{
+ const x=plFiltered[plIndex];if(!x)return;
+ const ok=await plInsert(x,$('plName').value.trim()||x.name,$('plCategory').value);
+ if(ok&&$('plAuto').checked&&plIndex<plFiltered.length-1)plSelect(plIndex+1,{test:true});
+ else if(ok)$('plAdd').disabled=true;
 };
 let healthReports=[];
 function setHealthBadge(n){const b=document.querySelector('.navbtn[data-page="health"]');if(!b)return;const old=b.querySelector('.hbadge');if(old)old.remove();if(n>0){const x=document.createElement('span');x.className='hbadge';x.textContent=n;x.style.cssText='margin-left:8px;background:#ef4444;color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700';b.appendChild(x)}}
