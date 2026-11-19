@@ -38,8 +38,8 @@
 ▶ | YouTube | https://youtube.com/@yourchannel
 ✈ | Telegram | https://t.me/yourchannel"></textarea><div class="toolbar"><button class="primary" id="saveNavigation">Save Navigation & Footer</button></div></div></section>
 <section class="section" id="page-health"><div class="panel"><h2>Channel Health Monitor</h2><p class="muted">Checks each active channel's Primary and Backup URLs. Only reports a channel after repeated failures. A scheduled Edge Function is required for automatic checks and email delivery.</p><div class="stats"><div class="stat"><span class="muted">Failed channels</span><b id="healthFailed">—</b></div><div class="stat"><span class="muted">Open alerts</span><b id="healthOpen">—</b></div><div class="stat"><span class="muted">Last check</span><b id="healthLast">—</b></div></div><div class="toolbar"><button class="primary" id="healthRefresh">Refresh alerts</button><button id="healthRunNow">Run check now</button></div><label>Admin alert email</label><input id="healthEmail" type="email" placeholder="your-admin@email.com"><label class="check"><input id="healthEmailEnabled" type="checkbox" checked> Send email alerts and recovery notices</label><label>Check interval</label><select id="healthInterval"><option value="5">Every 5 minutes</option><option value="10">Every 10 minutes</option><option value="15">Every 15 minutes</option><option value="30">Every 30 minutes</option></select><div class="toolbar"><button class="primary" id="healthSaveSettings">Save alert settings</button></div><h3 style="margin-top:18px">Visitor-reported problems</h3><div class="muted">Reported automatically when a visitor player cannot open a channel link.</div><div id="healthReportList"></div><h3 style="margin-top:18px">Automatic checks</h3><div id="healthAlertList"></div><div id="healthMsg" class="status hidden"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
-<section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><div id="plMsg" class="status hidden"></div></div>
-<div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
+<section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><div id="plMsg" class="status hidden"></div><div class="toolbar" id="plAfter"></div></div>
+<div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><div id="plNote" class="muted" style="margin-top:8px"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
 <div class="panel hidden" id="plListPanel"><div class="grid"><div><label>Search</label><input id="plSearch" placeholder="Channel or group name"></div><div><label>Group</label><select id="plGroup"></select></div></div><div class="muted" id="plCount" style="margin-top:8px"></div><div id="plList"></div><div class="toolbar"><button id="plMore">Show more</button></div></div></section>
 <section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
 </main></div>
@@ -76,7 +76,7 @@ function renderChannels(){
    return {c,score:score+exact};
  }).filter(x=>x.score>=7).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c);
  if(!list.length){root.innerHTML='<div class="search-empty">No close match found. Try a shorter name or different spelling.</div>';return}
- const hint=document.createElement('div');hint.className='muted';hint.textContent=list.length+' matching / related channel(s)';root.append(hint);
+ const totalMatches=list.length;list=list.slice(0,5);const hint=document.createElement('div');hint.className='muted';hint.textContent=(totalMatches>5?'Showing the best 5 of '+totalMatches+' matches \u2014 type more letters to narrow down':totalMatches+' matching channel(s)');root.append(hint);
  list.forEach(c=>{
   const d=document.createElement('div');d.className='item';
   if(c.logo_url){const img=document.createElement('img');img.src=c.logo_url;img.alt='';d.append(img)}
@@ -370,7 +370,31 @@ async function plFetchText(url){
 }
 function plCategoryNames(){const set=new Set();categories.forEach(c=>c.name&&set.add(c.name));channels.forEach(c=>c.category&&set.add(c.category));set.add('Others');return[...set]}
 function plFillCategories(){const sel=$('plCategory'),old=sel.value;sel.innerHTML=plCategoryNames().map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');if(old&&[...sel.options].some(o=>o.value===old))sel.value=old}
-function plHasUrl(url){return plAdded.has(url)||channels.some(c=>(c.stream_urls||[]).some(s=>(typeof s==='string'?s:s&&s.url)===url))}
+function plNorm(n){return String(n||'').toLowerCase().replace(/[^a-z0-9\u0980-\u09ff]+/g,'')}
+function plUrlOf(s){return typeof s==='string'?s:(s&&s.url)||''}
+function plFindByUrl(url){return channels.find(c=>(c.stream_urls||[]).some(s=>plUrlOf(s)===url))||null}
+function plFindByName(name,category){const n=plNorm(name);if(!n)return null;const same=channels.filter(c=>plNorm(c.name)===n);return same.find(c=>c.category===category)||same[0]||null}
+function plStatus(x,name){
+ const byUrl=plFindByUrl(x.url);if(byUrl)return{type:'url',channel:byUrl};
+ const byName=plFindByName(name||x.name,$('plCategory').value);if(byName)return{type:'name',channel:byName};
+ return null;
+}
+function plHasUrl(url){return !!plFindByUrl(url)}
+function plAfter(c){
+ const box=$('plAfter');box.innerHTML='';if(!c)return;
+ const b=document.createElement('button');b.textContent='\u270E Open "'+c.name+'" in Channel Edit';
+ b.onclick=()=>{$('channelSearch').value=c.name;try{renderChannels()}catch(_e){}go('channel-edit');editChannel(c)};
+ box.appendChild(b);
+}
+function plUpdateNote(){
+ const x=plFiltered[plIndex],note=$('plNote'),btn=$('plAdd');
+ if(!x){note.textContent='';return}
+ const st=plStatus(x,$('plName').value.trim()||x.name);
+ if(!plPlayable(x)){note.textContent='This link type cannot be played in a browser.';btn.disabled=true;btn.textContent='\uff0b Add to category';return}
+ if(st&&st.type==='url'){note.textContent='\u26A0 This link is already used in "'+st.channel.name+'" ('+(st.channel.category||'Other')+').';btn.disabled=true;btn.textContent='Already added'}
+ else if(st){note.textContent='\u2139 A channel named "'+st.channel.name+'" already exists in '+(st.channel.category||'Other')+'. This link will be added to it as a stream link ('+((st.channel.stream_urls||[]).length+1)+').';btn.disabled=false;btn.textContent='\uD83D\uDD17 Add as stream link'}
+ else{note.textContent='New channel \u2014 it will be created in the chosen category.';btn.disabled=false;btn.textContent='\uff0b Add to category'}
+}
 function plPlayable(x){return /^https?:\/\//i.test(x.url)}
 function plRenderGroups(){
  const m=new Map();plItems.forEach(x=>{const g=x.group||'(no group)';m.set(g,(m.get(g)||0)+1)});
@@ -391,10 +415,14 @@ function plRenderList(){
   if(/^https:/i.test(x.logo||'')){const img=document.createElement('img');img.src=x.logo;img.loading='lazy';img.referrerPolicy='no-referrer';img.alt='';img.style.cssText='width:38px;height:38px;object-fit:contain;border-radius:6px;background:#111';img.onerror=()=>img.remove();row.appendChild(img)}
   const m=document.createElement('div');m.className='meta';m.style.minWidth='0';m.style.flex='1';
   const n=document.createElement('strong');n.textContent=x.name;
-  const g=document.createElement('small');g.textContent=(x.group||'No group')+(plHasUrl(x.url)?' \u00b7 \u2713 already on your site':'')+(plPlayable(x)?'':' \u00b7 not playable in a browser');
+  const st=plStatus(x,x.name),g=document.createElement('small');
+  g.textContent=(x.group||'No group')+(st?(st.type==='url'?' \u00b7 \u26A0 link already in "'+st.channel.name+'"':' \u00b7 \u2139 "'+st.channel.name+'" exists \u2192 will be added as a stream link'):'')+(plPlayable(x)?'':' \u00b7 not playable in a browser');
   m.append(n,g);row.appendChild(m);
   const t=document.createElement('button');t.textContent='\u25b6 Test';t.disabled=!plPlayable(x);t.onclick=()=>plSelect(i,{test:true,scroll:true});row.appendChild(t);
-  const a=document.createElement('button');a.textContent=plHasUrl(x.url)?'Added':'\uff0b Add';a.disabled=plHasUrl(x.url)||!plPlayable(x);a.onclick=()=>plInsert(x,x.name,$('plCategory').value);row.appendChild(a);
+  const a=document.createElement('button');
+  a.textContent=st&&st.type==='url'?'Used':(st?'\uD83D\uDD17 Add link':'\uff0b Add');
+  a.disabled=(st&&st.type==='url')||!plPlayable(x);
+  a.onclick=()=>plInsert(x,x.name,$('plCategory').value);row.appendChild(a);
   box.appendChild(row);
  });
  $('plMore').classList.toggle('hidden',plShown>=plFiltered.length);
@@ -403,20 +431,30 @@ function plSelect(i,opt={}){
  const x=plFiltered[i];if(!x)return;
  plIndex=i;if(i>=plShown)plShown=i+1;
  $('plNowName').textContent=x.name;$('plNowInfo').textContent=(x.group||'No group')+' \u00b7 '+x.url;$('plName').value=x.name;
- $('plAdd').disabled=plHasUrl(x.url)||!plPlayable(x);
- plRenderList();
+ plUpdateNote();plRenderList();
  if(opt.scroll)$('plPreview').scrollIntoView({behavior:'smooth',block:'start'});
  if(opt.test!==false)runStreamTest(x.url,$('plVideo'),$('plResult'),false);
 }
 async function plInsert(x,name,category){
- if(plHasUrl(x.url)){msg($('plMsg'),'This link is already on your site.');return false}
+ const st=plStatus(x,name);
+ if(st&&st.type==='url'){msg($('plMsg'),'\u26A0 This link is already used in "'+st.channel.name+'" ('+(st.channel.category||'Other')+'). Nothing was added.');plAfter(st.channel);return false}
+ if(st&&st.type==='name'){
+  const c=st.channel;
+  const cur=(c.stream_urls||[]).map((u,i)=>typeof u==='string'?{url:u,label:i?'Backup '+i:'Primary',priority:i+1,enabled:true}:u);
+  cur.push({url:x.url,label:'Backup '+cur.length,priority:cur.length+1,enabled:true});
+  const {error}=await db.from('kp_channels').update({stream_urls:cur,updated_at:new Date().toISOString()}).eq('id',c.id);
+  if(error){msg($('plMsg'),'Could not add the link: '+error.message);return false}
+  c.stream_urls=cur;plAdded.add(x.url);try{renderAll()}catch(_e){}
+  msg($('plMsg'),'\uD83D\uDD17 Added as stream link '+cur.length+' to the existing channel "'+c.name+'" ('+(c.category||'Other')+').',true);
+  plAfter(c);plRenderList();plUpdateNote();return true;
+ }
  const base=slug(name)||('channel-'+Date.now().toString(36));let id=base,n=2;const used=new Set(channels.map(c=>c.id));while(used.has(id))id=base+'-'+(n++);
- const row={id,name,category,country:'',logo_url:/^https:/i.test(x.logo||'')?x.logo:'',description:'',stream_urls:[{url:x.url,label:'Primary',priority:1,enabled:true}],is_active:true,sort_order:channels.reduce((m,c)=>Math.max(m,Number(c.sort_order)||0),0)+1};
+ const row={id,name,category,country:'',logo_url:/^https:/i.test(x.logo||'')?x.logo:'',description:'',stream_urls:[{url:x.url,label:'Primary',priority:1,enabled:true}],is_active:true,sort_order:channels.reduce((m,c)=>Math.max(m,Number(c.sort_order)||0),0)+1,updated_at:new Date().toISOString()};
  const {error}=await db.from('kp_channels').insert(row);
  if(error){msg($('plMsg'),'Could not add: '+error.message);return false}
  channels.push(row);plAdded.add(x.url);try{renderAll()}catch(_e){}
- msg($('plMsg'),'\u2705 Added "'+name+'" to '+category+'.',true);
- plRenderList();if(plFiltered[plIndex]===x)$('plAdd').disabled=true;
+ msg($('plMsg'),'\u2705 Added "'+name+'" to '+category+' as a new channel.',true);
+ plAfter(row);plRenderList();plUpdateNote();
  return true;
 }
 function plLoadText(text,label){
@@ -437,6 +475,7 @@ $('plLoad').onclick=async()=>{
 $('plFile').onchange=async()=>{const f=$('plFile').files[0];if(!f)return;try{plLoadText(await f.text(),'from the file')}catch(e){msg($('plMsg'),e.message)}};
 $('plSearch').addEventListener('input',()=>plApplyFilter(true));
 $('plGroup').addEventListener('change',()=>plApplyFilter(true));
+$('plName').addEventListener('input',plUpdateNote);$('plCategory').addEventListener('change',()=>{plUpdateNote();plRenderList()});
 $('plMore').onclick=()=>{plShown+=40;plRenderList()};
 $('plPrev').onclick=()=>{if(plIndex>0)plSelect(plIndex-1,{test:true})};
 $('plNext').onclick=()=>{if(plIndex<plFiltered.length-1)plSelect(plIndex+1,{test:true})};
