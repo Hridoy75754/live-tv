@@ -267,6 +267,36 @@ body.category-modal-open{overflow:hidden}
 .kp-float-bar button:disabled{opacity:.35;cursor:default}
 .video-stage.kp-floating #brightnessLevel,.video-stage.kp-floating .video-tools span[title="Brightness"],.video-stage.kp-floating #screenCycle,.video-stage.kp-floating #screenRotate{display:none!important}
 </style>
+<style id="kp-age-gate-css">
+body.kp-noscroll{overflow:hidden}
+.kp-age-gate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at 50% 28%,#4a0b18d9,#000000f2 72%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:kpAgeFade .25s ease}
+.kp-age-card{width:100%;max-width:420px;max-height:92vh;overflow:auto;text-align:center;padding:26px 22px 20px;border-radius:24px;background:linear-gradient(160deg,#241216,#130b0d);border:1px solid #ff3b5c55;box-shadow:0 24px 80px #000,0 0 70px #ff1f4a30;color:#fff;animation:kpAgePop .32s cubic-bezier(.2,1.2,.4,1)}
+.kp-age-badge{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(145deg,#ff3b5c,#b3002a);box-shadow:0 8px 30px #ff1f4a80,inset 0 0 0 3px #ffffff30}
+.kp-age-card h2{margin:0 0 8px;font-size:23px;font-weight:800}
+.kp-age-card p{margin:0 0 10px;font-size:14px;line-height:1.55;color:#d9d0d2}
+.kp-age-card p.kp-age-bn{color:#fff;font-size:14.5px}
+.kp-age-points{list-style:none;margin:14px 0 16px;padding:12px 14px;text-align:left;border-radius:14px;background:#ffffff0a;border:1px solid #ffffff14;font-size:13.5px;color:#eee}
+.kp-age-points li{display:flex;gap:9px;align-items:flex-start;padding:4px 0}
+.kp-age-points li::before{content:"\2713";flex:none;color:#ff6b86;font-weight:900}
+.kp-age-yes{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(135deg,#ff3b5c,#d1002f);color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 24px #d1002f66}
+.kp-age-yes:active{transform:scale(.98)}
+.kp-age-no{width:100%;margin-top:10px;padding:12px;border-radius:14px;border:1px solid #ffffff2e;background:transparent;color:#ddd;font:inherit;font-size:14px;cursor:pointer}
+.kp-age-card small{display:block;margin-top:12px;color:#9a9094;font-size:11.5px}
+.kp-adult-locked{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px;margin:4px 0 10px;border-radius:16px;background:linear-gradient(135deg,#2a1217,#17090b);border:1px dashed #ff3b5c66;color:#fff}
+.kp-adult-locked .ic{font-size:30px}
+.kp-adult-locked .tx{flex:1;min-width:180px;font-size:13.5px;line-height:1.45;color:#e8dcdf}
+.kp-adult-locked button{padding:10px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#ff3b5c,#d1002f);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+@keyframes kpAgeFade{from{opacity:0}to{opacity:1}}
+@keyframes kpAgePop{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}
+</style>
+<style id="kp-ad-gate-css">
+.kp-ad-gate{position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;padding:16px;background:#000000e6}
+.kp-ad-card{width:100%;max-width:520px;border-radius:18px;background:#16161a;border:1px solid #ffffff22;overflow:hidden;color:#fff}
+.kp-ad-top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-size:12px;color:#aaa}
+.kp-ad-skip{border:0;border-radius:10px;padding:7px 14px;background:#ffffff22;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.kp-ad-skip:disabled{opacity:.7;cursor:default}
+.kp-ad-slot{min-height:250px;display:flex;align-items:center;justify-content:center;padding:10px}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -339,7 +369,7 @@ function say(message){$('playState').textContent=message}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
 function normalize(item,index=0){let urls=Array.isArray(item.urls)?item.urls:[item.url];urls=[...new Set(urls.map(safeUrl).filter(Boolean))];if(!urls.length)return null;return{id:item.id||String(index)+'-'+keyName(item.name),name:String(item.name||'Unnamed channel').replace(/\s*\[Backup\s*\d+\]\s*$/i,'').trim().slice(0,160)||'Unnamed channel',urls,url:urls[0],logo:safeUrl(item.logo||''),group:String(item.group||'Other').trim().slice(0,100)||'Other',country:String(item.country||'').trim().slice(0,80)}}
-function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name);if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(!old.logo&&channel.logo)old.logo=channel.logo;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
+function groupEntries(items){const output=[],byKey=new Map();items.forEach((raw,index)=>{const channel=normalize(raw,index);if(!channel)return;const key=keyName(channel.name)+'|'+String(channel.group||'').trim().toLowerCase();if(byKey.has(key)){const old=byKey.get(key);channel.urls.forEach(url=>{if(!old.urls.includes(url))old.urls.push(url)});if(!old.logo&&channel.logo)old.logo=channel.logo;if(old.group==='Other'&&channel.group!=='Other')old.group=channel.group}else{byKey.set(key,channel);output.push(channel)}});return output}
 function parseM3U(text){const result=[],lines=text.replace(/^\uFEFF/,'').split(/\r?\n/);let meta={};for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF')){const comma=line.indexOf(','),attrs=comma>=0?line.slice(0,comma):line,name=comma>=0?line.slice(comma+1).trim():'Unnamed channel';const attr=key=>{const match=attrs.match(new RegExp('(?:^|\\s)'+key+'="([^"]*)"','i'));return match?match[1]:''};meta={name:name.replace(/\s*\[Backup\s*\d+\]\s*$/i,''),logo:attr('tvg-logo'),group:attr('group-title')||'Other'}}else if(!line.startsWith('#')){result.push({...meta,url:line});meta={}}}return groupEntries(result)}
 function esc(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
 const GROUP_ORDER=[
@@ -373,9 +403,7 @@ function categoryForChannel(channel){
  if(m.length){
   const g=String(channel.group||'').trim().toLowerCase();
   const hit=m.find(x=>String(x.name).trim().toLowerCase()===g);if(hit)return hit.name;
-  const legacy=categoryForChannelLegacy(channel);
-  const hit2=m.find(x=>String(x.name).trim().toLowerCase()===String(legacy).toLowerCase());
-  return hit2?hit2.name:'Others';
+  return 'Others';
  }
  return categoryForChannelLegacy(channel);
 }
@@ -447,7 +475,7 @@ function selectCategoryFromModal(value){
 
 function renderTrending(){
  const root=$('trendingRows');if(!root)return;root.innerHTML='';if(siteSettings.homepage?.show_trending===false)return;
- const valid=trendingItems.map(t=>channels.find(c=>c.id===t.channel_id)).filter(Boolean);
+ const valid=trendingItems.map(t=>channels.find(c=>c.id===t.channel_id)).filter(Boolean).filter(c=>adultAllowed()||!isAdultChannel(c));
  if(!valid.length)return;
  const section=document.createElement('section');section.className='category-row trending-section';
  const title=document.createElement('h2');title.className='trending-main-title';title.textContent=siteSettings.homepage?.trending_title||'🔥 Trending Now';section.appendChild(title);
@@ -458,17 +486,56 @@ function normalizeSearch(v){return String(v||'').toLocaleLowerCase('bn').normali
 function translit(v){return normalizeSearch(v).replace(/সময়|সময়/g,'somoy').replace(/নিউজ/g,'news').replace(/বাংলা/g,'bangla').replace(/খবর/g,'khobor')}
 function editDistance(a,b){if(a.length>80||b.length>80)return 99;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old}}return row[b.length]}
 function searchScore(channel,q){const n=normalizeSearch(channel.name),g=normalizeSearch(channel.group),a=translit(q),b=translit(n+' '+g);if(!q)return 1;if(n===q||b===a)return 100;if(n.startsWith(q)||b.startsWith(a))return 85;if(n.includes(q)||b.includes(a))return 70;const words=b.split(' '),qw=a.split(' ');let score=0;for(const w of qw){if(!w)continue;if(words.some(x=>x===w))score+=18;else if(words.some(x=>editDistance(x,w)<=Math.max(1,Math.floor(w.length*.25))))score+=10}return score}
+const ADULT_RE=/adult|18\s*\+|18\s*plus|\bxxx\b|nsfw|mature|erotic|\u0985\u09cd\u09af\u09be\u09a1\u09be\u09b2\u09cd\u099f|\u098f\u09a1\u09be\u09b2\u09cd\u099f/i;
+function isAdultCategory(name){return ADULT_RE.test(String(name||'').normalize('NFC'))}
+function isAdultChannel(c){return isAdultCategory(categoryForChannel(c))||isAdultCategory(c&&c.group)||isAdultCategory(c&&c.category)}
+let adultOkMem=false;
+function adultAllowed(){if(adultOkMem)return true;try{return sessionStorage.getItem('kp-adult-ok-v2')==='1'}catch(_e){return false}}
+function adultRemember(){adultOkMem=true;try{sessionStorage.setItem('kp-adult-ok-v2','1')}catch(_e){}}
+const KP_ADULT_AD={enabled:false,seconds:5,cooldownMinutes:10,html:''};
+// FUTURE EARNINGS: set enabled:true and paste your ad network code (script or iframe) inside html.
+// While enabled, viewers see the ad once (then every cooldownMinutes) before an adult channel starts.
+let kpAdBypass=false,kpAdOpen=false;
+function kpAdDue(){try{const t=Number(localStorage.getItem('kp-adult-ad-last'));return !t||Date.now()-t>=KP_ADULT_AD.cooldownMinutes*60000}catch(_e){return true}}
+function kpShowAdultAd(done){
+ if(kpAdOpen)return;kpAdOpen=true;
+ const wrap=document.createElement('div');wrap.className='kp-ad-gate';
+ wrap.innerHTML='<div class="kp-ad-card"><div class="kp-ad-top"><span>Advertisement</span><button type="button" class="kp-ad-skip" disabled>Skip in <b></b></button></div><div class="kp-ad-slot"></div></div>';
+ document.body.appendChild(wrap);
+ const slot=wrap.querySelector('.kp-ad-slot');
+ try{slot.appendChild(document.createRange().createContextualFragment(KP_ADULT_AD.html||''))}catch(_e){}
+ const skip=wrap.querySelector('.kp-ad-skip'),b=skip.querySelector('b');let left=Math.max(1,Number(KP_ADULT_AD.seconds)||5);b.textContent=left;
+ let tm=null;
+ const finish=()=>{clearInterval(tm);wrap.remove();kpAdOpen=false;try{localStorage.setItem('kp-adult-ad-last',String(Date.now()))}catch(_e){}done()};
+ tm=setInterval(()=>{left--;if(left<=0){clearInterval(tm);skip.disabled=false;skip.textContent='Skip \u2715'}else b.textContent=left},1000);
+ skip.addEventListener('click',()=>{if(!skip.disabled)finish()});
+}
+let adultGateOpen=false;
+function showAdultGate(cb){
+ if(adultGateOpen)return;adultGateOpen=true;
+ const wrap=document.createElement('div');wrap.className='kp-age-gate';wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-labelledby','kpAgeTitle');
+ wrap.innerHTML='<div class="kp-age-card"><div class="kp-age-badge">18+</div><h2 id="kpAgeTitle">Adults Only Zone</h2><p class="kp-age-bn">\u098f\u0987 \u09ac\u09bf\u09ad\u09be\u0997\u09c7 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09e7\u09ee \u09ac\u099b\u09b0 \u09ac\u09be \u09a4\u09be\u09b0 \u09ac\u09c7\u09b6\u09bf \u09ac\u09af\u09bc\u09b8\u09c0\u09a6\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4\u09ac\u09af\u09bc\u09b8\u09cd\u0995 \u0995\u09a8\u099f\u09c7\u09a8\u09cd\u099f \u09b0\u09af\u09bc\u09c7\u099b\u09c7\u0964</p><p>This section contains adult content intended strictly for viewers aged <b>18 or older</b>. Please confirm before you continue.</p><ul class="kp-age-points"><li>I am 18 years of age or older.</li><li>Viewing adult content is legal where I live.</li><li>I understand this content may be explicit.</li></ul><button type="button" class="kp-age-yes">Yes, I am 18+ \u2014 Enter</button><button type="button" class="kp-age-no">No, take me back</button><small>Your choice is remembered only until you close this browser tab.</small></div>';
+ document.body.appendChild(wrap);document.body.classList.add('kp-noscroll');
+ const yes=wrap.querySelector('.kp-age-yes'),no=wrap.querySelector('.kp-age-no');
+ const close=ok=>{document.removeEventListener('keydown',onKey,true);wrap.remove();document.body.classList.remove('kp-noscroll');adultGateOpen=false;if(ok){adultRemember()}try{cb&&cb(ok)}catch(_e){}};
+ const onKey=e=>{if(e.key==='Escape'){e.preventDefault();close(false)}};
+ document.addEventListener('keydown',onKey,true);
+ yes.addEventListener('click',()=>close(true));no.addEventListener('click',()=>close(false));
+ setTimeout(()=>{try{yes.focus()}catch(_e){}},60);
+}
 function render(){
  const rawQuery=$('search').value.trim(),query=normalizeSearch(rawQuery),categorySelect=$('category');
  const selected=categorySelect.value;
  const categoryNames=availableCategories();
  categorySelect.innerHTML='<option value="">All categories</option>'+categoryNames.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</option>`).join('');
  categorySelect.value=categoryNames.includes(selected)?selected:'';
+ if(categorySelect.value&&isAdultCategory(categorySelect.value)&&!adultAllowed()){const want=categorySelect.value;categorySelect.value='';showAdultGate(ok=>{if(ok){$('category').value=want;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'})}else render()})}
  renderCategoryTabs();syncCategoryTab();
  // Search is global: a selected category never restricts search results.
  let filtered=query
    ? channels.map(c=>({c,score:searchScore(c,rawQuery)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.name.localeCompare(b.c.name)).map(x=>x.c)
    : channels.filter(c=>!categorySelect.value||categoryForChannel(c)===categorySelect.value);
+ if(!adultAllowed())filtered=filtered.filter(c=>!isAdultChannel(c));
  const isHome=!query&&!categorySelect.value;
  $('filterHint').textContent=query?`${filtered.length} matching channels · all categories`:categorySelect.value?`${categorySelect.value} · ${filtered.length} channels`:'Choose a channel to watch live';
  const root=$('channelRows');root.innerHTML='';
@@ -477,6 +544,15 @@ function render(){
  if(isHome){
    const mobileLimit=6,desktopLimit=10;
    availableCategories().forEach(group=>{
+     if(isAdultCategory(group)&&!adultAllowed()){
+       if(!channels.some(c=>categoryForChannel(c)===group))return;
+       const ls=document.createElement('section');ls.className='category-row';ls.dataset.group=group;
+       const lh=document.createElement('div');lh.className='row-heading';const lt=document.createElement('h2');lt.textContent='\uD83D\uDD1E '+group;lh.appendChild(lt);ls.appendChild(lh);
+       const box=document.createElement('div');box.className='kp-adult-locked';
+       box.innerHTML='<span class="ic">\uD83D\uDD12</span><div class="tx"><b>Adults only (18+)</b><br>Verify your age to view this zone.</div>';
+       const eb=document.createElement('button');eb.type='button';eb.textContent='Enter';eb.addEventListener('click',()=>showAdultGate(ok=>{if(ok){$('search').value='';$('category').value=group;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'})}}));
+       box.appendChild(eb);ls.appendChild(box);root.appendChild(ls);return;
+     }
      const items=filtered.filter(c=>categoryForChannel(c)===group);if(!items.length)return;
      const section=document.createElement('section');section.className='category-row';section.dataset.group=group;
      const heading=document.createElement('div');heading.className='row-heading';
@@ -503,6 +579,8 @@ function stop(){
 let playbackToken=0,activeSourceFail=null,stallTimer=null;
 function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
 function play(channel,start=0){
+ if(isAdultChannel(channel)&&!adultAllowed()){if(autoMutedStart){autoMutedStart=false;return}showAdultGate(ok=>{if(ok){render();play(channel,start)}});return}
+ if(KP_ADULT_AD.enabled&&isAdultChannel(channel)&&!autoMutedStart&&!kpAdBypass&&kpAdDue()){kpShowAdultAd(()=>{kpAdBypass=true;try{play(channel,start)}finally{kpAdBypass=false}});return}
  clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
  let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));const wasAuto=autoMutedStart;video.muted=savedMute||autoMutedStart;autoMutedStart=false;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
@@ -958,10 +1036,19 @@ function applyFastTheme(theme,accent='#f04444'){
 }
 const initialFastTheme=pickTheme(siteSettings);applyFastTheme(initialFastTheme);
 
+function kpHiddenFilter(list){
+ const hidden=new Set((managedCategories||[]).filter(c=>c&&c.name&&c.is_active===false).map(c=>String(c.name).trim().toLowerCase()));
+ if(!hidden.size)return list;
+ return list.filter(ch=>!hidden.has(String(ch&&ch.group||'').trim().toLowerCase()));
+}
 async function init(){
  const geoTask=detectVisitorCountry();
  // Restore the last successful channel snapshot immediately for returning visitors.
- try{const cached=localStorage.getItem('kp-channel-cache-v1');if(cached){const parsed=JSON.parse(cached);if(Array.isArray(parsed)&&parsed.length){channels=groupEntries(parsed);render();}}}catch{}
+ let freshLoaded=false,cachedChannels=null;
+ try{const cc=localStorage.getItem('kp-category-cache-v1');if(cc){const pc=JSON.parse(cc);if(Array.isArray(pc))managedCategories=pc}}catch{}
+ try{const cached=localStorage.getItem('kp-channel-cache-v1');if(cached){const parsed=JSON.parse(cached);if(Array.isArray(parsed)&&parsed.length)cachedChannels=groupEntries(parsed)}}catch{}
+ // Show the saved snapshot only when fresh data is slow, so old or hidden channels never flash on a fast connection.
+ if(cachedChannels)setTimeout(()=>{if(!freshLoaded&&!channels.length){channels=kpHiddenFilter(cachedChannels);try{render()}catch{}}},1200);
  try{
    const supaUrl=window.KP_SUPABASE_URL||'';
    const supaKey=window.KP_SUPABASE_ANON_KEY||'';
@@ -972,33 +1059,40 @@ async function init(){
      // Channels are the critical path. Non-critical settings/categories/notices load in parallel,
      // but never hold up channel rendering or playback.
      const settingTask=timeout(client.from('kp_site_settings').select('settings').eq('id',1).maybeSingle(),5000).catch(()=>null);
-     const categoryTask=timeout(client.from('kp_categories').select('*').eq('is_active',true).order('sort_order'),5000).catch(()=>null);
+     const categoryTask=timeout(client.from('kp_categories').select('*').order('sort_order'),5000).catch(()=>null);
      const noticeTask=timeout(client.from('kp_notifications').select('*').eq('is_active',true).order('sort_order'),5000).catch(()=>null);
-     const channelRes=await timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order'),6500).catch(error=>({data:null,error}));
+     let channelRes=await timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order').order('id'),6500).catch(error=>({data:null,error}));
+     if(!channelRes||channelRes.error){channelRes=await timeout(client.from('kp_channels').select('*').eq('is_active',true).order('sort_order').order('id'),9000).catch(error=>({data:null,error}))}
      const {data,error}=channelRes||{data:null,error:Error('Channel query timed out')};
-     if(!error&&Array.isArray(data)&&data.length){
-       channels=groupEntries(data.map(row=>({
+     // Categories decide how channels are grouped, so apply them before the first fresh render.
+     const catRes0=await categoryTask;
+     if(catRes0&&!catRes0.error&&Array.isArray(catRes0.data)){managedCategories=catRes0.data;try{localStorage.setItem('kp-category-cache-v1',JSON.stringify(managedCategories))}catch{}}
+     if(!error&&Array.isArray(data)){
+       const mapped=groupEntries(data.map(row=>({
          id:row.id,name:row.name,group:row.category,country:row.country,logo:row.logo_url,
          urls:Array.isArray(row.stream_urls)?row.stream_urls.map((s,i)=>typeof s==='string'?{url:s,priority:i+1,enabled:true}:({...s,priority:Number(s.priority||i+1)})).filter(s=>s.url&&s.enabled!==false).sort((a,b)=>a.priority-b.priority).map(s=>s.url):[]
        })));
-       try{localStorage.setItem('kp-channel-cache-v1',JSON.stringify(channels))}catch{}
+       try{localStorage.setItem('kp-channel-cache-v1',JSON.stringify(mapped))}catch{}
+       channels=kpHiddenFilter(mapped);freshLoaded=true;
+     } else if(cachedChannels){
+       channels=kpHiddenFilter(cachedChannels); // network problem: keep the last good snapshot, never the old static list
      } else if(error) throw error;
      // Start playback as soon as channel data is ready. Use the cached country if available;
      // first-time visitors get an immediate random channel while GeoIP continues in background.
      if(channels.length){render();const geo=await geoTask;autoPickByVisitorCountry(geo.cached||'',false);geo.live.then(code=>{if(code&&!autoPickWasManual)autoPickByVisitorCountry(code,!!autoPickStarted)});}
      const [settingRes,catRes,noticeRes]=await Promise.all([settingTask,categoryTask,noticeTask]);
      if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
-     if(catRes&&!catRes.error)managedCategories=catRes.data||[];
+     if(catRes&&!catRes.error&&Array.isArray(catRes.data)){managedCategories=catRes.data;try{localStorage.setItem('kp-category-cache-v1',JSON.stringify(managedCategories))}catch{}}
      if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
      if(autoPickStarted&&!autoPickWasManual){let resolved='';try{resolved=localStorage.getItem('kp-visitor-country-v1')||''}catch{}if(resolved)autoPickByVisitorCountry(resolved,true)}
    }
-   if(!channels.length){
+   if(!channels.length&&!freshLoaded){
      const response=await fetch('./channels.json',{cache:'no-store'});
      if(!response.ok)throw Error('channels.json HTTP '+response.status);
      channels=groupEntries(await response.json());try{localStorage.setItem('kp-channel-cache-v1',JSON.stringify(channels))}catch{}
    }
  }catch{
-   try{const response=await fetch('./channels.json',{cache:'no-store'});if(response.ok)channels=groupEntries(await response.json())}
+   if(!channels.length&&!freshLoaded)try{const response=await fetch('./channels.json',{cache:'no-store'});if(response.ok)channels=groupEntries(await response.json())}
    catch{try{const response=await fetch('./channels.m3u',{cache:'no-store'});if(response.ok)channels=parseM3U(await response.text())}catch{}}
  }
  if(db){db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order').then(({data,error})=>{if(!error&&Array.isArray(data)){trendingItems=data;renderTrending()}}).catch(()=>{})}
