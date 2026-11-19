@@ -1,4 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101010"><title>KP Live TV · Admin</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+<script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
 <style>
 :root{color-scheme:dark;--bg:#0c0c0e;--panel:#18181b;--panel2:#222226;--line:#333338;--accent:#ef4444;--muted:#aaa;--green:#22c55e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f7;font:14px/1.5 system-ui,Arial}.hidden{display:none!important}button,input,select,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 13px;background:#333;color:#fff;font-weight:700;cursor:pointer}button.primary{background:var(--accent)}button.danger{background:#64272b}input,select,textarea{width:100%;background:#101013;color:#fff;border:1px solid #3b3b42;border-radius:9px;padding:11px}label{display:block;color:#bbb;font-size:12px;margin:12px 0 5px}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.side{background:#141416;border-right:1px solid var(--line);padding:20px 13px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:21px;font-weight:900;color:#ff6666;padding:4px 9px 20px}.navbtn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:transparent;margin:3px 0;padding:11px;border-radius:9px;color:#ccc}.navbtn.active,.navbtn:hover{background:#352124;color:white}.navgroup{font-size:10px;color:#777;letter-spacing:1.5px;padding:15px 10px 5px}.main{padding:22px;max-width:1250px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.top h1{font-size:25px;margin:0}.muted{color:var(--muted);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;margin:0 0 15px}.panel h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:180px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#222226;border:1px solid var(--line);padding:16px;border-radius:12px}.stat b{font-size:25px;display:block}.status{padding:10px;border-radius:9px;background:#292929;margin:10px 0;font-size:13px}.ok{border:1px solid #23744a}.err{border:1px solid #9a3b3b}.item{display:flex;gap:10px;align-items:center;background:#222226;border:1px solid #38383e;padding:10px;border-radius:10px;margin:8px 0}.item .meta{flex:1;min-width:0}.item strong{display:block}.item small{color:#aaa}.item img{width:44px;height:44px;object-fit:contain;background:#111;border-radius:7px}.check{display:flex;align-items:center;gap:8px}.check input{width:auto}.section{display:none}.section.active{display:block}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.table{width:100%;border-collapse:collapse}.table td,.table th{border-bottom:1px solid #333;padding:9px;text-align:left;font-size:13px}.badge{padding:3px 8px;border-radius:20px;background:#244632;color:#b9f7cf;font-size:11px}.badge.off{background:#51292b;color:#ffc4c4}.mobile-menu{display:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.subnav button{background:#29292d}.subnav button.active{background:#633137}.drag-row{cursor:grab;user-select:none}.drag-row.dragging{opacity:.42;border-color:#ef4444}.drag-row.drop-target{outline:2px dashed #ef4444;outline-offset:2px}.drag-handle{font-size:20px;color:#aaa;cursor:grab;padding:0 8px}.search-empty{padding:14px;color:#aaa;background:#202024;border:1px dashed #444;border-radius:10px;margin-top:10px}.favicon-preview{width:48px;height:48px;object-fit:contain;background:#101013;border:1px solid #444;border-radius:10px;padding:5px}@media(max-width:780px){.layout{display:block}.side{position:sticky;z-index:20;top:0;height:auto;padding:8px;border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;gap:5px}.brand,.navgroup{display:none}.navbtn{width:auto;white-space:nowrap;margin:0;padding:9px;font-size:12px}.main{padding:15px 11px}.grid,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr);gap:6px}.stat{padding:10px}.stat b{font-size:20px}.top h1{font-size:20px}}
 .trend-result{background:#222226;border:1px solid #38383e;color:#fff}.trend-result.active{border-color:#ef4444;background:#3a1d1f}.trend-result small{display:block;color:#aaa;margin-top:2px}.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px;animation:livepulse 1.6s infinite}@keyframes livepulse{0%{box-shadow:0 0 0 0 #22c55e88}70%{box-shadow:0 0 0 9px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}.dr-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2a2a2f;font-size:13px}.dr-row .d{width:120px;flex:none}.dr-row .bar{flex:1;height:8px;background:#2a2a2f;border-radius:6px;overflow:hidden}.dr-row .bar i{display:block;height:100%;background:#22c55e}.dr-row .n{width:150px;flex:none;text-align:right}@media(max-width:600px){.dr-row .d{width:86px}.dr-row .n{width:110px}}</style></head><body>
@@ -248,7 +250,58 @@ let pendingPlaylist=[];
 $('m3uFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const txt=await f.text(),lines=txt.replace(/^\uFEFF/,'').split(/\r?\n/);let meta={},items=[];for(const line0 of lines){const line=line0.trim();if(line.startsWith('#EXTINF')){const comma=line.indexOf(','),attrs=comma>=0?line.slice(0,comma):line;meta={name:comma>=0?line.slice(comma+1).trim():'Unnamed',logo:(attrs.match(/tvg-logo="([^"]*)"/i)||[])[1]||'',category:(attrs.match(/group-title="([^"]*)"/i)||[])[1]||'Others'}}else if(line&&!line.startsWith('#')){if(/^https?:\/\//i.test(line)&&meta.name)items.push({...meta,url:line});meta={}}}const existing=new Set(channels.map(c=>c.id));pendingPlaylist=items.map((x,i)=>({id:slug(x.name)||'channel-'+i,name:x.name,category:categories.some(c=>c.name.toLowerCase()===x.category.toLowerCase())?x.category:'Others',country:'',logo_url:x.logo,description:'',stream_urls:[{url:x.url,label:'Primary',priority:1,enabled:true}],is_active:true,sort_order:channels.length+i})).filter(x=>!existing.has(x.id)&&!channels.some(c=>c.name.toLowerCase()===x.name.toLowerCase()));const bad=items.length-pendingPlaylist.length;$('m3uPreview').textContent=`Parsed: ${items.length} · New channels: ${pendingPlaylist.length} · Duplicate/matched: ${bad} · Invalid URLs skipped: ${lines.filter(x=>x.trim()&&!x.trim().startsWith('#')&&!/^https?:\/\//i.test(x.trim())).length}. Unknown groups are mapped to Others. Existing channels will not be overwritten.`;$('m3uPreview').classList.remove('hidden');$('m3uCommit').disabled=!pendingPlaylist.length};
 $('m3uCommit').onclick=async()=>{if(!pendingPlaylist.length)return;if(!confirm(`Import ${pendingPlaylist.length} new channels? Existing records will not be overwritten.`))return;for(let i=0;i<pendingPlaylist.length;i+=100){const {error}=await db.from('kp_channels').insert(pendingPlaylist.slice(i,i+100));if(error){msg($('systemMsg'),'Playlist import stopped: '+error.message);return}}pendingPlaylist=[];await loadAll();msg($('systemMsg'),'New playlist channels imported.',true)};
 $('testExisting').onchange=()=>{const c=channels.find(x=>x.id===$('testExisting').value);if(!c)return;$('testName').value=c.name;$('testUrl').value=(c.stream_urls||[]).map(x=>typeof x==='string'?x:x.url).filter(Boolean)[0]||''};
-$('testStream').onclick=async()=>{const url=$('testUrl').value.trim();if(!/^https?:\/\//i.test(url)){msg($('testResult'),'Invalid URL. Use an HTTP or HTTPS stream URL.');return}const v=$('testVideo');v.pause();v.removeAttribute('src');v.load();const start=performance.now();$('testResult').textContent='Attempting browser playback…';$('testResult').classList.remove('hidden');if(/\.m3u8($|[?#])/i.test(url)&&window.Hls&&Hls.isSupported()){const h=new Hls();h.loadSource(url);h.attachMedia(v);h.on(Hls.Events.MANIFEST_PARSED,()=>{msg($('testResult'),`Manifest loaded in ${Math.round(performance.now()-start)} ms. Press Play to confirm playback.`,true)});h.on(Hls.Events.ERROR,(_e,d)=>{if(d.fatal)msg($('testResult'),'Playback failed or stream is protected/restricted: '+d.details)})}else{v.src=url;v.oncanplay=()=>msg($('testResult'),`Browser can play this stream. Ready in ${Math.round(performance.now()-start)} ms.`,true);v.onerror=()=>msg($('testResult'),'Connection/playback failed. CORS, token, DRM, or provider restrictions may apply.')} };
+const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev';
+let testEngines={hls:null,ts:null};
+function testCleanup(v){
+ try{if(testEngines.hls)testEngines.hls.destroy()}catch(_e){}
+ try{if(testEngines.ts){testEngines.ts.pause();testEngines.ts.unload();testEngines.ts.detachMediaElement();testEngines.ts.destroy()}}catch(_e){}
+ testEngines={hls:null,ts:null};v.pause();v.onerror=null;v.removeAttribute('src');v.load();
+}
+function testKinds(url){
+ let path='';try{path=new URL(url).pathname.toLowerCase()}catch(_e){}
+ const full=url.toLowerCase();
+ if(/\.m3u8?$/.test(path)||full.includes('m3u8'))return['hls'];
+ if(/\.flv$/.test(path))return['flv'];
+ if(/\.(ts|m2ts|mts)$/.test(path))return['mpegts'];
+ if(/\.(mp4|m4v|mov|webm|ogv|ogg|mkv|mp3|aac|m4a)$/.test(path))return['native'];
+ return['hls','mpegts','flv','native'];
+}
+function testAttempt(v,kind,src,limit=12000){
+ return new Promise(resolve=>{
+  let done=false,tm=null;
+  const good=()=>fin(true,'');
+  const fin=(ok,why)=>{if(done)return;done=true;clearTimeout(tm);v.removeEventListener('loadeddata',good);v.removeEventListener('canplay',good);if(!ok)testCleanup(v);resolve({ok,why})};
+  tm=setTimeout(()=>fin(false,'timeout'),limit);
+  v.addEventListener('loadeddata',good);v.addEventListener('canplay',good);
+  v.muted=true;
+  try{
+   if(kind==='hls'){
+    if(window.Hls&&Hls.isSupported()){const h=new Hls();testEngines.hls=h;h.on(Hls.Events.ERROR,(_e,d)=>{if(d.fatal)fin(false,d.details)});h.loadSource(src);h.attachMedia(v);v.play().catch(()=>{})}
+    else{v.onerror=()=>fin(false,'media error');v.src=src;v.play().catch(()=>{})}
+   }else if(kind==='mpegts'||kind==='flv'){
+    if(window.mpegts&&mpegts.isSupported()){const pl=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:src,isLive:true});testEngines.ts=pl;pl.on(mpegts.Events.ERROR,(_t,d)=>fin(false,String(d)));pl.attachMediaElement(v);pl.load();v.play().catch(()=>{})}
+    else fin(false,'not supported in this browser');
+   }else{v.onerror=()=>fin(false,'media error');v.src=src;v.load();v.play().catch(()=>{})}
+  }catch(e){fin(false,e.message)}
+ });
+}
+$('testStream').onclick=async()=>{
+ const url=$('testUrl').value.trim(),box=$('testResult');
+ if(!/^https?:\/\//i.test(url)){msg(box,'Invalid URL. Use an HTTP or HTTPS stream URL.');return}
+ const v=$('testVideo');testCleanup(v);box.classList.remove('hidden');
+ const insecure=location.protocol==='https:'&&/^http:\/\//i.test(url),kinds=testKinds(url),plan=[];
+ if(!insecure)kinds.forEach(k=>plan.push({k,p:false}));
+ (kinds.length>1?['hls','mpegts']:kinds).forEach(k=>plan.push({k,p:true}));
+ const notes=[],t0=performance.now();
+ for(const a of plan){
+  box.textContent='Testing '+a.k.toUpperCase()+(a.p?' via proxy':' directly')+'\u2026';
+  const src=a.p?KP_PROXY_URL+'/?url='+encodeURIComponent(url):url;
+  const r=await testAttempt(v,a.k,src);
+  if(r.ok){const via=a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms. Press Play to watch.',true);return}
+  notes.push(a.k+(a.p?'+proxy':'')+': '+r.why);
+ }
+ msg(box,'\u274C Could not play. Tried: '+notes.join(' | ')+'. Possible causes: expired or blocked link, wrong token, DRM, unsupported codec, or the provider blocks the proxy.');
+};
 let healthReports=[];
 function setHealthBadge(n){const b=document.querySelector('.navbtn[data-page="health"]');if(!b)return;const old=b.querySelector('.hbadge');if(old)old.remove();if(n>0){const x=document.createElement('span');x.className='hbadge';x.textContent=n;x.style.cssText='margin-left:8px;background:#ef4444;color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700';b.appendChild(x)}}
 async function loadVisitorReports(){
