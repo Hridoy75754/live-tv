@@ -514,6 +514,18 @@ function destroyEngines(){
  if(mpegtsPlayer){try{mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy()}catch(_e){}mpegtsPlayer=null}
  if(dashPlayer){try{dashPlayer.reset()}catch(_e){}dashPlayer=null}
 }
+const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev'; // After deploying stream-proxy.js on Cloudflare, put its address here, e.g. 'https://kp-proxy.yourname.workers.dev'
+function kpProxyBase(){let b='';try{b=(siteSettings&&siteSettings.player&&siteSettings.player.proxy_url)||''}catch(_e){}return String(b||KP_PROXY_URL||'').trim().replace(/\/+$/,'')}
+function proxifyUrl(u){const b=kpProxyBase();return b?b+'/?url='+encodeURIComponent(u):u}
+function buildKinds(url){
+ const base=guessKinds(url);
+ if(!kpProxyBase())return base;
+ // An http:// link on an https:// site is always blocked by the browser, so go straight through the proxy.
+ if(location.protocol==='https:'&&/^http:\/\//i.test(url))return base.map(k=>k+'+p');
+ // Otherwise try the direct link first, then retry through the proxy (fixes CORS / blocked-user-agent links).
+ const viaProxy=base.length>1?['hls+p','mpegts+p']:base.map(k=>k+'+p');
+ return [...base,...viaProxy];
+}
 function guessKinds(url){
  let path='';try{path=new URL(url).pathname.toLowerCase()}catch(_e){}
  const full=String(url).toLowerCase();
@@ -626,7 +638,7 @@ function trySource(token=playbackToken){
  video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false,played=false,mediaRecovered=false;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
-  const kinds=guessKinds(url);let kindPos=0,connectTimer=null;const perKind=kinds.length>1?12000:25000;
+  const kinds=buildKinds(url);let curUrl=url;let kindPos=0,connectTimer=null;const perKind=kinds.length>1?12000:25000;
   const fail=()=>{if(failed||!isCurrent())return;clearTimeout(connectTimer);clearTimeout(stallTimer);
    if(!played&&kindPos+1<kinds.length){kindPos++;destroyEngines();video.pause();video.removeAttribute('src');video.load();connectTimer=setTimeout(fail,perKind);$('playState').textContent='Detecting stream format… ('+(kindPos+1)+'/'+kinds.length+')';startKind(kinds[kindPos]);return}
    failed=true;destroyEngines();
@@ -636,26 +648,27 @@ function trySource(token=playbackToken){
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
   const playCatch=()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback')};
-  const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=url;video.load();video.play().catch(playCatch)};
+  const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=curUrl;video.load();video.play().catch(playCatch)};
   function startKind(kind){
    if(!isCurrent()||failed)return;
+   curUrl=kind.endsWith('+p')?proxifyUrl(url):url;kind=kind.replace('+p','');
    try{
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
    setupAudioBoost();
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
-   hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(url)});
+   hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
      }else startNative();
     }else if(kind==='dash'){
-     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,url,true)}else fail();
+     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,curUrl,true)}else fail();
     }else if(kind==='mpegts'||kind==='flv'){
      if(window.mpegts&&mpegts.isSupported()){
    try{
     setupAudioBoost();
-    mpegtsPlayer=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
+    mpegtsPlayer=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:curUrl,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
     mpegtsPlayer.on(mpegts.Events.ERROR,()=>{if(isCurrent())fail()});
     mpegtsPlayer.attachMediaElement(video);mpegtsPlayer.load();
     mpegtsPlayer.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
