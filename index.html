@@ -7,6 +7,11 @@
 <meta name="description" content="Watch live TV channels in one place.">
 <title>KP Live TV TK</title>
 <link id="siteFavicon" rel="icon" href="./favicon.ico">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="KP Live TV">
 <style>
 :root{color-scheme:dark;--bg:#080808;--surface:#151515;--surface2:#202020;--text:#f5f5f1;--muted:#aaa;--red:#e50914;--border:#292929}
 *{box-sizing:border-box}
@@ -297,6 +302,107 @@ body.kp-noscroll{overflow:hidden}
 .kp-ad-skip:disabled{opacity:.7;cursor:default}
 .kp-ad-slot{min-height:250px;display:flex;align-items:center;justify-content:center;padding:10px}
 </style>
+<style id="kp-hero-marquee-css">
+/* ---- Running notice: the message moves from the right edge to the left edge ---- */
+.kp-notification-bar .kp-marquee{flex:1 1 220px;min-width:0;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 12px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 12px),transparent 100%)}
+.kp-notification-bar .kp-marquee[hidden]{display:none}
+.kp-marquee-track{display:inline-block;padding-left:100%;will-change:transform;animation:kpMarquee 20s linear infinite}
+.kp-marquee:hover .kp-marquee-track,.kp-marquee:active .kp-marquee-track{animation-play-state:paused}
+@keyframes kpMarquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+/* ---- Hero banner slider (events such as BPL / IPL), shown above the running notice ---- */
+.kp-hero{width:calc(100% - 6.4%);max-width:1300px;margin:86px auto 0;position:relative;z-index:6}
+.kp-hero[hidden]{display:none!important}
+.kp-hero-frame{position:relative;overflow:hidden;border-radius:22px;aspect-ratio:21/8;background:#0d0d0d;border:1px solid var(--border,#2b2b2b);box-shadow:0 22px 56px #000b;isolation:isolate;touch-action:pan-y;-webkit-user-select:none;user-select:none;--kp-hero-ms:3000ms}
+.kp-hero-track{position:absolute;inset:0}
+.kp-hero-slide{position:absolute;inset:0;display:flex;align-items:flex-end;opacity:0;visibility:hidden;transition:opacity .75s ease,visibility 0s linear .75s}
+.kp-hero-slide.is-active{opacity:1;visibility:visible;transition:opacity .75s ease}
+.kp-hero-slide.has-action{cursor:pointer}
+.kp-hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 78% 18%,rgba(255,255,255,.14),transparent 46%),linear-gradient(135deg,var(--accent,#e50914),#14080a 62%,#0a0a0a)}
+.kp-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
+.kp-hero-slide.is-active .kp-hero-img{animation:kpHeroZoom calc(var(--kp-hero-ms) + 1400ms) ease-out forwards}
+@keyframes kpHeroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.kp-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.84) 0%,rgba(0,0,0,.5) 40%,rgba(0,0,0,.05) 72%),linear-gradient(0deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,0) 52%)}
+.kp-hero-body{position:relative;z-index:2;max-width:min(660px,80%);padding:0 clamp(16px,3.6vw,48px) clamp(30px,4.4vw,56px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(6px,.9vw,12px)}
+.kp-hero-logo{display:block;height:clamp(32px,5.4vw,64px);max-width:min(240px,46vw);object-fit:contain;filter:drop-shadow(0 4px 14px #000c)}
+.kp-hero-badge{display:inline-flex;align-items:center;gap:7px;padding:4px 12px;border-radius:999px;background:var(--accent,#e50914);color:#fff;font-size:clamp(10px,1.15vw,12px);font-weight:900;letter-spacing:1.4px;text-transform:uppercase;box-shadow:0 6px 20px #0008}
+.kp-hero-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:kpHeroPulse 1.4s ease-in-out infinite}
+@keyframes kpHeroPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.kp-hero-title{margin:0;font-size:clamp(22px,4.4vw,52px);line-height:1.06;font-weight:900;letter-spacing:-.025em;color:#fff;text-shadow:0 3px 24px #000d;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kp-hero-sub{margin:0;font-size:clamp(12px,1.55vw,18px);line-height:1.4;color:#efefef;text-shadow:0 2px 12px #000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kp-hero-cta{margin-top:clamp(2px,.8vw,8px);display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:clamp(8px,1.1vw,12px) clamp(16px,2.2vw,28px);background:#fff;color:#111;font-weight:900;font-size:clamp(12px,1.4vw,16px);box-shadow:0 10px 28px #0009;transition:transform .15s,background .15s}
+.kp-hero-cta:hover{transform:scale(1.05);background:#f2f2f2}
+.kp-hero-cta span{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent,#e50914);color:#fff;font-size:.78em;padding-left:.12em}
+.kp-hero-slide.is-active .kp-hero-body>*{animation:kpHeroUp .7s cubic-bezier(.2,.8,.2,1) both}
+.kp-hero-slide.is-active .kp-hero-body>:nth-child(2){animation-delay:.07s}
+.kp-hero-slide.is-active .kp-hero-body>:nth-child(3){animation-delay:.14s}
+.kp-hero-slide.is-active .kp-hero-body>:nth-child(4){animation-delay:.21s}
+.kp-hero-slide.is-active .kp-hero-body>:nth-child(5){animation-delay:.28s}
+@keyframes kpHeroUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.kp-hero-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:46px;height:46px;border-radius:50%;border:1px solid #ffffff40;background:#000a;color:#fff;font-size:28px;line-height:1;padding:0 0 4px;display:grid;place-items:center;opacity:0;transition:opacity .2s,background .2s}
+.kp-hero-prev{left:14px}.kp-hero-next{right:14px}
+.kp-hero-frame:hover .kp-hero-nav,.kp-hero-nav:focus-visible{opacity:1}
+.kp-hero-nav:hover{background:#000d}
+.kp-hero-nav[hidden]{display:none}
+@media(hover:none){.kp-hero-nav{display:none}}
+.kp-hero-dots{position:absolute;left:0;right:0;bottom:6px;z-index:6;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.kp-hero-dots[hidden]{display:none}
+.kp-hero-dot{pointer-events:auto;width:22px;padding:8px 0;border:0;background:none;transition:width .3s ease}
+.kp-hero-dot i{display:block;height:4px;border-radius:4px;background:#ffffff4d;position:relative;overflow:hidden}
+.kp-hero-dot.is-active{width:52px}
+.kp-hero-dot.is-active i:after{content:"";position:absolute;inset:0;background:#fff;transform-origin:left center;animation:kpHeroFill var(--kp-hero-ms,3000ms) linear forwards}
+.kp-hero-frame.is-paused .kp-hero-dot.is-active i:after{animation-play-state:paused}
+@keyframes kpHeroFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+body.kp-has-hero .kp-notification-bar{margin-top:12px}
+body.kp-has-hero .player-section{padding-top:14px}
+@media(min-width:601px){body.kp-has-hero .kp-notification-bar{width:calc(100% - 6.4%)}}
+@media(max-width:600px){.kp-hero{margin-top:80px}.kp-hero-frame{aspect-ratio:16/10;border-radius:18px}.kp-hero-body{max-width:94%;padding-bottom:34px}.kp-hero-title{font-size:clamp(22px,7vw,32px)}}
+/* ---- Install-as-app button (footer; appears only when the browser offers installation) ---- */
+.kp-install-btn{border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;font:inherit;font-size:12px;font-weight:700;padding:5px 12px;cursor:pointer}
+.kp-install-btn[hidden]{display:none}
+.kp-install-btn:hover{color:#fff}
+</style>
+<style id="kp-theme-netflix">
+/* "Netflix Dark" theme: a real Netflix look (cinematic black + Netflix red). Applies only while this theme is active. */
+html[data-theme="netflix-dark"]{--bg:#0a0a0a;--surface:#141414;--surface2:#1f1f1f;--text:#fff;--muted:#b3b3b3;--border:#2a2a2a;--accent:#e50914!important;--red:#e50914!important}
+html[data-theme="netflix-dark"] body{background:radial-gradient(1100px 460px at 8% -8%,rgba(229,9,20,.30),transparent 68%),radial-gradient(900px 420px at 96% 2%,rgba(120,5,12,.30),transparent 70%),linear-gradient(180deg,#090909 0%,#0c0c0c 45%,#141414 100%)!important;background-repeat:no-repeat!important;background-color:#0a0a0a!important}
+html[data-theme="netflix-dark"] .site-header{background:linear-gradient(180deg,rgba(0,0,0,.97) 0%,rgba(8,8,8,.9) 100%)!important;border-bottom:1px solid rgba(229,9,20,.38);box-shadow:0 10px 34px rgba(0,0,0,.65)}
+html[data-theme="netflix-dark"] .brand{color:#e50914!important;font-weight:900;text-transform:uppercase;letter-spacing:.6px;text-shadow:0 0 20px rgba(229,9,20,.6),0 2px 4px #000}
+html[data-theme="netflix-dark"] .nav-select{background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.3);border-radius:8px}
+html[data-theme="netflix-dark"] .player-section{background:transparent!important}
+html[data-theme="netflix-dark"] .category-tab{background:rgba(255,255,255,.07)!important;color:#e5e5e5!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:8px!important;font-weight:700;transition:background .2s,border-color .2s,box-shadow .2s}
+html[data-theme="netflix-dark"] .category-tab:hover{background:rgba(255,255,255,.15)!important;border-color:rgba(255,255,255,.38)!important}
+html[data-theme="netflix-dark"] .category-tab.active{background:linear-gradient(180deg,#f6121d,#c40812)!important;border-color:#e50914!important;color:#fff!important;box-shadow:0 6px 20px rgba(229,9,20,.45)}
+html[data-theme="netflix-dark"] .row-heading h2,html[data-theme="netflix-dark"] .trending-main-title{color:#fff!important;font-weight:800;letter-spacing:-.2px}
+html[data-theme="netflix-dark"] .row-heading h2:before,html[data-theme="netflix-dark"] .trending-main-title:before{content:"";display:inline-block;width:4px;height:.9em;margin-right:10px;border-radius:2px;background:linear-gradient(180deg,#ff2b36,#b20710);vertical-align:-.08em;box-shadow:0 0 12px rgba(229,9,20,.65)}
+html[data-theme="netflix-dark"] .see-all-btn{color:#e5e5e5!important;font-weight:700}
+html[data-theme="netflix-dark"] .see-all-btn:hover{color:#ff4d57!important;text-decoration:none}
+html[data-theme="netflix-dark"] .channel-card{background:#141414!important;border:1px solid #262626!important;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,.55);transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s}
+html[data-theme="netflix-dark"] .channel-card:hover,html[data-theme="netflix-dark"] .channel-card:focus-visible{transform:scale(1.07)!important;border-color:#e50914!important;box-shadow:0 0 0 1px #e50914,0 16px 38px rgba(229,9,20,.32),0 14px 30px rgba(0,0,0,.85)!important;z-index:4}
+html[data-theme="netflix-dark"] .channel-card.active{border:2px solid #e50914!important;box-shadow:0 0 0 1px rgba(229,9,20,.6),0 0 26px rgba(229,9,20,.45)!important}
+html[data-theme="netflix-dark"] .card-art{background:radial-gradient(circle at 50% 30%,#2b2b2b 0,#161616 62%,#0d0d0d 100%)!important}
+html[data-theme="netflix-dark"] .card-info{background:linear-gradient(180deg,#101010,#0a0a0a)!important;border-top:1px solid #222}
+html[data-theme="netflix-dark"] .card-name{color:#fff}
+html[data-theme="netflix-dark"] .logo-fallback{background:linear-gradient(135deg,#3a0b0f,#111);border-color:#5a1a20}
+html[data-theme="netflix-dark"] .channel-card:before{background:#e50914!important;border-radius:4px;letter-spacing:.8px;box-shadow:0 2px 8px rgba(229,9,20,.5)}
+html[data-theme="netflix-dark"] .fav-mark.is-favorite{color:#e50914}
+html[data-theme="netflix-dark"] .hero-player{background:#0c0c0c!important;border:1px solid #2a2a2a!important;border-top:3px solid #e50914!important;border-radius:14px;box-shadow:0 22px 60px rgba(0,0,0,.85),0 0 70px rgba(229,9,20,.14)!important}
+html[data-theme="netflix-dark"] .player-top{background:linear-gradient(90deg,#1c0a0c,#0e0e0e)}
+html[data-theme="netflix-dark"] .live-dot{background:#e50914;box-shadow:0 0 0 4px rgba(229,9,20,.28)}
+html[data-theme="netflix-dark"] .kp-notification-bar{background:linear-gradient(90deg,rgba(229,9,20,.30),rgba(20,20,20,.94) 55%)!important;border:1px solid rgba(229,9,20,.5)!important;border-left:4px solid #e50914!important}
+html[data-theme="netflix-dark"] .kp-hero-frame{border-color:rgba(229,9,20,.45);box-shadow:0 22px 56px #000c,0 0 70px rgba(229,9,20,.18)}
+html[data-theme="netflix-dark"] .mobile-dock{background:linear-gradient(0deg,#000,#0b0b0b)!important;border-top:1px solid rgba(229,9,20,.45)!important;box-shadow:0 -10px 30px rgba(0,0,0,.8)}
+html[data-theme="netflix-dark"] .dock-item{color:#a3a3a3}
+html[data-theme="netflix-dark"] .dock-item.active{color:#fff;background:rgba(229,9,20,.22);box-shadow:inset 0 0 0 1px rgba(229,9,20,.55)}
+html[data-theme="netflix-dark"] .site-footer{border-top:1px solid rgba(229,9,20,.28)!important;color:#8c8c8c!important}
+html[data-theme="netflix-dark"] .category-modal{background:#141414;color:#fff;border:1px solid #2b2b2b;box-shadow:0 20px 80px #000,0 0 60px rgba(229,9,20,.2)}
+html[data-theme="netflix-dark"] .category-modal-heading{border-bottom-color:#2b2b2b}
+html[data-theme="netflix-dark"] .category-modal-heading button{background:#2b2b2b;color:#fff}
+html[data-theme="netflix-dark"] .category-modal-option{background:#141414;color:#fff;border-bottom-color:#262626}
+html[data-theme="netflix-dark"] .category-modal-option:active,html[data-theme="netflix-dark"] .category-modal-option:hover{background:#1f1f1f}
+html[data-theme="netflix-dark"] .category-modal-option .category-radio{border-color:#777}
+html[data-theme="netflix-dark"] .category-modal-option[aria-checked="true"] .category-radio{border-color:#e50914}
+html[data-theme="netflix-dark"] .category-modal-option[aria-checked="true"] .category-radio:after{background:#e50914}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -308,7 +414,15 @@ body.kp-noscroll{overflow:hidden}
     <button class="nav-select category-open-trigger" id="categoryOpenTrigger" type="button" aria-haspopup="dialog" aria-controls="categoryModal">All categories <span aria-hidden="true">⌄</span></button><select class="nav-select" id="category" aria-label="Filter by category" hidden><option value="">All categories</option></select>
   </nav>
 </header>
-<div id="notificationBar" class="kp-notification-bar" hidden><span class="kp-notice-dot">●</span><strong id="noticeTitle"></strong><span id="noticeMessage"></span><a id="noticeLink" href="#" target="_blank" rel="noopener" hidden>Details</a></div>
+<section id="heroBanner" class="kp-hero" aria-label="Featured events" aria-roledescription="carousel" hidden>
+  <div class="kp-hero-frame" id="heroFrame">
+    <div class="kp-hero-track" id="heroTrack"></div>
+    <button type="button" class="kp-hero-nav kp-hero-prev" id="heroPrev" aria-label="Previous banner" hidden>‹</button>
+    <button type="button" class="kp-hero-nav kp-hero-next" id="heroNext" aria-label="Next banner" hidden>›</button>
+    <div class="kp-hero-dots" id="heroDots" role="tablist" aria-label="Choose banner" hidden></div>
+  </div>
+</section>
+<div id="notificationBar" class="kp-notification-bar" hidden><span class="kp-notice-dot">●</span><strong id="noticeTitle"></strong><span class="kp-marquee" id="noticeMarquee"><span class="kp-marquee-track" id="noticeTrack"><span id="noticeMessage"></span></span></span><a id="noticeLink" href="#" target="_blank" rel="noopener" hidden>Details</a></div>
 <style>.kp-notification-bar{max-width:1300px;margin:78px auto 0;padding:10px 16px;background:#2b2021;border:1px solid #59363a;border-radius:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#fff;font-size:13px}.kp-notification-bar[hidden]{display:none}.kp-notice-dot{color:#ff5555}@media(max-width:600px){.kp-notification-bar{margin:74px 3.2% 0;padding:9px 11px;font-size:12px}}</style>
 <section class="player-section" id="home" aria-label="KP Live TV player">
   <div class="player-container">
@@ -353,7 +467,7 @@ body.kp-noscroll{overflow:hidden}
   </section>
 </div>
 <nav class="mobile-dock" aria-label="Quick navigation"><button type="button" class="dock-item active" data-dock="home"><span>⌂</span><small>Home</small></button><button type="button" class="dock-item" data-dock="live"><span>▣</span><small>Live TV</small></button><button type="button" class="dock-item" data-dock="search"><span>⌕</span><small>Search</small></button><button type="button" class="dock-item" data-dock="favorites"><span>♡</span><small>Favorites</small></button><button type="button" class="dock-item" data-dock="categories"><span>☷</span><small>Categories</small></button></nav>
-<footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
+<footer class="site-footer"><div class="footer-inner"><span id="footerCopyright">© KP Live TV · Your world, in one place.</span><span id="socialLinks" class="social-links"></span><span><a href="./admin.html" style="color:inherit;text-decoration:none">Admin</a></span><span><button type="button" class="kp-install-btn" id="kpInstallBtn" hidden>📲 Install App</button></span><span>Playback depends on stream availability and provider restrictions. Use only streams you are authorized to access or distribute.</span></div></footer>
 
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://nsmcswuqtmqverfgthhf.supabase.co" crossorigin><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -366,6 +480,8 @@ body.kp-noscroll{overflow:hidden}
 const $=id=>document.getElementById(id),video=$('video');
 let channels=[],activeId=null,hls=null,mpegtsPlayer=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
 function say(message){$('playState').textContent=message}
+// Subtitles stay OFF: nothing is carried from one channel to the next, and tracks the player creates by itself are switched off.
+function kpSubsOff(){try{const list=video.textTracks;for(let i=0;i<list.length;i++){if(list[i].mode!=='disabled')list[i].mode='disabled'}}catch(_e){}}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
 function keyName(name){return String(name||'').toLowerCase().replace(/\s*\[(?:backup\s*\d+)\]\s*$/i,'').replace(/\s*\((?:\d{3,4}p|hd|sd|fhd|uhd|4k)\)\s*$/i,'').replace(/\s+(?:hd|fhd|uhd|4k|576p|480p|720p|1080p)$/i,'').replace(/[^a-z0-9]+/g,' ').trim()}
 function normalize(item,index=0){let urls=Array.isArray(item.urls)?item.urls:[item.url];urls=[...new Set(urls.map(safeUrl).filter(Boolean))];if(!urls.length)return null;return{id:item.id||String(index)+'-'+keyName(item.name),name:String(item.name||'Unnamed channel').replace(/\s*\[Backup\s*\d+\]\s*$/i,'').trim().slice(0,160)||'Unnamed channel',urls,url:urls[0],logo:safeUrl(item.logo||''),group:String(item.group||'Other').trim().slice(0,100)||'Other',country:String(item.country||'').trim().slice(0,80)}}
@@ -489,9 +605,12 @@ function searchScore(channel,q){const n=normalizeSearch(channel.name),g=normaliz
 const ADULT_RE=/adult|18\s*\+|18\s*plus|\bxxx\b|nsfw|mature|erotic|\u0985\u09cd\u09af\u09be\u09a1\u09be\u09b2\u09cd\u099f|\u098f\u09a1\u09be\u09b2\u09cd\u099f/i;
 function isAdultCategory(name){return ADULT_RE.test(String(name||'').normalize('NFC'))}
 function isAdultChannel(c){return isAdultCategory(categoryForChannel(c))||isAdultCategory(c&&c.group)||isAdultCategory(c&&c.category)}
+// Adult zone: the 18+ confirmation is NOT stored anywhere. It lasts only while the adult zone stays open,
+// so the notice appears again on every new visit and every time the zone is entered again.
 let adultOkMem=false;
-function adultAllowed(){if(adultOkMem)return true;try{return sessionStorage.getItem('kp-adult-ok-v2')==='1'}catch(_e){return false}}
-function adultRemember(){adultOkMem=true;try{sessionStorage.setItem('kp-adult-ok-v2','1')}catch(_e){}}
+function adultAllowed(){return adultOkMem}
+function adultRemember(){adultOkMem=true}
+function adultForget(){adultOkMem=false}
 const KP_ADULT_AD={enabled:false,seconds:5,cooldownMinutes:10,html:''};
 // FUTURE EARNINGS: set enabled:true and paste your ad network code (script or iframe) inside html.
 // While enabled, viewers see the ad once (then every cooldownMinutes) before an adult channel starts.
@@ -514,7 +633,7 @@ let adultGateOpen=false;
 function showAdultGate(cb){
  if(adultGateOpen)return;adultGateOpen=true;
  const wrap=document.createElement('div');wrap.className='kp-age-gate';wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-labelledby','kpAgeTitle');
- wrap.innerHTML='<div class="kp-age-card"><div class="kp-age-badge">18+</div><h2 id="kpAgeTitle">Adults Only Zone</h2><p class="kp-age-bn">\u098f\u0987 \u09ac\u09bf\u09ad\u09be\u0997\u09c7 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09e7\u09ee \u09ac\u099b\u09b0 \u09ac\u09be \u09a4\u09be\u09b0 \u09ac\u09c7\u09b6\u09bf \u09ac\u09af\u09bc\u09b8\u09c0\u09a6\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4\u09ac\u09af\u09bc\u09b8\u09cd\u0995 \u0995\u09a8\u099f\u09c7\u09a8\u09cd\u099f \u09b0\u09af\u09bc\u09c7\u099b\u09c7\u0964</p><p>This section contains adult content intended strictly for viewers aged <b>18 or older</b>. Please confirm before you continue.</p><ul class="kp-age-points"><li>I am 18 years of age or older.</li><li>Viewing adult content is legal where I live.</li><li>I understand this content may be explicit.</li></ul><button type="button" class="kp-age-yes">Yes, I am 18+ \u2014 Enter</button><button type="button" class="kp-age-no">No, take me back</button><small>Your choice is remembered only until you close this browser tab.</small></div>';
+ wrap.innerHTML='<div class="kp-age-card"><div class="kp-age-badge">18+</div><h2 id="kpAgeTitle">Adults Only Zone</h2><p class="kp-age-bn">\u098f\u0987 \u09ac\u09bf\u09ad\u09be\u0997\u09c7 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09e7\u09ee \u09ac\u099b\u09b0 \u09ac\u09be \u09a4\u09be\u09b0 \u09ac\u09c7\u09b6\u09bf \u09ac\u09af\u09bc\u09b8\u09c0\u09a6\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4\u09ac\u09af\u09bc\u09b8\u09cd\u0995 \u0995\u09a8\u099f\u09c7\u09a8\u09cd\u099f \u09b0\u09af\u09bc\u09c7\u099b\u09c7\u0964</p><p>This section contains adult content intended strictly for viewers aged <b>18 or older</b>. Please confirm before you continue.</p><ul class="kp-age-points"><li>I am 18 years of age or older.</li><li>Viewing adult content is legal where I live.</li><li>I understand this content may be explicit.</li></ul><button type="button" class="kp-age-yes">Yes, I am 18+ \u2014 Enter</button><button type="button" class="kp-age-no">No, take me back</button><small>You will be asked again every time you enter this zone.</small></div>';
  document.body.appendChild(wrap);document.body.classList.add('kp-noscroll');
  const yes=wrap.querySelector('.kp-age-yes'),no=wrap.querySelector('.kp-age-no');
  const close=ok=>{document.removeEventListener('keydown',onKey,true);wrap.remove();document.body.classList.remove('kp-noscroll');adultGateOpen=false;if(ok){adultRemember()}try{cb&&cb(ok)}catch(_e){}};
@@ -529,6 +648,8 @@ function render(){
  const categoryNames=availableCategories();
  categorySelect.innerHTML='<option value="">All categories</option>'+categoryNames.map(c=>`<option value="${c.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${c}</option>`).join('');
  categorySelect.value=categoryNames.includes(selected)?selected:'';
+ // Leaving the adult zone ends the confirmation, so the notice shows again on the next entry.
+ if(!isAdultCategory(categorySelect.value))adultForget();
  if(categorySelect.value&&isAdultCategory(categorySelect.value)&&!adultAllowed()){const want=categorySelect.value;categorySelect.value='';showAdultGate(ok=>{if(ok){$('category').value=want;render();$('browse').scrollIntoView({behavior:'smooth',block:'start'})}else render()})}
  renderCategoryTabs();syncCategoryTab();
  // Search is global: a selected category never restricts search results.
@@ -579,7 +700,7 @@ function stop(){
 let playbackToken=0,activeSourceFail=null,stallTimer=null;
 function clearPlaybackTimers(){clearTimeout(stallTimer);if(activeSourceFail){activeSourceFail=null}}
 function play(channel,start=0){
- if(isAdultChannel(channel)&&!adultAllowed()){if(autoMutedStart){autoMutedStart=false;return}showAdultGate(ok=>{if(ok){render();play(channel,start)}});return}
+ if(isAdultChannel(channel)&&!adultAllowed()){if(autoMutedStart){autoMutedStart=false;return}showAdultGate(ok=>{if(ok){play(channel,start)}});return}
  if(KP_ADULT_AD.enabled&&isAdultChannel(channel)&&!autoMutedStart&&!kpAdBypass&&kpAdDue()){kpShowAdultAd(()=>{kpAdBypass=true;try{play(channel,start)}finally{kpAdBypass=false}});return}
  clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
  let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));const wasAuto=autoMutedStart;video.muted=savedMute||autoMutedStart;autoMutedStart=false;
@@ -588,6 +709,7 @@ function play(channel,start=0){
 }
 let dashPlayer=null;
 function destroyEngines(){
+ kpSubsOff();
  if(hls){try{hls.destroy()}catch(_e){}hls=null}
  if(mpegtsPlayer){try{mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy()}catch(_e){}mpegtsPlayer=null}
  if(dashPlayer){try{dashPlayer.reset()}catch(_e){}dashPlayer=null}
@@ -734,19 +856,19 @@ function trySource(token=playbackToken){
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
    setupAudioBoost();
-   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:35,maxMaxBufferLength:50,maxBufferSize:60*1000*1000,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:2,fragLoadingTimeOut:25000,fragLoadingMaxRetry:2,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
+   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:5,liveMaxLatencyDurationCount:14,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.8,abrBandWidthUpFactor:0.6,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:18000,manifestLoadingMaxRetry:2,levelLoadingTimeOut:18000,levelLoadingMaxRetry:3,fragLoadingTimeOut:25000,fragLoadingMaxRetry:4,fragLoadingRetryDelay:1000,fragLoadingMaxRetryTimeout:8000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}fail()});
    hls.attachMedia(video);
      }else startNative();
     }else if(kind==='dash'){
-     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,curUrl,true)}else fail();
+     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();try{dashPlayer.updateSettings({streaming:{buffer:{bufferTimeDefault:20,bufferTimeAtTopQuality:30,bufferToKeep:20}}})}catch(_e){}dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,curUrl,true)}else fail();
     }else if(kind==='mpegts'||kind==='flv'){
      if(window.mpegts&&mpegts.isSupported()){
    try{
     setupAudioBoost();
-    mpegtsPlayer=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:curUrl,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128});
+    mpegtsPlayer=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:curUrl,isLive:true,enableWorker:true,enableStashBuffer:true,stashInitialSize:128},{enableWorker:true,enableStashBuffer:true,stashInitialSize:384,lazyLoad:false,liveBufferLatencyChasing:false,autoCleanupSourceBuffer:true,autoCleanupMaxBackwardDuration:30,autoCleanupMinBackwardDuration:15});
     mpegtsPlayer.on(mpegts.Events.ERROR,()=>{if(isCurrent())fail()});
     mpegtsPlayer.attachMediaElement(video);mpegtsPlayer.load();
     mpegtsPlayer.play().catch(()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback');});
@@ -760,6 +882,8 @@ function trySource(token=playbackToken){
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
 video.addEventListener('waiting',()=>{if(activeSourceFail&&lastChannel&&video.currentTime>0){clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(video.readyState<3&&activeSourceFail)activeSourceFail()},22000)}});
 video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
+try{video.textTracks.addEventListener('addtrack',kpSubsOff);video.textTracks.addEventListener('change',kpSubsOff)}catch(_e){}
+['loadstart','loadedmetadata','playing'].forEach(ev=>video.addEventListener(ev,kpSubsOff));
 // Compact MX Player-style controls and touch gestures.
 const playPauseBtn=$('playPause'),volumeToggleBtn=$('volumeToggle'),volumeLevel=$('volumeLevel');
 const screenCycleBtn=$('screenCycle');
@@ -988,7 +1112,10 @@ $('categoryModal').addEventListener('click',e=>{if(e.target===$('categoryModal')
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('categoryModal').hidden)closeCategoryModal()});
 
 document.querySelectorAll('.dock-item').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.dock-item').forEach(x=>x.classList.toggle('active',x===btn));const dest=btn.dataset.dock;if(dest==='home')$('home').scrollIntoView({behavior:'smooth'});if(dest==='live')$('browse').scrollIntoView({behavior:'smooth'});if(dest==='search'){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}if(dest==='favorites'){const favs=(()=>{try{return JSON.parse(localStorage.getItem('kp-live-favorites')||'[]')}catch{return []}})();$('search').value='';$('category').value='';render();const root=$('channelRows');root.innerHTML='';const picks=channels.filter(c=>favs.includes(c.id));if(!picks.length){root.innerHTML='<div class="empty">No favorites yet. Tap the heart on a channel to save it.</div>'}else{const rail=document.createElement('div');rail.className='rail';picks.forEach(c=>rail.appendChild(makeCard(c,c.group)));root.appendChild(rail)}$('browse').scrollIntoView({behavior:'smooth'})}if(dest==='categories'){openCategoryModal();}}));
-function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';$('noticeMessage').textContent=[intro,n?.message].filter(Boolean).join(' · ');const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex'}
+function renderNotifications(){const n=notificationItems.find(x=>x.is_active);const intro=siteSettings.homepage?.intro||'';const bar=$('notificationBar');if(!bar)return;if(!n&&!intro){bar.hidden=true;return}$('noticeTitle').textContent=n?.title||'Announcement';const text=[intro,n?.message].filter(Boolean).join(' · ');$('noticeMessage').textContent=text;$('noticeMarquee').hidden=!text;const link=$('noticeLink');if(n?.link_url&&/^https?:\/\//i.test(n.link_url)){link.href=n.link_url;link.hidden=false}else link.hidden=true;bar.hidden=false;bar.style.display='flex';kpMarqueeFit()}
+// Running text: the message starts at the right edge and moves to the left at a steady, readable speed.
+function kpMarqueeFit(){const wrap=$('noticeMarquee'),track=$('noticeTrack'),bar=$('notificationBar');if(!wrap||!track||!bar||bar.hidden||wrap.hidden)return;track.style.animation='none';const distance=track.scrollWidth;track.style.animationDuration=Math.max(10,distance/75).toFixed(1)+'s';void track.offsetWidth;track.style.animation=''; track.style.animationDuration=Math.max(10,distance/75).toFixed(1)+'s'}
+let kpMarqueeTimer=null;window.addEventListener('resize',()=>{clearTimeout(kpMarqueeTimer);kpMarqueeTimer=setTimeout(kpMarqueeFit,200)});
 const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light','glass-edition','luxury-gold','cyberpunk-neon','minimal-clean','bollywood-cinema','newsroom-pro','retro-tv','ocean-blue','midnight-purple','emerald-luxe','crimson-premium','arctic-glass','cinema-noir','royal-violet'];
 function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
 let presenceTimer=null;
@@ -1036,6 +1163,94 @@ function applyFastTheme(theme,accent='#f04444'){
 }
 const initialFastTheme=pickTheme(siteSettings);applyFastTheme(initialFastTheme);
 
+// ===== Hero banner slider: events (BPL, IPL ...) managed from the Admin Panel > Hero Banners =====
+const HERO_CACHE='kp-hero-cache-v1';
+let heroItems=[],heroIndex=0,heroTimer=null,heroPaused=false,heroMs=3000,heroSig='',heroSuppressClick=0,heroFresh=false;
+function heroConfig(){const h=siteSettings&&siteSettings.hero_banners;return h&&typeof h==='object'?h:null}
+function heroAction(item){
+ const ch=item.channel_id?channels.find(c=>String(c.id)===String(item.channel_id)):null;
+ if(ch){autoPickWasManual=true;try{kpDockStage()}catch(_e){}$('playerPanel').scrollIntoView({behavior:'instant',block:'center'});play(ch,0);return}
+ const url=safeUrl(item.link_url);if(url)window.open(url,'_blank','noopener,noreferrer');
+}
+function heroSchedule(){clearTimeout(heroTimer);if(heroItems.length<2||heroPaused)return;heroTimer=setTimeout(()=>heroShow(heroIndex+1),heroMs)}
+function heroRestartProgress(){const dot=$('heroDots').children[heroIndex];if(!dot)return;dot.classList.remove('is-active');void dot.offsetWidth;dot.classList.add('is-active')}
+function heroShow(i){
+ const slides=[...$('heroTrack').children];if(!slides.length)return;
+ heroIndex=(i+slides.length)%slides.length;
+ slides.forEach((s,k)=>{s.classList.toggle('is-active',k===heroIndex);s.setAttribute('aria-hidden',k===heroIndex?'false':'true')});
+ [...$('heroDots').children].forEach((d,k)=>{d.classList.toggle('is-active',k===heroIndex);d.setAttribute('aria-selected',k===heroIndex?'true':'false')});
+ heroSchedule();
+}
+function heroSetPaused(flag){
+ if(heroPaused===flag)return;heroPaused=flag;$('heroFrame').classList.toggle('is-paused',flag);
+ if(flag)clearTimeout(heroTimer);else{heroRestartProgress();heroSchedule()}
+}
+function renderHero(cfg){
+ const root=$('heroBanner');if(!root)return;
+ cfg=cfg||heroConfig();
+ const items=cfg&&cfg.enabled!==false&&Array.isArray(cfg.items)?cfg.items.filter(x=>x&&x.is_active!==false&&(safeUrl(x.image_url)||String(x.title||'').trim())):[];
+ const seconds=Math.max(2,Math.min(15,Number(cfg&&cfg.interval)||3));
+ const sig=JSON.stringify([items,seconds]);
+ if(sig===heroSig)return;heroSig=sig;
+ clearTimeout(heroTimer);heroItems=items;heroMs=seconds*1000;heroIndex=0;
+ document.body.classList.toggle('kp-has-hero',items.length>0);
+ const track=$('heroTrack'),dots=$('heroDots'),frame=$('heroFrame');
+ track.innerHTML='';dots.innerHTML='';
+ if(!items.length){root.hidden=true;return}
+ frame.style.setProperty('--kp-hero-ms',heroMs+'ms');
+ items.forEach((item,i)=>{
+  const hasAction=!!((item.channel_id)||safeUrl(item.link_url));
+  const slide=document.createElement('div');slide.className='kp-hero-slide'+(hasAction?' has-action':'');
+  slide.setAttribute('role','group');slide.setAttribute('aria-roledescription','slide');slide.setAttribute('aria-label',(i+1)+' / '+items.length+': '+String(item.title||'').slice(0,80));
+  const bg=document.createElement('div');bg.className='kp-hero-bg';slide.appendChild(bg);
+  const imgUrl=safeUrl(item.image_url);
+  if(imgUrl){const img=document.createElement('img');img.className='kp-hero-img';img.alt='';img.decoding='async';img.referrerPolicy='no-referrer';img.src=imgUrl;img.onerror=()=>img.remove();slide.appendChild(img)}
+  if(item.overlay!==false){
+   const shade=document.createElement('div');shade.className='kp-hero-shade';slide.appendChild(shade);
+   const body=document.createElement('div');body.className='kp-hero-body';
+   const logoUrl=safeUrl(item.logo_url);
+   if(logoUrl){const logo=document.createElement('img');logo.className='kp-hero-logo';logo.alt='';logo.referrerPolicy='no-referrer';logo.src=logoUrl;logo.onerror=()=>logo.remove();body.appendChild(logo)}
+   if(String(item.badge||'').trim()){const badge=document.createElement('span');badge.className='kp-hero-badge';badge.textContent=String(item.badge).trim().slice(0,40);body.appendChild(badge)}
+   if(String(item.title||'').trim()){const h=document.createElement('h2');h.className='kp-hero-title';h.textContent=String(item.title).trim().slice(0,120);body.appendChild(h)}
+   if(String(item.subtitle||'').trim()){const p=document.createElement('p');p.className='kp-hero-sub';p.textContent=String(item.subtitle).trim().slice(0,200);body.appendChild(p)}
+   if(hasAction){const b=document.createElement('button');b.type='button';b.className='kp-hero-cta';const ic=document.createElement('span');ic.textContent='▶';ic.setAttribute('aria-hidden','true');b.append(ic,document.createTextNode(String(item.button_label||'Watch Live').trim().slice(0,30)||'Watch Live'));body.appendChild(b)}
+   slide.appendChild(body);
+  }
+  slide.addEventListener('click',()=>{if(Date.now()<heroSuppressClick||!hasAction)return;heroAction(item)});
+  track.appendChild(slide);
+  const dot=document.createElement('button');dot.type='button';dot.className='kp-hero-dot';dot.setAttribute('role','tab');dot.setAttribute('aria-label','Banner '+(i+1));dot.appendChild(document.createElement('i'));
+  dot.addEventListener('click',()=>{heroShow(i);heroRestartProgress()});dots.appendChild(dot);
+ });
+ const multi=items.length>1;
+ dots.hidden=!multi;$('heroPrev').hidden=!multi;$('heroNext').hidden=!multi;
+ root.hidden=false;heroPaused=false;frame.classList.remove('is-paused');
+ heroShow(0);
+}
+(function heroWire(){
+ const frame=$('heroFrame');if(!frame)return;
+ $('heroPrev').addEventListener('click',()=>{heroShow(heroIndex-1);heroRestartProgress()});
+ $('heroNext').addEventListener('click',()=>{heroShow(heroIndex+1);heroRestartProgress()});
+ let sx=0,sy=0,tracking=false;
+ frame.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')heroSetPaused(true)});
+ frame.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')heroSetPaused(false);tracking=false});
+ frame.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')heroSetPaused(true);sx=e.clientX;sy=e.clientY;tracking=true});
+ const finish=e=>{
+  if(!tracking)return;tracking=false;
+  const dx=e.clientX-sx,dy=e.clientY-sy;
+  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3&&heroItems.length>1){heroSuppressClick=Date.now()+350;heroShow(heroIndex+(dx<0?1:-1));heroRestartProgress()}
+  if(e.pointerType!=='mouse')heroSetPaused(false);
+ };
+ frame.addEventListener('pointerup',finish);
+ frame.addEventListener('pointercancel',e=>{tracking=false;if(e.pointerType!=='mouse')heroSetPaused(false)});
+ document.addEventListener('visibilitychange',()=>heroSetPaused(document.visibilityState==='hidden'));
+})();
+try{const cachedHero=JSON.parse(localStorage.getItem(HERO_CACHE)||'null');if(cachedHero)renderHero(cachedHero)}catch(_e){}
+// ===== Install as an app (Chrome "Install app") =====
+let kpInstallEvent=null;
+window.addEventListener('beforeinstallprompt',e=>{kpInstallEvent=e;const b=$('kpInstallBtn');if(b)b.hidden=false});
+window.addEventListener('appinstalled',()=>{kpInstallEvent=null;const b=$('kpInstallBtn');if(b)b.hidden=true});
+(()=>{const b=$('kpInstallBtn');if(b)b.addEventListener('click',async()=>{if(!kpInstallEvent)return;try{kpInstallEvent.prompt();await kpInstallEvent.userChoice}catch(_e){}kpInstallEvent=null;b.hidden=true})})();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{})})}
 function kpHiddenFilter(list){
  const hidden=new Set((managedCategories||[]).filter(c=>c&&c.name&&c.is_active===false).map(c=>String(c.name).trim().toLowerCase()));
  if(!hidden.size)return list;
@@ -1081,7 +1296,7 @@ async function init(){
      // first-time visitors get an immediate random channel while GeoIP continues in background.
      if(channels.length){render();const geo=await geoTask;autoPickByVisitorCountry(geo.cached||'',false);geo.live.then(code=>{if(code&&!autoPickWasManual)autoPickByVisitorCountry(code,!!autoPickStarted)});}
      const [settingRes,catRes,noticeRes]=await Promise.all([settingTask,categoryTask,noticeTask]);
-     if(settingRes&&!settingRes.error)siteSettings=settingRes.data?.settings||{};
+     if(settingRes&&!settingRes.error){siteSettings=settingRes.data?.settings||{};heroFresh=true}
      if(catRes&&!catRes.error&&Array.isArray(catRes.data)){managedCategories=catRes.data;try{localStorage.setItem('kp-category-cache-v1',JSON.stringify(managedCategories))}catch{}}
      if(noticeRes&&!noticeRes.error)notificationItems=noticeRes.data||[];
      if(autoPickStarted&&!autoPickWasManual){let resolved='';try{resolved=localStorage.getItem('kp-visitor-country-v1')||''}catch{}if(resolved)autoPickByVisitorCountry(resolved,true)}
@@ -1099,6 +1314,7 @@ async function init(){
  // Apply persisted homepage identity, announcement, theme and accent globally.
  const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const faviconUrl=homeSettings.favicon_url||'';if(faviconUrl){let favicon=document.getElementById('siteFavicon');if(!favicon){favicon=document.createElement('link');favicon.id='siteFavicon';favicon.rel='icon';document.head.appendChild(favicon)}favicon.href=faviconUrl;const appleIcon=document.querySelector('link[rel="apple-touch-icon"]');if(appleIcon)appleIcon.href=faviconUrl;}const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
  const intro=homeSettings.intro||'';renderNotifications();
+ if(heroFresh){const hc=heroConfig();renderHero(hc||{enabled:false,items:[]});try{localStorage.setItem(HERO_CACHE,JSON.stringify(hc||null))}catch(_e){}}
  const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?pickTheme(siteSettings):initialFastTheme;
  const accent=design.accent||'#f04444';document.documentElement.style.setProperty('--accent',accent);document.documentElement.style.setProperty('--red',accent);
  const accentStyle=document.createElement('style');accentStyle.textContent=`:root{--accent:${accent};--red:${accent}}.category-tab.active,.channel-card.active,.action-primary,.mobile-dock .dock-item.active{border-color:${accent}!important}.category-tab.active,.channel-card.active:after{background-color:${accent}}.live-dot,.card-live,.fav-mark.is-favorite{color:${accent}}.live-dot{background:${accent}}`;document.head.appendChild(accentStyle);
