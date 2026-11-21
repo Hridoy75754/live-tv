@@ -1246,6 +1246,27 @@ function renderHero(cfg){
 })();
 try{const cachedHero=JSON.parse(localStorage.getItem(HERO_CACHE)||'null');if(cachedHero)renderHero(cachedHero)}catch(_e){}
 // ===== Install as an app (Chrome "Install app") =====
+// The installed app uses the site's own favicon/logo (Admin > Website Logo & Favicon) and the site title.
+const PWA_BRAND_CACHE='kp-pwa-brand-v1';
+function kpApplyPwaBrand(title,iconUrl){
+ try{
+  const link=document.querySelector('link[rel="manifest"]');if(!link)return;
+  const base=new URL('./',location.href).href;
+  const abs=u=>new URL(u,location.href).href;
+  const name=String(title||'KP Live TV').trim().slice(0,45)||'KP Live TV';
+  const custom=iconUrl&&/^https?:\/\//i.test(iconUrl);
+  const icons=custom?[{src:abs(iconUrl),sizes:'192x192 512x512',purpose:'any'}]:[
+   {src:abs('icon-192.png'),sizes:'192x192',type:'image/png',purpose:'any'},
+   {src:abs('icon-512.png'),sizes:'512x512',type:'image/png',purpose:'any'},
+   {src:abs('icon-maskable-512.png'),sizes:'512x512',type:'image/png',purpose:'maskable'}];
+  const manifest={name,short_name:name.slice(0,14),description:'Watch live TV channels in one place.',id:base,start_url:base+'?source=pwa',scope:base,display:'standalone',orientation:'any',background_color:'#101010',theme_color:'#101010',lang:'bn',categories:['entertainment'],icons};
+  const sig=JSON.stringify([name,custom?iconUrl:'']);
+  if(link.dataset.kpBrand===sig)return;
+  link.dataset.kpBrand=sig;
+  link.href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'}));
+ }catch(_e){}
+}
+try{const pb=JSON.parse(localStorage.getItem(PWA_BRAND_CACHE)||'null');if(pb)kpApplyPwaBrand(pb.title,pb.icon)}catch(_e){}
 let kpInstallEvent=null;
 window.addEventListener('beforeinstallprompt',e=>{kpInstallEvent=e;const b=$('kpInstallBtn');if(b)b.hidden=false});
 window.addEventListener('appinstalled',()=>{kpInstallEvent=null;const b=$('kpInstallBtn');if(b)b.hidden=true});
@@ -1312,7 +1333,7 @@ async function init(){
  }
  if(db){db.from('kp_trending_channels').select('channel_id,topic,sort_order,is_active').eq('is_active',true).order('sort_order').then(({data,error})=>{if(!error&&Array.isArray(data)){trendingItems=data;renderTrending()}}).catch(()=>{})}
  // Apply persisted homepage identity, announcement, theme and accent globally.
- const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const faviconUrl=homeSettings.favicon_url||'';if(faviconUrl){let favicon=document.getElementById('siteFavicon');if(!favicon){favicon=document.createElement('link');favicon.id='siteFavicon';favicon.rel='icon';document.head.appendChild(favicon)}favicon.href=faviconUrl;const appleIcon=document.querySelector('link[rel="apple-touch-icon"]');if(appleIcon)appleIcon.href=faviconUrl;}const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;
+ const homeSettings=siteSettings.homepage||{};const siteTitle=homeSettings.site_title||'KP Live TV';document.title=siteTitle;const faviconUrl=homeSettings.favicon_url||'';if(faviconUrl){let favicon=document.getElementById('siteFavicon');if(!favicon){favicon=document.createElement('link');favicon.id='siteFavicon';favicon.rel='icon';document.head.appendChild(favicon)}favicon.href=faviconUrl;const appleIcon=document.querySelector('link[rel="apple-touch-icon"]');if(appleIcon)appleIcon.href=faviconUrl;}const brand=$('siteBrandTitle');if(brand)brand.textContent=siteTitle;kpApplyPwaBrand(siteTitle,faviconUrl);try{localStorage.setItem(PWA_BRAND_CACHE,JSON.stringify({title:siteTitle,icon:faviconUrl}))}catch(_e){}
  const intro=homeSettings.intro||'';renderNotifications();
  if(heroFresh){const hc=heroConfig();renderHero(hc||{enabled:false,items:[]});try{localStorage.setItem(HERO_CACHE,JSON.stringify(hc||null))}catch(_e){}}
  const design=siteSettings.design||{};const theme=design.theme_mode==='manual'?pickTheme(siteSettings):initialFastTheme;
