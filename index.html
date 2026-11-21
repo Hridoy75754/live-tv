@@ -302,6 +302,21 @@ body.kp-noscroll{overflow:hidden}
 .kp-ad-skip:disabled{opacity:.7;cursor:default}
 .kp-ad-slot{min-height:250px;display:flex;align-items:center;justify-content:center;padding:10px}
 </style>
+<style id="kp-quality-tv-css">
+#qualityBtn[hidden]{display:none!important}
+.kp-q-menu{position:absolute;right:10px;bottom:64px;z-index:30;display:flex;flex-direction:column;gap:2px;min-width:132px;max-height:70%;overflow-y:auto;padding:6px;border:1px solid #4a4a4f;border-radius:12px;background:rgba(10,10,12,.95);box-shadow:0 10px 30px #000a}
+.kp-q-menu[hidden]{display:none}
+.kp-q-menu button{display:flex;justify-content:space-between;align-items:center;gap:14px;width:100%;padding:8px 12px;border:0;border-radius:8px;background:transparent;color:#fff;font:700 13px/1.2 inherit;font-family:inherit;text-align:left;cursor:pointer}
+.kp-q-menu button:hover,.kp-q-menu button:focus{background:#2a2a2e;outline:none}
+.kp-q-menu button.on{color:var(--accent,#e50914)}
+.kp-q-menu button.on:after{content:'\2713'}
+/* TV / remote-control mode: only active on smart TVs, or with ?tv=1 */
+html.kp-tv #kpInstallBtn,html.kp-tv .mobile-dock{display:none!important}
+html.kp-tv a:focus,html.kp-tv button:focus,html.kp-tv input:focus,html.kp-tv select:focus,html.kp-tv [tabindex]:focus{outline:4px solid #fff!important;outline-offset:3px!important;box-shadow:0 0 0 7px var(--accent,#e50914)!important;position:relative;z-index:5}
+html.kp-tv .channel-card:focus{transform:scale(1.07)!important}
+html.kp-tv .kp-q-menu button{padding:12px 16px;font-size:18px}
+html.kp-tv .video-tools button{min-width:46px;height:46px;font-size:18px}
+</style>
 <style id="kp-hero-marquee-css">
 /* ---- Running notice: the message moves from the right edge to the left edge ---- */
 .kp-notification-bar .kp-marquee{flex:1 1 220px;min-width:0;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 12px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 12px),transparent 100%)}
@@ -442,6 +457,7 @@ html[data-theme="netflix-dark"] .category-modal-option[aria-checked="true"] .cat
       <button type="button" class="tool-icon" id="volumeToggle" title="Mute or unmute" aria-label="Mute or unmute">🔊</button>
       <input id="volumeLevel" aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1">
       <span aria-hidden="true" title="Brightness" style="font-size:15px;color:#fff">☀</span><input id="brightnessLevel" aria-label="Brightness" title="Brightness" type="range" min="0.5" max="1.5" step="0.05" value="1">
+      <button type="button" class="tool-icon" id="qualityBtn" title="Video quality" aria-label="Video quality" aria-haspopup="menu" hidden>⚙ <small id="qualityLabel">AUTO</small></button>
       <button type="button" class="tool-icon screen-cycle" id="screenCycle" title="Screen mode: Auto Fit" aria-label="Cycle screen fit">▣ <small id="screenModeLabel">AUTO</small></button>
       <button type="button" class="tool-icon" id="screenRotate" title="Rotate to landscape" aria-label="Rotate to landscape">⟳</button>
       <button type="button" class="tool-icon" id="screenFullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button>
@@ -708,8 +724,59 @@ function play(channel,start=0){
  if(!wasAuto)revealPlayer();
 }
 let dashPlayer=null;
+
+// ---------- Video quality picker (⚙). Shows only when the stream offers more than one quality. Default = Auto. ----------
+const kpQBtn=$('qualityBtn'),kpQLabel=$('qualityLabel'),kpQMenu=document.createElement('div');
+kpQMenu.className='kp-q-menu';kpQMenu.hidden=true;kpQMenu.setAttribute('role','menu');$('videoStage').appendChild(kpQMenu);
+let kpQPref=0;try{kpQPref=parseInt(localStorage.getItem('kp-quality-pref')||'0',10)||0}catch(_e){}
+let kpQEntries=[],kpQCur=0;
+function kpQCollect(){
+ const out=[];
+ try{
+  if(hls&&hls.levels&&hls.levels.length>1){
+   const best=new Map();
+   hls.levels.forEach((l,i)=>{const h=l.height||0;if(!h)return;const o=best.get(h);if(!o||(l.bitrate||0)>(hls.levels[o].bitrate||0))best.set(h,i)});
+   if(best.size>1)[...best.keys()].sort((a,b)=>b-a).forEach(h=>out.push({h,label:h+'p',set:()=>{hls.currentLevel=best.get(h)}}));
+   if(out.length)out.auto=()=>{hls.currentLevel=-1};
+  }else if(dashPlayer){
+   const list=(dashPlayer.getBitrateInfoListFor&&dashPlayer.getBitrateInfoListFor('video'))||[];
+   const byH=new Map();list.forEach(x=>{const h=x.height||0;if(!h)return;const o=byH.get(h);if(!o||(x.bitrate||0)>(o.bitrate||0))byH.set(h,x)});
+   if(byH.size>1){
+    [...byH.keys()].sort((a,b)=>b-a).forEach(h=>out.push({h,label:h+'p',set:()=>{try{dashPlayer.updateSettings({streaming:{abr:{autoSwitchBitrate:{video:false}}}})}catch(_e){}dashPlayer.setQualityFor('video',byH.get(h).qualityIndex)}}));
+    out.auto=()=>{try{dashPlayer.updateSettings({streaming:{abr:{autoSwitchBitrate:{video:true}}}})}catch(_e){}};
+   }
+  }
+ }catch(_e){}
+ return out;
+}
+function kpQRender(){
+ kpQMenu.innerHTML='';
+ const add=(label,on,fn)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');b.className=on?'on':'';b.innerHTML='<span>'+label+'</span>';b.addEventListener('click',e=>{e.stopPropagation();fn();kpQMenu.hidden=true;try{kpQBtn.focus()}catch(_e){}});kpQMenu.appendChild(b)};
+ add('Auto',!kpQCur,()=>kpQSelect(null));
+ kpQEntries.forEach(en=>add(en.label,kpQCur===en.h,()=>kpQSelect(en)));
+ kpQLabel.textContent=kpQCur?kpQCur+'p':'AUTO';
+}
+function kpQSelect(en){
+ try{if(en){en.set();kpQCur=en.h;kpQPref=en.h}else{if(kpQEntries.auto)kpQEntries.auto();kpQCur=0;kpQPref=0}}catch(_e){}
+ try{localStorage.setItem('kp-quality-pref',String(kpQPref))}catch(_e){}
+ kpQRender();
+}
+function kpQualityRefresh(){
+ kpQEntries=kpQCollect();
+ if(kpQEntries.length<2){kpQBtn.hidden=true;kpQMenu.hidden=true;return}
+ kpQBtn.hidden=false;kpQCur=0;
+ if(kpQPref){ // keep the viewer's last choice: use the closest quality this channel offers
+  let pick=kpQEntries[0];kpQEntries.forEach(en=>{if(Math.abs(en.h-kpQPref)<Math.abs(pick.h-kpQPref))pick=en});
+  try{pick.set();kpQCur=pick.h}catch(_e){}
+ }
+ kpQRender();
+}
+function kpQualityHide(){kpQEntries=[];kpQCur=0;kpQBtn.hidden=true;kpQMenu.hidden=true}
+kpQBtn.addEventListener('click',e=>{e.stopPropagation();kpQRender();kpQMenu.hidden=!kpQMenu.hidden;if(!kpQMenu.hidden){const on=kpQMenu.querySelector('.on')||kpQMenu.firstChild;try{on.focus()}catch(_e){}}});
+document.addEventListener('click',e=>{if(!kpQMenu.hidden&&!kpQMenu.contains(e.target)&&e.target!==kpQBtn&&!kpQBtn.contains(e.target))kpQMenu.hidden=true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!kpQMenu.hidden){kpQMenu.hidden=true;try{kpQBtn.focus()}catch(_e){}e.stopPropagation()}},true);
 function destroyEngines(){
- kpSubsOff();
+ kpSubsOff();kpQualityHide();
  if(hls){try{hls.destroy()}catch(_e){}hls=null}
  if(mpegtsPlayer){try{mpegtsPlayer.pause();mpegtsPlayer.unload();mpegtsPlayer.detachMediaElement();mpegtsPlayer.destroy()}catch(_e){}mpegtsPlayer=null}
  if(dashPlayer){try{dashPlayer.reset()}catch(_e){}dashPlayer=null}
@@ -859,12 +926,12 @@ function trySource(token=playbackToken){
    setupAudioBoost();
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.8,abrBandWidthUpFactor:0.6,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
-   hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
+   hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){try{kpQualityRefresh()}catch(_e){}$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}fail()});
    hls.attachMedia(video);
      }else startNative();
     }else if(kind==='dash'){
-     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();try{dashPlayer.updateSettings({streaming:{buffer:{bufferTimeDefault:20,bufferTimeAtTopQuality:30,bufferToKeep:20}}})}catch(_e){}dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.initialize(video,curUrl,true)}else fail();
+     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();try{dashPlayer.updateSettings({streaming:{buffer:{bufferTimeDefault:20,bufferTimeAtTopQuality:30,bufferToKeep:20}}})}catch(_e){}dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.on('streamInitialized',()=>{if(isCurrent())try{kpQualityRefresh()}catch(_e){}});dashPlayer.initialize(video,curUrl,true)}else fail();
     }else if(kind==='mpegts'||kind==='flv'){
      if(window.mpegts&&mpegts.isSupported()){
    try{
@@ -1353,6 +1420,100 @@ async function init(){
  if(!channels.length){$('channelRows').innerHTML='<div class="empty">The channel list could not be loaded. Please try again later.</div>';$('filterHint').textContent='Channel list unavailable'}
 }
 init();
+})();
+</script>
+<script id="kp-tv-mode">
+/* TV / remote-control mode. Turns on automatically on smart TVs, or open the site with ?tv=1 (turn off with ?tv=0). Nothing changes on phones and computers. */
+(function(){
+ var on=false;
+ try{
+  var q=new URLSearchParams(location.search).get('tv');
+  if(q==='1')localStorage.setItem('kp-tv','1');else if(q==='0')localStorage.removeItem('kp-tv');
+  on=localStorage.getItem('kp-tv')==='1';
+ }catch(e){on=/[?&]tv=1/.test(location.search)}
+ if(!on&&/SMART-TV|SmartTV|Tizen|Web0S|WebOS|NetCast|HbbTV|VIDAA|BRAVIA|AFT[A-Z]|GoogleTV|Android.*TV|CrKey|Roku/i.test(navigator.userAgent))on=true;
+ if(!on)return;
+ document.documentElement.classList.add('kp-tv');
+ var DIRS={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};
+ var DIRCODE={37:'l',39:'r',38:'u',40:'d'};
+ var SEL='button,a[href],input:not([type=hidden]),select,textarea,[tabindex]:not([tabindex="-1"])';
+ function shown(el){if(el.disabled||el.hidden)return false;var r=el.getBoundingClientRect();if(r.width<2||r.height<2)return false;var cs=getComputedStyle(el);return cs.visibility!=='hidden'&&cs.display!=='none'&&cs.pointerEvents!=='none'}
+ function topModal(){
+  var c=[].slice.call(document.querySelectorAll('.kp-age-gate,[role=dialog][aria-modal=true],.kp-ad-wrap,.category-modal-backdrop'));
+  for(var i=c.length-1;i>=0;i--){var el=c[i];if(!el.hidden&&el.getBoundingClientRect().width>0)return el}
+  return null;
+ }
+ function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement||null}
+ function focusables(){
+  var root=topModal()||fsEl()||document;
+  return [].slice.call(root.querySelectorAll(SEL)).filter(shown);
+ }
+ function go(el){try{el.focus({preventScroll:true})}catch(e){el.focus()}try{el.scrollIntoView({block:'center',inline:'nearest'})}catch(e){}}
+ function move(dir){
+  var cur=document.activeElement,list=focusables();
+  if(!list.length)return false;
+  if(!cur||cur===document.body||list.indexOf(cur)<0){
+   var base=cur&&cur!==document.body?cur.getBoundingClientRect():null;
+   if(!base){go(list[0]);return true}
+  }
+  var a=(cur&&cur!==document.body)?cur.getBoundingClientRect():{left:0,right:0,top:0,bottom:0};
+  var ax=(a.left+a.right)/2,ay=(a.top+a.bottom)/2,best=null,bs=1e12;
+  list.forEach(function(el){
+   if(el===cur)return;var b=el.getBoundingClientRect(),bx=(b.left+b.right)/2,by=(b.top+b.bottom)/2,dx=bx-ax,dy=by-ay,p,o;
+   if(dir==='r'){if(!(b.left>=a.right-6||dx>a.width/2))return;p=dx;o=Math.abs(dy)}
+   else if(dir==='l'){if(!(b.right<=a.left+6||dx<-a.width/2))return;p=-dx;o=Math.abs(dy)}
+   else if(dir==='d'){if(!(b.top>=a.bottom-6||dy>a.height/2))return;p=dy;o=Math.abs(dx)}
+   else{if(!(b.bottom<=a.top+6||dy<-a.height/2))return;p=-dy;o=Math.abs(dx)}
+   if(p<=0)return;
+   var sc=p+o*2.2;if(sc<bs){bs=sc;best=el}
+  });
+  if(best){go(best);return true}
+  return false;
+ }
+ function zap(step){
+  var cards=[].slice.call(document.querySelectorAll('.channel-card')).filter(function(c){return c.getClientRects().length>0});
+  if(!cards.length)return false;
+  var i=-1;for(var k=0;k<cards.length;k++){if(cards[k].classList.contains('active')){i=k;break}}
+  var n=cards[(i+step+cards.length)%cards.length];if(!n)return false;n.click();return true;
+ }
+ function back(){
+  if(fsEl()){try{(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}return true}
+  var m=topModal();
+  if(m){var c=m.querySelector('#categoryModalClose,.kp-age-no,[aria-label^=Close],.kp-ad-skip:not([disabled])');if(c){c.click();return true}}
+  return false;
+ }
+ function typing(el){return el&&((el.tagName==='INPUT'&&/^(text|search|email|url|tel|password|number)$/i.test(el.type||'text'))||el.tagName==='TEXTAREA')}
+ document.addEventListener('keydown',function(e){
+  if(e.altKey||e.ctrlKey||e.metaKey)return;
+  var k=e.key,code=e.keyCode,dir=DIRS[k]||DIRCODE[code],el=document.activeElement,tools=document.querySelector('.video-tools');
+  // Back button on TV remotes
+  if(code===10009||code===461||k==='GoBack'||k==='BrowserBack'||(k==='Backspace'&&!typing(el))){if(back())e.preventDefault();return}
+  // Channel up / down keys
+  if(code===427||code===428||k==='ChannelUp'||k==='ChannelDown'||k==='PageUp'||k==='PageDown'){
+   if(typing(el))return;if(zap((code===427||k==='ChannelUp'||k==='PageUp')?-1:1))e.preventDefault();return;
+  }
+  if(!dir)return;
+  var menu=document.querySelector('.kp-q-menu:not([hidden])');
+  if(menu&&(dir==='u'||dir==='d')){var items=[].slice.call(menu.querySelectorAll('button')),i=items.indexOf(el);i=dir==='d'?Math.min(items.length-1,i+1):Math.max(0,i-1);items[i].focus();e.preventDefault();return}
+  if(menu&&(dir==='l'||dir==='r')){e.preventDefault();return}
+  if(typing(el)&&(dir==='l'||dir==='r'))return;
+  if(el&&el.type==='range'&&(dir==='l'||dir==='r'))return;
+  if(el&&el.tagName==='SELECT'&&(dir==='l'||dir==='r'))return;
+  // Fullscreen: Up/Down changes channel; Left/Right reaches the player controls
+  if(fsEl()&&!(tools&&tools.contains(el))){
+   if(dir==='u'||dir==='d'){if(zap(dir==='d'?1:-1)){e.preventDefault()}return}
+   var first=document.getElementById('playPause');if(first){first.focus();e.preventDefault()}return;
+  }
+  if(fsEl()&&tools&&tools.contains(el)&&dir==='u'){var st=document.getElementById('stageTapToggle');if(st){st.focus();e.preventDefault();return}}
+  if(move(dir))e.preventDefault();
+ },true);
+ // Start with the first channel selected so the remote works immediately
+ var tries=0,iv=setInterval(function(){
+  tries++;var ae=document.activeElement;
+  if(ae&&ae!==document.body){if(tries>3)clearInterval(iv);return}
+  var c=document.querySelector('.channel-card');
+  if(c&&c.getClientRects().length){go(c);clearInterval(iv)}else if(tries>40)clearInterval(iv);
+ },300);
 })();
 </script>
 </body>
