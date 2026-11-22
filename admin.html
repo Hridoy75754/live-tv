@@ -340,6 +340,8 @@ $('m3uFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const txt
 $('m3uCommit').onclick=async()=>{if(!pendingPlaylist.length)return;if(!confirm(`Import ${pendingPlaylist.length} new channels? Existing records will not be overwritten.`))return;for(let i=0;i<pendingPlaylist.length;i+=100){const {error}=await db.from('kp_channels').insert(pendingPlaylist.slice(i,i+100));if(error){msg($('systemMsg'),'Playlist import stopped: '+error.message);return}}pendingPlaylist=[];await loadAll();msg($('systemMsg'),'New playlist channels imported.',true)};
 $('testExisting').onchange=()=>{const c=channels.find(x=>x.id===$('testExisting').value);if(!c)return;$('testName').value=c.name;$('testUrl').value=(c.stream_urls||[]).map(x=>typeof x==='string'?x:x.url).filter(Boolean)[0]||''};
 const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev';
+const KP_PROXY2_URL='https://kp-proxy-293s.onrender.com'; // second proxy (Render), tried after the first one
+function testProxyBase(p){return p==='q'?KP_PROXY2_URL:KP_PROXY_URL}
 function testCleanup(v){
  const e=v.__eng||{};
  try{if(e.hls)e.hls.destroy()}catch(_e){}
@@ -399,6 +401,7 @@ async function testDiagnose(url){
   const seg=first.text.split(/\r?\n/).map(x=>x.trim()).find(x=>x&&!x.startsWith('#'));
   if(seg)await peek(seg,'First segment via proxy',200);
  }
+ if(!first||first.status!==200||!/#EXTM3U/.test(first.text||''))await peek(KP_PROXY2_URL+'/?url='+encodeURIComponent(url),'Render proxy (first bytes)',200);
  return out.join('\n');
 }
 async function runStreamTest(url,v,box,withDiag){
@@ -407,17 +410,18 @@ async function runStreamTest(url,v,box,withDiag){
  testCleanup(v);box.classList.remove('hidden');box.style.whiteSpace='pre-wrap';
  if(!/^https?:\/\//i.test(url)){msg(box,'Not testable here: browsers only play http/https links (RTMP, RTSP, UDP must be converted to HLS on a server).');return{ok:false}}
  const insecure=location.protocol==='https:'&&/^http:\/\//i.test(url),kinds=testKinds(url),plan=[];
- if(!insecure)kinds.forEach(k=>plan.push({k,p:false}));
- (kinds.length>1?['hls','mpegts']:kinds).forEach(k=>plan.push({k,p:true}));
+ if(!insecure)kinds.forEach(k=>plan.push({k,p:''}));
+ (kinds.length>1?['hls','mpegts']:kinds).forEach(k=>plan.push({k,p:'p'}));
+ (kinds.length>1?['hls','mpegts']:kinds).forEach(k=>plan.push({k,p:'q'}));
  const notes=[],t0=performance.now();
  for(const a of plan){
   if(tok.cancelled)return{ok:false,cancelled:true};
-  box.className='status';box.textContent='Testing '+a.k.toUpperCase()+(a.p?' via proxy':' directly')+'\u2026';
-  const src=a.p?KP_PROXY_URL+'/?url='+encodeURIComponent(url):url;
-  const r=await testAttempt(v,a.k,src,a.p?20000:12000,tok);
+  box.className='status';box.textContent='Testing '+a.k.toUpperCase()+(a.p==='q'?' via Render proxy (may take ~1 min if it was asleep)':a.p?' via proxy':' directly')+'\u2026';
+  const src=a.p?testProxyBase(a.p)+'/?url='+encodeURIComponent(url):url;
+  const r=await testAttempt(v,a.k,src,a.p==='q'?75000:a.p?20000:12000,tok);
   if(tok.cancelled)return{ok:false,cancelled:true};
-  if(r.ok){const via=a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms.',true);return{ok:true,proxy:a.p}}
-  notes.push(a.k+(a.p?'+proxy':'')+': '+r.why);
+  if(r.ok){const via=a.p==='q'?'through the Render proxy (Cloudflare proxy could not open it)':a.p?(insecure?'through the proxy (needed: http link on an https site)':'through the proxy (direct playback failed)'):'directly';msg(box,'\u2705 Works '+via+' as '+a.k.toUpperCase()+' in '+Math.round(performance.now()-t0)+' ms.',true);return{ok:true,proxy:a.p}}
+  notes.push(a.k+(a.p==='q'?'+render':a.p?'+proxy':'')+': '+r.why);
  }
  let text='\u274C Could not play. Tried: '+notes.join(' | ');
  if(withDiag){msg(box,text+'\n\nRunning proxy diagnosis\u2026');const d=await testDiagnose(url);if(tok.cancelled)return{ok:false,cancelled:true};text+='\n\nProxy diagnosis:\n'+d}
