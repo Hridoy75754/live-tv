@@ -756,8 +756,24 @@ function kpQRender(){
  kpQEntries.forEach(en=>add(en.label,kpQCur===en.h,()=>kpQSelect(en)));
  kpQLabel.textContent=kpQCur?kpQCur+'p':'AUTO';
 }
+let kpQLastChange=0,kpQWatchT=null;
+// If a chosen quality does not work on this stream, go back to Auto instead of letting the channel stop.
+function kpQRevertAuto(){
+ clearTimeout(kpQWatchT);
+ try{if(kpQEntries.auto)kpQEntries.auto()}catch(_e){}
+ kpQCur=0;kpQPref=0;try{localStorage.setItem('kp-quality-pref','0')}catch(_e){}
+ try{kpQRender()}catch(_e){}
+ try{if(hls)hls.startLoad()}catch(_e){}
+ try{video.play().catch(()=>{})}catch(_e){}
+ try{say('এই কোয়ালিটি এই চ্যানেলে চলছে না, Auto করা হলো')}catch(_e){}
+}
+function kpQWatch(){
+ clearTimeout(kpQWatchT);const t0=video.currentTime;
+ kpQWatchT=setTimeout(()=>{if(kpQCur&&!video.paused&&video.readyState<3&&Math.abs(video.currentTime-t0)<0.3)kpQRevertAuto()},12000);
+}
 function kpQSelect(en){
- try{if(en){en.set();kpQCur=en.h;kpQPref=en.h}else{if(kpQEntries.auto)kpQEntries.auto();kpQCur=0;kpQPref=0}}catch(_e){}
+ kpQLastChange=Date.now();
+ try{if(en){en.set();kpQCur=en.h;kpQPref=en.h;kpQWatch()}else{clearTimeout(kpQWatchT);if(kpQEntries.auto)kpQEntries.auto();kpQCur=0;kpQPref=0}}catch(_e){}
  try{localStorage.setItem('kp-quality-pref',String(kpQPref))}catch(_e){}
  kpQRender();
 }
@@ -914,7 +930,7 @@ function trySource(token=playbackToken){
  destroyEngines();
  video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
- let failed=false,played=false,mediaRecovered=false,netRecovered=0;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
+ let failed=false,played=false,mediaRecovered=false,netRecovered=0,reconnects=0;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
   const kinds=buildKinds(url);let curUrl=url,curKind='';let kindPos=0,connectTimer=null;const perKind=kinds.length>1?8000:15000;
   const fail=()=>{if(failed||!isCurrent())return;clearTimeout(connectTimer);clearTimeout(stallTimer);
    if(!played&&kindPos+1<kinds.length){kindPos++;destroyEngines();video.pause();video.removeAttribute('src');video.load();connectTimer=setTimeout(fail,perKind);$('playState').textContent='Detecting stream format… ('+(kindPos+1)+'/'+kinds.length+')';startKind(kinds[kindPos]);return}
@@ -922,7 +938,11 @@ function trySource(token=playbackToken){
    failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
   activeSourceFail=fail;connectTimer=setTimeout(fail,perKind);
  const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
- const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
+ const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{
+   if(!isCurrent()||video.readyState>=3)return;
+   // Live stream froze mid-play: reconnect the same link (like VLC does) before giving up on it
+   if(reconnects<4){reconnects++;$('playState').textContent='Reconnecting…';played=false;destroyEngines();video.pause();video.removeAttribute('src');video.load();clearTimeout(connectTimer);connectTimer=setTimeout(fail,perKind);startKind(kinds[kindPos]);return}
+   fail()},10000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
   const playCatch=()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback')};
   const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=curUrl;video.load();video.play().catch(playCatch)};
@@ -936,11 +956,11 @@ function trySource(token=playbackToken){
    hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.8,abrBandWidthUpFactor:0.6,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){try{kpQualityRefresh()}catch(_e){}$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
-   hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}fail()});
+   hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(kpQCur&&Date.now()-kpQLastChange<30000){kpQRevertAuto();return}if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}fail()});
    hls.attachMedia(video);
      }else startNative();
     }else if(kind==='dash'){
-     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();try{dashPlayer.updateSettings({streaming:{buffer:{bufferTimeDefault:20,bufferTimeAtTopQuality:30,bufferToKeep:20}}})}catch(_e){}dashPlayer.on('error',()=>{if(isCurrent())fail()});dashPlayer.on('streamInitialized',()=>{if(isCurrent())try{kpQualityRefresh()}catch(_e){}});dashPlayer.initialize(video,curUrl,true)}else fail();
+     if(window.dashjs){setupAudioBoost();dashPlayer=dashjs.MediaPlayer().create();try{dashPlayer.updateSettings({streaming:{buffer:{bufferTimeDefault:20,bufferTimeAtTopQuality:30,bufferToKeep:20}}})}catch(_e){}dashPlayer.on('error',()=>{if(!isCurrent())return;if(kpQCur&&Date.now()-kpQLastChange<30000){kpQRevertAuto();return}fail()});dashPlayer.on('streamInitialized',()=>{if(isCurrent())try{kpQualityRefresh()}catch(_e){}});dashPlayer.initialize(video,curUrl,true)}else fail();
     }else if(kind==='mpegts'||kind==='flv'){
      if(window.mpegts&&mpegts.isSupported()){
    try{
@@ -957,6 +977,11 @@ function trySource(token=playbackToken){
   startKind(kinds[0]);
 }
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
+// Jump over tiny holes in the buffer (a common reason for a live stream freezing at one exact second)
+let kpGapTimer=null;
+function kpGapJump(){try{if(video.paused||!lastChannel)return;const t=video.currentTime,b=video.buffered;for(let i=0;i<b.length;i++){if(b.start(i)>t&&b.start(i)-t<4){video.currentTime=b.start(i)+0.05;return}}}catch(_e){}}
+video.addEventListener('waiting',()=>{clearTimeout(kpGapTimer);kpGapTimer=setTimeout(kpGapJump,1000)});
+video.addEventListener('stalled',()=>{clearTimeout(kpGapTimer);kpGapTimer=setTimeout(kpGapJump,2000)});
 video.addEventListener('waiting',()=>{if(activeSourceFail&&lastChannel&&video.currentTime>0){clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(video.readyState<3&&activeSourceFail)activeSourceFail()},22000)}});
 video.addEventListener('error',()=>{if(activeSourceFail)activeSourceFail()});
 try{video.textTracks.addEventListener('addtrack',kpSubsOff);video.textTracks.addEventListener('change',kpSubsOff)}catch(_e){}
@@ -1034,7 +1059,8 @@ $('videoStage').addEventListener('mouseleave',()=>{if(!playerMouseInside)schedul
 $('videoStage').addEventListener('focusin',showPlayerControls);
 $('videoStage').addEventListener('focusout',()=>{setTimeout(()=>{if(!$('videoStage').contains(document.activeElement)&&!playerMouseInside)scheduleControlsHide()},0)});
 let suppressStageClickUntil=0;
-$('videoStage').addEventListener('click',e=>{if(Date.now()<suppressStageClickUntil||e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;showPlayerControls();if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
+let kpHiddenAtDown=false;$('videoStage').addEventListener('pointerdown',()=>{kpHiddenAtDown=$('videoStage').classList.contains('controls-hidden')},true);
+$('videoStage').addEventListener('click',e=>{if(Date.now()<suppressStageClickUntil||e.target.closest('.video-tools')||e.target.closest('#stageTapToggle'))return;const kpWasHidden=kpHiddenAtDown;kpHiddenAtDown=false;showPlayerControls();if(kpWasHidden&&!video.paused)return; /* first touch only brings the hidden buttons back; the next touch stops/plays */if(siteSettings.player?.tap_toggle!==false){if(video.paused){video.play().catch(()=>say('Play চাপুন'))}else video.pause();}});$('stageTapToggle').addEventListener('click',e=>{e.stopPropagation();if(video.paused)video.play().catch(()=>say('Play চাপুন'));else video.pause();showPlayerControls()});
 $('videoStage').addEventListener('touchstart',showPlayerControls,{passive:true});
 showPlayerControls();
 
