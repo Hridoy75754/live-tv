@@ -783,15 +783,24 @@ function destroyEngines(){
 }
 const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev'; // After deploying stream-proxy.js on Cloudflare, put its address here, e.g. 'https://kp-proxy.yourname.workers.dev'
 function kpProxyBase(){let b='';try{b=(siteSettings&&siteSettings.player&&siteSettings.player.proxy_url)||''}catch(_e){}return String(b||KP_PROXY_URL||'').trim().replace(/\/+$/,'')}
-function proxifyUrl(u){const b=kpProxyBase();return b?b+'/?url='+encodeURIComponent(u):u}
+function proxifyUrl(u,second){const b=second?kpProxyBase2():kpProxyBase();return b?b+'/?url='+encodeURIComponent(u):u}
+// Second proxy (optional, e.g. Deno Deploy): used only when the first proxy (Cloudflare) fails for a link, so most traffic stays on the first one.
+const KP_PROXY2_URL='https://kp-proxy-293s.onrender.com'; // second proxy (Render): used only when the first one fails
+function kpProxyBase2(){let b='';try{b=(siteSettings&&siteSettings.player&&siteSettings.player.proxy2_url)||''}catch(_e){}return String(b||KP_PROXY2_URL||'').trim().replace(/\/+$/,'')}
+function kpHostOf(u){try{return new URL(u).hostname}catch(_e){return ''}}
+function kpProxyPrefGet(u){try{const m=JSON.parse(localStorage.getItem('kp-proxy-pref')||'{}');return m[kpHostOf(u)]||''}catch(_e){return ''}}
+function kpProxyPrefSet(u,v){try{const m=JSON.parse(localStorage.getItem('kp-proxy-pref')||'{}');const h=kpHostOf(u);if(!h||m[h]===v)return;m[h]=v;const k=Object.keys(m);if(k.length>200)delete m[k[0]];localStorage.setItem('kp-proxy-pref',JSON.stringify(m))}catch(_e){}}
 function buildKinds(url){
- const base=guessKinds(url);
- if(!kpProxyBase())return base;
- // An http:// link on an https:// site is always blocked by the browser, so go straight through the proxy.
- if(location.protocol==='https:'&&/^http:\/\//i.test(url))return base.map(k=>k+'+p');
+ const base=guessKinds(url),p1=!!kpProxyBase(),p2=!!kpProxyBase2();
+ if(!p1&&!p2)return base;
+ // order of proxies: the one that worked for this server last time goes first
+ let order=[];if(p1)order.push('p');if(p2)order.push('q');
+ if(kpProxyPrefGet(url)==='q'&&order.length>1)order=['q','p'];
+ // An http:// link on an https:// site is always blocked by the browser, so go straight through a proxy.
+ if(location.protocol==='https:'&&/^http:\/\//i.test(url))return order.flatMap(x=>base.map(k=>k+'+'+x));
  // Otherwise try the direct link first, then retry through the proxy (fixes CORS / blocked-user-agent links).
- const viaProxy=base.length>1?['hls+p','mpegts+p']:base.map(k=>k+'+p');
- return [...base,...viaProxy];
+ const viaKinds=base.length>1?['hls','mpegts']:base;
+ return [...base,...order.flatMap(x=>viaKinds.map(k=>k+'+'+x))];
 }
 function guessKinds(url){
  let path='';try{path=new URL(url).pathname.toLowerCase()}catch(_e){}
@@ -906,20 +915,20 @@ function trySource(token=playbackToken){
  video.pause();video.removeAttribute('src');video.load();
  $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false,played=false,mediaRecovered=false,netRecovered=0;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
-  const kinds=buildKinds(url);let curUrl=url;let kindPos=0,connectTimer=null;const perKind=kinds.length>1?8000:15000;
+  const kinds=buildKinds(url);let curUrl=url,curKind='';let kindPos=0,connectTimer=null;const perKind=kinds.length>1?8000:15000;
   const fail=()=>{if(failed||!isCurrent())return;clearTimeout(connectTimer);clearTimeout(stallTimer);
    if(!played&&kindPos+1<kinds.length){kindPos++;destroyEngines();video.pause();video.removeAttribute('src');video.load();connectTimer=setTimeout(fail,perKind);$('playState').textContent='Detecting stream format… ('+(kindPos+1)+'/'+kinds.length+')';startKind(kinds[kindPos]);return}
    failed=true;destroyEngines();
    failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
   activeSourceFail=fail;connectTimer=setTimeout(fail,perKind);
- const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
+ const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)fail()},18000)};
  video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>fail();
   const playCatch=()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback')};
   const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=curUrl;video.load();video.play().catch(playCatch)};
   function startKind(kind){
    if(!isCurrent()||failed)return;
-   curUrl=kind.endsWith('+p')?proxifyUrl(url):url;kind=kind.replace('+p','');
+   curKind=kind;curUrl=/\+[pq]$/.test(kind)?proxifyUrl(url,kind.endsWith('+q')):url;kind=kind.replace(/\+[pq]$/,'');
    try{
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
