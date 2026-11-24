@@ -605,12 +605,13 @@ function selectCategoryFromModal(value){
  $('browse').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// Sports / live events (managed in Admin > Sports Events). Shown on the home page only: not inside a category and not during a search.
+// Sports / live events (managed in Admin > Sports Events). Shown on the visitor's own home page (the category picked for their location); hidden once they switch category or search.
+var kpHomeCategory=''; // the category chosen automatically for the visitor's location (their home page)
 function eventsConfig(){const e=siteSettings&&siteSettings.sports_events;return e&&typeof e==='object'?e:{enabled:true,items:[]}}
 function renderTrending(){
  const root=$('trendingRows');if(!root)return;root.innerHTML='';
  const cfg=eventsConfig();if(cfg.enabled===false)return;
- if($('category').value||$('search').value.trim())return;
+ if($('category').value!==kpHomeCategory||$('search').value.trim())return;
  const items=(Array.isArray(cfg.items)?cfg.items:[]).filter(e=>e&&e.is_active!==false&&String(e.title||'').trim()).sort((a,b)=>(Number(a.order)||0)-(Number(b.order)||0));
  items.forEach(ev=>{
   const valid=(Array.isArray(ev.channel_ids)?ev.channel_ids:[]).map(id=>channels.find(c=>String(c.id)===String(id))).filter(Boolean).filter(c=>adultAllowed()||!isAdultChannel(c));
@@ -972,7 +973,7 @@ function trySource(token=playbackToken){
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
    setupAudioBoost();
-   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.8,abrBandWidthUpFactor:0.6,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:500000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
+   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.75,abrBandWidthUpFactor:0.55,abrMaxWithRealBitrate:true,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:300000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){try{kpQualityRefresh()}catch(_e){}$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(kpQCur&&Date.now()-kpQLastChange<30000){kpQRevertAuto();return}if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}failOrReconnect()});
@@ -996,6 +997,27 @@ function trySource(token=playbackToken){
   startKind(kinds[0]);
 }
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
+// Smooth playback on slow networks: when the picture runs out of data, hold for a few seconds and resume once a safe amount is buffered,
+// instead of stuttering every second. The safe amount grows if buffering keeps repeating.
+let kpRbHist=[],kpRbTarget=3,kpHold=false,kpHoldT=null,kpRbLast=0;
+function kpAhead(){try{const b=video.buffered,t=video.currentTime;for(let i=0;i<b.length;i++)if(t>=b.start(i)-0.25&&t<=b.end(i))return b.end(i)-t}catch(_e){}return 0}
+function kpHoldStop(){kpHold=false;clearInterval(kpHoldT)}
+video.addEventListener('waiting',()=>{
+ if(kpHold||video.paused||video.ended||video.currentTime<1||!lastChannel)return;
+ const now=Date.now();
+ if(now-kpRbLast>60000)kpRbTarget=3;kpRbLast=now;
+ kpRbHist=kpRbHist.filter(t=>now-t<30000);kpRbHist.push(now);
+ if(kpRbHist.length>=2)kpRbTarget=Math.min(12,kpRbTarget+2);
+ kpHold=true;try{video.pause()}catch(_e){}
+ try{$('playState').textContent='Buffering… smoothing playback'}catch(_e){}
+ clearInterval(kpHoldT);
+ kpHoldT=setInterval(()=>{
+  if(!kpHold){clearInterval(kpHoldT);return}
+  if(kpAhead()>=kpRbTarget||Date.now()-now>12000){kpHoldStop();video.play().catch(()=>{})}
+ },400);
+});
+video.addEventListener('play',()=>{if(kpHold&&Date.now()-kpRbLast>400)kpHoldStop()});
+video.addEventListener('loadstart',()=>{kpHoldStop();kpRbHist=[];kpRbTarget=3});
 // Jump over tiny holes in the buffer (a common reason for a live stream freezing at one exact second)
 let kpGapTimer=null;
 function kpGapJump(){try{if(video.paused||!lastChannel)return;const t=video.currentTime,b=video.buffered;for(let i=0;i<b.length;i++){if(b.start(i)>t&&b.start(i)-t<4){video.currentTime=b.start(i)+0.05;return}}}catch(_e){}}
@@ -1219,6 +1241,7 @@ function autoPickByVisitorCountry(country,allowReplace=false){
  if(activeId&&!allowReplace)return;
  if(activeId===chosen.id)return;
  $('category').value=country==='BD'?'Bangladesh':country==='IN'?'India':'';
+ kpHomeCategory=$('category').value;try{renderTrending()}catch(_e){}
  autoMutedStart=true;play(chosen,0);
  $('playState').textContent=country?'Auto-selected for '+country+' · autoplay started muted':'Starting a channel · location lookup in background';
  autoPickStarted=true;
