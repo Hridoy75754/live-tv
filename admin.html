@@ -391,6 +391,7 @@ $('m3uFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const txt
 $('m3uCommit').onclick=async()=>{if(!pendingPlaylist.length)return;if(!confirm(`Import ${pendingPlaylist.length} new channels? Existing records will not be overwritten.`))return;for(let i=0;i<pendingPlaylist.length;i+=100){const {error}=await db.from('kp_channels').insert(pendingPlaylist.slice(i,i+100));if(error){msg($('systemMsg'),'Playlist import stopped: '+error.message);return}}pendingPlaylist=[];await loadAll();msg($('systemMsg'),'New playlist channels imported.',true)};
 $('testExisting').onchange=()=>{const c=channels.find(x=>x.id===$('testExisting').value);if(!c)return;$('testName').value=c.name;$('testUrl').value=(c.stream_urls||[]).map(x=>typeof x==='string'?x:x.url).filter(Boolean)[0]||''};
 const KP_PROXY_URL='https://kp-proxy.stlovehistory.workers.dev';
+try{setTimeout(()=>fetch('https://kp-proxy-293s.onrender.com/',{mode:'no-cors',cache:'no-store'}).catch(()=>{}),2000)}catch(_e){} // wake the free Render proxy early
 const KP_PROXY2_URL='https://kp-proxy-293s.onrender.com'; // second proxy (Render), tried after the first one
 function testProxyBase(p){return p==='q'?KP_PROXY2_URL:KP_PROXY_URL}
 function testCleanup(v){
@@ -422,7 +423,7 @@ function testAttempt(v,kind,src,limit,tok){
     if(window.Hls&&Hls.isSupported()){const h=new Hls();v.__eng.hls=h;h.on(Hls.Events.ERROR,(_e,d)=>{if(d.fatal)fin(false,d.details)});h.loadSource(src);h.attachMedia(v);v.play().catch(()=>{})}
     else{v.onerror=()=>fin(false,'media error');v.src=src;v.play().catch(()=>{})}
    }else if(kind==='mpegts'||kind==='flv'){
-    if(window.mpegts&&mpegts.isSupported()){const pl=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:src,isLive:true});v.__eng.ts=pl;pl.on(mpegts.Events.ERROR,(_t,d)=>fin(false,String(d)));pl.attachMediaElement(v);pl.load();v.play().catch(()=>{})}
+    if(window.mpegts&&mpegts.isSupported()){const pl=mpegts.createPlayer({type:kind==='flv'?'flv':'mpegts',url:src,isLive:true});v.__eng.ts=pl;let codecs='';pl.on(mpegts.Events.MEDIA_INFO,i=>{codecs=' [video: '+(i.videoCodec||'?')+(i.width?' '+i.width+'x'+i.height:'')+' / audio: '+(i.audioCodec||'?')+']'});pl.on(mpegts.Events.ERROR,(_t,d)=>fin(false,String(d)+codecs));pl.attachMediaElement(v);pl.load();v.play().catch(()=>{})}
     else fin(false,'not supported in this browser');
    }else{v.onerror=()=>fin(false,'media error');v.src=src;v.load();v.play().catch(()=>{})}
   }catch(e){fin(false,e.message)}
