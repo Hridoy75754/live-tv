@@ -727,7 +727,7 @@ function play(channel,start=0){
  if(isAdultChannel(channel)&&!adultAllowed()){if(autoMutedStart){autoMutedStart=false;return}showAdultGate(ok=>{if(ok){play(channel,start)}});return}
  if(KP_ADULT_AD.enabled&&isAdultChannel(channel)&&!autoMutedStart&&!kpAdBypass&&kpAdDue()){kpShowAdultAd(()=>{kpAdBypass=true;try{play(channel,start)}finally{kpAdBypass=false}});return}
  clearPlaybackTimers();stop();playbackToken++;lastChannel=channel;try{channel.__retriedAll=false}catch(_e){}activeId=channel.id;sourceIndex=start;attempted=new Set();failedIndices=new Set();
- let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));const wasAuto=autoMutedStart;video.muted=savedMute||autoMutedStart;autoMutedStart=false;
+ let savedVol=Number(localStorage.getItem('kp-player-volume'));const savedMute=localStorage.getItem('kp-player-muted')==='1';if(Number.isFinite(savedVol)&&savedVol<0.65){savedVol=1;try{localStorage.setItem('kp-player-volume','1')}catch{}}video.volume=Number.isFinite(savedVol)?Math.max(0,Math.min(1,savedVol)):Math.max(0,Math.min(1,Number(siteSettings.player?.volume??1)));const wasAuto=autoMutedStart;video.muted=false;autoMutedStart=false;
  $('nowTitle').textContent=channel.name;$('nowGroup').textContent=channel.group;$('playState').textContent='Connecting…';render();trySource(playbackToken);
  if(!wasAuto)revealPlayer();
 }
@@ -1059,6 +1059,33 @@ const screenSteps=[
  {label:'200%',mode:'cover',zoom:2,title:'Zoom 200%'},
  {label:'RESET',mode:autoFitMode,zoom:1,title:'Reset to auto fit'}
 ];
+/* Sound on by default: try with sound; if the browser blocks it, play muted and unmute on the first tap/key anywhere */
+let kpPendingUnmute=false;
+(function(){
+ const _p=video.play.bind(video);
+ video.play=function(){
+  const r=_p();
+  if(r&&r.catch)return r.catch(e=>{
+   if(e&&e.name==='NotAllowedError'&&!video.muted){
+    kpPendingUnmute=true;video.muted=true;try{syncPlaybackControls()}catch(_e){}
+    try{$('playState').textContent='Tap anywhere for sound'}catch(_e){}
+    return _p();
+   }
+   throw e;
+  });
+  return r;
+ };
+ const onGesture=e=>{
+  if(!kpPendingUnmute)return;
+  if(e.target&&e.target.closest&&e.target.closest('#volumeToggleBtn,#volumeLevel')){kpPendingUnmute=false;return}
+  kpPendingUnmute=false;
+  try{if(e.target&&e.target.closest&&e.target.closest('#videoStage'))suppressStageClickUntil=Date.now()+500}catch(_e){}
+  try{if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{})}catch(_e){}
+  if(video.muted){video.muted=false;if(video.volume===0)video.volume=.7;try{syncPlaybackControls()}catch(_e){}}
+  try{if(video.paused)video.play().catch(()=>{})}catch(_e){}
+ };
+ ['pointerdown','touchstart','keydown','click'].forEach(t=>document.addEventListener(t,onGesture,true));
+})();
 function syncPlaybackControls(){playPauseBtn.textContent=video.paused?'▶':'Ⅱ';volumeToggleBtn.textContent=(video.muted||video.volume===0)?'🔇':'🔊';volumeLevel.value=String(video.muted?0:video.volume);try{localStorage.setItem('kp-player-volume',String(video.volume));localStorage.setItem('kp-player-muted',video.muted?'1':'0')}catch{}}
 playPauseBtn.addEventListener('click',()=>{if(video.paused){video.muted=false;video.removeAttribute('muted');video.play().catch(()=>{say('এই স্ট্রিমটি চালাতে Play চাপুন');$('playState').textContent='Tap Play to start';})}else video.pause();syncPlaybackControls();showPlayerControls()});
 volumeToggleBtn.addEventListener('click',()=>{video.muted=!video.muted;if(!video.muted&&video.volume===0)video.volume=.7;syncPlaybackControls();showPlayerControls()});
@@ -1243,7 +1270,7 @@ function autoPickByVisitorCountry(country,allowReplace=false){
  $('category').value=country==='BD'?'Bangladesh':country==='IN'?'India':'';
  kpHomeCategory=$('category').value;try{renderTrending()}catch(_e){}
  autoMutedStart=true;play(chosen,0);
- $('playState').textContent=country?'Auto-selected for '+country+' · autoplay started muted':'Starting a channel · location lookup in background';
+ $('playState').textContent=country?'Auto-selected for '+country+' · autoplay':'Starting a channel · location lookup in background';
  autoPickStarted=true;
 }
 
