@@ -46,7 +46,7 @@
 <section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><hr><label>Or paste the full playlist text here</label><textarea id="plPaste" rows="8" placeholder="#EXTM3U&#10;#EXTINF:-1 group-title=&quot;Sports&quot;,T Sports&#10;http://example.com/live/1.m3u8&#10;&#10;(You can also paste lines like:  Channel name, http://link  or just links)"></textarea><div class="toolbar"><button class="primary" id="plLoadPaste">Load pasted playlist</button><button type="button" id="plPasteClear">Clear box</button></div><div id="plMsg" class="status hidden"></div><div class="toolbar" id="plAfter"></div></div>
 <div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><div id="plNote" class="muted" style="margin-top:8px"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
 <div class="panel hidden" id="plListPanel"><div class="grid"><div><label>Search</label><input id="plSearch" placeholder="Channel or group name"></div><div><label>Group</label><select id="plGroup"></select></div></div><div class="muted" id="plCount" style="margin-top:8px"></div><div id="plList"></div><div class="toolbar"><button id="plMore">Show more</button></div></div></section>
-<section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
+<section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button><button id="scanAll">Scan all active channels (find Render-only)</button><button id="scanStop" class="hidden">Stop scan</button><button id="scanCopy" class="hidden">Copy list</button></div><div id="scanOut" class="status hidden" style="max-height:340px;overflow:auto"></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
 </main></div>
 <script>
 (()=>{'use strict';const $=id=>document.getElementById(id);const configUrl=window.KP_SUPABASE_URL||'',configKey=window.KP_SUPABASE_ANON_KEY||'';if(!window.supabase||!configUrl.startsWith('https://')||!configKey){$('loginMsg').textContent='Supabase configuration missing. Check supabase-config.js.';$('loginMsg').classList.remove('hidden');$('loginBtn').disabled=true;return}const db=window.supabase.createClient(configUrl,configKey);let channels=[],categories=[],trends=[],notices=[],settings={},editingChannel=null,editingCategory=null,editingTrend=null,editingNotice=null;
@@ -480,6 +480,43 @@ async function runStreamTest(url,v,box,withDiag){
  msg(box,text);return{ok:false};
 }
 $('testStream').onclick=()=>{const url=$('testUrl').value.trim();if(!/^https?:\/\//i.test(url)){msg($('testResult'),'Invalid URL. Use an HTTP or HTTPS stream URL.');return}runStreamTest(url,$('testVideo'),$('testResult'),true)};
+
+/* ---------- Scan all channels: which ones need the Render proxy ---------- */
+let scanRun=false,scanCancel=false,scanText='';
+function scanSummary(res,done,total,cur){
+ const L=['✅ Direct: '+res.direct,'☁ Cloudflare proxy: '+res.p.length,'⚠ Render needed: '+res.q.length,'❌ Failed: '+res.fail.length];
+ let t=(cur?'Scanning '+done+'/'+total+': '+cur+' …\n':'Finished '+done+'/'+total+(scanCancel?' (stopped)':'')+'\n')+L.join('  |  ')+'\n';
+ if(res.q.length)t+='\n⚠ RENDER NEEDED (uses Render bandwidth — change the source if possible):\n'+res.q.map(x=>' - '+x).join('\n')+'\n';
+ if(res.fail.length)t+='\n❌ NOT WORKING:\n'+res.fail.map(x=>' - '+x).join('\n')+'\n';
+ if(res.p.length)t+='\n☁ Cloudflare proxy (free, fine):\n'+res.p.map(x=>' - '+x).join('\n')+'\n';
+ return t;
+}
+$('scanAll').onclick=async()=>{
+ if(scanRun)return;
+ const items=[];
+ channels.filter(c=>c.is_active).forEach(c=>(c.stream_urls||[]).forEach((x,i)=>{const u=typeof x==='string'?x:(x&&x.url)||'';if(/^https?:\/\//i.test(u))items.push({c,i,u})}));
+ if(!items.length){alert('No active channel links to scan.');return}
+ if(!confirm('This tests '+items.length+' links one by one and can take a long time (failed links wait up to ~2 minutes each). Keep this tab open. Start?'))return;
+ scanRun=true;scanCancel=false;scanText='';
+ $('scanAll').disabled=true;$('scanStop').classList.remove('hidden');$('scanCopy').classList.add('hidden');
+ const out=$('scanOut');out.classList.remove('hidden');out.style.whiteSpace='pre-wrap';
+ const res={direct:0,p:[],q:[],fail:[]},v=$('testVideo'),box=document.createElement('div');
+ let n=0;
+ for(const it of items){
+  if(scanCancel)break;
+  n++;const label=it.c.name+(((it.c.stream_urls||[]).length>1)?' (link '+(it.i+1)+')':'');
+  out.textContent=scanSummary(res,n,items.length,label);
+  let r;try{r=await runStreamTest(it.u,v,box,false)}catch(_e){r={ok:false}}
+  if(r.cancelled)break;
+  if(r.ok){if(r.proxy==='q')res.q.push(label);else if(r.proxy==='p')res.p.push(label);else res.direct++}
+  else res.fail.push(label);
+ }
+ try{testCleanup(v)}catch(_e){}
+ scanText=scanSummary(res,Math.min(n,items.length),items.length,'');out.textContent=scanText;
+ scanRun=false;$('scanAll').disabled=false;$('scanStop').classList.add('hidden');$('scanCopy').classList.remove('hidden');
+};
+$('scanStop').onclick=()=>{scanCancel=true;const v=$('testVideo');if(v.__tok){v.__tok.cancelled=true;try{if(v.__tok.cancel)v.__tok.cancel()}catch(_e){}}};
+$('scanCopy').onclick=async()=>{try{await navigator.clipboard.writeText(scanText);$('scanCopy').textContent='Copied ✓';setTimeout(()=>$('scanCopy').textContent='Copy list',1500)}catch(_e){alert('Copy failed — select the text and copy it manually.')}};
 
 /* ---------- Playlist Browser ---------- */
 let plItems=[],plFiltered=[],plShown=40,plIndex=-1,plAdded=new Set();
