@@ -42,11 +42,11 @@
 <section class="section" id="page-navigation"><div class="panel"><h2>Navigation & Footer</h2><label class="check"><input id="navSearch" type="checkbox" checked> Show search</label><label class="check"><input id="navCategory" type="checkbox" checked> Show category selector</label><label>Footer text</label><input id="footerText"><label>Admin link label</label><input id="adminLinkText" value="Admin"><label>Social & Contact Links (one per line: Icon | Label | URL)</label><textarea id="socialLinksInput" rows="6" placeholder="📘 | Facebook | https://facebook.com/yourpage
 ▶ | YouTube | https://youtube.com/@yourchannel
 ✈ | Telegram | https://t.me/yourchannel"></textarea><div class="toolbar"><button class="primary" id="saveNavigation">Save Navigation & Footer</button></div></div></section>
-<section class="section" id="page-health"><div class="panel"><h2>Channel Health Monitor</h2><p class="muted">Checks each active channel's Primary and Backup URLs. Only reports a channel after repeated failures. A scheduled Edge Function is required for automatic checks and email delivery.</p><div class="stats"><div class="stat"><span class="muted">Failed channels</span><b id="healthFailed">—</b></div><div class="stat"><span class="muted">Open alerts</span><b id="healthOpen">—</b></div><div class="stat"><span class="muted">Last check</span><b id="healthLast">—</b></div></div><div class="toolbar"><button class="primary" id="healthRefresh">Refresh alerts</button><button id="healthRunNow">Run check now</button></div><label>Admin alert email</label><input id="healthEmail" type="email" placeholder="your-admin@email.com"><label class="check"><input id="healthEmailEnabled" type="checkbox" checked> Send email alerts and recovery notices</label><label>Check interval</label><select id="healthInterval"><option value="5">Every 5 minutes</option><option value="10">Every 10 minutes</option><option value="15">Every 15 minutes</option><option value="30">Every 30 minutes</option></select><div class="toolbar"><button class="primary" id="healthSaveSettings">Save alert settings</button></div><h3 style="margin-top:18px">Visitor-reported problems</h3><div class="muted">Reported automatically when a visitor player cannot open a channel link.</div><div id="healthReportList"></div><h3 style="margin-top:18px">Automatic checks</h3><div id="healthAlertList"></div><div id="healthMsg" class="status hidden"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><div class="muted">The message runs as moving text (right to left) on the homepage.</div><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
+<section class="section" id="page-health"><div class="panel"><h2>Channel Health Scan</h2><p class="muted">Tests every link of the chosen channels (active, inactive or both) in this browser with the real player (direct, then Cloudflare proxy, then Render as the last resort). Keep this tab open while it runs. The last result is saved in this browser.</p><div class="toolbar"><select id="scanScope" style="width:auto"><option value="all" selected>Active + inactive channels</option><option value="active">Only active channels</option><option value="inactive">Only inactive channels</option></select><button id="scanAll" class="primary">Scan channels</button><button id="scanStop" class="hidden">Stop scan</button><button id="scanCopy">Copy list</button></div><div id="scanProg" class="status hidden" style="white-space:pre-wrap"></div><div id="scanBody"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><div class="muted">The message runs as moving text (right to left) on the homepage.</div><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
 <section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><hr><label>Or paste the full playlist text here</label><textarea id="plPaste" rows="8" placeholder="#EXTM3U&#10;#EXTINF:-1 group-title=&quot;Sports&quot;,T Sports&#10;http://example.com/live/1.m3u8&#10;&#10;(You can also paste lines like:  Channel name, http://link  or just links)"></textarea><div class="toolbar"><button class="primary" id="plLoadPaste">Load pasted playlist</button><button type="button" id="plPasteClear">Clear box</button></div><div id="plMsg" class="status hidden"></div><div class="toolbar" id="plAfter"></div></div>
 <div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><div id="plNote" class="muted" style="margin-top:8px"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
 <div class="panel hidden" id="plListPanel"><div class="grid"><div><label>Search</label><input id="plSearch" placeholder="Channel or group name"></div><div><label>Group</label><select id="plGroup"></select></div></div><div class="muted" id="plCount" style="margin-top:8px"></div><div id="plList"></div><div class="toolbar"><button id="plMore">Show more</button></div></div></section>
-<section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button><button id="scanAll">Scan all active channels (find Render-only)</button><button id="scanStop" class="hidden">Stop scan</button><button id="scanCopy" class="hidden">Copy list</button></div><div id="scanOut" class="status hidden" style="max-height:340px;overflow:auto"></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
+<section class="section" id="page-system"><div class="panel"><h2>Admin & System</h2><p class="muted">Admin authorization is controlled by the kp_admins table and Row Level Security. Do not place the Supabase service-role key in this website.</p><div class="toolbar"><button id="exportData">Export channels JSON</button><label style="margin:0"><input type="file" id="importData" accept=".json,application/json"></label></div><div class="toolbar"><button id="refreshAll">Refresh data</button></div><div class="panel"><h2>Playlist Import (M3U / M3U8)</h2><p class="muted">Preview first. Existing channel records are not overwritten automatically.</p><input type="file" id="m3uFile" accept=".m3u,.m3u8,audio/x-mpegurl,application/vnd.apple.mpegurl"><div id="m3uPreview" class="status hidden"></div><button id="m3uCommit" class="primary" disabled>Confirm import new channels</button></div><div class="panel"><h2>Stream Link Tester</h2><label>Channel name</label><input id="testName" placeholder="Channel name"><label>Test existing channel</label><select id="testExisting"><option value="">Choose a channel (optional)</option></select><label>Stream URL</label><input id="testUrl" placeholder="https://...m3u8"><div class="toolbar"><button id="testStream" class="primary">Test stream</button></div><video id="testVideo" controls playsinline style="width:100%;max-height:260px;background:#000"></video><div id="testResult" class="status hidden"></div></div><div class="panel"><h2>Visitor Analytics</h2><p class="muted">Requires the supplied SQL migration. Counts are approximate; browser storage identifies returning visitors.</p><div class="stats"><div class="stat"><span class="muted">Today events</span><b id="analyticsToday">—</b></div><div class="stat"><span class="muted">Total events</span><b id="analyticsTotal">—</b></div><div class="stat"><span class="muted">Unique visitors</span><b id="analyticsUnique">—</b></div></div><button id="loadAnalytics">Refresh analytics</button></div><div id="systemMsg" class="status hidden"></div></div></section>
 </main></div>
 <script>
 (()=>{'use strict';const $=id=>document.getElementById(id);const configUrl=window.KP_SUPABASE_URL||'',configKey=window.KP_SUPABASE_ANON_KEY||'';if(!window.supabase||!configUrl.startsWith('https://')||!configKey){$('loginMsg').textContent='Supabase configuration missing. Check supabase-config.js.';$('loginMsg').classList.remove('hidden');$('loginBtn').disabled=true;return}const db=window.supabase.createClient(configUrl,configKey);let channels=[],categories=[],trends=[],notices=[],settings={},editingChannel=null,editingCategory=null,editingTrend=null,editingNotice=null;
@@ -481,42 +481,112 @@ async function runStreamTest(url,v,box,withDiag){
 }
 $('testStream').onclick=()=>{const url=$('testUrl').value.trim();if(!/^https?:\/\//i.test(url)){msg($('testResult'),'Invalid URL. Use an HTTP or HTTPS stream URL.');return}runStreamTest(url,$('testVideo'),$('testResult'),true)};
 
-/* ---------- Scan all channels: which ones need the Render proxy ---------- */
-let scanRun=false,scanCancel=false,scanText='';
-function scanSummary(res,done,total,cur){
- const L=['✅ Direct: '+res.direct,'☁ Cloudflare proxy: '+res.p.length,'⚠ Render needed: '+res.q.length,'❌ Failed: '+res.fail.length];
- let t=(cur?'Scanning '+done+'/'+total+': '+cur+' …\n':'Finished '+done+'/'+total+(scanCancel?' (stopped)':'')+'\n')+L.join('  |  ')+'\n';
- if(res.q.length)t+='\n⚠ RENDER NEEDED (uses Render bandwidth — change the source if possible):\n'+res.q.map(x=>' - '+x).join('\n')+'\n';
- if(res.fail.length)t+='\n❌ NOT WORKING:\n'+res.fail.map(x=>' - '+x).join('\n')+'\n';
- if(res.p.length)t+='\n☁ Cloudflare proxy (free, fine):\n'+res.p.map(x=>' - '+x).join('\n')+'\n';
- return t;
+/* ---------- Channel Health Scan (Health page) ---------- */
+const SCAN_KEY='kp-scan-v2';
+let scanRun=false,scanCancel=false,scanData=null,scanText='';
+function scanLoad(){try{scanData=JSON.parse(localStorage.getItem(SCAN_KEY)||'null')}catch(_e){scanData=null}}
+function scanSave(){try{localStorage.setItem(SCAN_KEY,JSON.stringify(scanData))}catch(_e){}}
+function scanChName(id,fallback){const c=channels.find(x=>x.id===id);return c?c.name:(fallback||id)}
+function scanPlainText(){
+ const d=scanData;if(!d)return '';
+ const L=['Scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':''),'Direct OK: '+d.direct+' | Cloudflare: '+d.p.length+' | Render needed: '+d.q.length+' | Not working channels: '+d.bad.length];
+ if(d.bad.length)L.push('','NOT WORKING (all links fail):',...d.bad.map(b=>' - '+scanChName(b.id,b.name)+' ['+(b.links||[]).join(', ')+']'));
+ if((d.revive||[]).length)L.push('','INACTIVE BUT WORKING:',...d.revive.map(x=>' - '+x.name+' ('+x.ok+'/'+x.total+' links work)'));
+ if(d.q.length)L.push('','RENDER NEEDED:',...d.q.map(x=>' - '+x));
+ if(d.part.length)L.push('','SOME LINKS DEAD (channel still works):',...d.part.map(x=>' - '+x));
+ if(d.p.length)L.push('','CLOUDFLARE PROXY:',...d.p.map(x=>' - '+x));
+ return L.join('\n');
 }
+function scanBlock(title,items){
+ const box=document.createElement('div');box.style.margin='14px 0';
+ const h=document.createElement('strong');h.textContent=title+' ('+items.length+')';box.appendChild(h);
+ const pre=document.createElement('div');pre.className='muted';pre.style.cssText='margin-top:6px;white-space:pre-wrap;max-height:220px;overflow:auto';pre.textContent=items.map(x=>'• '+x).join('\n');box.appendChild(pre);
+ return box;
+}
+function scanRender(){
+ const root=$('scanBody');if(!root)return;root.innerHTML='';
+ const d=scanData;
+ if(!d){root.innerHTML='<div class="muted" style="margin-top:12px">No scan yet. Press "Scan all active channels".</div>';return}
+ const sum=document.createElement('div');sum.className='stats';sum.style.margin='14px 0';
+ [['Direct OK',d.direct],['Cloudflare',d.p.length],['Render needed',d.q.length],['Not working',d.bad.length],['Inactive but working',(d.revive||[]).length]].forEach(([k,v])=>{const x=document.createElement('div');x.className='stat';x.innerHTML='<span class="muted"></span><b></b>';x.querySelector('span').textContent=k;x.querySelector('b').textContent=v;sum.appendChild(x)});
+ root.appendChild(sum);
+ const when=document.createElement('div');when.className='muted';when.textContent='Last scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':'');root.appendChild(when);
+ // clickable: channels where no link works
+ const det=document.createElement('details');det.style.margin='14px 0';if(d.bad.length&&d.open)det.open=true;
+ det.ontoggle=()=>{d.open=det.open;scanSave()};
+ const sm=document.createElement('summary');sm.style.cssText='cursor:pointer;font-weight:700;color:#ef4444';sm.textContent='❌ Not working channels ('+d.bad.length+') — click to open';det.appendChild(sm);
+ if(!d.bad.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='Every scanned channel has at least one working link.';det.appendChild(n)}
+ d.bad.forEach(b=>{
+  const c=channels.find(x=>x.id===b.id);
+  const row=document.createElement('div');row.className='item';
+  const m=document.createElement('div');m.className='meta';
+  const st=document.createElement('strong');st.textContent=(c?c.name:(b.name||b.id))+(c&&!c.is_active?'  · INACTIVE':'');
+  const sub=document.createElement('small');sub.textContent=(c?(c.category||'Other')+' · ':'')+(b.links||[]).join(' | ')+' not working';
+  m.append(st,sub);row.appendChild(m);
+  if(c){
+   const ed=document.createElement('button');ed.textContent='Edit';ed.onclick=()=>{go('channel-edit');editChannel(c)};
+   const tg=document.createElement('button');tg.textContent=c.is_active?'Deactivate':'Activate';tg.onclick=async()=>{tg.disabled=true;await toggleChannel(c);d.open=true;scanRender()};
+   row.append(ed,tg);
+  }else{const gone=document.createElement('small');gone.textContent='(channel not found)';row.appendChild(gone)}
+  det.appendChild(row);
+ });
+ root.appendChild(det);
+ const rev=(d.revive||[]).filter(x=>channels.find(c=>c.id===x.id&&!c.is_active));
+ const det2=document.createElement('details');det2.style.margin='14px 0';if(d.open2)det2.open=true;
+ det2.ontoggle=()=>{d.open2=det2.open;scanSave()};
+ const sm2=document.createElement('summary');sm2.style.cssText='cursor:pointer;font-weight:700;color:#22c55e';sm2.textContent='\u2705 Inactive but working ('+rev.length+') \u2014 click to open';det2.appendChild(sm2);
+ if(!rev.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='No inactive channel with a working link (or inactive channels were not scanned).';det2.appendChild(n)}
+ rev.forEach(x=>{
+  const c=channels.find(y=>y.id===x.id);if(!c)return;
+  const row=document.createElement('div');row.className='item';
+  const m=document.createElement('div');m.className='meta';
+  const st=document.createElement('strong');st.textContent=c.name+'  \u00b7 INACTIVE';
+  const sub=document.createElement('small');sub.textContent=(c.category||'Other')+' \u00b7 '+x.ok+' of '+x.total+' link(s) working';
+  m.append(st,sub);row.appendChild(m);
+  const ed=document.createElement('button');ed.textContent='Edit';ed.onclick=()=>{go('channel-edit');editChannel(c)};
+  const tg=document.createElement('button');tg.className='primary';tg.textContent='Activate';tg.onclick=async()=>{tg.disabled=true;await toggleChannel(c);d.open2=true;scanRender()};
+  row.append(ed,tg);det2.appendChild(row);
+ });
+ root.appendChild(det2);
+ if(d.q.length)root.appendChild(scanBlock('⚠ Render needed (uses Render bandwidth)',d.q));
+ if(d.part.length)root.appendChild(scanBlock('Some links dead, channel still works',d.part));
+ if(d.p.length)root.appendChild(scanBlock('☁ Works through Cloudflare proxy',d.p));
+}
+function loadHealthAlerts(){scanLoad();scanRender()}
 $('scanAll').onclick=async()=>{
  if(scanRun)return;
  const items=[];
- channels.filter(c=>c.is_active).forEach(c=>(c.stream_urls||[]).forEach((x,i)=>{const u=typeof x==='string'?x:(x&&x.url)||'';if(/^https?:\/\//i.test(u))items.push({c,i,u})}));
- if(!items.length){alert('No active channel links to scan.');return}
+ const scope=$('scanScope').value;channels.filter(c=>scope==='all'||(scope==='active'?c.is_active:!c.is_active)).forEach(c=>(c.stream_urls||[]).forEach((x,i)=>{const u=typeof x==='string'?x:(x&&x.url)||'';if(/^https?:\/\//i.test(u))items.push({c,i,u})}));
+ if(!items.length){alert('No channel links to scan in this selection.');return}
  if(!confirm('This tests '+items.length+' links one by one and can take a long time (failed links wait up to ~2 minutes each). Keep this tab open. Start?'))return;
- scanRun=true;scanCancel=false;scanText='';
- $('scanAll').disabled=true;$('scanStop').classList.remove('hidden');$('scanCopy').classList.add('hidden');
- const out=$('scanOut');out.classList.remove('hidden');out.style.whiteSpace='pre-wrap';
- const res={direct:0,p:[],q:[],fail:[]},v=$('testVideo'),box=document.createElement('div');
+ scanRun=true;scanCancel=false;
+ $('scanAll').disabled=true;$('scanStop').classList.remove('hidden');
+ const prog=$('scanProg');prog.classList.remove('hidden');
+ let v=document.getElementById('scanVideo');
+ if(!v){v=document.createElement('video');v.id='scanVideo';v.muted=true;v.playsInline=true;v.style.cssText='position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:0;pointer-events:none';document.body.appendChild(v)}
+ const box=document.createElement('div'),per={},d={time:Date.now(),direct:0,p:[],q:[],bad:[],part:[],revive:[],stopped:false,open:false,open2:false};
  let n=0;
  for(const it of items){
-  if(scanCancel)break;
-  n++;const label=it.c.name+(((it.c.stream_urls||[]).length>1)?' (link '+(it.i+1)+')':'');
-  out.textContent=scanSummary(res,n,items.length,label);
+  if(scanCancel){d.stopped=true;break}
+  n++;
+  const multi=(it.c.stream_urls||[]).length>1,label=it.c.name+(multi?' (link '+(it.i+1)+')':'');
+  prog.textContent='Scanning '+n+'/'+items.length+': '+label+' … (direct '+d.direct+' | Cloudflare '+d.p.length+' | Render '+d.q.length+')';
   let r;try{r=await runStreamTest(it.u,v,box,false)}catch(_e){r={ok:false}}
-  if(r.cancelled)break;
-  if(r.ok){if(r.proxy==='q')res.q.push(label);else if(r.proxy==='p')res.p.push(label);else res.direct++}
-  else res.fail.push(label);
+  if(r.cancelled){d.stopped=true;break}
+  const e=per[it.c.id]=per[it.c.id]||{ok:0,fail:[]};
+  if(r.ok){e.ok++;if(r.proxy==='q')d.q.push(label);else if(r.proxy==='p')d.p.push(label);else d.direct++}
+  else e.fail.push('link '+(it.i+1));
  }
  try{testCleanup(v)}catch(_e){}
- scanText=scanSummary(res,Math.min(n,items.length),items.length,'');out.textContent=scanText;
- scanRun=false;$('scanAll').disabled=false;$('scanStop').classList.add('hidden');$('scanCopy').classList.remove('hidden');
+ Object.keys(per).forEach(id=>{const e=per[id];if(!e.fail.length)return;if(!e.ok)d.bad.push({id,name:scanChName(id),links:e.fail});else d.part.push(scanChName(id)+' ('+e.fail.join(', ')+')')});
+ Object.keys(per).forEach(id=>{const c=channels.find(x=>x.id===id);if(c&&!c.is_active&&per[id].ok)d.revive.push({id,name:c.name,ok:per[id].ok,total:per[id].ok+per[id].fail.length})});
+ scanData=d;scanSave();scanText=scanPlainText();
+ prog.textContent='Finished: '+Math.min(n,items.length)+'/'+items.length+' links checked'+(d.stopped?' (stopped early)':'');
+ scanRun=false;$('scanAll').disabled=false;$('scanStop').classList.add('hidden');
+ scanRender();
 };
-$('scanStop').onclick=()=>{scanCancel=true;const v=$('testVideo');if(v.__tok){v.__tok.cancelled=true;try{if(v.__tok.cancel)v.__tok.cancel()}catch(_e){}}};
-$('scanCopy').onclick=async()=>{try{await navigator.clipboard.writeText(scanText);$('scanCopy').textContent='Copied ✓';setTimeout(()=>$('scanCopy').textContent='Copy list',1500)}catch(_e){alert('Copy failed — select the text and copy it manually.')}};
+$('scanStop').onclick=()=>{scanCancel=true;const v=document.getElementById('scanVideo');if(v&&v.__tok){v.__tok.cancelled=true;try{if(v.__tok.cancel)v.__tok.cancel()}catch(_e){}}};
+$('scanCopy').onclick=async()=>{scanLoad();const t=scanPlainText();if(!t){alert('No scan result yet.');return}try{await navigator.clipboard.writeText(t);$('scanCopy').textContent='Copied ✓';setTimeout(()=>$('scanCopy').textContent='Copy list',1500)}catch(_e){alert('Copy failed — select the text and copy it manually.')}};
 
 /* ---------- Playlist Browser ---------- */
 let plItems=[],plFiltered=[],plShown=40,plIndex=-1,plAdded=new Set();
@@ -721,7 +791,6 @@ async function loadVisitorStats(){
 }
 $('refreshLive')?.addEventListener('click',loadVisitorStats);$('dailyDays')?.addEventListener('change',loadVisitorStats);
 setInterval(()=>{const pg=document.getElementById('page-dashboard'),app=$('app');if(!document.hidden&&app&&!app.classList.contains('hidden')&&pg&&pg.classList.contains('active'))loadVisitorStats()},15000);
-async function loadHealthAlerts(){const n=await loadVisitorReports();setHealthBadge(n);await loadHealthAlertsLegacy();const f=Number($('healthFailed').textContent)||0,o=Number($('healthOpen').textContent)||0;$('healthFailed').textContent=String(f+n);$('healthOpen').textContent=String(o+n)}
 $('healthRefresh')?.addEventListener('click',loadHealthAlerts);$('healthRunNow')?.addEventListener('click',async()=>{try{const {data,error}=await db.functions.invoke('kp-channel-health',{body:{source:'admin-manual'}});if(error)throw error;msg($('healthMsg'),`Check complete: ${data?.checked||0} channels checked.`,true);await loadHealthAlerts()}catch(e){msg($('healthMsg'),'Health check failed: '+e.message+' — deploy the supplied Edge Function first.')}});$('healthSaveSettings')?.addEventListener('click',async()=>{settings.health_monitor={...(settings.health_monitor||{}),email:$('healthEmail').value.trim(),email_enabled:$('healthEmailEnabled').checked,interval_minutes:Number($('healthInterval').value)};try{await saveSettings();msg($('healthMsg'),'Alert preferences saved. Configure the Edge Function secrets and schedule to enable automatic checks.',true)}catch(e){msg($('healthMsg'),e.message)}});
 $('loadAnalytics').onclick=async()=>{try{let tz='Asia/Dhaka';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz}catch(_e){}const {data,error}=await db.rpc('admin_visitor_summary',{p_tz:tz});if(error)throw error;$('analyticsToday').textContent=data.today_visits??'—';$('analyticsTotal').textContent=data.total_visits??'—';$('analyticsUnique').textContent=data.total_unique??'—'}catch(e){msg($('systemMsg'),'Analytics needs visitor-stats.sql: '+e.message)}};
  $('exportData').onclick=()=>{const blob=new Blob([JSON.stringify(channels,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kp-live-tv-channels.json';a.click();URL.revokeObjectURL(a.href)};$('importData').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const arr=JSON.parse(await file.text());if(!Array.isArray(arr))throw Error('JSON must be an array');for(let i=0;i<arr.length;i+=100){const batch=arr.slice(i,i+100).map((c,j)=>({id:String(c.id||slug(c.name)+'-'+(i+j+1)),name:String(c.name||'').trim(),category:String(c.category||c.group||'Other'),country:String(c.country||''),logo_url:String(c.logo_url||c.logo||''),description:String(c.description||''),stream_urls:(c.stream_urls||c.urls||[]).map((s,k)=>typeof s==='string'?{url:s,label:k?'Backup':'Primary',priority:k+1,enabled:true}:s),is_active:c.is_active!==false,sort_order:Number(c.sort_order??i+j)})).filter(c=>c.name&&c.stream_urls.length);if(batch.length){const {error}=await db.from('kp_channels').upsert(batch);if(error)throw error}}await loadAll();msg($('systemMsg'),'Import completed.',true)}catch(err){msg($('systemMsg'),'Import failed: '+err.message)}e.target.value=''};
