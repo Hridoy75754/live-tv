@@ -946,16 +946,16 @@ function trySource(token=playbackToken){
    failed=true;destroyEngines();
    failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
   activeSourceFail=fail;connectTimer=setTimeout(fail,kindTimeout(kinds[kindPos]));
- const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;wdLast=-1;wdSince=Date.now();startWatchdog();clearTimeout(stableT);stableT=setTimeout(()=>{reconnects=0},60000);if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
+ const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;try{lastChannel.__retriedAll=false}catch(_e){}wdLast=-1;wdSince=Date.now();startWatchdog();clearTimeout(stableT);stableT=setTimeout(()=>{reconnects=0},60000);if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
  // Live streams sometimes get cut by the server/proxy. Like VLC, reconnect the same link instead of giving up.
  const reconnect=why=>{
    if(failed||!isCurrent())return;
-   if(reconnects>=6){fail();return}
+   if(reconnects>=3){fail();return}
    reconnects++;clearTimeout(stallTimer);$('playState').textContent='Reconnecting…';
    played=false;destroyEngines();video.pause();video.removeAttribute('src');video.load();
    clearTimeout(connectTimer);connectTimer=setTimeout(fail,kindTimeout(kinds[kindPos]));startKind(kinds[kindPos]);
  };
- const failOrReconnect=()=>{if(played&&reconnects<6)reconnect('error');else fail()};
+ const failOrReconnect=()=>{if(played&&reconnects<3)reconnect('error');else fail()};
  const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)reconnect('stall')},15000)};
  // Watchdog: if the picture has not moved for ~9 seconds while it should be playing, reconnect
  let wd=null,wdLast=-1,wdSince=0,stableT=null;
@@ -964,7 +964,7 @@ function trySource(token=playbackToken){
    if(!played||video.paused||video.ended&&false)return;
    const t=video.currentTime;if(t!==wdLast){wdLast=t;wdSince=Date.now();return}
    if(Date.now()-wdSince>15000){wdSince=Date.now();reconnect('frozen')}},3000)};
- video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>failOrReconnect();
+ video.onended=()=>{if(played&&isCurrent()&&!failed)failOrReconnect()};video.onplaying=markPlaying;video.onwaiting=()=>{if(played)armStall()};video.onstalled=()=>{if(played)armStall()};video.onerror=()=>failOrReconnect();
   const playCatch=()=>{$('playState').textContent='Tap Play to start';$('stageTapToggle').setAttribute('aria-label','Tap to start playback')};
   const startNative=()=>{if(audioGraphReady)video.crossOrigin='anonymous';else video.removeAttribute('crossorigin');video.src=curUrl;video.load();video.play().catch(playCatch)};
   function startKind(kind){
@@ -1290,7 +1290,32 @@ function renderNotifications(){const n=notificationItems.find(x=>x.is_active);co
 function kpMarqueeFit(){const wrap=$('noticeMarquee'),track=$('noticeTrack'),bar=$('notificationBar');if(!wrap||!track||!bar||bar.hidden||wrap.hidden)return;track.style.animation='none';const distance=track.scrollWidth;track.style.animationDuration=Math.max(10,distance/75).toFixed(1)+'s';void track.offsetWidth;track.style.animation=''; track.style.animationDuration=Math.max(10,distance/75).toFixed(1)+'s'}
 let kpMarqueeTimer=null;window.addEventListener('resize',()=>{clearTimeout(kpMarqueeTimer);kpMarqueeTimer=setTimeout(kpMarqueeFit,200)});
 const PREMIUM_THEMES=['netflix-dark','neon-cinema','sports-arena','premium-light','glass-edition','luxury-gold','cyberpunk-neon','minimal-clean','bollywood-cinema','newsroom-pro','retro-tv','ocean-blue','midnight-purple','emerald-luxe','crimson-premium','arctic-glass','cinema-noir','royal-violet'];
-function pickTheme(settings){const d=settings.design||{};if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';const pool=PREMIUM_THEMES.filter(x=>x.trim());let last='';try{last=sessionStorage.getItem('kp-last-theme')||''}catch{}let choices=pool.filter(x=>x!==last);const chosen=(choices.length?choices:pool)[Math.floor(Math.random()*(choices.length||pool.length))];try{sessionStorage.setItem('kp-last-theme',chosen)}catch{}return chosen}
+function pickTheme(settings){
+ const d=settings.design||{};
+ if(d.theme_mode==='manual')return d.theme_template||'netflix-dark';
+ const pool=PREMIUM_THEMES.filter(x=>x.trim());
+ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+ try{
+  // First ever visit on this device: always the Netflix theme.
+  if(!localStorage.getItem('kp-theme-started')){
+   localStorage.setItem('kp-theme-started','1');
+   localStorage.setItem('kp-theme-bag',JSON.stringify(shuffle(pool.filter(x=>x!=='netflix-dark'))));
+   localStorage.setItem('kp-last-theme','netflix-dark');
+   return 'netflix-dark';
+  }
+  // Every next visit/refresh: the next theme from a shuffled bag, so every theme shows up before any repeats.
+  let bag=[];try{bag=JSON.parse(localStorage.getItem('kp-theme-bag')||'[]')}catch(_e){}
+  bag=bag.filter(x=>pool.includes(x));
+  const last=localStorage.getItem('kp-last-theme')||'';
+  if(!bag.length)bag=shuffle(pool.filter(x=>x!==last));
+  const chosen=bag.shift();
+  localStorage.setItem('kp-theme-bag',JSON.stringify(bag));
+  localStorage.setItem('kp-last-theme',chosen);
+  return chosen;
+ }catch(_e){
+  return pool[Math.floor(Math.random()*pool.length)];
+ }
+}
 let presenceTimer=null;
 function visitorId(){try{let id=localStorage.getItem('kp-visitor-id');if(!id){id=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2));localStorage.setItem('kp-visitor-id',id)}return id}catch(_e){return null}}
 function sendHeartbeat(){
