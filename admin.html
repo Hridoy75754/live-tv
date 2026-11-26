@@ -632,7 +632,8 @@ function scanRender(){
   if(c){
    const ed=document.createElement('button');ed.textContent='Edit';ed.onclick=()=>{go('channel-edit');editChannel(c)};
    const tg=document.createElement('button');tg.textContent=c.is_active?'Deactivate':'Activate';tg.onclick=async()=>{tg.disabled=true;await toggleChannel(c);d.open=true;scanRender()};
-   row.append(ed,tg);
+   const dl=document.createElement('button');dl.className='danger';dl.textContent='Delete';dl.onclick=async()=>{dl.disabled=true;await deleteChannel(c);d.open=true;scanRender()};
+   row.append(ed,tg,dl);
   }
   det.appendChild(row);
  });
