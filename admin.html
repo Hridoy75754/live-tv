@@ -3,9 +3,23 @@
 <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
 <style>
 :root{color-scheme:dark;--bg:#0c0c0e;--panel:#18181b;--panel2:#222226;--line:#333338;--accent:#ef4444;--muted:#aaa;--green:#22c55e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f7;font:14px/1.5 system-ui,Arial}.hidden{display:none!important}button,input,select,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 13px;background:#333;color:#fff;font-weight:700;cursor:pointer}button.primary{background:var(--accent)}button.danger{background:#64272b}input,select,textarea{width:100%;background:#101013;color:#fff;border:1px solid #3b3b42;border-radius:9px;padding:11px}label{display:block;color:#bbb;font-size:12px;margin:12px 0 5px}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.side{background:#141416;border-right:1px solid var(--line);padding:20px 13px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:21px;font-weight:900;color:#ff6666;padding:4px 9px 20px}.navbtn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:transparent;margin:3px 0;padding:11px;border-radius:9px;color:#ccc}.navbtn.active,.navbtn:hover{background:#352124;color:white}.navgroup{font-size:10px;color:#777;letter-spacing:1.5px;padding:15px 10px 5px}.main{padding:22px;max-width:1250px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.top h1{font-size:25px;margin:0}.muted{color:var(--muted);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;margin:0 0 15px}.panel h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:180px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#222226;border:1px solid var(--line);padding:16px;border-radius:12px}.stat b{font-size:25px;display:block}.status{padding:10px;border-radius:9px;background:#292929;margin:10px 0;font-size:13px}.ok{border:1px solid #23744a}.err{border:1px solid #9a3b3b}.item{display:flex;gap:10px;align-items:center;background:#222226;border:1px solid #38383e;padding:10px;border-radius:10px;margin:8px 0}.item .meta{flex:1;min-width:0}.item strong{display:block}.item small{color:#aaa}.item img{width:44px;height:44px;object-fit:contain;background:#111;border-radius:7px}.check{display:flex;align-items:center;gap:8px}.check input{width:auto}.section{display:none}.section.active{display:block}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.table{width:100%;border-collapse:collapse}.table td,.table th{border-bottom:1px solid #333;padding:9px;text-align:left;font-size:13px}.badge{padding:3px 8px;border-radius:20px;background:#244632;color:#b9f7cf;font-size:11px}.badge.off{background:#51292b;color:#ffc4c4}.mobile-menu{display:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.subnav button{background:#29292d}.subnav button.active{background:#633137}.drag-row{cursor:grab;user-select:none}.drag-row.dragging{opacity:.42;border-color:#ef4444}.drag-row.drop-target{outline:2px dashed #ef4444;outline-offset:2px}.drag-handle{font-size:20px;color:#aaa;cursor:grab;padding:0 8px}.search-empty{padding:14px;color:#aaa;background:#202024;border:1px dashed #444;border-radius:10px;margin-top:10px}.favicon-preview{width:48px;height:48px;object-fit:contain;background:#101013;border:1px solid #444;border-radius:10px;padding:5px}@media(max-width:780px){.layout{display:block}.side{position:sticky;z-index:20;top:0;height:auto;padding:8px;border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;gap:5px}.brand,.navgroup{display:none}.navbtn{width:auto;white-space:nowrap;margin:0;padding:9px;font-size:12px}.main{padding:15px 11px}.grid,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr);gap:6px}.stat{padding:10px}.stat b{font-size:20px}.top h1{font-size:20px}}
-.trend-result{background:#222226;border:1px solid #38383e;color:#fff}.trend-result.active{border-color:#ef4444;background:#3a1d1f}.trend-result small{display:block;color:#aaa;margin-top:2px}.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px;animation:livepulse 1.6s infinite}@keyframes livepulse{0%{box-shadow:0 0 0 0 #22c55e88}70%{box-shadow:0 0 0 9px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}.dr-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2a2a2f;font-size:13px}.dr-row .d{width:120px;flex:none}.dr-row .bar{flex:1;height:8px;background:#2a2a2f;border-radius:6px;overflow:hidden}.dr-row .bar i{display:block;height:100%;background:#22c55e}.dr-row .n{width:150px;flex:none;text-align:right}@media(max-width:600px){.dr-row .d{width:86px}.dr-row .n{width:110px}}</style></head><body>
+.trend-result{background:#222226;border:1px solid #38383e;color:#fff}.trend-result.active{border-color:#ef4444;background:#3a1d1f}.trend-result small{display:block;color:#aaa;margin-top:2px}.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-right:6px;animation:livepulse 1.6s infinite}@keyframes livepulse{0%{box-shadow:0 0 0 0 #22c55e88}70%{box-shadow:0 0 0 9px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}.dr-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2a2a2f;font-size:13px}.dr-row .d{width:120px;flex:none}.dr-row .bar{flex:1;height:8px;background:#2a2a2f;border-radius:6px;overflow:hidden}.dr-row .bar i{display:block;height:100%;background:#22c55e}.dr-row .n{width:150px;flex:none;text-align:right}@media(max-width:600px){.dr-row .d{width:86px}.dr-row .n{width:110px}}
+.soc-row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px;align-items:center;margin:7px 0}.soc-name{font-weight:700;font-size:14px}.soc-row input{margin:0}
+.menubar{display:none}.navbtn .ni{margin-right:-5px}
+@media(max-width:780px){
+.soc-row{grid-template-columns:1fr;gap:4px}
+.side{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;overflow:visible!important;padding:8px;position:sticky;top:0;z-index:20}
+.side.open{position:static}
+.menubar{display:flex!important;grid-column:1/-1;align-items:center;justify-content:space-between;gap:10px;width:100%;background:#222226;border:1px solid var(--line);color:#fff;border-radius:10px;padding:11px 13px;font-size:14px}
+.menubar b{flex:1;text-align:center;color:#ef4444;font-size:13px}
+.side:not(.open) .navbtn{display:none!important}
+.side .navbtn{flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:3px;padding:8px 3px;min-height:62px;font-size:10.5px;line-height:1.15;white-space:normal;word-break:break-word;background:#1b1b1f;border:1px solid var(--line);border-radius:10px;width:100%}
+.side .navbtn .ni{font-size:19px;line-height:1;margin-right:0}
+.side .navbtn.active{background:#352124;border-color:#ef4444}
+}
+</style></head><body>
 <section id="login" style="max-width:420px;margin:10vh auto;padding:20px"><div class="panel"><div class="brand">KP LIVE TV</div><h1>Admin Login</h1><p class="muted">Sign in with your authorized administrator account.</p><label>Email</label><input id="email" type="email" autocomplete="username"><label>Password</label><input id="password" type="password" autocomplete="current-password"><div class="toolbar"><button class="primary" id="loginBtn">Sign in</button></div><div id="loginMsg" class="status hidden"></div></div></section>
-<div id="app" class="layout hidden"><aside class="side"><div class="brand">KP LIVE TV</div><div class="navgroup">OVERVIEW</div><button class="navbtn active" data-page="dashboard">▦ Dashboard</button><div class="navgroup">CONTENT MANAGEMENT</div><button class="navbtn" data-page="homepage">⌂ Homepage Settings</button><button class="navbtn" data-page="channels">↕ Channel Manager Order</button><button class="navbtn" data-page="channel-edit">✎ Channel Edit</button><button class="navbtn" data-page="playlist">☰ Playlist Browser</button><button class="navbtn" data-page="branding">◈ Website Logo & Favicon</button><button class="navbtn" data-page="categories">▤ Category Manager</button><button class="navbtn" data-page="events">🏆 Sports Events</button><button class="navbtn" data-page="hero">🖼 Hero Banners</button><button class="navbtn" data-page="health">🩺 Channel Health & Alerts</button><div class="navgroup">PLAYER & APPEARANCE</div><button class="navbtn" data-page="player">▶ Player Settings</button><button class="navbtn" data-page="design">◐ Design & Layout</button><button class="navbtn" data-page="navigation">☷ Navigation & Footer</button><div class="navgroup">SYSTEM</div><button class="navbtn" data-page="notifications">♢ Notifications</button><button class="navbtn" data-page="system">⚙ Admin & System</button><button class="navbtn" id="logout">↪ Log out</button></aside>
+<div id="app" class="layout hidden"><aside class="side"><button type="button" id="menuBar" class="menubar"><span>☰ Menu</span><b id="menuCur">Dashboard</b><span id="menuArrow">▾</span></button><div class="brand">KP LIVE TV</div><div class="navgroup">OVERVIEW</div><button class="navbtn active" data-page="dashboard">▦ Dashboard</button><div class="navgroup">CONTENT MANAGEMENT</div><button class="navbtn" data-page="homepage">⌂ Homepage Settings</button><button class="navbtn" data-page="channels">↕ Channel Manager Order</button><button class="navbtn" data-page="channel-edit">✎ Channel Edit</button><button class="navbtn" data-page="playlist">☰ Playlist Browser</button><button class="navbtn" data-page="branding">◈ Website Logo & Favicon</button><button class="navbtn" data-page="categories">▤ Category Manager</button><button class="navbtn" data-page="events">🏆 Sports Events</button><button class="navbtn" data-page="hero">🖼 Hero Banners</button><button class="navbtn" data-page="health">🩺 Channel Health & Alerts</button><div class="navgroup">PLAYER & APPEARANCE</div><button class="navbtn" data-page="player">▶ Player Settings</button><button class="navbtn" data-page="design">◐ Design & Layout</button><button class="navbtn" data-page="navigation">☷ Navigation & Footer</button><div class="navgroup">SYSTEM</div><button class="navbtn" data-page="notifications">♢ Notifications</button><button class="navbtn" data-page="system">⚙ Admin & System</button><button class="navbtn" id="logout">↪ Log out</button></aside>
 <main class="main"><header class="top"><div><h1 id="pageTitle">Dashboard</h1><div class="muted">Manage KP Live TV from one place</div></div><span class="badge">ADMIN</span></header><div id="globalMsg" class="status hidden"></div>
 <section class="section active" id="page-dashboard"><div class="panel" id="livePanel" style="margin-bottom:15px"><div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap"><div style="flex:1 1 200px;min-width:180px"><div class="muted" style="font-weight:700"><span class="live-dot"></span> ONLINE NOW</div><div id="onlineNow" style="font-size:64px;font-weight:800;line-height:1.05;color:#22c55e">—</div><div class="muted" id="liveMsg">Updates every 15 seconds</div></div><div class="stats" style="flex:2 1 320px;margin:0"><div class="stat"><span class="muted">Today unique visitors</span><b id="todayUnique">—</b></div><div class="stat"><span class="muted">Today total visits</span><b id="todayVisits">—</b></div><div class="stat"><span class="muted">All-time unique</span><b id="totalUnique">—</b></div></div></div><div id="watchingList" style="margin-top:12px"></div><div class="row" style="display:flex;align-items:center;gap:10px;margin-top:16px"><h3 style="margin:0;flex:1">Daily visitor report</h3><select id="dailyDays" style="width:auto"><option value="7">Last 7 days</option><option value="14" selected>Last 14 days</option><option value="30">Last 30 days</option></select><button id="refreshLive">Refresh</button></div><div id="dailyReport"></div></div><div class="stats"><div class="stat"><span class="muted">Total channels</span><b id="statTotal">—</b></div><div class="stat"><span class="muted">Active channels</span><b id="statActive">—</b></div><div class="stat"><span class="muted">Sports events</span><b id="statTrending">—</b></div></div><div class="panel" style="margin-top:15px"><h2>Quick actions</h2><div class="toolbar"><button class="primary" data-goto="channels">Manage channels</button><button data-goto="events">Sports Events</button><button data-goto="hero">Hero banners</button><button data-goto="notifications">Publish notification</button></div><p class="muted">Hero banners (events such as BPL / IPL) appear above the running notice when published. The live player stays below them.</p></div></section>
 <section class="section" id="page-homepage"><div class="panel"><h2>Homepage content</h2><label>Site title</label><input id="siteTitle"><label>Homepage announcement / intro text</label><textarea id="homeIntro" rows="3" placeholder="Optional short message"></textarea><hr><h2>Country-based Auto Play</h2><p class="muted">Choose the preferred channel for visitors detected in each country. GeoIP can be inaccurate and autoplay may start muted due to browser policy.</p><label>Bangladesh channel</label><select id="geoBd"></select><label>India channel</label><select id="geoIn"></select><label>Other countries channel</label><select id="geoOther"></select><div class="toolbar"><button class="primary" id="saveHomepage">Save Homepage Settings</button></div></div></section>
@@ -39,10 +53,8 @@
 <div class="panel"><h2>Your banners</h2><div class="muted">The order below is the order they appear on the homepage. Use ↑ ↓ to change it.</div><div id="heroList"></div></div></section>
 <section class="section" id="page-player"><div class="panel"><h2>Player Settings</h2><label class="check"><input type="checkbox" id="playerAutoplay"> Attempt autoplay on first visit</label><label class="check"><input type="checkbox" id="playerSound"> Attempt autoplay with sound first</label><label>Default volume (0–100)</label><input type="number" min="0" max="100" id="playerVolume" value="100"><label class="check"><input type="checkbox" id="playerTapToggle"> Enable tap on video to Play / Stop</label><div class="toolbar"><button class="primary" id="savePlayer">Save Player Settings</button></div><p class="muted">Browsers may block autoplay, especially with sound. These options request playback but cannot override browser policy.</p></div></section>
 <section class="section" id="page-design"><div class="panel"><h2>Design & Layout</h2><label>Accent color</label><input type="color" id="accentColor" value="#f04444"><label>Theme Mode</label><select id="themeBehavior"><option value="auto">Auto Random — change on each visit</option><option value="manual">Manual — use selected theme</option></select><label>Premium Theme Template</label><select id="themeMode"><option value="netflix-dark">Netflix Dark</option><option value="neon-cinema">Neon Cinema</option><option value="sports-arena">Sports Arena</option><option value="premium-light">Premium Light</option><option value="glass-edition">Glass Edition</option><option value="luxury-gold">Luxury Gold</option><option value="cyberpunk-neon">Cyberpunk Neon</option><option value="minimal-clean">Minimal Clean</option><option value="bollywood-cinema">Bollywood Cinema</option><option value="newsroom-pro">Newsroom Pro</option><option value="retro-tv">Retro TV</option><option value="ocean-blue">Ocean Blue</option><option value="midnight-purple">Midnight Purple</option><option value="emerald-luxe">Emerald Luxe</option><option value="crimson-premium">Crimson Premium</option><option value="arctic-glass">Arctic Glass</option><option value="cinema-noir">Cinema Noir</option><option value="royal-violet">Royal Violet</option></select><label>Channels per row on desktop</label><select id="desktopCols"><option>4</option><option selected>5</option><option>6</option></select><label>Channels per row on mobile</label><select id="mobileCols"><option>2</option><option selected>3</option><option>4</option></select><div class="toolbar"><button class="primary" id="saveDesign">Save Design Settings</button></div></div></section>
-<section class="section" id="page-navigation"><div class="panel"><h2>Navigation & Footer</h2><label class="check"><input id="navSearch" type="checkbox" checked> Show search</label><label class="check"><input id="navCategory" type="checkbox" checked> Show category selector</label><label>Footer text</label><input id="footerText"><label>Admin link label</label><input id="adminLinkText" value="Admin"><label>Social & Contact Links (one per line: Icon | Label | URL)</label><textarea id="socialLinksInput" rows="6" placeholder="📘 | Facebook | https://facebook.com/yourpage
-▶ | YouTube | https://youtube.com/@yourchannel
-✈ | Telegram | https://t.me/yourchannel"></textarea><div class="toolbar"><button class="primary" id="saveNavigation">Save Navigation & Footer</button></div></div></section>
-<section class="section" id="page-health"><div class="panel"><h2>Channel Health Scan</h2><p class="muted">Tests every link of the chosen channels (active, inactive or both) in this browser with the real player (direct, then Cloudflare proxy, then Render as the last resort). Keep this tab open while it runs. The last result is saved in this browser.</p><div class="toolbar"><select id="scanScope" style="width:auto"><option value="all" selected>Active + inactive channels</option><option value="active">Only active channels</option><option value="inactive">Only inactive channels</option></select><button id="scanAll" class="primary">Scan channels</button><button id="scanStop" class="hidden">Stop scan</button><button id="scanCopy">Copy list</button></div><div id="scanProg" class="status hidden" style="white-space:pre-wrap"></div><div id="scanBody"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><div class="muted">The message runs as moving text (right to left) on the homepage.</div><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
+<section class="section" id="page-navigation"><div class="panel"><h2>Navigation & Footer</h2><label class="check"><input id="navSearch" type="checkbox" checked> Show search</label><label class="check"><input id="navCategory" type="checkbox" checked> Show category selector</label><label>Footer text</label><input id="footerText"><label>Admin link label</label><input id="adminLinkText" value="Admin"><label>Social media links</label><div class="muted">Paste only the link next to each name and press Save. Empty = not shown on the website.</div><div id="socialPresets"></div><label>Other links (optional, one per line: Icon | Label | URL)</label><textarea id="socialLinksInput" rows="3" placeholder="🌐 | My site | https://example.com"></textarea><div class="toolbar"><button class="primary" id="saveNavigation">Save Navigation & Footer</button></div></div></section>
+<section class="section" id="page-health"><div class="panel"><h2>Channel Health Scan</h2><p class="muted">Tests every link of the chosen channels (active, inactive or both) in this browser with the real player (direct, then Cloudflare proxy, then Render as the last resort). Keep this tab open while it runs. The last result is saved in this browser.</p><div class="toolbar"><select id="scanScope" style="width:auto"><option value="all" selected>Active + inactive channels</option><option value="active">Only active channels</option><option value="inactive">Only inactive channels</option></select><button id="scanAll" class="primary">New scan</button><button id="scanContinue">Continue scan</button><button id="scanRetry">Rescan failed</button><button id="scanStop" class="hidden">Stop scan</button><button id="scanCopy">Copy list</button></div><div id="scanProg" class="status hidden" style="white-space:pre-wrap"></div><div id="scanBody"></div></div></section><section class="section" id="page-notifications"><div class="panel"><h2>Notifications</h2><label>Notification title</label><input id="noticeTitle" placeholder="Live match starting soon"><label>Message</label><textarea id="noticeMessage" rows="3"></textarea><div class="muted">The message runs as moving text (right to left) on the homepage.</div><label>Optional link URL</label><input id="noticeUrl" type="url" placeholder="https://..."><label>Display order</label><input id="noticeOrder" type="number" value="0"><label class="check"><input id="noticeActive" type="checkbox" checked> Publish notification</label><div class="toolbar"><button class="primary" id="saveNotice">Save notification</button><button id="clearNotice">Clear</button></div><div id="noticeList"></div></div></section>
 <section class="section" id="page-playlist"><div class="panel"><h2>Playlist Browser</h2><p class="muted">Load an M3U / M3U8 playlist, test channels one by one, then add the working ones to a category.</p><label>Playlist URL</label><input id="plUrl" placeholder="https://example.com/list.m3u"><div class="toolbar"><button class="primary" id="plLoad">Load playlist</button><label style="margin:0">or choose a file: <input type="file" id="plFile" accept=".m3u,.m3u8,text/plain,audio/x-mpegurl"></label></div><hr><label>Or paste the full playlist text here</label><textarea id="plPaste" rows="8" placeholder="#EXTM3U&#10;#EXTINF:-1 group-title=&quot;Sports&quot;,T Sports&#10;http://example.com/live/1.m3u8&#10;&#10;(You can also paste lines like:  Channel name, http://link  or just links)"></textarea><div class="toolbar"><button class="primary" id="plLoadPaste">Load pasted playlist</button><button type="button" id="plPasteClear">Clear box</button></div><div id="plMsg" class="status hidden"></div><div class="toolbar" id="plAfter"></div></div>
 <div class="panel hidden" id="plPreview"><strong id="plNowName">Choose a channel and press Test</strong><div class="muted" id="plNowInfo" style="word-break:break-all;font-size:12px"></div><video id="plVideo" controls playsinline muted style="width:100%;max-height:230px;background:#000;border-radius:10px;margin-top:8px"></video><div id="plResult" class="status hidden"></div><div id="plNote" class="muted" style="margin-top:8px"></div><label>Channel name (editable)</label><input id="plName"><label>Add into category</label><select id="plCategory"></select><div class="toolbar"><button id="plPrev">◀ Prev</button><button class="primary" id="plAdd">＋ Add to category</button><button id="plNext">Next ▶</button></div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="plAuto" checked> After adding, test the next channel automatically</label></div>
 <div class="panel hidden" id="plListPanel"><div class="grid"><div><label>Search</label><input id="plSearch" placeholder="Channel or group name"></div><div><label>Group</label><select id="plGroup"></select></div></div><div class="muted" id="plCount" style="margin-top:8px"></div><div id="plList"></div><div class="toolbar"><button id="plMore">Show more</button></div></div></section>
@@ -52,7 +64,9 @@
 (()=>{'use strict';const $=id=>document.getElementById(id);const configUrl=window.KP_SUPABASE_URL||'',configKey=window.KP_SUPABASE_ANON_KEY||'';if(!window.supabase||!configUrl.startsWith('https://')||!configKey){$('loginMsg').textContent='Supabase configuration missing. Check supabase-config.js.';$('loginMsg').classList.remove('hidden');$('loginBtn').disabled=true;return}const db=window.supabase.createClient(configUrl,configKey);let channels=[],categories=[],trends=[],notices=[],settings={},editingChannel=null,editingCategory=null,editingTrend=null,editingNotice=null;
 const pageNames={dashboard:'Dashboard',homepage:'Homepage Settings',channels:'Channel Manager Order', 'channel-edit':'Channel Edit',playlist:'Playlist Browser',branding:'Website Logo & Favicon',categories:'Category Manager',events:'Sports Events',hero:'Hero Banners',health:'Channel Health & Alerts',player:'Player Settings',design:'Design & Layout',navigation:'Navigation & Footer',notifications:'Notifications',system:'Admin & System'};
 function msg(el,text,ok=false){el.textContent=text;el.className='status '+(ok?'ok':'err');el.classList.remove('hidden')}function hide(el){el.classList.add('hidden')}function slug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
-function go(page){if(page==='playlist'&&typeof plFillCategories==='function')plFillCategories();if(page==='dashboard'&&typeof loadVisitorStats==='function')loadVisitorStats();if(page==='health'&&typeof loadHealthAlerts==='function')loadHealthAlerts();document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));document.querySelectorAll('.navbtn[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('pageTitle').textContent=pageNames[page]||page}
+function go(page){if(page==='playlist'&&typeof plFillCategories==='function')plFillCategories();if(page==='dashboard'&&typeof loadVisitorStats==='function')loadVisitorStats();if(page==='health'&&typeof loadHealthAlerts==='function')loadHealthAlerts();document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));document.querySelectorAll('.navbtn[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('pageTitle').textContent=pageNames[page]||page;try{const sd=document.querySelector('.side');if(sd){sd.classList.remove('open');const mc=$('menuCur');if(mc)mc.textContent=pageNames[page]||page;const ma=$('menuArrow');if(ma)ma.textContent='\u25BE'}}catch(_e){}}
+document.querySelectorAll('.navbtn').forEach(b=>{if(b.querySelector('.ni'))return;const t=b.textContent.trim(),sp=t.indexOf(' ');if(sp>0){b.textContent='';const ic=document.createElement('span');ic.className='ni';ic.textContent=t.slice(0,sp);const lb=document.createElement('span');lb.textContent=t.slice(sp+1);b.append(ic,lb)}});
+$('menuBar').onclick=()=>{const sd=document.querySelector('.side');sd.classList.toggle('open');$('menuArrow').textContent=sd.classList.contains('open')?'\u25B4':'\u25BE'};
 document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
 async function adminCheck(user){if(!user)return false;const {data,error}=await db.from('kp_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(error)throw error;return !!data}
 async function loadAll(){const [ch,cat,tr,no,se]=await Promise.all([db.from('kp_channels').select('*').order('sort_order').order('name'),db.from('kp_categories').select('*').order('sort_order'),db.from('kp_trending_channels').select('*').order('sort_order'),db.from('kp_notifications').select('*').order('sort_order'),db.from('kp_site_settings').select('settings').eq('id',1).maybeSingle()]);for(const x of [ch,cat,tr,no,se])if(x.error)throw x.error;channels=ch.data||[];categories=cat.data||[];trends=tr.data||[];notices=no.data||[];settings=se.data?.settings||{};renderAll()}
@@ -221,7 +235,44 @@ function renderCategories(){
   }
   btn('Delete',()=>openDeletePanel(d,row),'danger');
   r.appendChild(d)})}
-function fillSettings(){const h=settings.homepage||{},p=settings.player||{},d=settings.design||{},n=settings.navigation||{},f=settings.footer||{};$('siteTitle').value=h.site_title||'KP Live TV';$('faviconUrl').value=h.favicon_url||'';updateFaviconPreview(h.favicon_url||'');$('homeIntro').value=h.intro||'';$('playerAutoplay').checked=p.autoplay!==false;$('playerSound').checked=p.sound_first!==false;$('playerVolume').value=Math.round((p.volume??1)*100);$('playerTapToggle').checked=p.tap_toggle!==false;$('accentColor').value=d.accent||'#f04444';$('themeMode').value=d.theme_template||(d.theme==='light'?'premium-light':'netflix-dark');$('themeBehavior').value=d.theme_mode||'auto';$('socialLinksInput').value=(n.social_links||[]).map(x=>`${x.icon||''} | ${x.label||''} | ${x.url||''}`).join('\n');$('desktopCols').value=String(d.desktop_cols||5);$('mobileCols').value=String(d.mobile_cols||3);$('navSearch').checked=n.show_search!==false;$('navCategory').checked=n.show_category_select!==false;$('footerText').value=f.text||'© KP Live TV · Your world, in one place.';$('adminLinkText').value=f.admin_label||'Admin';const hm=settings.health_monitor||{};if($('healthEmail'))$('healthEmail').value=hm.email||'';if($('healthEmailEnabled'))$('healthEmailEnabled').checked=hm.email_enabled!==false;if($('healthInterval'))$('healthInterval').value=String(hm.interval_minutes||5)}
+const SOCIAL_PRESETS=[['\uD83D\uDCD8','Facebook','https://facebook.com/yourpage'],['\u25B6','YouTube','https://youtube.com/@yourchannel'],['\u2708','Telegram','https://t.me/yourchannel'],['\uD83D\uDCAC','WhatsApp','https://wa.me/number or channel link'],['\uD83D\uDCF8','Instagram','https://instagram.com/yourpage'],['\uD83C\uDFB5','TikTok','https://tiktok.com/@yourpage'],['\u2716','X (Twitter)','https://x.com/yourpage'],['\uD83D\uDCE8','Messenger','https://m.me/yourpage'],['\uD83C\uDF10','Website','https://example.com']];
+function socialBuild(){
+ const box=$('socialPresets');if(!box||box.dataset.built)return;box.dataset.built='1';
+ SOCIAL_PRESETS.forEach(([icon,label,ph])=>{
+  const row=document.createElement('div');row.className='soc-row';
+  const name=document.createElement('span');name.className='soc-name';name.textContent=icon+' '+label;
+  const inp=document.createElement('input');inp.type='url';inp.dataset.soc=label;inp.placeholder=ph;inp.autocomplete='off';
+  row.append(name,inp);box.appendChild(row);
+ });
+}
+function socialFill(list){
+ socialBuild();
+ const norm=x=>String(x||'').toLowerCase().replace(/[^a-z]/g,'');
+ const used=new Set(),others=[];
+ document.querySelectorAll('#socialPresets input[data-soc]').forEach(i=>{i.value=''});
+ (list||[]).forEach(x=>{
+  const inp=[...document.querySelectorAll('#socialPresets input[data-soc]')].find(i=>norm(i.dataset.soc)===norm(x.label)||(norm(i.dataset.soc)==='xtwitter'&&norm(x.label)==='twitter'));
+  if(inp&&!used.has(inp)){inp.value=x.url||'';used.add(inp)}else others.push(`${x.icon||''} | ${x.label||''} | ${x.url||''}`);
+ });
+ $('socialLinksInput').value=others.join('\n');
+}
+function socialCollect(){
+ const out=[];
+ SOCIAL_PRESETS.forEach(([icon,label])=>{
+  const inp=document.querySelector('#socialPresets input[data-soc="'+label.replace(/"/g,'')+'"]');const url=inp?inp.value.trim():'';
+  if(!url)return;
+  if(!/^https?:\/\//i.test(url))throw new Error(label+': the link must start with https://');
+  out.push({icon,label,url,enabled:true});
+ });
+ $('socialLinksInput').value.split(/\r?\n/).forEach(line=>{
+  if(!line.trim())return;
+  const [icon='',label='',url='']=line.split('|').map(x=>x.trim());
+  if(label&&/^https?:\/\//i.test(url))out.push({icon,label,url,enabled:true});
+ });
+ return out.map((x,i)=>({...x,order:i}));
+}
+try{socialBuild()}catch(_e){}
+function fillSettings(){const h=settings.homepage||{},p=settings.player||{},d=settings.design||{},n=settings.navigation||{},f=settings.footer||{};$('siteTitle').value=h.site_title||'KP Live TV';$('faviconUrl').value=h.favicon_url||'';updateFaviconPreview(h.favicon_url||'');$('homeIntro').value=h.intro||'';$('playerAutoplay').checked=p.autoplay!==false;$('playerSound').checked=p.sound_first!==false;$('playerVolume').value=Math.round((p.volume??1)*100);$('playerTapToggle').checked=p.tap_toggle!==false;$('accentColor').value=d.accent||'#f04444';$('themeMode').value=d.theme_template||(d.theme==='light'?'premium-light':'netflix-dark');$('themeBehavior').value=d.theme_mode||'auto';socialFill(n.social_links||[]);$('desktopCols').value=String(d.desktop_cols||5);$('mobileCols').value=String(d.mobile_cols||3);$('navSearch').checked=n.show_search!==false;$('navCategory').checked=n.show_category_select!==false;$('footerText').value=f.text||'© KP Live TV · Your world, in one place.';$('adminLinkText').value=f.admin_label||'Admin';const hm=settings.health_monitor||{};if($('healthEmail'))$('healthEmail').value=hm.email||'';if($('healthEmailEnabled'))$('healthEmailEnabled').checked=hm.email_enabled!==false;if($('healthInterval'))$('healthInterval').value=String(hm.interval_minutes||5)}
 async function saveSettings(){const {error}=await db.from('kp_site_settings').upsert({id:1,settings,updated_at:new Date().toISOString()},{onConflict:'id'});if(error)throw error;msg($('globalMsg'),'Settings saved. Public homepage will use them after refresh.',true)}
 function updateFaviconPreview(url){const img=$('faviconPreview');if(!img)return;img.src=url||'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#ef4444"/><text x="32" y="43" font-size="30" text-anchor="middle" fill="white" font-family="Arial">K</text></svg>')}
 $('faviconUrl').addEventListener('input',()=>updateFaviconPreview($('faviconUrl').value.trim()));
@@ -231,7 +282,7 @@ $('clearFavicon').onclick=async()=>{settings.homepage={...(settings.homepage||{}
 $('saveHomepage').onclick=async()=>{settings.homepage={...(settings.homepage||{}),site_title:$('siteTitle').value.trim(),intro:$('homeIntro').value.trim(),country_autoplay:{BD:$('geoBd').value,IN:$('geoIn').value,OTHER:$('geoOther').value}};try{await saveSettings()}catch(e){msg($('globalMsg'),e.message)}};
 $('savePlayer').onclick=async()=>{settings.player={autoplay:$('playerAutoplay').checked,sound_first:$('playerSound').checked,volume:Math.max(0,Math.min(100,Number($('playerVolume').value)||0))/100,tap_toggle:$('playerTapToggle').checked};try{await saveSettings()}catch(e){msg($('globalMsg'),e.message)}};
 $('saveDesign').onclick=async()=>{settings.design={...(settings.design||{}),accent:$('accentColor').value,theme:'dark',theme_mode:$('themeBehavior').value,theme_template:$('themeMode').value,desktop_cols:Number($('desktopCols').value),mobile_cols:Number($('mobileCols').value)};try{await saveSettings()}catch(e){msg($('globalMsg'),e.message)}};
-$('saveNavigation').onclick=async()=>{const social_links=$('socialLinksInput').value.split(/\r?\n/).map((line,i)=>{const [icon='',label='',url='']=line.split('|').map(x=>x.trim());return{icon,label,url,order:i,enabled:true}}).filter(x=>x.label&&/^https?:\/\//i.test(x.url));settings.navigation={...(settings.navigation||{}),show_search:$('navSearch').checked,show_category_select:$('navCategory').checked,social_links};settings.footer={text:$('footerText').value,admin_label:$('adminLinkText').value};try{await saveSettings()}catch(e){msg($('globalMsg'),e.message)}};
+$('saveNavigation').onclick=async()=>{let social_links;try{social_links=socialCollect()}catch(e){msg($('globalMsg'),e.message);return}settings.navigation={...(settings.navigation||{}),show_search:$('navSearch').checked,show_category_select:$('navCategory').checked,social_links};settings.footer={text:$('footerText').value,admin_label:$('adminLinkText').value};try{await saveSettings()}catch(e){msg($('globalMsg'),e.message)}};
 $('saveNotice').onclick=async()=>{const title=$('noticeTitle').value.trim();if(!title)return msg($('globalMsg'),'Notification title is required.');const payload={title,message:$('noticeMessage').value.trim(),link_url:$('noticeUrl').value.trim(),sort_order:Number($('noticeOrder').value||0),is_active:$('noticeActive').checked,updated_at:new Date().toISOString()};const {error}=editingNotice?await db.from('kp_notifications').update(payload).eq('id',editingNotice):await db.from('kp_notifications').insert(payload);if(error)return msg($('globalMsg'),error.message);editingNotice=null;$('clearNotice').click();await loadAll();msg($('globalMsg'),'Notification saved.',true)};$('clearNotice').onclick=()=>{editingNotice=null;['noticeTitle','noticeMessage','noticeUrl'].forEach(id=>$(id).value='');$('noticeOrder').value=0;$('noticeActive').checked=true};
 function renderNotices(){const r=$('noticeList');r.innerHTML='';notices.forEach(n=>{const d=document.createElement('div');d.className='item';const m=document.createElement('div');m.className='meta';const b=document.createElement('strong');b.textContent=n.title;const s=document.createElement('small');s.textContent=n.message+' · '+(n.is_active?'Published':'Hidden');m.append(b,s);const e=document.createElement('button');e.textContent='Edit';e.onclick=()=>{editingNotice=n.id;$('noticeTitle').value=n.title;$('noticeMessage').value=n.message;$('noticeUrl').value=n.link_url;$('noticeOrder').value=n.sort_order;$('noticeActive').checked=n.is_active};const t=document.createElement('button');t.textContent=n.is_active?'Hide':'Publish';t.onclick=async()=>{const {error}=await db.from('kp_notifications').update({is_active:!n.is_active}).eq('id',n.id);if(error)return msg($('globalMsg'),error.message);await loadAll()};const x=document.createElement('button');x.className='danger';x.textContent='Delete';x.onclick=async()=>{if(!confirm('Delete notification?'))return;const {error}=await db.from('kp_notifications').delete().eq('id',n.id);if(error)return msg($('globalMsg'),error.message);await loadAll()};d.append(m,e,t,x);r.append(d)})}
 // ===== Hero banners (event slider). Stored inside the site settings as settings.hero_banners =====
@@ -482,19 +533,66 @@ async function runStreamTest(url,v,box,withDiag){
 $('testStream').onclick=()=>{const url=$('testUrl').value.trim();if(!/^https?:\/\//i.test(url)){msg($('testResult'),'Invalid URL. Use an HTTP or HTTPS stream URL.');return}runStreamTest(url,$('testVideo'),$('testResult'),true)};
 
 /* ---------- Channel Health Scan (Health page) ---------- */
-const SCAN_KEY='kp-scan-v2';
-let scanRun=false,scanCancel=false,scanData=null,scanText='';
-function scanLoad(){try{scanData=JSON.parse(localStorage.getItem(SCAN_KEY)||'null')}catch(_e){scanData=null}}
+const SCAN_KEY='kp-scan-v3';
+let scanRun=false,scanCancel=false,scanData=null;
 function scanSave(){try{localStorage.setItem(SCAN_KEY,JSON.stringify(scanData))}catch(_e){}}
 function scanChName(id,fallback){const c=channels.find(x=>x.id===id);return c?c.name:(fallback||id)}
+function scanUrlOf(x){return typeof x==='string'?x:(x&&x.url)||''}
+function scanItems(scope){
+ const items=[];
+ channels.filter(c=>scope==='all'||(scope==='active'?c.is_active:!c.is_active)).forEach(c=>(c.stream_urls||[]).forEach((x,i)=>{const u=scanUrlOf(x);if(/^https?:\/\//i.test(u))items.push({c,i,u,key:c.id+'#'+i})}));
+ return items;
+}
+function scanLabel(c,i){return c.name+((c.stream_urls||[]).length>1?' (link '+(i+1)+')':'')}
+/* Older saved scans (v2) only had lists, not per-link records: rebuild records from them */
+function scanLegacyLoad(){
+ let o=null;try{o=JSON.parse(localStorage.getItem('kp-scan-v2')||'null')}catch(_e){}
+ if(!o)return null;
+ const items=scanItems('all'),rec={};
+ let N=(o.direct||0)+(o.p||[]).length+(o.q||[]).length;
+ (o.bad||[]).forEach(b=>N+=(b.links||[]).length);
+ (o.part||[]).forEach(t=>{const m=/\((.*)\)\s*$/.exec(t);N+=m?m[1].split(',').length:1});
+ items.slice(0,N).forEach(it=>{rec[it.key]='d'});
+ const byName=(name,n)=>{const c=channels.find(x=>x.name===name);return c?c.id+'#'+Math.max(0,n-1):null};
+ const parse=t=>{const m=/^(.*?)(?: \(link (\d+)\))?$/.exec(t);return[m[1],m[2]?Number(m[2]):1]};
+ (o.bad||[]).forEach(b=>(b.links||[]).forEach(l=>{const n=Number(String(l).replace(/\D/g,''))||1;rec[b.id+'#'+(n-1)]='x'}));
+ (o.part||[]).forEach(t=>{const m=/^(.*?)\s*\((.*)\)\s*$/.exec(t);if(!m)return;m[2].split(',').forEach(l=>{const n=Number(l.replace(/\D/g,''))||1;const k=byName(m[1].trim(),n);if(k)rec[k]='x'})});
+ (o.p||[]).forEach(t=>{const [n,i]=parse(t);const k=byName(n,i);if(k)rec[k]='p'});
+ (o.q||[]).forEach(t=>{const [n,i]=parse(t);const k=byName(n,i);if(k)rec[k]='q'});
+ return{time:o.time,stopped:true,open:false,open2:false,rec,legacy:N};
+}
+function scanLoad(){
+ try{scanData=JSON.parse(localStorage.getItem(SCAN_KEY)||'null')}catch(_e){scanData=null}
+ if(!scanData){const lg=scanLegacyLoad();if(lg&&Object.keys(lg.rec).length){scanData=lg;scanSave()}}
+}
+/* Turn per-link records into the lists shown on screen */
+function scanDerive(d){
+ const r={direct:0,p:[],q:[],bad:[],part:[],revive:[],scanned:0};
+ const rec=(d&&d.rec)||{};
+ channels.forEach(c=>{
+  const links=(c.stream_urls||[]).map((x,i)=>({i,u:scanUrlOf(x)})).filter(l=>/^https?:\/\//i.test(l.u));
+  if(!links.length)return;
+  const got=links.filter(l=>rec[c.id+'#'+l.i]);
+  r.scanned+=got.length;
+  if(got.length<links.length)return; // still partly unscanned: judge later
+  const okc=got.filter(l=>rec[c.id+'#'+l.i]!=='x').length,fails=got.filter(l=>rec[c.id+'#'+l.i]==='x');
+  got.forEach(l=>{const v=rec[c.id+'#'+l.i];if(v==='d')r.direct++;else if(v==='p')r.p.push(scanLabel(c,l.i));else if(v==='q')r.q.push(scanLabel(c,l.i))});
+  if(fails.length){
+   if(!okc)r.bad.push({id:c.id,name:c.name,links:fails.map(l=>'link '+(l.i+1))});
+   else r.part.push(c.name+' ('+fails.map(l=>'link '+(l.i+1)).join(', ')+')');
+  }
+  if(!c.is_active&&okc)r.revive.push({id:c.id,name:c.name,ok:okc,total:links.length});
+ });
+ return r;
+}
 function scanPlainText(){
- const d=scanData;if(!d)return '';
- const L=['Scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':''),'Direct OK: '+d.direct+' | Cloudflare: '+d.p.length+' | Render needed: '+d.q.length+' | Not working channels: '+d.bad.length];
- if(d.bad.length)L.push('','NOT WORKING (all links fail):',...d.bad.map(b=>' - '+scanChName(b.id,b.name)+' ['+(b.links||[]).join(', ')+']'));
- if((d.revive||[]).length)L.push('','INACTIVE BUT WORKING:',...d.revive.map(x=>' - '+x.name+' ('+x.ok+'/'+x.total+' links work)'));
- if(d.q.length)L.push('','RENDER NEEDED:',...d.q.map(x=>' - '+x));
- if(d.part.length)L.push('','SOME LINKS DEAD (channel still works):',...d.part.map(x=>' - '+x));
- if(d.p.length)L.push('','CLOUDFLARE PROXY:',...d.p.map(x=>' - '+x));
+ const d=scanData;if(!d)return '';const x=scanDerive(d);
+ const L=['Scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':'')+' | links checked: '+x.scanned,'Direct OK: '+x.direct+' | Cloudflare: '+x.p.length+' | Render needed: '+x.q.length+' | Not working channels: '+x.bad.length];
+ if(x.bad.length)L.push('','NOT WORKING (all links fail):',...x.bad.map(b=>' - '+scanChName(b.id,b.name)+' ['+b.links.join(', ')+']'));
+ if(x.revive.length)L.push('','INACTIVE BUT WORKING:',...x.revive.map(v=>' - '+v.name+' ('+v.ok+'/'+v.total+' links work)'));
+ if(x.q.length)L.push('','RENDER NEEDED:',...x.q.map(v=>' - '+v));
+ if(x.part.length)L.push('','SOME LINKS DEAD (channel still works):',...x.part.map(v=>' - '+v));
+ if(x.p.length)L.push('','CLOUDFLARE PROXY:',...x.p.map(v=>' - '+v));
  return L.join('\n');
 }
 function scanBlock(title,items){
@@ -503,88 +601,103 @@ function scanBlock(title,items){
  const pre=document.createElement('div');pre.className='muted';pre.style.cssText='margin-top:6px;white-space:pre-wrap;max-height:220px;overflow:auto';pre.textContent=items.map(x=>'• '+x).join('\n');box.appendChild(pre);
  return box;
 }
+function scanButtons(){
+ const scope=$('scanScope').value,items=scanItems(scope),rec=(scanData&&scanData.rec)||{};
+ const left=items.filter(it=>!rec[it.key]).length,failed=items.filter(it=>rec[it.key]==='x').length;
+ const cb=$('scanContinue'),rb=$('scanRetry');
+ if(cb){cb.textContent='Continue scan ('+left+' links left)';cb.disabled=scanRun||!scanData||!left}
+ if(rb){rb.textContent='Rescan failed ('+failed+')';rb.disabled=scanRun||!failed}
+ const ab=$('scanAll');if(ab)ab.disabled=scanRun;
+}
 function scanRender(){
  const root=$('scanBody');if(!root)return;root.innerHTML='';
- const d=scanData;
- if(!d){root.innerHTML='<div class="muted" style="margin-top:12px">No scan yet. Press "Scan all active channels".</div>';return}
+ const d=scanData;scanButtons();
+ if(!d){root.innerHTML='<div class="muted" style="margin-top:12px">No scan yet. Press "Scan channels".</div>';return}
+ const x=scanDerive(d);
  const sum=document.createElement('div');sum.className='stats';sum.style.margin='14px 0';
- [['Direct OK',d.direct],['Cloudflare',d.p.length],['Render needed',d.q.length],['Not working',d.bad.length],['Inactive but working',(d.revive||[]).length]].forEach(([k,v])=>{const x=document.createElement('div');x.className='stat';x.innerHTML='<span class="muted"></span><b></b>';x.querySelector('span').textContent=k;x.querySelector('b').textContent=v;sum.appendChild(x)});
+ [['Direct OK',x.direct],['Cloudflare',x.p.length],['Render needed',x.q.length],['Not working',x.bad.length],['Inactive but working',x.revive.length]].forEach(([k,v])=>{const e=document.createElement('div');e.className='stat';e.innerHTML='<span class="muted"></span><b></b>';e.querySelector('span').textContent=k;e.querySelector('b').textContent=v;sum.appendChild(e)});
  root.appendChild(sum);
- const when=document.createElement('div');when.className='muted';when.textContent='Last scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':'');root.appendChild(when);
- // clickable: channels where no link works
- const det=document.createElement('details');det.style.margin='14px 0';if(d.bad.length&&d.open)det.open=true;
+ const when=document.createElement('div');when.className='muted';when.textContent='Last scan: '+new Date(d.time).toLocaleString()+(d.stopped?' (stopped early)':'')+' · '+x.scanned+' links checked';root.appendChild(when);
+ const det=document.createElement('details');det.style.margin='14px 0';if(d.open)det.open=true;
  det.ontoggle=()=>{d.open=det.open;scanSave()};
- const sm=document.createElement('summary');sm.style.cssText='cursor:pointer;font-weight:700;color:#ef4444';sm.textContent='❌ Not working channels ('+d.bad.length+') — click to open';det.appendChild(sm);
- if(!d.bad.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='Every scanned channel has at least one working link.';det.appendChild(n)}
- d.bad.forEach(b=>{
-  const c=channels.find(x=>x.id===b.id);
+ const sm=document.createElement('summary');sm.style.cssText='cursor:pointer;font-weight:700;color:#ef4444';sm.textContent='❌ Not working channels ('+x.bad.length+') — click to open';det.appendChild(sm);
+ if(!x.bad.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='Every fully scanned channel has at least one working link.';det.appendChild(n)}
+ x.bad.forEach(b=>{
+  const c=channels.find(y=>y.id===b.id);
   const row=document.createElement('div');row.className='item';
   const m=document.createElement('div');m.className='meta';
-  const st=document.createElement('strong');st.textContent=(c?c.name:(b.name||b.id))+(c&&!c.is_active?'  · INACTIVE':'');
-  const sub=document.createElement('small');sub.textContent=(c?(c.category||'Other')+' · ':'')+(b.links||[]).join(' | ')+' not working';
+  const st=document.createElement('strong');st.textContent=(c?c.name:b.name)+(c&&!c.is_active?'  · INACTIVE':'');
+  const sub=document.createElement('small');sub.textContent=(c?(c.category||'Other')+' · ':'')+b.links.join(' | ')+' not working';
   m.append(st,sub);row.appendChild(m);
   if(c){
    const ed=document.createElement('button');ed.textContent='Edit';ed.onclick=()=>{go('channel-edit');editChannel(c)};
    const tg=document.createElement('button');tg.textContent=c.is_active?'Deactivate':'Activate';tg.onclick=async()=>{tg.disabled=true;await toggleChannel(c);d.open=true;scanRender()};
    row.append(ed,tg);
-  }else{const gone=document.createElement('small');gone.textContent='(channel not found)';row.appendChild(gone)}
+  }
   det.appendChild(row);
  });
  root.appendChild(det);
- const rev=(d.revive||[]).filter(x=>channels.find(c=>c.id===x.id&&!c.is_active));
  const det2=document.createElement('details');det2.style.margin='14px 0';if(d.open2)det2.open=true;
  det2.ontoggle=()=>{d.open2=det2.open;scanSave()};
- const sm2=document.createElement('summary');sm2.style.cssText='cursor:pointer;font-weight:700;color:#22c55e';sm2.textContent='\u2705 Inactive but working ('+rev.length+') \u2014 click to open';det2.appendChild(sm2);
- if(!rev.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='No inactive channel with a working link (or inactive channels were not scanned).';det2.appendChild(n)}
- rev.forEach(x=>{
-  const c=channels.find(y=>y.id===x.id);if(!c)return;
+ const sm2=document.createElement('summary');sm2.style.cssText='cursor:pointer;font-weight:700;color:#22c55e';sm2.textContent='✅ Inactive but working ('+x.revive.length+') — click to open';det2.appendChild(sm2);
+ if(!x.revive.length){const n=document.createElement('div');n.className='muted';n.style.marginTop='8px';n.textContent='No inactive channel with a working link (or inactive channels were not scanned).';det2.appendChild(n)}
+ x.revive.forEach(v=>{
+  const c=channels.find(y=>y.id===v.id);if(!c)return;
   const row=document.createElement('div');row.className='item';
   const m=document.createElement('div');m.className='meta';
-  const st=document.createElement('strong');st.textContent=c.name+'  \u00b7 INACTIVE';
-  const sub=document.createElement('small');sub.textContent=(c.category||'Other')+' \u00b7 '+x.ok+' of '+x.total+' link(s) working';
+  const st=document.createElement('strong');st.textContent=c.name+'  · INACTIVE';
+  const sub=document.createElement('small');sub.textContent=(c.category||'Other')+' · '+v.ok+' of '+v.total+' link(s) working';
   m.append(st,sub);row.appendChild(m);
   const ed=document.createElement('button');ed.textContent='Edit';ed.onclick=()=>{go('channel-edit');editChannel(c)};
   const tg=document.createElement('button');tg.className='primary';tg.textContent='Activate';tg.onclick=async()=>{tg.disabled=true;await toggleChannel(c);d.open2=true;scanRender()};
   row.append(ed,tg);det2.appendChild(row);
  });
  root.appendChild(det2);
- if(d.q.length)root.appendChild(scanBlock('⚠ Render needed (uses Render bandwidth)',d.q));
- if(d.part.length)root.appendChild(scanBlock('Some links dead, channel still works',d.part));
- if(d.p.length)root.appendChild(scanBlock('☁ Works through Cloudflare proxy',d.p));
+ if(x.q.length)root.appendChild(scanBlock('⚠ Render needed (uses Render bandwidth)',x.q));
+ if(x.part.length)root.appendChild(scanBlock('Some links dead, channel still works',x.part));
+ if(x.p.length)root.appendChild(scanBlock('☁ Works through Cloudflare proxy',x.p));
 }
 function loadHealthAlerts(){scanLoad();scanRender()}
-$('scanAll').onclick=async()=>{
+/* mode: 'fresh' = scan everything chosen, 'continue' = only links not scanned yet, 'retry' = only links that failed */
+async function scanStart(mode){
  if(scanRun)return;
- const items=[];
- const scope=$('scanScope').value;channels.filter(c=>scope==='all'||(scope==='active'?c.is_active:!c.is_active)).forEach(c=>(c.stream_urls||[]).forEach((x,i)=>{const u=typeof x==='string'?x:(x&&x.url)||'';if(/^https?:\/\//i.test(u))items.push({c,i,u})}));
- if(!items.length){alert('No channel links to scan in this selection.');return}
- if(!confirm('This tests '+items.length+' links one by one and can take a long time (failed links wait up to ~2 minutes each). Keep this tab open. Start?'))return;
+ const scope=$('scanScope').value;let items=scanItems(scope);
+ if(mode!=='fresh'&&!scanData){alert('No earlier scan found.');return}
+ const rec=mode==='fresh'?{}:{...scanData.rec};
+ if(mode==='continue')items=items.filter(it=>!rec[it.key]);
+ if(mode==='retry')items=items.filter(it=>rec[it.key]==='x');
+ if(!items.length){alert('Nothing to scan in this selection.');return}
+ if(mode==='fresh'&&scanData&&!confirm('A new scan replaces the saved result. Continue?'))return;
+ if(!confirm('This tests '+items.length+' links one by one and can take a long time (failed links wait up to ~2 minutes each). Progress is saved, so you can stop and continue later. Keep this tab open. Start?'))return;
  scanRun=true;scanCancel=false;
- $('scanAll').disabled=true;$('scanStop').classList.remove('hidden');
+ $('scanStop').classList.remove('hidden');$('scanAll').disabled=true;if($('scanContinue'))$('scanContinue').disabled=true;if($('scanRetry'))$('scanRetry').disabled=true;
  const prog=$('scanProg');prog.classList.remove('hidden');
  let v=document.getElementById('scanVideo');
  if(!v){v=document.createElement('video');v.id='scanVideo';v.muted=true;v.playsInline=true;v.style.cssText='position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:0;pointer-events:none';document.body.appendChild(v)}
- const box=document.createElement('div'),per={},d={time:Date.now(),direct:0,p:[],q:[],bad:[],part:[],revive:[],stopped:false,open:false,open2:false};
- let n=0;
+ const box=document.createElement('div');
+ scanData={time:Date.now(),scope,stopped:false,open:!!(scanData&&scanData.open),open2:!!(scanData&&scanData.open2),rec};
+ let n=0,stopped=false;
  for(const it of items){
-  if(scanCancel){d.stopped=true;break}
+  if(scanCancel){stopped=true;break}
   n++;
-  const multi=(it.c.stream_urls||[]).length>1,label=it.c.name+(multi?' (link '+(it.i+1)+')':'');
-  prog.textContent='Scanning '+n+'/'+items.length+': '+label+' … (direct '+d.direct+' | Cloudflare '+d.p.length+' | Render '+d.q.length+')';
+  prog.textContent='Scanning '+n+'/'+items.length+': '+scanLabel(it.c,it.i)+' …';
   let r;try{r=await runStreamTest(it.u,v,box,false)}catch(_e){r={ok:false}}
-  if(r.cancelled){d.stopped=true;break}
-  const e=per[it.c.id]=per[it.c.id]||{ok:0,fail:[]};
-  if(r.ok){e.ok++;if(r.proxy==='q')d.q.push(label);else if(r.proxy==='p')d.p.push(label);else d.direct++}
-  else e.fail.push('link '+(it.i+1));
+  if(r.cancelled){stopped=true;break}
+  rec[it.key]=r.ok?(r.proxy==='q'?'q':r.proxy==='p'?'p':'d'):'x';
+  if(n%5===0){scanData.time=Date.now();scanSave()}
  }
  try{testCleanup(v)}catch(_e){}
- Object.keys(per).forEach(id=>{const e=per[id];if(!e.fail.length)return;if(!e.ok)d.bad.push({id,name:scanChName(id),links:e.fail});else d.part.push(scanChName(id)+' ('+e.fail.join(', ')+')')});
- Object.keys(per).forEach(id=>{const c=channels.find(x=>x.id===id);if(c&&!c.is_active&&per[id].ok)d.revive.push({id,name:c.name,ok:per[id].ok,total:per[id].ok+per[id].fail.length})});
- scanData=d;scanSave();scanText=scanPlainText();
- prog.textContent='Finished: '+Math.min(n,items.length)+'/'+items.length+' links checked'+(d.stopped?' (stopped early)':'');
- scanRun=false;$('scanAll').disabled=false;$('scanStop').classList.add('hidden');
+ scanData.time=Date.now();scanData.stopped=stopped||(items.filter(it=>!rec[it.key]).length>0);
+ const total=scanItems(scope).filter(it=>!rec[it.key]).length;
+ scanData.stopped=total>0;scanSave();
+ prog.textContent=(stopped?'Stopped':'Finished')+': '+n+' links checked this run'+(total?(' · '+total+' links still not scanned (use "Continue scan")'):'');
+ scanRun=false;$('scanStop').classList.add('hidden');
  scanRender();
-};
+}
+$('scanAll').onclick=()=>scanStart('fresh');
+if($('scanContinue'))$('scanContinue').onclick=()=>scanStart('continue');
+if($('scanRetry'))$('scanRetry').onclick=()=>scanStart('retry');
+$('scanScope')?.addEventListener('change',scanButtons);
 $('scanStop').onclick=()=>{scanCancel=true;const v=document.getElementById('scanVideo');if(v&&v.__tok){v.__tok.cancelled=true;try{if(v.__tok.cancel)v.__tok.cancel()}catch(_e){}}};
 $('scanCopy').onclick=async()=>{scanLoad();const t=scanPlainText();if(!t){alert('No scan result yet.');return}try{await navigator.clipboard.writeText(t);$('scanCopy').textContent='Copied ✓';setTimeout(()=>$('scanCopy').textContent='Copy list',1500)}catch(_e){alert('Copy failed — select the text and copy it manually.')}};
 
