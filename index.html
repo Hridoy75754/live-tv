@@ -974,7 +974,7 @@ function trySource(token=playbackToken){
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
    setupAudioBoost();
-   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.75,abrBandWidthUpFactor:0.55,abrMaxWithRealBitrate:true,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:-1,abrEwmaDefaultEstimate:300000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
+   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.75,abrBandWidthUpFactor:0.55,abrMaxWithRealBitrate:true,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:kpSlowNet()?0:-1,abrEwmaDefaultEstimate:kpSlowNet()?150000:300000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){try{kpQualityRefresh()}catch(_e){}$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(kpQCur&&Date.now()-kpQLastChange<30000){kpQRevertAuto();return}if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}failOrReconnect()});
@@ -1000,6 +1000,7 @@ function trySource(token=playbackToken){
 video.addEventListener('playing',()=>{clearTimeout(stallTimer);});
 // Smooth playback on slow networks: when the picture runs out of data, hold for a few seconds and resume once a safe amount is buffered,
 // instead of stuttering every second. The safe amount grows if buffering keeps repeating.
+function kpSlowNet(){try{const c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;if(!c)return false;return !!c.saveData||/^(slow-2g|2g|3g)$/.test(c.effectiveType||'')||(c.downlink>0&&c.downlink<1.5)}catch(_e){return false}}
 let kpRbHist=[],kpRbTarget=3,kpHold=false,kpHoldT=null,kpRbLast=0;
 function kpAhead(){try{const b=video.buffered,t=video.currentTime;for(let i=0;i<b.length;i++)if(t>=b.start(i)-0.25&&t<=b.end(i))return b.end(i)-t}catch(_e){}return 0}
 function kpHoldStop(){kpHold=false;clearInterval(kpHoldT)}
@@ -1009,8 +1010,9 @@ video.addEventListener('waiting',()=>{
  if(now-kpRbLast>60000)kpRbTarget=3;kpRbLast=now;
  kpRbHist=kpRbHist.filter(t=>now-t<30000);kpRbHist.push(now);
  if(kpRbHist.length>=2)kpRbTarget=Math.min(12,kpRbTarget+2);
+ // Repeated buffering on an adaptive (HLS) stream: step down to a lower quality so playback stays smooth on a weak network.
+ try{if(kpRbHist.length>=2&&hls&&hls.levels&&hls.levels.length>1&&hls.autoLevelEnabled){const cur=hls.currentLevel>=0?hls.currentLevel:hls.loadLevel;if(cur>0){hls.autoLevelCapping=cur-1;kpRbHist=[now]}}}catch(_e){}
  kpHold=true;try{video.pause()}catch(_e){}
- try{$('playState').textContent='Buffering… smoothing playback'}catch(_e){}
  clearInterval(kpHoldT);
  kpHoldT=setInterval(()=>{
   if(!kpHold){clearInterval(kpHoldT);return}
@@ -1242,7 +1244,7 @@ stage.addEventListener('pointercancel',finishPointer);
 stage.addEventListener('lostpointercapture',finishPointer);
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){try{screen.orientation.unlock()}catch{}}});
 video.addEventListener('playing',()=>$('playState').textContent='Playing live');
-video.addEventListener('waiting',()=>$('playState').textContent='Buffering…');
+
 video.addEventListener('stalled',()=>$('playState').textContent='Stream stalled');
 $('stopBtn').addEventListener('click',stop);
 
