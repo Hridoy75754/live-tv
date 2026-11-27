@@ -60,6 +60,13 @@ a{color:inherit}
  .video-stage{position:relative;overflow:hidden;background:#000;width:100%;aspect-ratio:16/9;max-height:65vh;touch-action:none;isolation:isolate}
 .video-stage video{position:absolute;inset:0;display:block;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;background:#000;object-fit:contain;transform:scale(var(--kp-video-zoom,1));transform-origin:center center;filter:brightness(var(--kp-video-brightness,1));transition:object-fit .16s ease;z-index:1;pointer-events:none}
 @media (hover:hover) and (pointer:fine){.video-stage video{object-fit:cover}}
+/* Persistent in-player loading indicator: stays visible during buffering and reconnect attempts. */
+.kp-buffer-overlay{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(0,0,0,.24);color:#fff;pointer-events:none;text-align:center}
+.kp-buffer-overlay[hidden]{display:none!important}
+.kp-buffer-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.28);border-top-color:#fff;border-right-color:#fff;border-radius:50%;animation:kpBufferSpin .78s linear infinite;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))}
+.kp-buffer-label{font-size:13px;font-weight:700;letter-spacing:.2px;text-shadow:0 1px 4px #000}
+@keyframes kpBufferSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.kp-buffer-spinner{animation-duration:1.8s}}
 .video-stage:before{content:none!important}
 .video-stage:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;background:#000}
 .video-stage:fullscreen video{width:100%;height:100%}
@@ -449,6 +456,7 @@ html[data-theme="netflix-dark"] .category-modal-option[aria-checked="true"] .cat
   </div>
   <div class="video-stage" id="videoStage">
     <video id="video" playsinline webkit-playsinline preload="auto" aria-label="Live TV player"></video>
+    <div class="kp-buffer-overlay" id="kpBufferOverlay" hidden aria-live="polite" aria-atomic="true"><span class="kp-buffer-spinner" aria-hidden="true"></span><span class="kp-buffer-label" id="kpBufferLabel">Buffering…</span></div>
     <div class="gesture-hint gesture-brightness" id="brightnessHint" aria-hidden="true">☀ <span>100%</span></div>
     <div class="gesture-hint gesture-volume" id="volumeHint" aria-hidden="true">🔊 <span>100%</span></div>
     <div class="gesture-hint gesture-zoom" id="zoomHint" aria-hidden="true">⌕ <span>100%</span></div>
@@ -497,6 +505,18 @@ html[data-theme="netflix-dark"] .category-modal-option[aria-checked="true"] .cat
 const $=id=>document.getElementById(id),video=$('video');
 let channels=[],activeId=null,hls=null,mpegtsPlayer=null,sourceIndex=0,attempted=new Set(),failedIndices=new Set(),lastChannel=null,videoZoom=1,screenFit='contain',db=null,trendingItems=[],siteSettings={},managedCategories=[],notificationItems=[],autoMutedStart=false;
 function say(message){$('playState').textContent=message}
+function kpShowBuffer(message='Buffering…'){
+ const box=$('kpBufferOverlay'),label=$('kpBufferLabel');
+ if(!box)return;
+ if(label)label.textContent=message;
+ box.hidden=false;
+}
+function kpHideBuffer(){const box=$('kpBufferOverlay');if(box)box.hidden=true}
+// Keep the loading animation inside the video frame instead of replacing or hiding the player.
+video.addEventListener('loadstart',()=>{if(lastChannel)kpShowBuffer('Connecting…')});
+video.addEventListener('waiting',()=>{if(lastChannel&&!video.paused)kpShowBuffer('Buffering…')});
+video.addEventListener('stalled',()=>{if(lastChannel&&!video.paused)kpShowBuffer('Buffering…')});
+video.addEventListener('playing',kpHideBuffer);
 // Subtitles stay OFF: nothing is carried from one channel to the next, and tracks the player creates by itself are switched off.
 function kpSubsOff(){try{const list=video.textTracks;for(let i=0;i<list.length;i++){if(list[i].mode!=='disabled')list[i].mode='disabled'}}catch(_e){}}
 function safeUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol)?url.href:''}catch{return ''}}
@@ -719,7 +739,7 @@ function stop(){
  playbackToken++;clearTimeout(stallTimer);activeSourceFail=null;
  destroyEngines();
  destroyEngines();
- video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();$('playState').textContent='Stopped';{const sp=$('streamPicker');if(sp){sp.hidden=true;sp.innerHTML=''}}
+ video.onplaying=null;video.onwaiting=null;video.onstalled=null;video.onerror=null;video.pause();video.removeAttribute('src');video.load();kpHideBuffer();$('playState').textContent='Stopped';{const sp=$('streamPicker');if(sp){sp.hidden=true;sp.innerHTML=''}}
  if(typeof syncPlaybackControls==='function')syncPlaybackControls();
 }
 let playbackToken=0,activeSourceFail=null,stallTimer=null;
@@ -933,30 +953,30 @@ function trySource(token=playbackToken){
  if(token!==playbackToken||!lastChannel)return;
  while(sourceIndex<lastChannel.urls.length&&attempted.has(sourceIndex))sourceIndex++;
  if(sourceIndex>=lastChannel.urls.length&&!lastChannel.__retriedAll){lastChannel.__retriedAll=true;attempted=new Set();sourceIndex=0;$('playState').textContent='Retrying…';setTimeout(()=>trySource(token),1200);return}
- if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();reportStreamHealth('down');$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
+ if(sourceIndex>=lastChannel.urls.length){clearPlaybackTimers();kpHideBuffer();reportStreamHealth('down');$('playState').textContent='All available streams failed';$('statusLine').textContent='এই চ্যানেলের কোনো Stream চালু করা যায়নি। পরে আবার চেষ্টা করুন বা Admin Panel থেকে URL পরীক্ষা করুন।';return}
  const index=sourceIndex++,url=lastChannel.urls[index];attempted.add(index);renderStreamPicker(index);
  destroyEngines();
  destroyEngines();
  video.pause();video.removeAttribute('src');video.load();
- $('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
+ kpShowBuffer('Connecting…');$('playState').textContent=`Connecting · source ${index+1} of ${lastChannel.urls.length}…`;$('statusLine').textContent='';
  let failed=false,played=false,mediaRecovered=false,netRecovered=0,reconnects=0;const isCurrent=()=>token===playbackToken&&lastChannel&&index===sourceIndex-1;
   const kinds=buildKinds(url);let curUrl=url,curKind='';let kindPos=0,connectTimer=null;const perKind=kinds.length>1?8000:15000;const kindTimeout=k=>/\+q$/.test(k)?50000:perKind;
   const fail=()=>{if(failed||!isCurrent())return;clearTimeout(connectTimer);clearTimeout(stallTimer);
    if(!played&&kindPos+1<kinds.length){kindPos++;destroyEngines();video.pause();video.removeAttribute('src');video.load();connectTimer=setTimeout(fail,kindTimeout(kinds[kindPos]));$('playState').textContent='Detecting stream format… ('+(kindPos+1)+'/'+kinds.length+')';startKind(kinds[kindPos]);return}
    failed=true;destroyEngines();
-   failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
+   failedIndices.add(index);if(typeof renderStreamPicker==='function')renderStreamPicker(index);kpShowBuffer('Trying backup stream…');$('playState').textContent='Trying backup stream…';setTimeout(()=>trySource(token),180)};
   activeSourceFail=fail;connectTimer=setTimeout(fail,kindTimeout(kinds[kindPos]));
- const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;try{lastChannel.__retriedAll=false}catch(_e){}wdLast=-1;wdSince=Date.now();startWatchdog();clearTimeout(stableT);stableT=setTimeout(()=>{reconnects=0},60000);if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
+ const markPlaying=()=>{if(!isCurrent()||failed)return;played=true;kpHideBuffer();try{lastChannel.__retriedAll=false}catch(_e){}wdLast=-1;wdSince=Date.now();startWatchdog();clearTimeout(stableT);stableT=setTimeout(()=>{reconnects=0},60000);if(/\+[pq]$/.test(curKind))kpProxyPrefSet(url,curKind.slice(-1));clearTimeout(connectTimer);clearTimeout(stallTimer);if(failedIndices.size)reportStreamHealth('degraded');$('playState').textContent='Playing live';$('statusLine').textContent='';};
  // Live streams sometimes get cut by the server/proxy. Like VLC, reconnect the same link instead of giving up.
  const reconnect=why=>{
    if(failed||!isCurrent())return;
    if(reconnects>=3){fail();return}
-   reconnects++;clearTimeout(stallTimer);$('playState').textContent='Reconnecting…';
+   reconnects++;clearTimeout(stallTimer);kpShowBuffer('Reconnecting…');$('playState').textContent='Reconnecting…';
    played=false;destroyEngines();video.pause();video.removeAttribute('src');video.load();
    clearTimeout(connectTimer);connectTimer=setTimeout(fail,kindTimeout(kinds[kindPos]));startKind(kinds[kindPos]);
  };
  const failOrReconnect=()=>{if(played&&reconnects<3)reconnect('error');else fail()};
- const armStall=()=>{clearTimeout(stallTimer);if(played)stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)reconnect('stall')},15000)};
+ const armStall=()=>{clearTimeout(stallTimer);if(played){kpShowBuffer('Buffering…');stallTimer=setTimeout(()=>{if(isCurrent()&&video.readyState<3)reconnect('stall')},15000)}};
  // Watchdog: if the picture has not moved for ~9 seconds while it should be playing, reconnect
  let wd=null,wdLast=-1,wdSince=0,stableT=null;
  const startWatchdog=()=>{if(wd)return;wdSince=Date.now();wd=setInterval(()=>{
@@ -974,7 +994,7 @@ function trySource(token=playbackToken){
     if(kind==='hls'){
      if(window.Hls&&Hls.isSupported()){
    setupAudioBoost();
-   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.75,abrBandWidthUpFactor:0.55,abrMaxWithRealBitrate:true,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:kpSlowNet()?0:-1,abrEwmaDefaultEstimate:kpSlowNet()?150000:300000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingRetryDelay:500,levelLoadingTimeOut:8000,levelLoadingMaxRetry:2,levelLoadingRetryDelay:500,fragLoadingTimeOut:12000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:600,fragLoadingMaxRetryTimeout:6000});
+   hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:60,maxMaxBufferLength:90,maxBufferSize:120*1000*1000,maxBufferHole:0.5,liveSyncDurationCount:3,liveMaxLatencyDurationCount:10,highBufferWatchdogPeriod:3,nudgeMaxRetry:8,startFragPrefetch:true,capLevelToPlayerSize:true,abrBandWidthFactor:0.75,abrBandWidthUpFactor:0.55,abrMaxWithRealBitrate:true,enableCEA708Captions:false,enableWebVTT:false,enableIMSC1:false,subtitleDisplay:false,startLevel:kpSlowNet()?0:-1,abrEwmaDefaultEstimate:kpSlowNet()?150000:300000,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:4,manifestLoadingRetryDelay:900,levelLoadingTimeOut:12000,levelLoadingMaxRetry:5,levelLoadingRetryDelay:900,fragLoadingTimeOut:15000,fragLoadingMaxRetry:6,fragLoadingRetryDelay:900,fragLoadingMaxRetryTimeout:12000});
    hls.on(Hls.Events.MEDIA_ATTACHED,()=>{if(isCurrent())hls.loadSource(curUrl)});
    hls.on(Hls.Events.MANIFEST_PARSED,()=>{if(isCurrent()){try{kpQualityRefresh()}catch(_e){}$('playState').textContent='Starting playback…';video.play().catch(()=>{$('playState').textContent='Tap Play to start';})}});
    hls.on(Hls.Events.ERROR,(_event,data)=>{if(!isCurrent()||!data.fatal)return;if(kpQCur&&Date.now()-kpQLastChange<30000){kpQRevertAuto();return}if(data.type===Hls.ErrorTypes.MEDIA_ERROR&&!mediaRecovered){mediaRecovered=true;hls.recoverMediaError();return}if(data.type===Hls.ErrorTypes.NETWORK_ERROR&&played&&netRecovered<2){netRecovered++;try{hls.startLoad();return}catch(_e){}}failOrReconnect()});
